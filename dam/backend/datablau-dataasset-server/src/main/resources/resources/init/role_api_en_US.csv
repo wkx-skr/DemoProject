@@ -1,0 +1,374 @@
+
+//-------------------------数据资产-------------------------
+//数据资产,  数据概览
+DATA_ASSET, /ddc/search, MAIN_ASSET_SUMMARY, post
+DATA_ASSET, /models/modeltree, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /tags/group, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /entities/udps/{typeId}, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /entities/udps/udpIds/values, MAIN_ASSET_SUMMARY, post
+
+DATA_ASSET, /catalogs, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /catalogs, MAIN_ASSET_SUMMARY, post
+DATA_ASSET, /auth/assets, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /me/tree, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /catalogs/export, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /catalogs/export/all, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /catalogs/import, MAIN_ASSET_SUMMARY, post
+
+DATA_ASSET, /entities/models, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /entities/search, MAIN_ASSET_SUMMARY, post
+DATA_ASSET, /dataReport/, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /shareFile/folder, MAIN_ASSET_SUMMARY, get
+DATA_ASSET, /catalogs/{catalogId}/{objectId}, MAIN_ASSET_SUMMARY, post
+
+DATA_ASSET, /catalogs/{catalogId}/to/{newParentId}, MAIN_ASSET_SUMMARY, put
+DATA_ASSET, /catalogs/{catalogId}, MAIN_ASSET_SUMMARY, delete
+//数据标准
+DOMAIN, /domains/tree/getTree, MAIN_ASSET_SUMMARY, post
+
+//数据资产,  资产目录
+DATA_ASSET, /ddc/search, MAIN_CATALOG_VIEW, post
+DATA_ASSET, /models/modeltree, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /tags/group, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /entities/udps/{typeId}, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /entities/udps/udpIds/values, MAIN_CATALOG_VIEW, post
+
+DATA_ASSET, /catalogs, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /catalogs, MAIN_CATALOG_VIEW, post
+DATA_ASSET, /auth/assets, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /me/tree, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /catalogs/export, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /catalogs/export/all, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /catalogs/import, MAIN_CATALOG_VIEW, post
+
+DATA_ASSET, /entities/models, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /entities/search, MAIN_CATALOG_VIEW, post
+DATA_ASSET, /dataReport/, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /shareFile/folder, MAIN_CATALOG_VIEW, get
+DATA_ASSET, /catalogs/{catalogId}/{objectId}, MAIN_CATALOG_VIEW, post
+
+DATA_ASSET, /catalogs/{catalogId}/to/{newParentId}, MAIN_CATALOG_VIEW, put
+DATA_ASSET, /catalogs/{catalogId}, MAIN_CATALOG_VIEW, delete
+//数据标准
+DOMAIN, /domains/tree/getTree, MAIN_CATALOG_VIEW, post
+
+//管理,   数据资产,  资产管理
+DATA_ASSET, /catalogs, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /catalogs, MAIN_CATALOG_MANAGE, post
+DATA_ASSET, /auth/assets, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /me/tree, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /catalogs/export, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /catalogs/export/all, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /catalogs/import, MAIN_CATALOG_MANAGE, post
+
+//管理,   数据资产,  资产管理
+DATA_ASSET, /entities/models, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /entities/search, MAIN_CATALOG_MANAGE, post
+DATA_ASSET, /dataReport/, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /shareFile/folder, MAIN_CATALOG_MANAGE, get
+DATA_ASSET, /catalogs/{catalogId}/{objectId}, MAIN_CATALOG_MANAGE, post
+
+//管理,   数据资产,  资产管理
+DATA_ASSET, /catalogs/{catalogId}/to/{newParentId}, MAIN_CATALOG_MANAGE, put
+DATA_ASSET, /catalogs/{catalogId}, MAIN_CATALOG_MANAGE, delete
+//数据标准
+DOMAIN, /domains/tree/getTree, MAIN_CATALOG_MANAGE, post
+
+//管理,   数据资产,  数据地图
+DATA_ASSET, /systemcall/search, MAIN_SYS_DATA_MAP, post
+DATA_ASSET, /entities/search, MAIN_SYS_DATA_MAP, post
+DATA_ASSET, /graph/position/lists/owner, MAIN_SYS_DATA_MAP, post
+DATA_ASSET, /lineage/overview, MAIN_SYS_DATA_MAP, get
+DATA_ASSET, /systemcall/overview, MAIN_SYS_DATA_MAP, get
+
+//管理,  数据资产,  资产分析
+DATA_ASSET, /assets/dashboard/sum/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/trans/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/distribution/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/access/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/top/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/overview/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/quality/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/dept/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/funnel/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /assets/dashboard/assets/apply/{structureId}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /ddc/catalog/browse, DATA_ASSET_ANALYSE_MANAGE, get
+
+//管理,  数据资产,  数据资产管理
+DATA_ASSET, /ddc/config/catalog/single/type/{id}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/{structureId}/{level}/udps, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/{catalogTypeId}/algorithm, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/assets/list, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/assets/exist/unpublishedAssets/{catalogId}/{structureId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/assets/, DATA_ASSET_MANAGE, delete
+DATA_ASSET, /ddc/assets/{id}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/assets/export, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/assets/export/template, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/assets/import/{structureId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/assets/bound/{catalogId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /auth/assets, DATA_ASSET_MANAGE, get
+
+DATA_ASSET, /ddc/comment/list/{id}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/comment/comment, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/comment/{id}, DATA_ASSET_MANAGE, delete
+
+DATA_ASSET, /ddc/catalog/mine, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/manage, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/browse, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/browse/{structureId}/{catalogId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/detail/{id}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/relation/{id}/{type}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/publish/{id}/{status}, DATA_ASSET_MANAGE, put
+DATA_ASSET, /ddc/catalog/add, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/update, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/move, DATA_ASSET_MANAGE, put
+DATA_ASSET, /ddc/catalog/del/{id}, DATA_ASSET_MANAGE, delete
+DATA_ASSET, /ddc/catalog/org/{id}/{depId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/butler/{id}/{butler}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/bind, DATA_ASSET_MANAGE, put
+DATA_ASSET, /ddc/catalog/getcatalogpropery, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/collect/{catalogId}/{catalogName}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/cancel/{catalogId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/visit/{structureId}/{catalogId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/export/{structureId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/export/template, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/upload, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/home/catalog, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/auth/{catalogId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/auth/{catalogId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/auth/{catalogId}, DATA_ASSET_MANAGE, put
+DATA_ASSET, /ddc/auth/del, DATA_ASSET_MANAGE, delete
+DATA_ASSET, /ddc/catalog/change/record/{pageNum}/{pageSize}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/change/record/{pageNum}/{pageSize}, DATA_ASSET_ANALYSE_MANAGE, get
+DATA_ASSET, /ddc/catalog/change/record/save, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/apply/record/{dataId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/collect/{catalogId}/{catalogName}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/cancel/{catalogId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /oplog/record, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/change/record/{pageNum}/{pageSize}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /entities/{objectId}/summary, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/collect/{catalogId}/{catalogName}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /ddc/catalog/cancel/{catalogId}, DATA_ASSET_MANAGE, post
+DATA_ASSET, /dataDepartment/{dataId}/{dataType}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /tags/recommendations/types/{typeId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /dataManager/{dataId}/{dataType}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /thread/types/{typeId}/objects/{objectId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /lineage/object/{objectId}/type, DATA_ASSET_MANAGE, get
+
+DATA_ASSET, /me/dims/catalogs, DATA_ASSET_MANAGE, get
+DATA_ASSET, /dataRequirement/, DATA_ASSET_MANAGE, get
+DATA_ASSET, /dataReport/{dataReportId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /me/dims/catalogs, DATA_ASSET_MANAGE, get
+DATA_ASSET, /dataRequirement/, DATA_ASSET_MANAGE, get
+DATA_ASSET, /dataReport/{drId}/resourceStatistics, DATA_ASSET_MANAGE, get
+DATA_ASSET, /auth/check/{itemId}/{itemType}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /dataReport/{drId}/resourceStatistics, DATA_ASSET_MANAGE, get
+
+DATA_ASSET, /api/catalogs, DATA_ASSET_MANAGE, get
+DATA_ASSET, /api/apis/search, DATA_ASSET_MANAGE, post
+DATA_ASSET, /models/modeltree, DATA_ASSET_MANAGE, get
+DATA_ASSET, /api/{apiId}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/mine, DATA_ASSET_MANAGE, get
+DATA_ASSET, /auth/assets, DATA_ASSET_MANAGE, get
+DATA_ASSET, /oplog/record, DATA_ASSET_MANAGE, post
+DATA_ASSET, /thread/items, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/home/catalog, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/catalog/browse, DATA_ASSET_MANAGE, get
+DATA_ASSET, /vote/domain/stars, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/{catalogTypeId}/udps, DATA_ASSET_MANAGE, get
+DATA_ASSET, /ddc/config/structure/{id}, DATA_ASSET_MANAGE, get
+DATA_ASSET, /sync/bi/task/catalog/check/{catalogId}, DATA_ASSET_MANAGE, post
+//数据标准
+DOMAIN, /me/dims/catalogs, DATA_ASSET_MANAGE, get
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, DATA_ASSET_MANAGE, GET
+DOMAIN, /domains/domain/getPage, DATA_ASSET_MANAGE, post
+DOMAIN, /domains/domain/getDomainByCodes, DATA_ASSET_MANAGE, post
+DOMAIN, /domains/code/getDatasetname, DATA_ASSET_MANAGE, post
+DOMAIN, /domains/code/getCode, DATA_ASSET_MANAGE, post
+DOMAIN, /domains/udp/getUdps, DATA_ASSET_MANAGE, post
+DOMAIN, /domains/tree/getTree, DATA_ASSET_MANAGE, post
+//元数据
+METADATA, /models/modeltree, DATA_ASSET_MANAGE, get
+METADATA, /models/fromre/page, DATA_ASSET_MANAGE, post
+METADATA, /dataReport/tree, DATA_ASSET_MANAGE, get
+METADATA, /dataDepartment/{dataId}/{dataType}, DATA_ASSET_MANAGE, get
+METADATA, /dataManager/{dataId}/{dataType}, DATA_ASSET_MANAGE, get
+METADATA, /entities/{objectId}/summary, DATA_ASSET_MANAGE, get
+METADATA, /dataReport/{dataReportId}, DATA_ASSET_MANAGE, get
+METADATA, /dataReport/tree, DATA_ASSET_MANAGE, get
+METADATA, /entities/{objectId}/columns, DATA_ASSET_MANAGE, get
+//审计
+AUDIT, /jdbc/record, DATA_ASSET_MANAGE, post
+//用户
+USERMGMT, /ddc/catalog/org/{id}/{depId}, DATA_ASSET_MANAGE, post
+
+
+//管理,  数据资产,  数据资产管理, 资产的导入导出
+DATA_ASSET, /ddc/assets/export/structure/{structureId}, DATA_ASSET_MANAGE_EXPORT, post
+DATA_ASSET, /ddc/assets/import/structure/{structureId}, DATA_ASSET_MANAGE_IMPORT, post
+DATA_ASSET, /ddc/assets/export/template, DATA_ASSET_MANAGE_IMPORT, post
+
+//管理,  数据资产,  数据资产管理, 目录的导入导出
+DATA_ASSET, /ddc/catalog/export/{structureId}, DATA_ASSET_MANAGE_CATALOG_EXPORT, post
+DATA_ASSET, /ddc/catalog/export/template/{structureId}, DATA_ASSET_MANAGE_CATALOG_IMPORT, post
+DATA_ASSET, /ddc/catalog/upload, DATA_ASSET_MANAGE_CATALOG_IMPORT, post
+
+//管理,  数据资产,  我的资产
+DATA_ASSET, /ddc/assets/list, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /auth/assets, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /ddc/catalog/collect/{catalogId}/{catalogName}, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /ddc/catalog/cancel/{catalogId}, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /ddc/comment/comment, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /oplog/record, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /ddc/catalog/change/record/{pageNum}/{pageSize}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /entities/{objectId}/summary, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /ddc/catalog/collect/{catalogId}/{catalogName}, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /ddc/catalog/cancel/{catalogId}, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /dataDepartment/{dataId}/{dataType}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /tags/recommendations/types/{typeId}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataManager/{dataId}/{dataType}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /thread/types/{typeId}/objects/{objectId}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /lineage/object/{objectId}/type, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /me/dims/catalogs, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataRequirement/, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataReport/{dataReportId}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataRequirement/, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataReport/{dataReportId}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataReport/{drId}/resourceStatistics, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /auth/check/{itemId}/{itemType}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /dataReport/{drId}/resourceStatistics, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /api/catalogs, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /api/apis/search, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /models/modeltree, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /api/{apiId}, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /ddc/catalog/mine, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /auth/assets, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /oplog/record, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /thread/items, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /me/tree, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /ddc/catalog/home/catalog, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /ddc/comment/list/{id}, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /ddc/catalog/browse, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /me/dims/catalogs/codes, DATA_ASSET_MY_MANAGE, post
+DATA_ASSET, /vote/domain/stars, DATA_ASSET_MY_MANAGE, get
+
+DATA_ASSET, /ddc/comment/{id}, DATA_ASSET_MY_MANAGE, delete
+//元数据
+METADATA, /entities/{objectId}/columns, DATA_ASSET_MY_MANAGE, get
+
+//管理,  数据资产,  目录类型设置
+DATA_ASSET, /assets/catalog/udp/getcatalogudpbycatalogtypeid, DATA_ASSET_CATALOG_TYPE_MANAGE, get
+DATA_ASSET, /assets/catalog/udp/addorupdatecatalogudp, DATA_ASSET_CATALOG_TYPE_MANAGE, post
+DATA_ASSET, /assets/catalog/udp/{udpId}, DATA_ASSET_CATALOG_TYPE_MANAGE, delete
+DATA_ASSET, /assets/catalog/udp/{catalogId}, DATA_ASSET_CATALOG_TYPE_MANAGE, get
+DATA_ASSET, /assets/catalog/udp/addorupdateupdval, DATA_ASSET_CATALOG_TYPE_MANAGE, post
+
+DATA_ASSET, /ddc/config/catalog/type/{level}, DATA_ASSET_CATALOG_TYPE_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/single/type/{id}, DATA_ASSET_CATALOG_TYPE_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/type, DATA_ASSET_CATALOG_TYPE_MANAGE, post
+DATA_ASSET, /ddc/config/catalog/algorithm/properties, DATA_ASSET_CATALOG_TYPE_MANAGE, get
+
+//管理,  数据资产,  目录结构设置
+DATA_ASSET, /ddc/config/catalog/{catalogTypeId}/algorithm, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/{catalogTypeId}/udps, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, get
+DATA_ASSET, /ddc/config/catalog/{structureId}/{level}/udps, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, get
+DATA_ASSET, /ddc/config/structures, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, get
+DATA_ASSET, /ddc/config/structure/{id}, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, get
+DATA_ASSET, /ddc/config/structure, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, post
+DATA_ASSET, /ddc/config/structure/{id}, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, post
+DATA_ASSET, /ddc/config/structure/{id}, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, delete
+
+//管理, 数据资产, 知识图谱权限配置
+DATA_ASSET, /graph/SearchNodeRelation, DATA_ASSET_CATALOG_MANAGE, get
+DATA_ASSET, /graph/SearchNodeRelation, DATA_ASSET_MY_MANAGE, get
+DATA_ASSET, /graph/SearchNodeRelation, DATA_ASSET_DOOR_MANAGE, get
+
+//管理, 数据资产, 资产门户
+DATA_ASSET, /ddc/assets/list, DATA_ASSET_DOOR_MANAGE, post
+AUDIT, /jdbc/record, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /me/dims/catalogs/codes, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /vote/domain/stars, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/comment/comment, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /ddc/catalog/collect/{catalogId}/{catalogName}, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /ddc/catalog/cancel/{catalogId}, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /ddc/catalog/mine, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /auth/assets, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /oplog/record, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /thread/items, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/comment/list/{id}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/comment/{id}, DATA_ASSET_DOOR_MANAGE, delete
+
+DATA_ASSET, /ddc/catalog/home/catalog, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/catalog/browse, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /tags/group, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /entities/udps/{typeId}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/catalog/visit/{structureId}/{catalogId}, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /ddc/catalog/detail/{id}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/catalog/relation/{id}/{type}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/catalog/getcatalogpropery, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /ddc/catalog/browse/{structureId}/{catalogId}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /entities/udps/udpIds/values, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /ddc/search, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /me/dims/catalogs, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /dataReport/{dataReportId}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /dataRequirement/, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /dataReport/{drId}/resourceStatistics, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /graph/SearchNodeRelation, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /dataDepartment/{dataId}/{dataType}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /dataManager/{dataId}/{dataType}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /auth/check/{itemId}/{itemType}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /entities/{objectId}/summary, DATA_ASSET_DOOR_MANAGE, get
+
+DATA_ASSET, /tags/recommendations/types/{typeId}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /thread/types/{typeId}/objects/{objectId}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /lineage/object/{objectId}/type, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /me/tree, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /api/catalogs, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /api/apis/search, DATA_ASSET_DOOR_MANAGE, post
+DATA_ASSET, /api/{apiId}, DATA_ASSET_DOOR_MANAGE, get
+DATA_ASSET, /models/modeltree, DATA_ASSET_DOOR_MANAGE, get
+//数据标准
+DOMAIN, /me/dims/catalogs, DATA_ASSET_DOOR_MANAGE, get
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, DATA_ASSET_DOOR_MANAGE, GET
+DOMAIN, /domains/code/getCode, DATA_ASSET_DOOR_MANAGE, post
+DOMAIN, /domains/udp/getUdps, DATA_ASSET_DOOR_MANAGE, post
+DOMAIN, /domains/domain/getDomainByCodes, DATA_ASSET_DOOR_MANAGE, post
+DOMAIN, /domains/domain/getPage, DATA_ASSET_DOOR_MANAGE, post
+//元数据
+METADATA, /dataDepartment/{dataId}/{dataType}, DATA_ASSET_DOOR_MANAGE, get
+METADATA, /dataManager/{dataId}/{dataType}, DATA_ASSET_DOOR_MANAGE, get
+METADATA, /entities/{objectId}/summary, DATA_ASSET_DOOR_MANAGE, get
+METADATA, /dataReport/{dataReportId}, DATA_ASSET_DOOR_MANAGE, get
+METADATA, /entities/{objectId}/columns, DATA_ASSET_DOOR_MANAGE, get
+
+//管理, 数据资产, 任务管理
+DATA_ASSET, /sync/bi/task/list, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/detail/{taskId}, DATA_ASSET_CATALOG_TASK_MANAGE, get
+DATA_ASSET, /sync/bi/task/detail/{taskId}/{enable}, DATA_ASSET_CATALOG_TASK_MANAGE, get
+DATA_ASSET, /sync/bi/task/add, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/modify, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/delete/{taskId}, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/test/{taskId}, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/assets/structure, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/assets/{structureId}/{catalogId}, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/assets/subs/{structureId}/{catalogId}, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/bi/catalog, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/bi/datasource, DATA_ASSET_CATALOG_TASK_MANAGE, post
+DATA_ASSET, /sync/bi/task/cron/check, DATA_ASSET_CATALOG_TASK_MANAGE, post
+
+
+//管理, 数据资产, 数据市场
+DOMAIN, /me/dims/catalogs, DATA_ASSET_MARKET_MANAGE, get
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, DATA_ASSET_MARKET_MANAGE, GET
+DOMAIN, /domains/domain/getPage, DATA_ASSET_MARKET_MANAGE, post
+DOMAIN, /domains/domain/getDomainByCodes, DATA_ASSET_MARKET_MANAGE, post
+DOMAIN, /domains/code/getDatasetname, DATA_ASSET_MARKET_MANAGE, post
+DOMAIN, /domains/code/getCode, DATA_ASSET_MARKET_MANAGE, post
+DOMAIN, /domains/udp/getUdps, DATA_ASSET_MARKET_MANAGE, post
+DOMAIN, /domains/tree/getTree, DATA_ASSET_MARKET_MANAGE, post

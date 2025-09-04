@@ -1,0 +1,40 @@
+{
+  "datasourceType": "MAXCOMPUTE",
+  "displayName": "MaxCompute",
+  "icon": "MaxCompute",
+  "datasourceClass": "com.datablau.datasources.maxCompute.MaxComputeDatasource",
+  "jdbcDriverClass": "com.aliyun.odps.jdbc.OdpsDriver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "localhost",
+      "candidate": null,
+      "multiple": false,
+      "label": "EndPoint"
+    },
+    {
+      "code": "AuthenticationType",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "0",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "DatabaseName",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "",
+      "candidate": null,
+      "multiple": false,
+      "label": null
+    }
+  ]
+}

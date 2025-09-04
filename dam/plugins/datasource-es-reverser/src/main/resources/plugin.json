@@ -1,0 +1,5 @@
+{
+  "type" : "ES",
+  "loadClass" : "com.datablau.reverse.engineering.worker.es.ElasticSearchWorker",
+  "build": "${build.timestamp}"
+}

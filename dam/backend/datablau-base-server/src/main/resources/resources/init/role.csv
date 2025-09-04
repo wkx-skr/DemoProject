@@ -1,0 +1,26 @@
+//BASE, BASE_SYSTEM_MANAGE, 管理, null, 系统管理, 应用系统
+BASE, BASE_SYSTEM_CALL_MANAGE, 管理, null, 系统管理, 系统调用
+//BASE, BASE_DATASOURCE_MANAGE, 管理, null, 系统管理, 数据源
+BASE, BASE_DRIVER_MANAGE, 管理, null, 系统管理, 驱动管理
+//BASE, BASE_WORKFLOW_CENTER_MANAGE, 管理, null, 系统管理, 流程中心
+//BASE, BASE_WORKFLOW_MONITOR_MANAGE, 管理, null, 系统管理, 流程监控
+// 标签
+BASE, BASE_TAG_DELETE, 删除, null, 系统管理, 标签管理
+BASE, BASE_TAG_VIEW, 查看, null, 系统管理, 标签管理
+BASE, BASE_TAG_ADD, 添加, null, 系统管理, 标签管理
+BASE, BASE_TAG_EDIT, 编辑, null, 系统管理, 标签管理
+
+BASE, BASE_PLUGIN_MANAGE, 管理, null, 系统管理, 插件管理
+BASE, BASE_TASK_SCHEDULER_MANAGE, 管理, null, 系统管理, 任务调度
+BASE, BASE_TASK_MONITOR_MANAGE, 管理, null, 系统管理, 任务监控
+BASE, BASE_TASK_FILE_MANAGE, 管理, null, 系统管理, 任务文件
+BASE, BASE_TIME_TEMPLATES_MANAGE, 管理, null, 系统管理, 时间模版
+BASE, BASE_EMAIL_MANAGE, 管理, null, 系统管理, 邮件设置
+BASE, BASE_LICENSE_MANAGE, 管理, null, 系统管理, 产品许可管理
+
+BASE, BASE_ORGANIZATION_MANAGE, 管理, null, 系统管理, 机构管理
+BASE, BASE_USER_MANAGE, 管理, null, 系统管理, 用户管理
+BASE, BASE_ROLE_MANAGE, 管理, null, 系统管理, 角色管理
+BASE, BASE_USER_GROUP_MANAGE, 管理, null, 系统管理, 用户组管理
+
+BASE, BASE_CONTROL_PANEL_MANAGE, 管理, null, 系统管理, 控制面板

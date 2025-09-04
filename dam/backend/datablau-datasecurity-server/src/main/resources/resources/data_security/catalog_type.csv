@@ -1,0 +1,7 @@
+# 列  支持的资产类型/层级/类型名
+
+CATALOG/1/安全一级分类
+CATALOG/2/安全二级分类
+CATALOG/3/安全三级分类
+CATALOG/4/安全四级分类
+INFO_OBJECT,DATA_OBJECT,TABLE,VIEW/5/安全五级分类

@@ -1,0 +1,5 @@
+{
+  "type" : "HBASE",
+  "loadClass" : "com.datablau.reverse.engineering.worker.hbase.HBaseWorker",
+  "build": "${build.timestamp}"
+}

@@ -1,0 +1,44 @@
+{
+  "datasourceType": "GBASE",
+  "displayName": "GBase",
+  "icon": "gbase",
+  "datasourceClass": "com.datablau.datasources.gbase.GBaseDatasource",
+  "jdbcDriverClass": "com.gbase.jdbc.Driver",
+  "suggestVersion": "8a",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "5258",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": false,
+      "multiple": true,
+      "candidate": []
+    },
+    {
+      "code": "GBaseMppVcName",
+      "defaultValue": "",
+      "required": false,
+      "label": "VC名称"
+    }
+  ]
+}

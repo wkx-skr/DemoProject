@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="now">
+<meta http-equiv="Pragma" content="no-cache">
+<link rel="shortcut icon" href="./static/guanwang_favicon.png"/>
+<script src="./static/js/jquery.min.js"></script>
+<script src="./static/js/jsencrypt2.min.js"></script>
+<script src="./static/js/pubkey.js"></script>
+<!--<script src="./static/conf/setting.js"></script>-->
+<script>
+    document.write("<script src='./static/conf/setting.js?" + Math.random() + "'><\/script>");
+</script>
+
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <script>
+      var j = window.setting
+      // 开发环境, webpath 设置成 '/'
+      var settingUrl = '.' + j.products.dam.webPath + 'static/conf/setting.js?'
+      $.ajax({
+          type: 'get',
+          url: settingUrl,
+          success: function (res) {
+              if (res.indexOf('<!DOCTYPE html>') === 0) {
+                  j.products.dam.webPath = '/'
+                  j.products.ddm.webPath = '/'
+                  j.products.ddd.webPath = '/'
+              }
+          },
+          error: function () {
+          }
+      })
+      function handleLogin() {
+          if (!document.getElementById('password').value) {
+              $('.error-msg').css('color', 'red')
+              $('.error-msg').text('密码不能为空')
+          }
+          ;
+          if (!document.getElementById('j_username').value) {
+              $('.error-msg-name').css('color', 'red')
+              $('.error-msg-name').text('用户名不能为空')
+          }
+          ;
+          if (document.getElementById('password').value && document.getElementById('j_username').value) {
+              $.post(j.gatewayEnable ? location.origin + '/gateway/login' : pathname + '/service/j_spring_security_check', {
+                  j_username: $("#j_username").val(),
+                  j_password: $("#j_password").val()
+              }, function (data) {
+                  location.href = './'
+              }).fail(function (xhr) {
+                  if (xhr && xhr.responseText) {
+                      $('.error-msg').css('color', 'red')
+                      var msg = '用户名或密码错误'
+                      var responseText = JSON.parse(xhr.responseText)
+                      if (responseText) {
+                          msg = responseText.exception
+                      }
+                      $('.error-msg').text(msg)
+                  } else if (location.href.indexOf('localhost') > -1) {
+                      location.href = './'
+                  }
+              });
+          }
+      }
+
+      document.addEventListener("keydown", keydown);
+      var keyEntered = false
+
+      function keydown(event) {
+          if (event.key !== 'Enter') {
+              keyEntered = true
+          }
+          if (event.key === 'Enter') {
+              if (keyEntered) {
+                  passwordBlur()
+              }
+              handleLogin()
+          }
+      }
+  </script>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-size: 12px;
+    }
+
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    }
+
+    input {
+      outline: 0px;
+    }
+
+    .right-part-row {
+      height: 80px;
+      padding-top: 30px;
+      border-bottom: 1px solid #cdced0;
+    }
+
+    .input-label {
+      color: #9c9c9c;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .input-text {
+      border: none;
+      display: block;
+      font-size: 14px;
+      color: #3a3e44;
+      width: 100%;
+    }
+
+    .submit-btn {
+      margin-top: 40px;
+      width: 320px;
+      background: #479EFF;
+      height: 46px;
+      color: #FFF;
+      line-height: 46px;
+      cursor: pointer;
+      border: none;
+    }
+
+    .outer-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .inner-screen {
+      width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      position: relative;
+      padding-top: 26px;
+    }
+
+    .logo-box {
+      width: 100%;
+      height: 30px;
+      overflow: hidden;
+    }
+
+    .screen-logo {
+      visibility: hidden;
+      width: 150px;
+      height: auto;
+    }
+
+    #product-selection-screen {
+      background-color: #2b3340;
+      overflow: auto;
+    }
+
+    #product-group {
+      text-align: center;
+      position: relative;
+      top: 50%;
+      margin-top: -240px;
+    }
+
+    #product-group .theme-text {
+      margin-bottom: 100px;
+    }
+
+    .theme-text {
+      font-size: 30px;
+      color: #f5f5f4;
+      text-align: center;
+    }
+
+    #product-group .product-box {
+      width: 340px;
+      height: 140px;
+      background-color: #ffffff;
+      cursor: pointer;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 10px 15px;
+      transition: background-color .21s;
+      visibility: hidden;
+    }
+
+    #product-group .product-box:hover {
+      transition: background-color .21s;
+      background-color: #efefef;
+    }
+
+    #login-screen {
+      display: none;
+    }
+
+    #login-screen.show {
+      display: block;
+    }
+
+    #login-screen.dam-class {
+      background: #2c4d7f;
+    }
+
+    #login-screen.dam-class .dam-only {
+      display: inline-block !important;
+    }
+
+    #login-screen.ddm-class .ddm-only {
+      display: inline-block;
+    }
+    #login-screen.ddd-class .ddd-only {
+      display: inline-block;
+    }
+
+    #login-screen.ddc-class .ddc-only {
+      display: inline-block !important;
+    }
+
+    #login-screen.ddm-class {
+      background: #276787;
+    }
+    #login-screen.ddd-class {
+      background: #276787;
+    }
+
+    #login-screen.ddc-class {
+      background: #453a6f;
+    }
+    #login-screen.dds {
+        background: #453a6f;
+    }
+
+    .right-title {
+      visibility: hidden;
+      display: none;
+    }
+
+    .left-part {
+      display: none;
+    }
+
+    #login-area {
+      background: #FFF;
+      width: 960px;
+      height: 480px;
+      border-radius: 10px;
+      margin: -290px auto 0;
+      position: relative;
+      top: 50%;
+    }
+
+    .left-box {
+      margin: 60px 20px;
+      width: 510px;
+      height: 360px;
+      display: inline-block;
+      overflow: hidden;
+    }
+
+    .left-box .left-part {
+      width: 100%;
+      height: auto;
+    }
+
+    .right-part {
+      display: inline-block;
+      position: absolute;
+      top: 60px;
+      padding-right: 10px;
+      word-break: break-all;
+    }
+
+    #return-tab {
+      position: absolute;
+      top: 20px;
+      right: 0;
+
+    }
+
+    #return-tab span {
+
+      height: 40px;
+      display: inline-block;
+      line-height: 40px;
+      padding: 0 1.5em;
+      border-radius: 3px;
+      cursor: pointer;
+      color: #bfc3c6;
+    }
+
+    #return-tab #download-ddm {
+      display: none;
+    }
+
+    .ddm-class #return-tab #download-ddm {
+      display: inline-block;
+    }
+    .ddd-class #return-tab #download-ddm {
+      display: inline-block;
+    }
+
+    #return-tab span:hover {
+      background-color: #46a2cf;
+      transition: background-color .8s, color .4s;
+      color: #FFF;
+    }
+
+    .ddc-class #return-tab span:hover {
+      background-color: #6e678e;
+    }
+    .dds-class #return-tab span:hover {
+        background-color: #6e678e;
+    }
+    #download-ddm {
+      display: none;
+    }
+  </style>
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+      font-size: 12px;
+      font-family: "微软雅黑";
+      color: #000;
+    }
+
+    body {
+      margin: 0;
+    }
+
+    input {
+      border: none;
+    }
+
+    input:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    }
+
+    input {
+      outline: 0px;
+    }
+
+    .container {
+      height: 100%;
+      display: flex;
+    }
+
+    .input-box {
+      width: 100%;
+      height: 50px;
+      position: relative;
+      border-bottom: 1px solid #EAECF1;
+    }
+
+    .input-box .logo {
+      display: inline-block;
+      position: absolute;
+      left: 5px;
+      top: 18px;
+      font-size: 21px;
+      color: #bcbcbc;
+    }
+
+    .input-box img {
+      width: 20px;
+      opacity: 0.4;
+    }
+
+    .input-box input {
+      height: 30px;
+      margin-top: 15px;
+      float: right;
+      width: 285px;
+    }
+
+    .about-password {
+      margin-top: 20px;
+      line-height: 14px;
+      overflow: hidden;
+    }
+
+    .about-password input {
+      position: relative;
+      top: 1px;
+      float: left;
+      cursor: pointer;
+    }
+
+    .about-password label {
+      float: left;
+      margin-left: 0.7em;
+      color: #000;
+      cursor: pointer;
+    }
+
+    .about-password a {
+      float: right;
+      text-decoration: none;
+      color: #009B61;
+    }
+
+    .submit-btn {
+      margin-top: 40px;
+      width: 320px;
+      background: #479EFF;
+    / / background: #009B61;
+      height: 46px;
+      color: #FFF;
+      line-height: 46px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+    / / box-shadow: 0 0 1 px #009B61;
+    }
+
+    .graph-area {
+      width: 710px;
+      height: 730px;
+      position: relative;
+    }
+
+    .error-msg,
+    .error-msg-name {
+      color: transparent;
+      float: right;
+      margin-top: 10px;
+    }
+
+    @media only screen and (min-width: 1700px) {
+      .graph-area {
+        transform: scale(1.1, 1.1);
+      }
+    }
+
+    @media only screen and (max-width: 1366px) {
+      .graph-area {
+        transform: scale(0.8, 0.8);
+      }
+    }
+
+    .name-not-ready {
+      visibility: hidden;
+    }
+
+    .dam-name,
+    .ddm-name,
+    .ddc-name,
+    .dds-name,
+    .ddd-name {
+      font-size: 24px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .font-style {
+      font-size: 24px;
+      line-height: 140px;
+      text-align: center;
+    }
+  </style>
+  <script type="text/javascript">
+      function passwordBlur() {
+          var crypt = new JSEncrypt({default_key_size: 2048});
+          crypt.setPublicKey(pubkey);
+          var text = document.getElementById('password').value;
+          if (text.indexOf('***') > -1) {
+              return
+          }
+          var enc = crypt.encrypt(text);
+          document.getElementById('j_password').value = enc;
+          var replace = "";
+          for (var i = 0; i < text.length; i++) {
+              replace = replace + "*";
+          }
+
+          document.getElementById('password').value = replace;
+      }
+
+  </script>
+</head>
+
+<body onload="init()">
+
+<div id="product-selection-screen" class="outer-screen">
+  <div class="inner-screen">
+    <div class="logo-box">
+      <img src="./static/images/login/guanwang_black.png" class="screen-logo" alt="">
+    </div>
+
+
+    <div id="product-group" data-name="product-group">
+      <div class="theme-text">选择你使用的产品</div>
+      <span data-name="productBox"></span>
+      <!-- <div class="product-box" data-name="dam">
+        <span class="name-not-ready dam-name font-style">数据架构平台</span>
+      </div>
+      <div class="product-box" data-name="ddm">
+        <span class="name-not-ready ddm-name font-style">数据建模平台</span>
+      </div> -->
+    </div>
+  </div>
+</div>
+<div class="outer-screen" id="login-screen">
+  <div class="inner-screen">
+    <div class="logo-box">
+      <img src="./static/images/login/guanwang_black.png" class="screen-logo" alt="">
+    </div>
+    <div id="return-tab">
+      <span id="download-ddm" class="ddm-only">下载DDM客户端</span>
+      <span id="return-btn"><i style="font-size: 20px;font-style: normal;margin-right: 6px;">&#10229;</i><b
+              style="font-weight: unset;" id="return-btn-name"></b></span>
+    </div>
+    <div id="login-area">
+      <div class="graph">
+        <div class="left-box">
+          <img class="left-part ddm-only" src="./static/images/login/ddm-graph.png" alt="">
+          <img class="left-part ddd-only" src="./static/images/login/ddm-graph.png" alt="">
+          <img class="left-part dam-only" src="./static/images/login/dam-graph.png" alt="">
+          <img class="left-part ddc-only" src="./static/images/login/ddc-graph.png" alt="">
+          <img class="left-part dds-only" src="./static/images/login/dam-graph.png" alt="">
+        </div>
+        <div class="right-part">
+          <div class="right-title ddm-only name-not-ready ddm-name">数据建模平台</div>
+          <div class="right-title ddd-only name-not-ready ddd-name">数据开发平台</div>
+          <div class="right-title dam-only name-not-ready dam-name">数据架构平台</div>
+          <div class="right-title ddc-only ddc-name">数据资产目录服务平台</div>
+          <div class="right-title dds-only dds-name">数据安全</div>
+          <div class="right-part-row">
+            <div class="input-label" id="User"></div>
+            <input class="input-text" type="text" id="j_username"
+                   oninput="$('.error-msg-name').css('color', 'transparent')" name="j_username" size="20"
+                   maxlength="50"/>
+            <span class="error-msg-name"></span>
+          </div>
+          <div class="right-part-row">
+            <div class="input-label" id="Password"></div>
+            <input class="input-text" type="password" id="password" name="password" size="20" maxlength="50"
+                   oninput="$('.error-msg').css('color', 'transparent')" onchange="passwordBlur()"/>
+            <span class="error-msg"></span>
+          </div>
+          <div style="margin-top:10px;">
+            <a href="javascript:;" onclick="forgetPassword()" id="forgot-password"></a>
+          </div>
+
+          <input type="hidden" name="j_password" id="j_password" value=""/>
+          <input class="submit-btn" type="submit" onclick="handleLogin()" id="submit" value=""/>
+          <input type="hidden" name="backurl" id="backurlinput"/>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    var dam_products = []
+    var dam_current_product = ''
+
+    function setDamCurrentProduct(name) {
+        var n = name.trim()
+        var bool = false
+        for (var i = 0; i < dam_products.length; i++) {
+            if (dam_products[i] && (dam_products[i]).name.indexOf(n) > -1) {
+                bool = true
+            }
+        }
+        if (bool) {
+            window.localStorage.setItem('damProduct', n)
+            window.localStorage.setItem('damProductIndex', dam_products.filter(function (i) {
+                return i.name === n
+            })[0].index)
+        }
+        dam_current_product = n
+    }
+
+    var pathname = j.restApiPathName
+</script>
+<script type="text/javascript">
+    var changeProduct = null;
+    var ddmLoginUrl = null;
+
+    var pathname = j.restApiPathName
+
+    const products = j.products
+    let protocol = products.ddm.protocol || window.location.protocol + '//'
+    let hostname = products.ddm.hostname || window.location.hostname
+    let defaultPort = protocol === 'http://' ? 80 : 443
+    let frontendPort = products.ddm.frontendPort || defaultPort
+    ddmLoginUrl = protocol + hostname + ':' + frontendPort + (products.ddm.webPath || '/')
+
+      var productGroup = $('#product-group')
+      $('<div class="product-box" data-name="dam" style="visibility: visible;position: relative; vertical-align: top;"><span class="dam-name font-style" style="display: inline-block;width:80%; line-height: 30px;position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);word-break: break-all;">数据架构平台</span></div>').insertBefore(productGroup.find('[data-name=productBox]'))
+      $('<div class="product-box" data-name="ddm" style="visibility: visible;position: relative; vertical-align: top;"><span class="ddm-name font-style" style="display: inline-block;width:80%; line-height: 30px;position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);word-break: break-all;">数据建模平台</span></div>').appendTo('#product-group')
+      $('<div class="product-box" data-name="ddc" style="visibility: visible;position: relative; vertical-align: top;"><span class="ddm-name font-style" style="display: inline-block;width:80%; line-height: 30px;position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);word-break: break-all;">数据资产目录服务平台</span></div>').appendTo('#product-group')
+      $('<div class="product-box" data-name="ddd" style="visibility: visible;position: relative; vertical-align: top;"><span class="ddd-name font-style" style="display: inline-block;width:80%; line-height: 30px;position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);word-break: break-all;">模型开发平台</span></div>').appendTo('#product-group')
+      $('<div class="product-box" data-name="dds" style="visibility: visible;position: relative; vertical-align: top;"><span class="dds-name font-style" style="display: inline-block;width:80%; line-height: 30px;position:absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);word-break: break-all;">数据安全</span></div>').appendTo('#product-group')
+
+    window.onload = function () {
+        const height = $('#login-area .graph .left-box').height()
+        const imgH = $('#login-area .graph .left-box>img.dam-only').height();
+        const top = (height - imgH) / 2
+        const logoBoxH = $('#product-selection-screen .inner-screen .logo-box').height();
+        const logoH = $('#product-selection-screen .inner-screen img.screen-logo').height();
+        $('#product-selection-screen .inner-screen img.screen-logo').css('marginTop', (logoBoxH - logoH) / 2 + 'px')
+        $('#login-screen .inner-screen img.screen-logo').css('marginTop', (logoBoxH - logoH) / 2 + 'px')
+
+
+    }
+
+
+    if (!j.hideLogoOfLogin || j.hideLogoOfLogin !== 'true') {
+        $('.screen-logo').css('visibility', 'visible');
+        $('.right-title').css('visibility', 'visible');
+        $('.name-not-ready').css('visibility', 'visible');
+    } else {
+        $('.name-not-ready').attr('src', function () {
+            return $(this).attr('src').slice(0, -4) + '-no-logo.png'
+        })
+        $('.name-not-ready').css('visibility', 'visible');
+    }
+    if (j.logo === 'custom') {
+        $('title').text(j.title);
+        $('#title').text(j.title);
+        // if (j.damName && j.ddmName && j.ddcName) {
+        //   $('.dam-name').text(j.damName);
+        //   $('.ddm-name').text(j.ddmName);
+        //   $('.ddc-name').text(j.ddcName);
+        // }
+        if (j.damName) {
+            $('.dam-name').text(j.damName);
+        }
+        if (j.ddmName) {
+            $('.ddm-name').text(j.ddmName);
+        }
+        if (j.ddcName) {
+            $('.ddc-name').text(j.ddcName);
+        }
+        if (j.dddName) {
+            $('.ddd-name').text(j.dddName);
+        }
+        if (j.showLogo === 'false') {
+            $('.screen-logo').css('visibility', 'hidden')
+        }
+    }
+    if (j.hideReturnButtonOfLogin === 'true') {
+        $('#return-btn').remove()
+    }
+    if (j.damEnabled === 'false' || j.damEnabled === false) {
+        var url = window.location.href.split('?')
+        if (url.indexOf('product=ddm') < 0) {
+            location.href = url[0] + '?product=ddm'
+        }
+        setTimeout(function () {
+            $('#return-btn').remove()
+        }, 300)
+    }
+
+    $('.product-box').css('visibility', 'visible')
+    if (j.logo && j.logo.toLowerCase() == 'datablau') {
+        $('title').text('Datablau数据架构平台');
+        $('#title').text('Datablau数据架构平台');
+    } else if (!j.logo) {
+        $('title').text('数据架构平台');
+        $('#title').text('数据架构平台');
+    } else {
+        $('title').text(j.title);
+        $('#title').text(j.title);
+    }
+
+    function getLanguage() {
+        if (navigator.appName == 'Netscape')
+            var language = navigator.language;
+        else
+            var language = navigator.browserLanguage;
+        if (language.indexOf('en') > -1) return 'English';
+        else if (language.indexOf('zh') > -1) return 'Chinese';
+        else
+            return 'English';
+    }
+
+    if (getLanguage() == 'English') {
+        $("#return-btn-name").text('Switch Product')
+        $("#User").text('User')
+        $("#Password").text('Password')
+        $("#forgot-password").text('Forgot Password')
+        $("#submit").val('Login')
+
+    } else {
+        $("#return-btn-name").text('返回产品选择')
+        $("#User").text('用户名')
+        $("#Password").text('密码')
+        $("#forgot-password").text('忘记密码')
+        $("#submit").val('登录')
+    }
+
+    var init = function () {
+        var elem = document.getElementById('error_msg');
+        if (elem) {
+            var html = elem.innerHTML;
+            if (getLanguage() == 'English' && false) {
+                elem.innerHTML = html.replace("$ERROR", "Failed to login:");
+            } else {
+                elem.innerHTML = html.replace("$ERROR", "登录失败:");
+            }
+        }
+
+        // document.f.j_username.focus();
+
+        var element = document.getElementById("backurlinput");
+        element.value = getURLParameter("backurl");
+    }
+
+    function getURLParameter(name) {
+        return decodeURIComponent(
+            (new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null,
+                ''])[1].replace(/\+/g, '%20')) || null;
+    }
+
+    function forgetPassword() {
+        var username = $('#j_username').val();
+        if (!username) {
+            alert('请输入您的用户名，再点击“忘记密码”');
+        } else {
+            $.ajax({
+                type: "post",
+                url: pathname + "/service/reset_password/",
+                async: true,
+                contentType: 'plain/text',
+                data: username,
+                success: function (data) {
+                    alert('已发送重置密码的邮件到您的邮箱，请注意查收');
+                },
+                error: function (e) {
+                    alert(e.responseJSON.errorMessage);
+                }
+            });
+        }
+    }
+
+    function setEvent() {
+        var currentProduct;
+        {//handle product change
+            var productBox = $('.product-box');
+            var loginScreen = $('#login-screen');
+            var handleProductChange = function (name) {
+                if (name !== 'ddc' && name !== 'ddm' && name !== 'dam' && name !== 'ddd' && name !== 'dds') {
+                    return;
+                }
+                if (name) {
+                    loginScreen.addClass('show');
+                } else {
+                    loginScreen.removeClass('show');
+                }
+                loginScreen.removeClass('dam-class');
+                loginScreen.removeClass('ddm-class');
+                loginScreen.removeClass('ddd-class');
+                loginScreen.removeClass('ddc-class');
+                loginScreen.removeClass('dds-class');
+
+                if (name && !j.gatewayEnable) {
+                    sessionStorage.setItem('product', name);
+                }
+
+                switch (name) {
+                    case 'dam':
+                        loginScreen.addClass('dam-class');
+                        break;
+                    case 'ddm':
+                        loginScreen.addClass('ddm-class');
+                        break;
+                    case 'ddd':
+                        loginScreen.addClass('ddd-class');
+                        break;
+                    case 'ddc':
+                        loginScreen.addClass('ddc-class');
+                        break;
+                    case 'dds':
+                        loginScreen.addClass('dds-class');
+                        break;
+                    default:
+                        break;
+                }
+                var username = $('#j_username');
+                if (!username.val()) {
+                    username[0].focus();
+                }
+            };
+            changeProduct = handleProductChange;
+            if (j.damOnly) {
+                changeProduct('dam');
+                $('#return-tab').hide();
+            }
+            productBox.click(function () {
+                var productName = $(this).attr('data-name');
+
+                setDamCurrentProduct($(this).text())
+                if (!productName) {
+                    return;
+                }
+                var curProduct = j.products[productName];
+                console.log(curProduct)
+                // var defaultPort = curProduct.urlPrefix === 'http://' ? 80 : 443;
+                // var baseUrl = curProduct.urlPrefix + (curProduct.hostname || location.hostname) + ':' + (productName !== 'ddm' ? location.port || defaultPort : curProduct.frontendPort);
+                // var productLoginUrl = baseUrl + (curProduct.webPath || '/') + 'datablau.html?product=' + productName;
+                // if (j.gatewayEnable) {
+                //     $.ajax({
+                //         type: 'get',
+                //         url: window.location.origin + curProduct.testApi,
+                //         success: function () {
+                //             location.href = baseUrl + (curProduct.webPath || '/')
+                //         },
+                //         error: function () {
+                //             location.href = productLoginUrl
+                //         }
+                //     })
+                //
+                // } else {
+                //     if (productName === 'ddm') {
+                //         window.location.href = productLoginUrl
+                //     }
+                // }
+
+                currentProduct = productName;
+                var index = location.search.indexOf('product=') + 8;
+                var prev = location.search.slice(index, index + 3);
+                if (location.search.indexOf('product=') !== -1) {
+                    location.search = location.search.replace('product=' + prev,
+                        'product=' + currentProduct);
+                } else {
+                      location.search += '&product=' + currentProduct;
+                }
+                window.localStorage.setItem('currentProduct', currentProduct)
+            });
+            {
+                if (location.search && location.search.indexOf('product=') !== -1) {
+                    var dam_product = window.localStorage.getItem('damProduct')
+                    if (dam_product) {
+                        $('#login-area .right-part .dam-name').html(dam_product);
+                    }
+                    var index = location.search.indexOf('product=') + 8;
+                    var current_product = location.search.slice(index, index + 3)
+                    window.localStorage.setItem('currentProduct', current_product)
+                    handleProductChange(current_product);
+                }
+            }
+
+            $('#return-btn').click(function () {
+                if (!j.gatewayEnable) {
+                    sessionStorage.removeItem('product')
+                }
+                location.search = '';
+            });
+        }
+    }
+    setEvent()
+</script>
+</body>
+
+</html>

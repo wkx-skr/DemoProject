@@ -1,0 +1,5 @@
+{
+  "type" : "HANA",
+  "loadClass" : "com.datablau.reverse.engineering.worker.hana.HanaWorker",
+  "build": "${build.timestamp}"
+}

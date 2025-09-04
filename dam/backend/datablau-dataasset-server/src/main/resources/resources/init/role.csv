@@ -1,0 +1,68 @@
+//每列含义：appName, roleName, roleFriendlyName, roleDescription, roleModule, roleModuleClass
+
+DATA_ASSET, DATA_ASSET_MARKET_MANAGE, 管理, null, 数据资产, 数据市场
+DATA_ASSET, DATA_ASSET_ANALYSE_MANAGE, 管理, null, 数据资产, 资产概览
+//DATA_ASSET, DATA_ASSET_MANAGE, 管理, null, 数据资产, 数据资产管理
+
+//DATA_ASSET, DATA_ASSET_MANAGE_EXPORT, 导出数据资产, null, 数据资产, 数据资产管理
+//DATA_ASSET, DATA_ASSET_MANAGE_IMPORT, 导入数据资产, null, 数据资产, 数据资产管理
+//DATA_ASSET, DATA_ASSET_MANAGE_CATALOG_IMPORT, 导入资产目录, null, 数据资产, 数据资产管理
+//DATA_ASSET, DATA_ASSET_MANAGE_CATALOG_EXPORT, 导出资产目录, null, 数据资产, 数据资产管理
+
+DATA_ASSET, DATA_ASSET_CATALOG_TYPE_MANAGE, 管理, null, 数据资产, 目录类型设置
+DATA_ASSET, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, 管理, null, 数据资产, 目录空间设计
+//DATA_ASSET, DATA_ASSET_CATALOG_TASK_MANAGE, 管理, null, 数据资产, 任务管理
+
+//DATA_ASSET, IDENTIFY_RULE_MANAGE, 识别规则管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_RULE_VIEW, 识别规则查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_RULE_CATALOG_MANAGE, 识别规则目录管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_RULE_CATALOG_VIEW, 识别规则目录查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_RULE_IMPORT, 导入识别规则, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_RULE_EXPORT, 导出识别规则, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_TASK_CATALOG_MANAGE, 识别任务目录管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_TASK_CATALOG_VIEW, 识别任务目录查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_TASK_MANAGE, 识别任务管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, IDENTIFY_TASK_VIEW, 识别任务查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, RECOMMEND_RESULT_MANAGE, 推荐结果管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, RECOMMEND_RESULT_VIEW, 推荐结果查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_CATALOG_MANAGE, 算法目录管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_CATALOG, 算法目录查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_MANAGE, 算法库管理, null, 数据资产, 资产智能盘点
+//DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM, 算法库查看, null, 数据资产, 资产智能盘点
+//DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_UPLOAD, 导入算法, null, 数据资产, 资产智能盘点
+//DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_DOWNLOAD, 导出算法, null, 数据资产, 资产智能盘点
+//元数据采集
+DATA_ASSET, DATA_ASSET_COLLECT_MANAGE, 管理, null, 数据资产, 模型元数据采集
+DATA_ASSET, DATA_ASSET_ELEMENT_MANAGE, 管理, null, 数据资产, 模型元数据查询
+DATA_ASSET, DATA_ASSET_TECH_COLLECT_MANAGE, 管理, null, 数据资产, 技术元数据采集
+
+//模型映射
+DATA_ASSET, DATA_ASSET_AUTO_MAPPING_MANAGE, 管理, null, 数据资产, 模型自动映射
+DATA_ASSET, DATA_ASSET_MANUAL_MANAGE, 管理, null, 数据资产, 模型映射管理(手动映射)
+
+//元数据映射
+DATA_ASSET, DATA_META_DATA_AUTO_MAPPING_MANAGE, 管理, null, 数据资产, 元数据自动映射
+DATA_ASSET, DATA_META_DATA_MANUAL_MAPPING_MANAGE, 管理, null, 数据资产, 元数据映射管理(手动映射)
+
+//设计落标检查
+DATA_ASSET, DATA_ASSET_DESIGN_LABEL_DROP_MANAGE, 管理, null, 数据资产, 设计落标检查
+
+//技术落标检查
+DATA_ASSET, DATA_ASSET_TECH_LABEL_DROP_MANAGE, 管理, null, 数据资产, 技术落标检查
+
+//数据流管理
+DATA_ASSET, DATA_FLOW_MANAGE, 管理, null, 数据资产, 数据流管理
+
+//数据流图
+DATA_ASSET, DATA_FLOW_DIAGRAM_MANAGE, 管理, null, 数据资产, 数据流图
+DATA_ASSET, DATA_FLOW_DIAGRAM_EXPORT, 导出, null, 数据资产, 数据流图
+
+//资产目录发布、导入、查看
+DATA_ASSET, DATA_ASSET_MANAGE, 管理, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_CATALOG_PUBLISH, 发布, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_CATALOG_IMPORT, 导入, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_CATALOG_SELECT, 查看, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_ASSET_MANAGE_EXPORT, 导出数据资产, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_ASSET_MANAGE_IMPORT, 导入数据资产, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_ASSET_MANAGE_CATALOG_IMPORT, 导入资产目录, null, 数据资产, 资产目录管理
+DATA_ASSET, DATA_ASSET_MANAGE_CATALOG_EXPORT, 导出资产目录, null, 数据资产, 资产目录管理

@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Datablau-Name: datablau_metadata
+Datablau-Version: @project.version@
+Datablau-BuildTime: @maven.build.timestamp@

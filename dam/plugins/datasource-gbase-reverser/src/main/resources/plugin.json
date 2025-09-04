@@ -1,0 +1,5 @@
+{
+  "type" : "GBASE",
+  "loadClass" : "com.datablau.reverse.engineering.worker.gbase.GBaseWorker",
+  "build": "${build.timestamp}"
+}

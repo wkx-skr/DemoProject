@@ -1,0 +1,5 @@
+{
+  "type" : "MONGODB",
+  "loadClass" : "com.datablau.reverse.engineering.worker.mongodb.MongoDBWorker",
+  "build": "${build.timestamp}"
+}

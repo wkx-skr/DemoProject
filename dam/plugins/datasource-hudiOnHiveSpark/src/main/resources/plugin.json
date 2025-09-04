@@ -1,0 +1,40 @@
+{
+  "datasourceType": "HUDIONHIVESPARK",
+  "displayName": "HudiOnHiveSpark",
+  "icon": "hive",
+  "datasourceClass": "com.datablau.datasources.hudiOnHiveSpark.HudiOnHiveSparkDatasource",
+  "jdbcDriverClass": "org.apache.hive.jdbc.HiveDriver",
+  "suggestVersion": "2.1.1",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "10000",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false,
+      "requiredOnSave": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    }
+  ]
+}

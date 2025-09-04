@@ -1,0 +1,42 @@
+{
+  "datasourceType": "OCEANBASEO",
+  "displayName": "OceanBase-Oracle",
+  "icon": "OceanBase-Oracle",
+  "datasourceClass": "com.datablau.datasources.oceanBaseOracle.OceanBaseOracleDatasource",
+  "jdbcDriverClass": "com.alipay.oceanbase.obproxy.mysql.jdbc.Driver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+/target/
+!lib/
+.settings/
+/test-output/
+Test.java

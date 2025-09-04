@@ -1,0 +1,5 @@
+{
+  "type" : "TIMESERIESMODEL",
+  "loadClass" : "com.datablau.reverse.engineering.worker.timeseriesmodel.TimeSeriesModelWorker",
+  "build": "${build.timestamp}"
+}

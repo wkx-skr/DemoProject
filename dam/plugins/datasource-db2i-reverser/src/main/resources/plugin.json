@@ -1,0 +1,5 @@
+{
+  "type" : "DB2I",
+  "loadClass" : "com.datablau.reverse.engineering.worker.db2i.DB2iWorker",
+  "build": "${build.timestamp}"
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.datablau</groupId>
+        <artifactId>datablau-projects-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <groupId>com.datablau</groupId>
+    <artifactId>datablau-service-project-api</artifactId>
+    <version>${revision}</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.datablau</groupId>
+            <artifactId>datablau-metadata-api</artifactId>
+            <version>${revision}</version>
+        </dependency>
+
+        <!-- 数据安全加密包-->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.66</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.datablau</groupId>
+            <artifactId>datablau-datacatalog-lib</artifactId>
+            <version>8.0.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

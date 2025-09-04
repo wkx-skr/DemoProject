@@ -1,0 +1,48 @@
+{
+  "datasourceType": "ORACLE",
+  "displayName": "Oracle",
+  "icon": "oracle",
+  "datasourceClass": "com.datablau.datasources.oracle.OracleDatasource",
+  "jdbcDriverClass": "oracle.jdbc.driver.OracleDriver",
+  "suggestVersion": "11g、12c",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "1521",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "connectMode",
+      "candidate": [
+        "SID",
+        "Service Name"
+      ],
+      "defaultValue": "SID",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "required": false,
+      "requiredOnSave": true,
+      "multiple": true
+    }
+  ]
+}

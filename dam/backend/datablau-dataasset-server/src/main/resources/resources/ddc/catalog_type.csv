@@ -1,0 +1,7 @@
+# 列  支持的资产类型/层级/类型名
+
+CATALOG/1/主题域分组
+CATALOG/2/主题域
+CATALOG/3/业务对象
+CATALOG,TABLE,VIEW/4/逻辑数据实体
+DATA_OBJECT/5/属性

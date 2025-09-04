@@ -1,0 +1,100 @@
+//每列含义：appName, roleName, roleFriendlyName, roleDescription, roleModule, roleModuleClass
+
+DOMAIN, DICTIONARY_DELETE, 删除词汇, null, 数据标准, 业务术语
+DOMAIN, DICTIONARY_EXPORT, 导出词汇, null, 数据标准, 业务术语
+DOMAIN, DICTIONARY_IMPORT, 批量导入, null, 数据标准, 业务术语
+DOMAIN, DICTIONARY_VIEW, 查看, null, 数据标准, 业务术语
+DOMAIN, DICTIONARY_ADD, 添加词汇, null, 数据标准, 业务术语
+DOMAIN, DICTIONARY_EDIT, 编辑词汇, null, 数据标准, 业务术语
+DOMAIN, BUSI_TERM_PUBLISH, 申请发布, null, 数据标准, 业务术语
+DOMAIN, BUSI_TERM_CHANGE, 申请变更, null, 数据标准, 业务术语
+DOMAIN, BUSI_TERM_ABOLISH, 申请废弃, null, 数据标准, 业务术语
+DOMAIN, BUSI_TERM_VIEW, 管理, null, 数据标准, 业务术语
+
+//DOMAIN, BUSI_TERM_ADD, 新增, null, 数据标准, 业务术语
+//DOMAIN, BUSI_TERM_DELETE, 删除, null, 数据标准, 业务术语
+//DOMAIN, BUSI_TERM_UPDATE, 修改, null, 数据标准, 业务术语
+//DOMAIN, BUSI_TERM_MOVE, 迁移, null, 数据标准, 业务术语
+//DOMAIN, BUSI_TERM_EXPORT, 导出, null, 数据标准, 业务术语
+//DOMAIN, BUSI_TERM_IMPORT, 导入, null, 数据标准, 业务术语
+
+DOMAIN, DATA_STANDARD_DELETE, 删除, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_IMPORT_STANDARDS, 导入标准, null, 数据标准, 基础标准
+//DOMAIN, DATA_STANDARD_IMPORT_DIRECT, 导入为已发布, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_EXPORT, 导出, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_EXPORT_CHECKED, 导出勾选, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_EXPAND, 扩展属性, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_ADD, 新建, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_VIEW, 查看, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_VIEW_ALL, 查看未发布标准, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_RELEASE, 申请发布, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_UPDATA, 申请变更, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_SCRAP, 申请废弃, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_MOVE, 迁移, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_EDIT, 编辑标准, null, 数据标准, 基础标准
+DOMAIN, DATA_STANDARD_CATALOG, 目录管理, null, 数据标准, 基础标准
+DOMAIN, DOMAIN_RULE_MANAGE, 数据规则管理, null, 数据标准, 基础标准
+
+//DOMAIN, DATA_STANDARD_DIM_DELETE, 删除, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_IMPORT_STANDARDS, 导入指标, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_IMPORT_DIRECT, 导入为已发布, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_EXPORT, 导出, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_EXPORT_CHECKED, 导出勾选, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_EXPAND, 扩展属性, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_ADD, 新建, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_VIEW, 查看, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_VIEW_ALL, 查看未发布指标, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_RELEASE, 申请发布, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_UPDATA, 申请变更, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_SCRAP, 申请废弃, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_EDIT, 编辑指标, null, 数据标准, 指标标准
+//DOMAIN, DATA_STANDARD_DIM_CATALOG, 目录管理, null, 数据标准, 指标标准
+
+//DOMAIN, DATA_STANDARD_FIELD_VIEW, 查看, null, 数据标准, 域标准
+//DOMAIN, DATA_STANDARD_FIELD_MANAGE, 编辑, null, 数据标准, 域标准
+//DOMAIN, DATA_STANDARD_FIELD_CATALOG, 目录管理, null, 数据标准, 域标准
+
+//DOMAIN, INTELLIGENT_VIEW, 管理, null, 数据标准, 智能对标
+//DOMAIN, DATA_STANDARD_STATISTICS_VIEW, 管理, null, 数据标准, 查询统计
+DOMAIN, STANDARD_CODE_BATCH_EDIT, 修改主题, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_DELETE, 删除, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_IMPORT_CODE, 导入代码, null, 数据标准, 标准代码
+//DOMAIN, STANDARD_CODE_IMPORT_DIRECT, 导入为已发布, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_EXPORT, 导出, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_EXPORT_SELECTED, 导出勾选, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_ADD, 新建, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_VIEW, 查看, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_VIEW_ALL, 查看未发布代码, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_RELEASE, 申请发布, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_UPDATA, 申请变更, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_SCRAP, 申请废弃, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_MOVE, 迁移, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_EDIT, 编辑代码, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_EXPAND, 扩展属性, null, 数据标准, 标准代码
+DOMAIN, STANDARD_CODE_SCRAP_VIEW, 查看已废弃代码, null, 数据标准, 标准代码
+DOMAIN, DATA_STANDARD_DASHBOARD, 管理, null, 数据标准, 标准概览
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_DELETE, 删除修饰维度, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_VALUE_DELETE, 删除值, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_VIEW, 查看修饰维度, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_ADD, 添加修饰维度, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_VALUE_ADD, 添加值, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_IMPORT, 由标准代码导入, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_RENAME, 重命名修饰维度, null, 数据标准, 维度管理
+//DOMAIN, DATA_STANDARD_DIM_CATALOG_VALUE_RENAME, 重命名值, null, 数据标准, 维度管理
+//DOMAIN, RECOMMENDED_VIEW, 管理, null, 数据标准, 聚合推荐
+//DOMAIN, EXAMINATION_VIEW, 管理, null, 数据标准, 自动核标
+
+DOMAIN, SIMILARITY_CHECK_VIEW, 管理, null, 数据标准, 相似度检查
+
+//DOMAIN, DATA_STANDARD_CATEGORY_CREATE, 新建标准组, null, 数据标准, 领域数据标准
+//DOMAIN, DATA_STANDARD_CATEGORY_VIEW, 查看, null, 数据标准, 领域数据标准
+//DOMAIN, DATA_STANDARD_PARAM_MANAGE, 管理, null, 数据标准, 参数配置
+
+DOMAIN, ABOLISH_STANDARD_VIEW, 管理, null, 数据标准, 废弃标准
+
+
+DOMAIN, APPLY_VIEW, 查看, null, 数据标准, 批次管理
+DOMAIN, APPLY_CONFIRM, 确认, null, 数据标准, 批次管理
+DOMAIN, APPLY_DELETE, 删除, null, 数据标准, 批次管理
+DOMAIN, APPLY_CONFIRM_MAG, 管理, null, 数据标准, 批次管理
+

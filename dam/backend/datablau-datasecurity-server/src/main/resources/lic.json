@@ -1,0 +1,31 @@
+[
+  {
+    "featureCode": "FE_SECURITY",
+    "interceptUrls": [
+      "/datasecurity/**",
+      "!/datasecurity/dataSecurity/create/**",
+      "!/datasecurity/dataSecurity/update/**",
+      "!/datasecurity/dataSecurity/enable/**",
+      "!/datasecurity/dataSecurity/delete/**",
+      "!/datasecurity/dataSecurity/page/**",
+      "!/datasecurity/dataSecurity/group/**",
+      "!/datasecurity/dataSecurity/server/**",
+      "!/datasecurity/dataSecurity/search/**",
+      "!/datasecurity/dataSecurity/model/tree/**"
+    ]
+  },
+  {
+    "featureCode": "FE_JDBC_GATEWAY",
+    "interceptUrls": [
+      "/datasecurity/dataSecurity/create/**",
+      "/datasecurity/dataSecurity/update/**",
+      "/datasecurity/dataSecurity/enable/**",
+      "/datasecurity/dataSecurity/delete/**",
+      "/datasecurity/dataSecurity/page/**",
+      "/datasecurity/dataSecurity/group/**",
+      "/datasecurity/dataSecurity/server/**",
+      "/datasecurity/dataSecurity/search/**",
+      "/datasecurity/dataSecurity/model/tree/**"
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+{
+  "type" : "GREENPLUM",
+  "loadClass" : "com.datablau.reverse.engineering.worker.greenplum.GreenplumWorker",
+  "build": "${build.timestamp}"
+}

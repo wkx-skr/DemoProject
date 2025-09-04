@@ -1,0 +1,5 @@
+{
+  "type" : "TRINO",
+  "loadClass" : "com.datablau.reverse.engineering.worker.trino.TrinoWorker",
+  "build": "${build.timestamp}"
+}

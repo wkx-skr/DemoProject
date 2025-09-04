@@ -1,0 +1,5 @@
+{
+  "type" : "HIVE",
+  "loadClass" : "com.datablau.reverse.engineering.worker.hive.HiveWorker",
+  "build": "${build.timestamp}"
+}

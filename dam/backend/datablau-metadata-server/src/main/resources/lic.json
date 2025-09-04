@@ -1,0 +1,15 @@
+[
+  {
+    "featureCode": "FE_META",
+    "interceptUrls": [
+      "/metadata/**",
+      "!/metadata/lineage/**"
+    ]
+  },
+  {
+    "featureCode": "FE_LINEAGE",
+    "interceptUrls": [
+      "/metadata/lineage/**"
+    ]
+  }
+]

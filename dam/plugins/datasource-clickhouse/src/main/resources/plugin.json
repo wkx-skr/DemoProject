@@ -1,0 +1,33 @@
+{
+  "datasourceType" : "CLICKHOUSE",
+  "displayName" : "ClickHouse",
+  "icon" : "clickHouse",
+  "datasourceClass" : "com.datablau.datasources.clickhouse.ClickHouseDatasource",
+  "jdbcDriverClass" : "ru.yandex.clickhouse.ClickHouseDriver",
+  "suggestVersion" : "21.9.4.35-2",
+  "build": "${build.timestamp}",
+  "options" : [{
+    "code": "HostServer",
+    "defaultValue": "localhost",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "PortNumber",
+    "defaultValue": "8123",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "AuthenticationType",
+    "candidate": [
+      "password"
+    ],
+    "defaultValue": 0,
+    "required": false
+  },  {
+    "code": "DatabaseName",
+    "defaultValue": "",
+    "required": false,
+    "multiple": true,
+    "candidate": []
+  }]
+}

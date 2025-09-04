@@ -1,0 +1,8 @@
+import java.text.SimpleDateFormat
+/**
+*  print current date as string
+*/
+Object call() {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
+    return sdf.format(new Date())
+}

@@ -1,0 +1,140 @@
+spring:
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  session:
+    store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      acks: 1
+      retries: 4
+      # producer将试图批处理消息记录，以减少请求次数，这项配置控制默认的批量处理消息字节数，默认值16384，单位bytes
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        # producer发送消息的延时，与batch-size配合使用，默认值0，单位ms
+        linger:
+          ms: 100
+      # producer可以用来缓存数据的内存大小。如果数据产生速度大于向broker发送的速度，producer会阻塞或者抛出异常，
+      # 默认值33554432，单位bytes
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    consumer:
+      group-id: jdbcgateway
+      enable-auto-commit: true
+      auto-commit-interval: 1000
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.*"
+    listener:
+      missing-topics-fatal: false
+
+
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /audit
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    org.hibernate.tool.hbm2ddl: DEBUG
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: ${audit.service.call-port}
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: ${common.redisson.config.location}
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-audit-web
+    enable: true
+  sys-log:
+    # 系统日志保存时间 单位：天
+    save-date: 5
+  elastic:
+    client: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    username: ${common.ddc.username}
+    password: ${common.ddc.password}
+    indices:
+      #es 数据安全网关查询信息 index 名称
+      connection: audit_jdbcgateway_connection
+      result: audit_jdbcgateway_result
+      query: audit_jdbcgateway_query
+      proxy: audit_jdbcgateway_proxy
+      operation: audit_common_operation
+      gateway: audit_jdbcgateway_desensitization
+      system: audit_system_log
+  kafka:
+    log:
+      enable: true
+  kafka-topic:
+    audit-jdbc-gateway-proxy: ${common.kafka.topic.audit.proxy}
+    audit-jdbc-gateway-single: ${common.kafka.topic.audit.single}
+    audit-jdbc-gateway-rewrite: ${common.kafka.topic.audit.rewrite}
+    audit-jdbc-gateway-fetch: ${common.kafka.topic.audit.fetch}
+    audit-jdbc-gateway-result: ${common.kafka.topic.audit.result}
+    audit-jdbc-gateway-query: ${common.kafka.topic.audit.query}
+    audit-jdbc-gateway-connection: ${common.kafka.topic.audit.connection}
+    audit-common-log: ${common.kafka.topic.audit.log}
+    audit-system-log: ${common.kafka.topic.audit.system-log}

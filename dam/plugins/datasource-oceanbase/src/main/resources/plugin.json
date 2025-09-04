@@ -1,0 +1,38 @@
+{
+  "datasourceType": "OCEANBASE",
+  "displayName": "OceanBase",
+  "icon": "oceanbase",
+  "datasourceClass": "com.datablau.datasources.oceanbase.OceanBaseDatasource",
+  "jdbcDriverClass": "com.mysql.jdbc.Driver",
+  "suggestVersion": "2.2.50",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "type" : "FUSIONINSIGHT",
+  "loadClass" : "com.datablau.reverse.engineering.worker.fusioninsight.FusioninsightWorker",
+  "build": "${build.timestamp}"
+}

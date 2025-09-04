@@ -1,0 +1,5 @@
+{
+  "type" : "MASTERDATA",
+  "loadClass" : "com.datablau.reverse.engineering.worker.masterdata.MasterDataWorker",
+  "build": "${build.timestamp}"
+}

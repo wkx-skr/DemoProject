@@ -1,0 +1,32 @@
+/* 改变主题色变量 */
+
+/* 默认颜色主题 */
+$--color-primary: #4386f5; // 默认颜色
+//$--color-primary: var(--main-color); // 默认颜色
+
+
+//$theme: dark;
+// // 根据 js 调整 主题
+// //初次进入调用
+// // 1个mixin, 设置多个主题
+// // 每个主题一个 mixin, 新增主题, 新增 mixin (使用)
+//@mixin theme-main-color($theme){
+//  //3.4 版本以后, mixin 内 对变量赋值, 意味着重新定义 同名局部变量, 需要叫 !global 修改作用域
+//  @if ($theme == default) {
+//    $--color-primary: #4386f5 !global;
+//    //$--color-primary: #42b983;
+//  } @else if (true) {
+//    $--color-primary: #42b983 !global;
+//  }
+//}
+////主题 列表
+//@include theme-main-color($theme);
+
+/* ****************************** 引入默认样式 ******************************************** */
+
+/* 改变 icon 字体路径变量，必需 */
+//$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+//框架自带样式后引入, 内部设置的值使用了 default 关键字, 如果之前设置有值, 引入的值不会生效
+//如 $--color-primary: #409EFF !default;
+//@import "~element-ui/packages/theme-chalk/src/index";

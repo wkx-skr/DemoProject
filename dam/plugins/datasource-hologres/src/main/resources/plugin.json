@@ -1,0 +1,43 @@
+{
+  "datasourceType": "HOLOGRES",
+  "displayName": "Hologres",
+  "icon": "hologres",
+  "datasourceClass": "com.datablau.datasources.hologres.HologresDatasource",
+  "jdbcDriverClass": "org.postgresql.Driver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "5432",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "candidate": [],
+      "requiredOnSave": true
+    }
+  ]
+}

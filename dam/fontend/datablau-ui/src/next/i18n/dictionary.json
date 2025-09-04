@@ -1,0 +1,36 @@
+{
+  "Common": {
+    "评分": "Star",
+    "访问次数": "Viewed",
+    "问答": "Comments",
+    "引用信息": "Reference"
+  },
+  "BusinessGlossary": {
+    "基础标准": "Business Glossary",
+    "域标准": "Data Domain",
+    "标准代码": "Reference Data",
+    "领域数据标准": "Application Business Glossary",
+    "命名词典": "Naming Dictionary",
+    "标准落地": "Tools",
+    "智能对标": "Intelligent Mapping",
+    "聚合推荐": "Clustering"
+  },
+  "Metrics": {
+    "指标标准（菜单名称）": "Business Metrics",
+    "指标标准（页面名称）": "Metrics"
+  },
+  "Metadata": {
+    "数据集": "Dataset",
+    "采集管理": "Management",
+    "应用系统": "Application",
+    "系统调用": "Data Flow"
+  },
+  "Quality": {
+    "问题报告": "Issue Report",
+    "技术规则": "Data Rule",
+    "问题监控": "Issue Tracking",
+    "问题核验": "Validation"
+  },
+  "Others": {
+  }
+}

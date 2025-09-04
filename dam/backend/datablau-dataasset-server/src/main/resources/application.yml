@@ -1,0 +1,188 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+    command-config: disable
+  session:
+    store-type: redis
+  main:
+    banner-mode: console
+  aop:
+    proxy-target-class: true
+    #kafka 配置
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      retries: 3
+      acks: 1
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    listener:
+      ack-mode: manual_immediate
+    consumer:
+      group-id: datablau_dataasset
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      max-poll-records: 500
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.*"
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /assets
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org.springframework.session: ERROR
+    org.springframework.boot.autoconfigure.security: WARN
+    org.apache.kafka: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    build:
+      version: 7.0.0
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+  db:
+    url: jdbc:mysql://${datablau.db.ip-address}:${datablau.db.port}/${datablau.db.target}${datablau.db.parameters}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: 7_742_data_asset
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    #ES的用户名
+    username: ${common.ddc.username}
+    #ES的密码
+    password: ${common.ddc.password}
+    type: _doc
+    lowercase: false
+    indices:
+      #数据资产
+      ddc_asset: ddc_assets
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 11100
+  kafka-topic:
+    audit-jdbc-gateway-connection: ${common.kafka.topic.audit.log}
+    catalog-visible-update: datablau-dataasset.visible.update
+    workflow-dataasset-catalog-publish: datablau-workflow-CATALOG_PUBLISH_APPLY
+    workflow-dataasset-catalog-offline: datablau-workflow-CATALOG_OFFLINE_APPLY
+    workflow-dataasset-assets-publish: datablau-workflow-ASSET_PUBLISH_APPLY
+    workflow-dataasset-assets-offline: datablau-workflow-ASSET_OFFLINE_APPLY
+    workflow-dataasset-catalog-change: datablau-workflow-CATALOG_CHANGE_APPLY
+    workflow-dataasset-catalog-authority: datablau-workflow-AUTHORITY_APPLY
+    workflow-dataasset-assets-authority: datablau-workflow-ASSET_AUTHORITY_APPLY
+    domain-update: datablau-domain.domain.update
+    standard-update: datablau-domain.standard.update
+    metadata-change: ${common.kafka.topic.metadata.metadata-change}
+    tag-update: ${common.kafka.topic.metadata.tag-update}
+    domain-tag-update: ${common.kafka.topic.domain.domain-tag-update}
+    file-desc-update: ${common.kafka.topic.metadata.file-desc-update}
+    star-update: ${common.kafka.topic.base.star-update}
+    manager-update: ${common.kafka.topic.metadata.manager-update}
+    dept-update: ${common.kafka.topic.metadata.dept-update}
+    report-update: ${common.kafka.topic.metadata.report-update}
+    visit-add: ${common.kafka.topic.base.visit-add}
+    model-delete: ${common.kafka.topic.metadata.model-delete}
+    #系统日志
+    audit-system-log: ${common.kafka.topic.audit.system-log}
+    entity-change-event: ${common.kafka.topic.entity-change-event}
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-data-assets-web
+    enable: true
+  dam:
+    server:
+      enable: ${common.dam.connectable}
+  domain:
+    service:
+      enable: true
+  # 是否采用新指标
+  metric:
+    service:
+      enable: true
+  dds:
+    server:
+      enable: false
+  graph:
+    enable: true
+  minio:
+    enable: false
+  #swagger开关
+  swagger-ui-open: true
+  upload:
+    pool:
+      size: 50
+  job:
+    version: 7.0.0
+    file:
+  dop:
+    dopUrl: http://10.37.19.188 # UAT环境：http://10.37.19.188 PROD环境：https://dop.pipechina.com.cn
+    enable: false

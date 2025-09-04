@@ -1,0 +1,145 @@
+spring:
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  session:
+    store-type: redis
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      # producer需要server接收到数据之后发出的确认接收的信号
+      # acks=0：设置为0表示producer不需要等待任何确认收到的信息。副本将立即加到socket  buffer并认为已经发送。没有任何保障可以保证此种情况下server已经成功接收数据，同时重试配置不会发生作用（因为客户端不知道是否失败）回馈的offset会总是设置为-1；
+      # acks=1： 这意味着至少要等待leader已经成功将数据写入本地log，但是并没有等待所有follower是否成功写入。这种情况下，如果follower没有成功备份数据，而此时leader又挂掉，则消息会丢失。
+      # acks=all： 这意味着leader需要等待所有备份都成功写入日志，这种策略会保证只要有一个备份存活就不会丢失数据。这是最强的保证。
+      acks: 1
+      retries: 4
+      # producer将试图批处理消息记录，以减少请求次数，这项配置控制默认的批量处理消息字节数，默认值16384，单位bytes
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        # producer发送消息的延时，与batch-size配合使用，默认值0，单位ms
+        linger:
+          ms: 100
+      # producer可以用来缓存数据的内存大小。如果数据产生速度大于向broker发送的速度，producer会阻塞或者抛出异常，
+      # 默认值33554432，单位bytes
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    listener:
+      ack-mode: manual_immediate
+    consumer:
+      group-id: datablau_usermanagement
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      max-poll-records: 500
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.*"
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:schema.sql
+#  jpa:
+#    hibernate:
+#      ddl-auto: none
+
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /user
+  error:
+    include-stacktrace: always
+
+logging:
+  #kafka 发送系统日志，注释掉可以取消kafka发送，只在控制台打印
+  #config: classpath:log4j2-kafka.xml
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org.springframework.session: error
+    org.springframework.boot.autoconfigure.security: WARN
+    org.apache.kafka: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: localhost #读取bootstrap中设置的port
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: usermgmt
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 5100
+  # 知识图谱开关（dam、用户微服务、数据标准微服务、数据服务微服务需要设置）
+  graph:
+    enable: true
+  # 用户连续登录失败次数限制
+  login-fail-max-count: 5
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-user-web
+    enable: true
+  kafka-topic:
+    #系统日志
+    audit-system-log: ${common.kafka.topic.audit.system-log}
+    audit-common-log: ${common.kafka.topic.audit.log}
+

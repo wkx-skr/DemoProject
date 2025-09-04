@@ -1,0 +1,5 @@
+{
+  "type" : "INCEPTOR",
+  "loadClass" : "com.datablau.reverse.engineering.worker.inceptor.InceptorWorker",
+  "build": "${build.timestamp}"
+}

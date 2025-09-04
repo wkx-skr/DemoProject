@@ -1,0 +1,44 @@
+{
+  "datasourceType": "DATABRICKS",
+  "displayName": "DataBricks",
+  "icon": "databricks",
+  "datasourceClass": "com.datablau.datasources.databricks.DataBricksDatasource",
+  "jdbcDriverClass": "com.databricks.client.jdbc.Driver",
+  "suggestVersion": "3.5.1",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "443",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": false,
+      "multiple": true,
+      "candidate": [],
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false
+    }
+  ]
+}

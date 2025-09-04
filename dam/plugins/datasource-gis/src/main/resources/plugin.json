@@ -1,0 +1,33 @@
+{
+  "datasourceType": "GIS",
+  "displayName": "GIS",
+  "icon": "GIS",
+  "datasourceClass": "com.datablau.datasources.gis.GisDataSource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+     {
+       "code": "gisUrl",
+       "defaultValue": "",
+       "label": "gis请求路径",
+       "required": true,
+       "requiredOnSave": true
+    },
+    {
+      "code": "gisDataSheet1",
+      "defaultValue": "",
+      "label": "gis数据Excel表单sheet1名称",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "gisDataSheet2",
+      "defaultValue": "",
+      "label": "gis数据Excel表单sheet2名称",
+      "required": true,
+      "requiredOnSave": true
+    }
+  ]
+}

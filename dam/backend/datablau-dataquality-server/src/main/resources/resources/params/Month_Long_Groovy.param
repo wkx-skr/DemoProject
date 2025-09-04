@@ -1,0 +1,7 @@
+Object call() {
+    String dateStr = [[Date]]
+    String[] timeArr = dateStr.split(" ")
+    String date = timeArr[0]
+    String[] parts = date.split("-")
+    return Long.parseLong(parts[1])
+}

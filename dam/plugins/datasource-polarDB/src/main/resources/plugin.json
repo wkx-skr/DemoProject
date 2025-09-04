@@ -1,0 +1,40 @@
+{
+  "datasourceType": "POLARDB",
+  "displayName": "polardb",
+  "icon": "PolarDB",
+  "datasourceClass": "com.datablau.datasources.polarDB.PolarDBDatasource",
+  "jdbcDriverClass": "com.aliyun.polardb.Driver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "required": false
+    }
+  ]
+}

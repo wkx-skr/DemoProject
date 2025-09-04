@@ -1,0 +1,22 @@
+<svg id="组件_91_1" data-name="组件 91 – 1" xmlns="http://www.w3.org/2000/svg" width="114" height="90" viewBox="0 0 114 90">
+  <circle id="椭圆_1699" data-name="椭圆 1699" cx="45" cy="45" r="45" transform="translate(10)" fill="#f7f7f7"/>
+  <path id="路径_3390" data-name="路径 3390" d="M244.869,270.14h-2.4v-2.4a1.3,1.3,0,0,0-2.6,0v2.4h-2.4a1.3,1.3,0,0,0,0,2.6h2.4v2.4a1.3,1.3,0,1,0,2.6,0v-2.4h2.4a1.3,1.3,0,0,0,0-2.6Z" transform="translate(-233.169 -265.44)" fill="#efefef"/>
+  <path id="路径_3391" data-name="路径 3391" d="M346.437,310.542H345V309.1a.78.78,0,1,0-1.56,0v1.441H342a.78.78,0,1,0,0,1.559h1.44v1.44a.78.78,0,1,0,1.56,0V312.1h1.44a.78.78,0,1,0,0-1.559Z" transform="translate(-233.217 -266.322)" fill="#e0e0e0"/>
+  <circle id="椭圆_1700" data-name="椭圆 1700" cx="3" cy="3" r="3" transform="translate(0 39)" fill="#efefef"/>
+  <circle id="椭圆_1701" data-name="椭圆 1701" cx="1.5" cy="1.5" r="1.5" transform="translate(99 17)" fill="#e0e0e0"/>
+  <g id="组_3760" data-name="组 3760" transform="translate(-389 -296)">
+    <g id="组_3759" data-name="组 3759" transform="translate(-1 29)">
+      <rect id="矩形_17788" data-name="矩形 17788" width="44" height="34" rx="2" transform="translate(418 291)" fill="#e0e0e0"/>
+      <rect id="矩形_17789" data-name="矩形 17789" width="38" height="29" rx="2" transform="translate(421 294)" fill="#fff"/>
+      <rect id="矩形_17790" data-name="矩形 17790" width="3" height="29" transform="translate(431 294)" fill="#e0e0e0"/>
+      <rect id="矩形_17792" data-name="矩形 17792" width="3" height="39" transform="translate(459 302) rotate(90)" fill="#e0e0e0"/>
+      <rect id="矩形_17793" data-name="矩形 17793" width="3" height="39" transform="translate(459 313) rotate(90)" fill="#e0e0e0"/>
+      <rect id="矩形_17791" data-name="矩形 17791" width="3" height="29" transform="translate(447 294)" fill="#e0e0e0"/>
+    </g>
+    <g id="组_3758" data-name="组 3758" transform="translate(9 37)">
+      <rect id="矩形_17788-2" data-name="矩形 17788" width="44" height="34" rx="2" transform="translate(418 291)" fill="#c7c7c7"/>
+      <rect id="矩形_17789-2" data-name="矩形 17789" width="38" height="29" rx="2" transform="translate(421 294)" fill="#fff"/>
+      <path id="联合_417" data-name="联合 417" d="M3018-2158v-7h-13v7h-3v-7h-11v-3h11v-8h-11v-3h11v-8h3v8h13v-8h3v8h9v3h-9v8h9v3h-9v7Zm0-10v-8h-13v8Z" transform="translate(-2571 2481)" fill="#c7c7c7"/>
+    </g>
+  </g>
+</svg>

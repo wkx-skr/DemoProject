@@ -1,0 +1,5 @@
+{
+  "type" : "DATABRICKS",
+  "loadClass" : "com.datablau.reverse.engineering.worker.databricks.DataBricksWorker",
+  "build": "${build.timestamp}"
+}

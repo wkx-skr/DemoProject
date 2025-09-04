@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean id="kettleLineageParser" class="com.andorj.lineage.kettle.KettleParser"/>
+  <bean id="tableauLineageParser" class="com.andorj.lineage.tableau.TableauParser"/>
+  <bean id="datastageLineageParser" class="com.andorj.lineage.datastage.DataStageParser"/>
+  <bean id="ssisLineageParser" class="com.andorj.lineage.ssis.SSISParser"/>
+  <bean id="restCloudParser" class="com.andorj.lineage.restcloud.RestCloudParser"/>
+  <bean id="genSqlParser" class="com.andorj.lineage.generalsql.GeneralSqlParser"/>
+  <bean id="informaticParser" class="com.andorj.lineage.informatica.InformaticaParser"/>
+  <bean id="sqlServerTsqlParser" class="com.andorj.lineage.sql.sqlserver.SqlServerTSqlParser"/>
+  <bean id="plSqlParser" class="com.andorj.lineage.sql.plsql.PlSqlParser"/>
+  <bean id="postgreSqlParser" class="com.andorj.lineage.sql.postgresql.PostgreSqlParser"/>
+  <bean id="gaussdbParser" class="com.andorj.lineage.sql.postgresql.GaussDBParser"/>
+  <bean id="hqlParser" class="com.andorj.lineage.sql.hql.HqlParser"/>
+  <bean id="flinkParser" class="com.andorj.lineage.sql.flink.FlinkSqlScriptParser" />
+  <bean id="mysqlParser" class="com.andorj.lineage.sql.mysql.MySqlParser" />
+  <bean id="dataXCommonParse" class="com.andorj.lineage.datax.parse.DataXCommonParse" />
+  <bean id="clickHouseScriptParser" class="com.andorj.lineage.sql.clickhouse.ClickHouseScriptParser" />
+  <bean id="redshiftParser" class="com.andorj.lineage.sql.postgresql.RedshiftParser" />
+  <bean id="gbaseLineageParser" class="com.andorj.lineage.sql.mysql.GBaseParser" />
+  <bean id="starRocksParser" class="com.andorj.lineage.sql.starrocks.StarRocksParser" />
+
+</beans>

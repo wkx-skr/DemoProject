@@ -1,0 +1,39 @@
+{
+  "datasourceType": "IMPALA",
+  "displayName": "Impala",
+  "icon": "impala",
+  "datasourceClass": "com.datablau.datasources.impala.ImpalaDatasource",
+  "jdbcDriverClass": "com.cloudera.impala.jdbc41.Driver",
+  "suggestVersion": "1.1",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "21050",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    }
+  ]
+}

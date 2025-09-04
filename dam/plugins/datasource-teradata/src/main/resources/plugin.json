@@ -1,0 +1,32 @@
+{
+  "datasourceType" : "TERADATA",
+  "displayName" : "Teradata",
+  "icon" : "teradata",
+  "datasourceClass" : "com.datablau.datasources.teradata.TeradataDatasource",
+  "jdbcDriverClass" : "com.ncr.teradata.TeraDriver",
+  "suggestVersion" : "14.0.5",
+  "build": "${build.timestamp}",
+  "options" : [{
+    "code": "HostServer",
+    "defaultValue": "localhost",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "PortNumber",
+    "defaultValue": "1025",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "AuthenticationType",
+    "candidate": [
+      "password"
+    ],
+    "defaultValue": 0,
+    "required": false
+  },  {
+    "code": "DatabaseName",
+    "defaultValue": "",
+     "required": true,
+ "requiredOnSave": true
+  }]
+}

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="56" height="56" viewBox="0 0 56 56">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="矩形_18256" data-name="矩形 18256" width="56" height="56" transform="translate(6243 -326)" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <rect id="矩形_18253" data-name="矩形 18253" width="48" height="55" transform="translate(0 -55)" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <path id="路径_4580" data-name="路径 4580" d="M0,0H48V-55H0Z" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-4">
+      <path id="路径_4584" data-name="路径 4584" d="M44-22v8.727C44-9.254,35.047-6,24-6S4-9.254,4-13.273H4V-22c0,4.018,8.953,7.273,20,7.273S44-17.982,44-22Zm0-13v8.727C44-22.254,35.047-19,24-19S4-22.254,4-26.273H4V-35c0,4.018,8.953,7.273,20,7.273S44-30.982,44-35ZM24-53c11.047,0,20,3.356,20,7.5h0v6c0,4.144-8.953,7.5-20,7.5S4-35.356,4-39.5H4v-6C4-49.644,12.953-53,24-53Z" fill="none" clip-rule="evenodd"/>
+    </clipPath>
+    <clipPath id="clip-path-5">
+      <path id="路径_4583" data-name="路径 4583" d="M-244,1191H1676V-409H-244Z" fill="none"/>
+    </clipPath>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.069" x2="0.5" y2="18.687" gradientUnits="objectBoundingBox">
+      <stop offset="0"/>
+      <stop offset="0" stop-color="#2871eb"/>
+      <stop offset="0.1" stop-color="#327aed"/>
+      <stop offset="0.2" stop-color="#3d83ef"/>
+      <stop offset="0.3" stop-color="#488cf1"/>
+      <stop offset="0.4" stop-color="#5295f3"/>
+      <stop offset="0.5" stop-color="#5d9ef5"/>
+      <stop offset="0.6" stop-color="#68a7f7"/>
+      <stop offset="0.7" stop-color="#72aff9"/>
+      <stop offset="0.8" stop-color="#7db8fb"/>
+      <stop offset="0.9" stop-color="#88c1fd"/>
+      <stop offset="1" stop-color="#92caff"/>
+      <stop offset="1"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0.069" x2="0.5" y2="0.891" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2871eb"/>
+      <stop offset="0.1" stop-color="#327aed"/>
+      <stop offset="0.2" stop-color="#3d83ef"/>
+      <stop offset="0.3" stop-color="#488cf1"/>
+      <stop offset="0.4" stop-color="#5295f3"/>
+      <stop offset="0.5" stop-color="#5d9ef5"/>
+      <stop offset="0.6" stop-color="#68a7f7"/>
+      <stop offset="0.7" stop-color="#72aff9"/>
+      <stop offset="0.8" stop-color="#7db8fb"/>
+      <stop offset="0.9" stop-color="#88c1fd"/>
+      <stop offset="1" stop-color="#92caff"/>
+    </linearGradient>
+  </defs>
+  <g id="蒙版组_44" data-name="蒙版组 44" transform="translate(-6243 326)" clip-path="url(#clip-path)">
+    <g id="组_4412" data-name="组 4412" transform="translate(6247 -270)">
+      <g id="组_4405" data-name="组 4405">
+        <g id="组_4404" data-name="组 4404" clip-path="url(#clip-path-2)">
+          <image id="矩形_18252" data-name="矩形 18252" width="48" height="55" transform="translate(0 -55)" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAA3CAYAAABKB8k/AAAABHNCSVQICAgIfAhkiAAABOhJREFUaIHtWlt22zoQg2T51knb/S/gLqibaez4qX6YMEFoSMuN6/gjPIdHlMxQADmcAUfp/v+1xV+UrtJuPQOA8cqz6PdmGWb264JrF9xrH21HIMegPQZ9mqVFIALbAeildnKNqpaxUk9yPcl9jdRVAgqc4BapvUh1sHslFpGIQBPoMdUTgIPdH6W/TkSVgM8ywQ4AlnJdym8LTFdlLgGCJPB9qge58jf2L0goAb6Qs7oE8F+q36RNAoP0/SgBkiCBXapbae+l74UECSh4Al+l+pKuSsLBf3QPKAkF/w5gk67v6TmUxBCA/wbgFcD3VJUATcdtXycBcu8EnAww3Qs0JRJYAXiT97EcgXIFFjjP7iuAn6l+T/c0HTWX2kzXYkBERMmoaR1xnrAV8or30v/iBLgC3LAk8EMIrFBu1gj0LaVFWInQYfC9XCXukyMJcJAB2fZfU31Jz+4BfE7xeEOzGXHeH1uc98Q2kbiYEDtzD7AOmNreI4oSGQyTrkoxsx6odKN+VlG3Hnq+3jq7P3+WUsWmLhBB+9nKBKe6JgTtZysTnL09cEX4LKWKjf41CulsfyYRjdCuVEdIHBhRahGKqCjyPgo4J9UxkUgh5rTjBtnfcrB7RuK5wDmh7wDWCddGSJxIQP+IBJYJJAf6DC1EWb3BWcy9CYHQhHQV3pDNaocsqh6pRnfIMnqdqs7+xYT8xRxgk9qUtXqg+dfnARKIDjQ6QZ3LaZ1Zgt8nAnoS85W4x4ksOlLqUdIxXvaAEqCY0w2sptUja3NeVTXeQoBmc5J36HW08YFSVh9IwM8DL4lEh/Kcyj86BCBrZqSllVLxFIpOKFd9xNkiTglPj8CElsjnAS5T5IOvReuaJ2r1d+WpyYQ+vbdDjk8dMM1K8A95kAHyQSLKDhRRUQDWgLrHchkfZUOIkRNIq4ET4MBqSn0CuEI2pVq+RjNsJKEmwZdqRq+Wf9Lay5iT80kttahEkGZCtYi2dRVaNh3tGZ/9wdpcsZ0DdwLuj8mYRNjXU4LXgCuBOUR8ZYDs+x3fJZCpR9Cs2A5TV7kwcJG5aNuLmlJkVkpWQSumvRAYXcwxobQW8CNKInqG4OrcciC6dvrTQKeZiDVyYA3FHJluDPwBUzHX8vlKMCotMaemrHrIxRzldCjmtsgzywhMf0xP4aoUmJpHC7ybnGeq9QxAGc0VqIo5JpC4EpD2tcx0pEpbkRgoHUArQ62BlDN/eYdGYv9gccR5+ahMVcjpSjiJW7SQg9fvAnv53cUco3Io5jjTPNAc0sso5hZWIyXq6Rqf9ZYiVTfJsZZyr6Z2Vcx5MpUzM0fI3XIe0HvVRfo16MNiTono556DAb31SKkbX/UQpf1Tiblolb7EXG2mvsScEZhD5EvMUXtQzDE6f6aY46fWNfKn1lDMkYCCr2XmHinmmJn7jTK5NVkB5oEIUFdFP3c+Usxx9lWNbiH7dJCBuAfY1kH4ga2VmbunmGPwVDX6jhxQJ3tAB+TLuIxMKyoBJXGPxFakRDV4cvMWqXWgdKMs7KC5Sg0wA2I1eo9/9lBFurdn6sInBFj4g6f8IhXq4N2vwwgApdm47UfVo7xPdhiJfTWoxUnEg01Nic5Vo74iUWCcAG8RcCKUuEAZoWtBqeaJHEgU/KI+zTL3n/5q0iACWntWA3RLEJyUP0QblWE0H/wFAAAAAElFTkSuQmCC"/>
+        </g>
+      </g>
+      <g id="组_4406" data-name="组 4406" clip-path="url(#clip-path-3)">
+        <path id="路径_4579" data-name="路径 4579" d="M140-22v8.727C140-9.254,131.047-6,120-6s-20-3.254-20-7.273h0V-22c0,4.018,8.953,7.273,20,7.273S140-17.982,140-22Zm0-13v8.727C140-22.254,131.047-19,120-19s-20-3.254-20-7.273h0V-35c0,4.018,8.953,7.273,20,7.273S140-30.982,140-35ZM120-53c11.047,0,20,3.356,20,7.5h0v6c0,4.144-8.953,7.5-20,7.5s-20-3.356-20-7.5h0v-6C100-49.644,108.953-53,120-53Z" fill-rule="evenodd"/>
+      </g>
+      <g id="组_4411" data-name="组 4411" clip-path="url(#clip-path-4)">
+        <g id="组_4410" data-name="组 4410" clip-path="url(#clip-path-5)">
+          <g id="组_4408" data-name="组 4408" opacity="0">
+            <g id="组_4407" data-name="组 4407" transform="translate(4 -53)">
+              <path id="路径_4581" data-name="路径 4581" d="M-4-2H44V53H-4Z" fill="url(#linear-gradient)"/>
+            </g>
+          </g>
+          <g id="组_4409" data-name="组 4409" transform="translate(4 -53)">
+            <path id="路径_4582" data-name="路径 4582" d="M-4-2H44V53H-4Z" fill="url(#linear-gradient-2)"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

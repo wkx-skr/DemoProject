@@ -1,0 +1,46 @@
+{
+  "datasourceType": "TIMESERIESVIEW",
+  "displayName": "TIMESERIESVIEW",
+  "icon": "TIMESERIESVIEW",
+  "datasourceClass": "com.datablau.datasources.timeseriesview.TimeseriesViewSource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "timeSeriesDatasourceUrl",
+      "defaultValue": "",
+      "label": "时序数据源请求路径",
+      "required": true,
+      "requiredOnSave": true
+    },{
+      "code": "timeSeriesDatasourceCollectName",
+      "defaultValue": "",
+      "label": "时序数据源采集名称",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "timeSeriesViewUrl",
+      "defaultValue": "",
+      "label": "时序视图请求路径",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "timeSeriesViewSheet1",
+      "defaultValue": "",
+      "label": "时序视图ExcelSheet1",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "timeSeriesViewSheet2",
+      "defaultValue": "",
+      "label": "时序视图ExcelSheet2",
+      "required": true,
+      "requiredOnSave": true
+    }
+  ]
+}

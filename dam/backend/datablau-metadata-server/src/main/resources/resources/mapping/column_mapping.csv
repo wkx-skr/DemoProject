@@ -1,0 +1,134 @@
+MySQL, 数值, TINYINT
+MySQL, 数值, SMALLINT
+MySQL, 数值, MEDIUMINT
+MySQL, 数值, INT
+MySQL, 数值, INTEGER
+MySQL, 数值, BIGINT
+MySQL, 数值, FLOAT
+MySQL, 数值, DOUBLE
+MySQL, 数值, DOUBLE
+MySQL, 数值, DECIMA
+MySQL, 日期, DATE
+MySQL, 日期, TIME
+MySQL, 日期, YEAR
+MySQL, 日期, DATETIME
+MySQL, 日期, TIMESTAMP
+MySQL, 文本, CHAR
+MySQL, 文本, VARCHAR
+MySQL, 文本, TINYBLOB
+MySQL, 文本, TINYTEXT
+MySQL, 文本, TEXT
+MySQL, 文本, MEDIUMTEXT
+MySQL, 文本, LONGTEXT
+MySQL, 二进制文本, BLOB
+MySQL, 二进制文本, MEDIUMBLOB
+MySQL, 二进制文本, LONGBLOB
+Oracle, 文本, CAHR
+Oracle, 文本, VARCHAR
+Oracle, 文本, VARCHAR2
+Oracle, 文本, LONG
+Oracle, 文本, CLOB
+Oracle, 文本, NCHAR
+Oracle, 文本, NVARCHAR
+Oracle, 数值, INT
+Oracle, 数值, NUMBER
+Oracle, 数值, BINARY_FLOAT
+Oracle, 数值, BINARY_DOUBLE
+Oracle, 时间, DATE
+Oracle, 时间, TIMESTAMP
+Oracle, 时间, TIMESTAMP WITH TIME ZONE
+Oracle, 时间, TIMESTAMP WITH LOCAL TIME ZONE
+Oracle, 时间, INTERVAL YEAR TO MONTH
+Oracle, 时间, INTERVAL DAY TO SECOND
+Oracle, 二进制文件, BLOB
+Oracle, 二进制数据, RAW
+Oracle, 二进制数据, LONG RAW
+Oracle, 其他, ROWID
+Oracle, 其他, BFILE
+Oracle, 其他, UROWID
+Hive, 数值, TINYINT
+Hive, 数值, SMALLINT
+Hive, 数值, INT
+Hive, 数值, BIGINT
+Hive, 数值, FLOAT
+Hive, 数值, DOUBLE
+Hive, 文本, STRING
+Hive, 文本, TEXTFILE
+Hive, 文件, RCFILE
+Hive, 文件, ORC
+Hive, 文件, PARQUET
+Hive, 二进制文件, SEQUENCEFILE
+Hive, 复合数据, STRUCT
+Hive, 复合数据, MAP
+Hive, 复合数据, ARRAY
+Hive, 布尔, BOOLEAN
+PostgreSQL, JSON文件, JSON
+PostgreSQL, 数值, SMALLINT
+PostgreSQL, 数值, INTEGER
+PostgreSQL, 数值, BIGINT
+PostgreSQL, 数值, DECIMAL
+PostgreSQL, 数值, NUMERIC
+PostgreSQL, 数值, REAL
+PostgreSQL, 数值, DOUBLE PRECISION
+PostgreSQL, 数值, SMALLSERIAL
+PostgreSQL, 数值, SERIAL
+PostgreSQL, 数值, BIGSERIAL
+PostgreSQL, 文本, CHARACTER
+PostgreSQL, 文本, CHAR
+PostgreSQL, 文本, TEXT
+PostgreSQL, 文本, VARING
+PostgreSQL, 文本, VARCHAR
+PostgreSQL, 时间, TIMESTAMP
+PostgreSQL, 时间, TIME
+PostgreSQL, 时间, DATE
+PostgreSQL, 时间, INTERVAL
+Gauss, 数值, TINYINT
+Gauss, 数值, SMALLINT
+Gauss, 数值, INTEGER
+Gauss, 数值, BIGINT
+Gauss, 数值, REAL
+Gauss, 数值, FLOAT4
+Gauss, 数值, FLOAT8
+Gauss, 数值, DOUBLE PRECISION
+Gauss, 数值, BINARY_DOUBLE
+Gauss, 数值, SMALLSERIAL2
+Gauss, 数值, SERIAL4
+Gauss, 数值, BIGSERIAL8
+Gauss, 数值, NUMBER
+Gauss, 数值, NUMERIC
+Gauss, 文本, CHAR
+Gauss, 文本, CHARACTER
+Gauss, 文本, NCHAR
+Gauss, 文本, VARCHAR
+Gauss, 文本, CLOB
+Gauss, 文本, TEXT
+Gauss, 时间, DATE
+Gauss, 时间, TIME
+Gauss, 时间, TIMESTAMP
+Gauss, 时间, SMALLDATETIME
+Gauss, 二进制文件, BLOB
+Gauss, 二进制文本, RAW
+Gauss, 二进制文本, BYTEA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

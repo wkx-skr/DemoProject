@@ -1,0 +1,45 @@
+{
+  "datasourceType": "OFFLINEDUMP_RAW",
+  "displayName": "Offline Dump_ex",
+  "icon": "offlinedump_ex",
+  "datasourceClass": "com.datablau.datasources.offlineRwaDump.OfflineRawDumpDatasource",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "driverId",
+      "defaultValue": "",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "HostServer",
+      "defaultValue": "192.168.1.59",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+       "required": true,
+ "requiredOnSave": true
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": false,
+      "multiple": true,
+      "candidate": [
+      ]
+    }
+  ]
+}

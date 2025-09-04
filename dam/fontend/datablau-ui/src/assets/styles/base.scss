@@ -1,0 +1,46 @@
+@import '~@/assets/styles/_webkitScrollbar.scss';
+@import '~@/assets/iconfont/iconfont.css';
+html {
+  height: 100%;
+}
+body {
+  height: 100%;
+}
+* {
+  box-sizing: border-box;
+
+  /* color: var(--base-font-color); */
+}
+body,
+div,
+ul,
+li,
+span,
+img,
+input,
+form { padding: 0; margin: 0; }
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+li,
+dd { margin: 0; }
+ul,
+ol { padding: 0; }
+body {
+  min-width: 1366px !important;
+  overflow-y: hidden;
+  //font-family: "Microsoft YaHei", "PingFang SC", serif;
+  font-size: 12px;
+  background-color: #f5f5f5;
+  &.body-for-dam_en {
+    min-width: 1280px !important;
+  }
+}

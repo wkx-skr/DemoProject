@@ -1,0 +1,37 @@
+{
+  "datasourceType": "CASSANDRA",
+  "displayName": "Cassandra",
+  "icon": "cassandra",
+  "datasourceClass": "com.datablau.datasources.cassandra.CassandraDatasource",
+  "jdbcDriverClass": "com.simba.cassandra.jdbc42.Driver",
+  "suggestVersion": "3.4.0",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "9042",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

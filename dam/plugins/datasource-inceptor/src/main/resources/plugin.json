@@ -1,0 +1,32 @@
+{
+  "datasourceType" : "INCEPTOR",
+  "displayName" : "Inceptor",
+  "icon" : "inceptor",
+  "datasourceClass" : "com.datablau.datasources.inceptor.InceptorDatasource",
+  "jdbcDriverClass" : "org.apache.hive.jdbc.HiveDriver",
+  "suggestVersion" : "8.02",
+  "build": "${build.timestamp}",
+  "options" : [{
+    "code": "HostServer",
+    "defaultValue": "localhost",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "PortNumber",
+    "defaultValue": "10000",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "AuthenticationType",
+    "candidate": [
+      "password"
+    ],
+    "defaultValue": 0,
+    "required": false
+  },  {
+    "code": "DatabaseName",
+    "defaultValue": "",
+     "required": true,
+ "requiredOnSave": true
+  }]
+}

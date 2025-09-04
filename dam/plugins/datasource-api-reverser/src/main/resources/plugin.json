@@ -1,0 +1,5 @@
+{
+  "type" : "API",
+  "loadClass" : "com.datablau.reverse.engineering.worker.api.ApiWorker",
+  "build": "${build.timestamp}"
+}

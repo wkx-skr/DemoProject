@@ -1,0 +1,166 @@
+spring:
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  session:
+    store-type: redis
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  main:
+    banner-mode: console
+  aop:
+    proxy-target-class: true
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      # producer需要server接收到数据之后发出的确认接收的信号
+      # acks=0：设置为0表示producer不需要等待任何确认收到的信息。副本将立即加到socket  buffer并认为已经发送。没有任何保障可以保证此种情况下server已经成功接收数据，同时重试配置不会发生作用（因为客户端不知道是否失败）回馈的offset会总是设置为-1；
+      # acks=1： 这意味着至少要等待leader已经成功将数据写入本地log，但是并没有等待所有follower是否成功写入。这种情况下，如果follower没有成功备份数据，而此时leader又挂掉，则消息会丢失。
+      # acks=all： 这意味着leader需要等待所有备份都成功写入日志，这种策略会保证只要有一个备份存活就不会丢失数据。这是最强的保证。
+      acks: 1
+      retries: 4
+      # producer将试图批处理消息记录，以减少请求次数，这项配置控制默认的批量处理消息字节数，默认值16384，单位bytes
+      batch-size: 16384
+      properties:
+        # producer发送消息的延时，与batch-size配合使用，默认值0，单位ms
+        linger:
+          ms: 100
+      # producer可以用来缓存数据的内存大小。如果数据产生速度大于向broker发送的速度，producer会阻塞或者抛出异常，
+      # 默认值33554432，单位bytes
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    listener:
+      ack-mode: manual_immediate
+    consumer:
+      group-id: datablau_datasecurity
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      max-poll-records: 500
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.*"
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /datasecurity
+  error:
+    include-stacktrace: always
+
+logging:
+  #kafka 发送系统日志，注释掉可以取消kafka发送，只在控制台打印
+  #config: classpath:log4j2-kafka.xml
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org.springframework.session: error
+    org.springframework.boot.autoconfigure.security: WARN
+    org.apache.kafka: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    build:
+      version: 7.0.0
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+  db:
+    url: jdbc:mysql://${datablau.db.ip-address}:${datablau.db.port}/${datablau.db.target}${datablau.db.parameters}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: data_security
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: classpath:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 11100
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-datasecurity-web
+    enable: true
+  #swagger开关
+  swagger-ui-open: true
+  kafka-topic:
+    #用户操作日志
+    audit-common-log: ${common.kafka.topic.audit.log}
+    #系统日志
+    audit-system-log: ${common.kafka.topic.audit.system-log}
+    #元数据变更
+    metadata-change: ${common.kafka.topic.metadata.metadata-change}
+    #删除数据源
+    model-delete: ${common.kafka.topic.metadata.model-delete}
+  kafka:
+    log:
+      enable: true
+    system-log:
+      enable: true
+    custom:
+      topic: metadata
+      groupId: metadata_datablau_datasecurity
+  job:
+    version: 7.0.0
+    file: /opt/datablau_security/datablau-datasecurity-7.0.0.jar
+  plugins:
+    datasource:
+      path: /opt/plugins/datasource
+  graph:
+    enable: true
+  minio:
+    enable: false
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    username: ${common.ddc.username}
+    password: ${common.ddc.password}
+    synonyms:
+      path: ${common.ddc.synonyms.path}
+      interval: ${common.ddc.synonyms.interval}
+      enable: ${common.ddc.synonyms.enable}
+    type: _doc
+    indices:
+      data_object: ddc_dataobject
+      report: ddc_report
+      model: ddc_model
+      model_category: ddc_model_category
+      dsf_file: ddc_share_file
+      ddc_asset: ddc_assets
+      ddc_catalog: ddc_catalog
+
+

@@ -1,0 +1,41 @@
+{
+  "datasourceType": "GAUSSDB",
+  "displayName": "GaussDB",
+  "icon": "gaussdb",
+  "datasourceClass": "com.datablau.datasources.gauss200.Gauss200Datasource",
+  "jdbcDriverClass": "com.huawei.gauss200.jdbc.Driver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "5432",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false
+    }
+  ]
+}

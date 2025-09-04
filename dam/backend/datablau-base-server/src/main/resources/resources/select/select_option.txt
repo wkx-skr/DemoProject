@@ -1,0 +1,90 @@
+1, MC, 创建应用系统时的IT部门, IT部门, 信息科技中心, NULL, NULL, NULL, NULL
+2, MC, 创建应用系统时的归属中心, 归属中心, 科技运营部, NULL, NULL, NULL, NULL
+3, MC, NULL, 归属中心, 测试管理中心, NULL, NULL, NULL, NULL
+4, MC, NULL, 归属中心, 数字银行应用研发中心, NULL, NULL, NULL, NULL
+5, MC, NULL, 归属中心, 金融市场应用研发中心, NULL, NULL, NULL, NULL
+6, MC, NULL, 归属中心, 公司银行应用研发中心, NULL, NULL, NULL, NULL
+7, MC, NULL, 归属中心, 零售银行应用研发中心, NULL, NULL, NULL, NULL
+8, MC, NULL, 归属中心, 综合金融应用研发中心, NULL, NULL, NULL, NULL
+9, MC, NULL, 归属中心, 移动及智慧银行应用研发中心, NULL, NULL, NULL, NULL
+10, MC, NULL, 归属中心, 大数据及管理信息应用研发中心, NULL, NULL, NULL, NULL
+11, MC, 创建应用系统时的业务条线, 业务条线, 总行, NULL, NULL, NULL, NULL
+12, MC, NULL, 业务条线, 零售银行, NULL, NULL, NULL, NULL
+13, MC, NULL, 业务条线, 公司银行, NULL, NULL, NULL, NULL
+14, MC, NULL, 业务条线, 数字银行, NULL, NULL, NULL, NULL
+15, MC, NULL, 业务条线, 金融市场部, NULL, NULL, NULL, NULL
+16, MC, NULL, 业务条线, 村镇银行, NULL, NULL, NULL, NULL
+17, MC, NULL, 业务条线, 金租公司, NULL, NULL, NULL, NULL
+18, TR, 质量规则业务类型请勿删除, 业务类型, 监管报送, NULL, NULL, NULL, NULL
+19, TR, 从标准生成技术规则时，生成的技术规则的业务类型为此值，特征是parent_id = -1, 业务类型, 标准映射, -1, NULL, NULL, NULL
+20, TR, 衡量所必须的数据的完整程度。数据完整性问题包括模型涉及不完整、数据条目不完整以及数据属性不完整等。不完整的数据会大大降低其借鉴价值，是数据质量问题中最为基础和常见的一类。, 规则大类, 完整性, NULL, NULL, NULL, NULL, DQtype01, 2
+21, TR, 数据之间应保持逻辑上的协调性和合理性，避免出现数据冲突或矛盾的情况。这包括数据编码、命名、含义、分类层次以及生命周期等方面的一致性。, 规则大类, 一致性, NULL, NULL, NULL, NULL, DQtype02, 4
+22, TR, 数据必须真实反映实际情况，不得伪造或错误。准确性是评估数据质量的首要标准，错误的数据在数据治理过程中毫无价值，还会浪费存储空间和管理精力。, 规则大类, 准确性, NULL, NULL, NULL, NULL, DQtype03, 1
+23, TR, 确保针对某个数据项或某组数据，没有重复的数据值。重复冗余的数据情况会导致业务无法协调，流程无法追溯。, 规则大类, 唯一性, NULL, NULL, NULL, NULL, DQtype04, 3
+24, TR, 关键数据应能够及时传递到目标位置，确保数据在需要时可用，避免过时数据对决策和分析的影响。, 规则大类, 及时性, NULL, NULL, NULL, NULL, DQtype05, 6
+25, TR, 数据应符合相关的业务规则和使用正确的存储格式。例如，银行卡号应在规定的位数范围内，否则视为无效数据。, 规则大类, 有效性, NULL, NULL, NULL, NULL, DQtype06, 5
+26, TR, NULL, 规则小类, 空值检查, 20, NULL, NULL, NULL, DQtype01_01, 1, DQtype01
+27, TR, NULL, 规则小类, 一致性检查, 21, NULL, NULL, NULL, DQtype02_01, 1, DQtype02
+28, TR, NULL, 规则小类, 主外键关联检查, 22, NULL, NULL, NULL, DQtype03_01, 1, DQtype03
+29, TR, NULL, 规则小类, 唯一性检查, 23, NULL, NULL, NULL, DQtype04_01, 1, DQtype04
+30, TR, NULL, 规则小类, 采集及时性, 24, NULL, NULL, NULL, DQtype05_01, 1, DQtype05
+31, TR, NULL, 规则小类, 更新及时性, 24, NULL, NULL, NULL, DQtype05_02, 2, DQtype05
+32, TR, NULL, 规则小类, 值域检查, 25, NULL, NULL, NULL, DQtype06_01, 1, DQtype06
+33, TR, NULL, 业务类型, EAST, NULL, NULL, NULL, NULL
+
+34, DOMAIN, NULL, 数据类型, BOOLEAN, 65, NULL, 整型, NULL
+35, DOMAIN, NULL, 数据类型, BYTE, 65, NULL, 整型, NULL
+36, DOMAIN, NULL, 数据类型, SMALL, 65, NULL, 整型, NULL
+37, DOMAIN, NULL, 数据类型, INTEGER, 65, NULL, 整型, NULL
+38, DOMAIN, NULL, 数据类型, LONG, 65, NULL, 整型, NULL
+39, DOMAIN, NULL, 数据类型, HUGE, 65, NULL, 整型, NULL
+40, DOMAIN, NULL, 数据类型, INTERVAL, 65, NULL, 整型, NULL
+41, DOMAIN, NULL, 数据类型, UNIQUEID, 65, NULL, 整型, NULL
+42, DOMAIN, NULL, 数据类型, DECIMAL, 66, NULL, 实数, NULL
+43, DOMAIN, NULL, 数据类型, DOUBLE, 66, NULL, 实数, NULL
+44, DOMAIN, NULL, 数据类型, FLOAT, 66, NULL, 实数, NULL
+45, DOMAIN, NULL, 数据类型, MONEY, 66, NULL, 实数, NULL
+46, DOMAIN, NULL, 数据类型, NUMBER, 66, NULL, 实数, NULL
+47, DOMAIN, NULL, 数据类型, NUMERIC, 66, NULL, 实数, NULL
+48, DOMAIN, NULL, 数据类型, SHORT FLOAT, 66, NULL, 实数, NULL
+49, DOMAIN, NULL, 数据类型, LONG FLOAT, 66, NULL, 实数, NULL
+50, DOMAIN, NULL, 数据类型, AUDIO, 67, NULL, 二进制, NULL
+51, DOMAIN, NULL, 数据类型, BINARY, 67, NULL, 二进制, NULL
+52, DOMAIN, NULL, 数据类型, IMAGE, 67, NULL, 二进制, NULL
+53, DOMAIN, NULL, 数据类型, LARGE BINARY, 67, NULL, 二进制, NULL
+54, DOMAIN, NULL, 数据类型, SECURITY_ID, 67, NULL, 二进制, NULL
+55, DOMAIN, NULL, 数据类型, VIDEO, 67, NULL, 二进制, NULL
+56, DOMAIN, NULL, 数据类型, SPATIAL, 67, NULL, 二进制, NULL
+57, DOMAIN, NULL, 数据类型, DATE, 68, NULL, 时间, NULL
+58, DOMAIN, NULL, 数据类型, TIME, 68, NULL, 时间, NULL
+83, DOMAIN, NULL, 数据类型, TIMESTAMP, 68, NULL, 时间, NULL
+59, DOMAIN, NULL, 数据类型, VARCHAR, 69, NULL, 字符串, NULL
+60, DOMAIN, NULL, 数据类型, CHAR, 69, NULL, 字符串, NULL
+61, DOMAIN, NULL, 数据类型, NCHAR, 69, NULL, 字符串, NULL
+62, DOMAIN, NULL, 数据类型, NVARCHAR, 69, NULL, 字符串, NULL
+63, DOMAIN, NULL, 数据类型, TEXT, 69, NULL, 字符串, NULL
+64, DOMAIN, NULL, 数据类型, LONG TEXT, 69, NULL, 字符串, NULL
+
+65, DOMAIN, NULL, 数据类型分类, 整型, NULL, NULL, NULL, NULL
+66, DOMAIN, NULL, 数据类型分类, 实数, NULL, NULL, NULL, NULL
+67, DOMAIN, NULL, 数据类型分类, 二进制, NULL, NULL, NULL, NULL
+68, DOMAIN, NULL, 数据类型分类, 时间, NULL, NULL, NULL, NULL
+69, DOMAIN, NULL, 数据类型分类, 字符串, NULL, NULL, NULL, NULL
+
+70, DOMAIN, NULL, 值域类型, 数值, NULL, NULL, NULL, NULL
+71, DOMAIN, NULL, 值域类型, 文本, NULL, NULL, NULL, NULL
+72, DOMAIN, NULL, 值域类型, 日期, NULL, NULL, NULL, NULL
+73, DOMAIN, NULL, 值域类型, 代码, NULL, NULL, NULL, NULL
+74, DOMAIN, NULL, 值域类型, 编码, NULL, NULL, NULL, NULL
+75, DOMAIN, NULL, 值域类型, 时间, NULL, NULL, NULL, NULL
+
+76, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 完整性, NULL, NULL, NULL, NULL
+77, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 一致性, NULL, NULL, NULL, NULL
+78, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 准确性, NULL, NULL, NULL, NULL
+79, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 唯一性, NULL, NULL, NULL, NULL
+80, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 规范性, NULL, NULL, NULL, NULL
+81, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 有效性, NULL, NULL, NULL, NULL
+82, TR, 业务规则类型请勿删除(请不要改id), 业务规则类型, 可用性, NULL, NULL, NULL, NULL
+
+
+

@@ -1,0 +1,49 @@
+{
+  "datasourceType": "MONGODB",
+  "displayName": "MongoDB",
+  "icon": "mongodb",
+  "datasourceClass": "com.datablau.datasources.mongodb.MongoDBDatasource",
+  "noJdbc": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "localhost",
+      "candidate": null,
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "PortNumber",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "27017",
+      "candidate": null,
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "AuthenticationType",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "0",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "DatabaseName",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "",
+      "candidate": null,
+      "multiple": true,
+      "label": null
+    }
+  ]
+}

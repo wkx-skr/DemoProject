@@ -1,0 +1,189 @@
+spring:
+  main:
+    allow-circular-references: true
+  redis:
+    redisson:
+      config: nacos-data-id:redisson1.yaml
+  cloud:
+    gateway:
+      routes:            #gateway 路由配置
+        - id: dam         #dam路由配置
+          uri: lb://dam-web   #动态路由，去nacos注册列表，查找对应微服务的ip:port
+          predicates:       #断言匹配
+            - Path=/dam/**
+        - id: ddm             #ddm路由配置
+          uri: lb://ddm-web
+          predicates:
+            - Path=/ddm/**
+        - id: domain          #数据标准路由配置
+          uri: lb://datablau-domain-web
+          predicates:
+            - Path=/domain/**
+        - id: workflow          #workflow路由配置
+          uri: lb://datablau-workflow-web
+          predicates:
+            - Path=/workflow/**
+        - id: user            #用户微服务路由配置
+          uri: lb://datablau-user-web
+          predicates:
+            - Path=/user/**
+        - id: dataAgent            #用户微服务路由配置
+          uri: lb://datablau-data-agent-web
+          predicates:
+            - Path=/dataAgent/**
+        - id: plugin              # DDM-Plugin微服务路由配置
+          uri: lb://ddm-plugin-web
+          predicates:
+            - Path=/plugin/**
+        - id: base
+          uri: lb://datablau-base-web
+          predicates:
+            - Path=/base/**
+        - id: metadata
+          uri: lb://datablau-metadata-web
+          predicates:
+            - Path=/metadata/service/**
+        - id: scheduler
+          uri: lb://datablau-scheduler-web
+          predicates:
+            - Path=/job/**
+        - id: archy
+          uri: lb://datablau-archy-web
+          predicates:
+            - Path=/archy/**
+        - id: ddm-re-instance
+          uri: lb://ddm-re-instance
+          predicates:
+            - Path=/ddm-re-instance/**
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      retries: 3
+      acks: 1
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    consumer:
+      group-id: datablau_gateway
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.*"
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /
+  error:
+    include-stacktrace: always
+    include-message: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    map: ${gateway.server.map}
+    build:
+      timstamp: ${gateway.server.build.timstamp}
+      version: ${gateway.server.build.version}
+      number: ${gateway.server.build.number}
+      release: ${gateway.server.build.release}
+    http:
+      baseUrl: ${gateway.server.http.baseUrl}
+  redis:
+    address: ${common.redis.address}
+  session: # 设置超时时间，单位是秒。如果设置超时时间30分钟， 值就是1800
+    maxInterval: ${datablau.session.maxInterval}
+  ldap:   #ladp认证配置
+    enable: ${common.ldap.enable}  #是否开启  true|false
+    urls: ${common.ldap.urls}     #ldap的url路径 ldap://192.168.1.161:389
+    base: ${common.ldap.base}      #ldap的查询目录路径dc=datablau,dc=com
+    username: ${common.ldap.username}  #预留查询账号名cn=manager,dc=datablau,dc=com
+    password: ${common.ldap.password}  # 预留查询账号密码
+    queryItem: ${common.ldap.queryItem}  # 查询目标字段uid
+  ad:
+    enable: ${common.ad.enable}
+    urls: ${common.ad.urls}
+    base: ${common.ad.base}
+    username: ${common.ad.username}
+    password: ${common.ad.password}
+    domain-placeholder: ${common.ad.domain-placeholder}
+  data-agent:   #job agent的路由，这里只适用于dam-ent版本
+    enable: false
+    urls: http://192.168.1.191:8880
+  login-fail-max-count: 5    #登录失败次数
+  transport:
+    http: true
+  redisTopic:
+    enable: ${datablau.redisTopic.enable}  #true|false
+  security-url:
+    login: ${gateway.security-url.login}        #form表单登录地址
+    logout: ${gateway.security-url.logout}      #登出地址
+    ignore: ${gateway.security-url.ignore}      #gateway不拦截的地址
+    client-token: ${gateway.security-url.client-token}        #ddm打开客户端认证地址
+  sso-ddt:    #dolphinscheduler sso登录
+    enable: ${datablau.sso-ddt.enable}    # true | false
+    url: ${datablau.sso-ddt.url}                                # http://192.168.7.158:12345/dolphinscheduler/login
+  balancer:
+    type: ${gateway.balancer.type}                #目前支持:base(轮询，默认), session(按session路由)
+  token-check-urls: /domain/apply/batchManager,/domain/apply/digitalOperationPlatform,/domain/apply/batchHomeOut,/domain/apply/digitalOperationPlatform/asset,/domain/apply/digitalOperationPlatform/model,/domain/apply/digitalOperationPlatform/standard
+  dop:
+    model: MINE   #两个选项 第一个mine 为走自己的情况，第二种dop为去解析客户的情况 均为全部大写
+    dopUrl : http://10.37.19.188/  # 开发测试环境：http://10.37.201.24:8000/  UAT环境：http://10.37.19.188/   生产环境：https://dop.pipechina.com.cn/
+#单点相关配置
+sso:
+  wesis_ip: http://10.39.7.17:8080
+  dam_ip: http://10.39.7.13:18080
+  dam_path: /base-app/#
+  redirect_url: /base/sso/login
+  token_url: /getToken
+  user_url: /getUserinfo
+  client_id: C20250418181229
+  decrypt_id: 308193020100301306072a8648ce3d020106082a811ccf5501822d047930770201010420612b487de100b847093670eb8e82f59b31bd7dc45f7954bd103538a320256e8ca00a06082a811ccf5501822da14403420004832e7e2e10d58debe7375857e69b596cd9dc52ff1199dfc59bd5d0f31ceda469e7773e32333f1ac093c83ec1ff51675bda6ca0672a96e7bcd8cc77d5e9a5be54

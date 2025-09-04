@@ -1,0 +1,42 @@
+{
+  "datasourceType": "DB2",
+  "displayName": "DB2",
+  "icon": "db2",
+  "datasourceClass": "com.datablau.datasources.db2.DB2Datasource",
+  "jdbcDriverClass": "com.ibm.db2.jcc.DB2Driver",
+  "suggestVersion": "11.5.7",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "50000",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false
+    }
+  ]
+}

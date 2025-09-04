@@ -1,0 +1,39 @@
+{
+  "datasourceType": "MYSQL",
+  "displayName": "MySql",
+  "icon": "mysql",
+  "datasourceClass": "com.datablau.datasources.mysql.MySqlDatasource",
+  "jdbcDriverClass": "com.mysql.jdbc.Driver",
+  "suggestVersion": "5.7、8.0",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": false,
+      "multiple": true,
+      "candidate": [],
+      "requiredOnSave": true
+    }
+  ]
+}

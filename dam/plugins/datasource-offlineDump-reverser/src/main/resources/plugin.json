@@ -1,0 +1,5 @@
+{
+  "type" : "OFFLINEDUMP",
+  "loadClass" : "com.datablau.reverse.engineering.worker.offlinedump.OfflineDumpWorker",
+  "build": "${build.timestamp}"
+}

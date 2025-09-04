@@ -1,0 +1,319 @@
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration,org.springframework.cloud.netflix.archaius.ArchaiusAutoConfiguration,com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1024MB
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    sasl:
+      enable: true
+    producer:
+      # producer需要server接收到数据之后发出的确认接收的信号
+      # acks=0：设置为0表示producer不需要等待任何确认收到的信息。副本将立即加到socket  buffer并认为已经发送。没有任何保障可以保证此种情况下server已经成功接收数据，同时重试配置不会发生作用（因为客户端不知道是否失败）回馈的offset会总是设置为-1；
+      # acks=1： 这意味着至少要等待leader已经成功将数据写入本地log，但是并没有等待所有follower是否成功写入。这种情况下，如果follower没有成功备份数据，而此时leader又挂掉，则消息会丢失。
+      # acks=all： 这意味着leader需要等待所有备份都成功写入日志，这种策略会保证只要有一个备份存活就不会丢失数据。这是最强的保证。
+      acks: 1
+      retries: 4
+      # producer将试图批处理消息记录，以减少请求次数，这项配置控制默认的批量处理消息字节数，默认值16384，单位bytes
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        # producer发送消息的延时，与batch-size配合使用，默认值0，单位ms
+        linger:
+          ms: 100
+      # producer可以用来缓存数据的内存大小。如果数据产生速度大于向broker发送的速度，producer会阻塞或者抛出异常，
+      # 默认值33554432，单位bytes
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    consumer:
+      group-id: datablau_metadata
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.job.scheduler.mq.message, com.datablau.domain.management.mq.message, com.datablau.base.mq.message, com.datablau.data.common.data"
+
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /metadata
+  error:
+    include-stacktrace: always
+
+logging:
+  logging:
+    config: classpath:log4j2-spring.xml
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      apache:
+        kafka: error
+      springframework:
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t] [%C{1.}:%L] - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    build:
+      version: 7.0.1
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: metadata
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+      show-sql: false
+      format-sql: false
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    #redis的地址，在redisson.yaml中引用了该属性
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 4100
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-metadata-web
+    enable: true
+  dam:
+    service:
+      #是否启用dam微服务
+      enable: ${common.dam.connectable}
+  ddm:
+    service:
+      #是否启用ddm微服务
+      enable: ${common.ddm.connectable}
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    #ES的用户名
+    username: ${common.ddc.username}
+    #ES的密码
+    password: ${common.ddc.password}
+    synonyms:
+      path: ${common.ddc.synonyms.path}
+      interval: ${common.ddc.synonyms.interval}
+      enable: ${common.ddc.synonyms.enable}
+    type: _doc
+    indices:
+      data_object: ddc_dataobject
+      report: ddc_report
+      model: ddc_model
+      model_category: ddc_model_category
+      dsf_file: ddc_share_file
+      #数据资产
+      ddc_asset: ddc_assets
+      ddc_catalog: ddc_catalog
+      global_search: ddc_global_search
+  kafka-topic:
+    #消费者
+    #删除数据标准
+    domain-delete: ${common.kafka.topic.metadata.domain-delete}
+    #更新数据标准
+    domain-update: ${common.kafka.topic.metadata.domain-update}
+    #更新标准代码
+    standard-update: ${common.kafka.topic.metadata.standard-update}
+    #元数据变更
+    metadata-change: ${common.kafka.topic.metadata.metadata-change}
+    #simplejob结果
+    simple-job-result: ${common.kafka.topic.metadata.simple-job-result}
+    #删除数据源
+    model-delete: ${common.kafka.topic.metadata.model-delete}
+    manager-update: ${common.kafka.topic.metadata.manager-update}
+    tag-update: ${common.kafka.topic.metadata.tag-update}
+    file-desc-update: ${common.kafka.topic.metadata.file-desc-update}
+    report-update: ${common.kafka.topic.metadata.report-update}
+    dept-update: ${common.kafka.topic.metadata.dept-update}
+    # base 数据源schema 变更
+    schema-change: ${common.kafka.topic.base.schema-update}
+    #系统日志
+    audit-system-log: ${common.kafka.topic.audit.system-log}
+    audit-common-log: ${common.kafka.topic.audit.log}
+    entity-change-event: ${common.kafka.topic.entity-change-event}
+    # base服务创建数据源，Metadata服务需要自动创建采集( for 元模型)
+    datasource-create: ${common.kafka.topic.base.datasource-create}
+    #数据源更新
+    metadata-increment: ${common.kafka.topic.metadata.metadata-increment}
+  plugins:
+    datasource:
+      path: C:\data\datablau\datablauex\datablau-datasource-plugins\plugins\datasource
+    reverser:
+      path: C:\data\datablau\datablauex\datablau-datasource-plugins\plugins\reverser
+    remote:
+      load: true
+  domain:
+    enable: false
+  job:
+    update: true
+    version: 7.0.0
+    file: file:///D:/test/datablau_domain/resource/job.jar
+  graph:
+    enable: true
+  kafka:
+    system-log:
+      enable: true #服务系统日志
+    log:
+      enable: true
+  #swagger-ui 开启配置 (true: 开启; false: 关闭)
+  swagger-ui-open: false
+  metamodel:
+    # 元模型默认图标
+    # png/jpg Base64 编码
+    icons: '{
+      "object": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAABn0lEQVQ4jY2SMUiUYRjHf8/7fYdCXENj4FCbg01ORXanhoqLFuRQZH5QW0NDU5FgkDQ619035uIQOd7pEUiEDoHQkuggCIEghJZ6973/hvrqjuuu+03P87z8f88zvJaLtYwYp3MSjCeVGXsJECLGzTEceHY6SVdhysQY8FsAOGO3FNl2J4JrsfbR3z5Mi1ysCf0yNyIOT7M8/XDLfvxL6NLCVO9tpOuo9dufC8zzyRxHaR/AXjmyz62CTQI5pgXTae/FGnC3KeHZwlhvEqxGNgfMtdqUL+imjHngu4zHTYJWDL3SpSRgQdCHmAWyBku5oirO8ait4EpB2cT4CNTMMbp6z9YAckVtAW+86G8ryDjOILoRi96zki/qreCs4KrBIuKOaydIqcKDDPQKLgAuTLgYBDyHun/wP0qRbRtsGmyU79vXdN5WkD3lG3CYccyPvNa5dH69oPOJ55lgLwTwome4qFp9+LiLg3e37WAg1mUnFo4dXxD7ZpxUjYeIcuAYCIFleUq1xuWEJ1SA/PsZ2wQG87FuCF4ANWCyElkJ4Cd3rJWy/skM2gAAAABJRU5ErkJggg==",
+      "property": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAACBUExURQAAAF1dXU9PT8L//7///7r9/7b5/4rN/8b//4bJ/4nM/4PG/4DD/67x/8f//4zP/wAAAMP//5DT/5PW/0qNsJbZ/0yPuJnc/06RwJ3g/1CTyKDj/1OW1KPm/1WY3Kbp/1ib6Kns/1qd8IfK/4TH/4LF/3/C/33A/3m8/1yf+P///6ZvuoEAAAABdFJOUwBA5thmAAAAAWJLR0QqU77UngAAAAd0SU1FB+kCBQgmDQP97ZkAAAABb3JOVAHPoneaAAAAiklEQVQY02XL2w7CIBBFUaAqhdqCICIi0lqv//+D0hlJTNyZp5UzhNAaYwSiTbMqt94wjkLbVkgpui3rUeig9FLHdj3XAEYZo6RgJQQLC1G+9gjOOmeXTXdA8PqbOCIEH4KHzQkh1oU6I6SYUoTNBSHXhR0RhjxNGTZXBD5zPt/uj+frDaB/I399AE72C9m/49WNAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI1LTAyLTA1VDA4OjM4OjEyKzAwOjAwwvuu+gAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNS0wMi0wNVQwODozODoxMiswMDowMLOmFkYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjUtMDItMDVUMDg6Mzg6MTMrMDA6MDBCxDwtAAAAAElFTkSuQmCC",
+      "reference": "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1MAAA6mAAADqYAAAXcJy6UTwAAACBUExURQAAAF1dXU9PT8L//7///7r9/7b5/4rN/8b//4bJ/4nM/4PG/4DD/67x/8f//4zP/wAAAMP//5DT/5PW/0qNsJbZ/0yPuJnc/06RwJ3g/1CTyKDj/1OW1KPm/1WY3Kbp/1ib6Kns/1qd8IfK/4TH/4LF/3/C/33A/3m8/1yf+P///6ZvuoEAAAABdFJOUwBA5thmAAAAAWJLR0QqU77UngAAAAd0SU1FB+kCBQgmDQP97ZkAAAABb3JOVAHPoneaAAAAiklEQVQY02XL2w7CIBBFUaAqhdqCICIi0lqv//+D0hlJTNyZp5UzhNAaYwSiTbMqt94wjkLbVkgpui3rUeig9FLHdj3XAEYZo6RgJQQLC1G+9gjOOmeXTXdA8PqbOCIEH4KHzQkh1oU6I6SYUoTNBSHXhR0RhjxNGTZXBD5zPt/uj+frDaB/I399AE72C9m/49WNAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDI1LTAyLTA1VDA4OjM4OjEyKzAwOjAwwvuu+gAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyNS0wMi0wNVQwODozODoxMiswMDowMLOmFkYAAAAodEVYdGRhdGU6dGltZXN0YW1wADIwMjUtMDItMDVUMDg6Mzg6MTMrMDA6MDBCxDwtAAAAAElFTkSuQmCC"
+    }'
+    icon-size: 512000
+dam:
+  config:
+    lic:
+      #lic是不是在LocalAppData环境变量下
+      localappdata: true
+  server:
+    remote:
+      #dam是否对外提供服务,如果是false的话，通过上面配置接受到请求都会被立即return
+      connectable: ${common.dam.connectable}
+
+ddm:
+  server:
+    remote:
+      #dam中跟ddm相关的功能是否启用
+      connectable: ${common.ddm.connectable}
+
+word:
+  vector:
+    file:
+      #词向量文件的路径
+      path: /resources/data/vector.txt
+
+transform:
+  input:
+    buffer:
+      #使用bufferedReader时，从数据库最多读取多少行缓存
+      size: 1000
+  buffered:
+    max:
+      #使用bufferedReader时，从数据库最多读取多少个对象缓存
+      cells: 900000
+    dbfile:
+      # When doing full data merge join, temp db file will be created, this value indicates how long the db file will be kept and be reuesed, defaults to 1hour, the unit is second
+      alive:
+  temp:
+    file:
+      #当做ETL的时候，有时候需要创建临时文件，这个配置选择临时文件目录，如果不设置那么就是%tmp%
+      path:
+sync:
+#  wesis_ip: http://dataleap.data.pipechina.com.cn
+  query_api: http://dataleap.data.pipechina.com.cn/invoker_engine/query_with_params
+  org_app_id: 1905168315395870720
+  user_app_id: 1905190578698588160
+  token: eyJhbGciOiJBRVMiLCJ0eXAiOiJKV1QifQ.eyJhcHAiOiJzanp0Mi5kci56eWd4IiwiaWF0IjoxMiwidGlkIjoiMiIsInVuaXgiOjE3NDY2NzA4MTJ9.Djlt6wprQPEua-XRQR-pCEAAC8H5LehpJ0Awu_ul8jbkWHqi70VjP8omQ66H1S0zfiv0louwWmr5M7wr1Azm1qxgpz6paiY93lx57gaOUe3Szp6iNR6UJNWY7EmdYLXioEQ1aicS9UEx434XrzFskTNdGA
+
+mm:
+#  report:
+#    sheet1: 报表元模型
+#    sheet2: 报表元模型.report
+#    sheet3: 报表元模型.report.reportItem
+  etl:
+    url: http://localhost:38080/lsp/welcome/api/etl/raw
+    sheet1: 2
+    sheet2: 3
+    sheet3: 4
+management:
+  endpoints:
+    web:
+      exposure:
+        include: beans
+
+syncTable:
+  udp: 创建日期,修改日期,存储大小,数据量
+
+topicSync:
+  columnUdp: 是否分区字段,安全级别,默认值,字段枚举
+  tableUdp: 业务描述,使用描述,业务域,安全级别,数据域,业务过程,负责人,创建日期,修改日期
+
+
+# 集群1配置
+kafka:
+  cluster:
+    bootstrap-servers: kafka-cluster1:9092,kafka-cluster1:9093
+    enabled: false
+    consumer:
+      group-id: cluster-group
+      topic: GWNormalTableTopic
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="admin" password="admin-secretCrZRn7u!";
+        security:
+          protocol: SASL_PLAINTEXT

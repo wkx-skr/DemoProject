@@ -1,0 +1,41 @@
+{
+  "datasourceType": "DB2I",
+  "displayName": "DB2I",
+  "icon": "db2i",
+  "datasourceClass": "com.datablau.datasources.db2i.DB2iDatasource",
+  "jdbcDriverClass": "com.ibm.as400.access.AS400JDBCDriver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "50000",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false
+    }
+  ]
+}

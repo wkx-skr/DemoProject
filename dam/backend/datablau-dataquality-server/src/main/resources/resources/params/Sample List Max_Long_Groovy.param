@@ -1,0 +1,5 @@
+Object call() {
+    def list = [[[Sample List]]]
+    java.util.Collections.reverse(list.sort())
+    return list[0]
+}

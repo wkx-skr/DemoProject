@@ -1,0 +1,5 @@
+{
+  "type" : "VERTICA",
+  "loadClass" : "com.datablau.reverse.engineering.worker.vertica.VerticaWorker",
+  "build": "${build.timestamp}"
+}

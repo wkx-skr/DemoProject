@@ -1,0 +1,47 @@
+{
+  "datasourceType": "VERTICA",
+  "displayName": "Vertica",
+  "icon": "vertica",
+  "datasourceClass": "com.datablau.datasources.vertica.VerticaDatasource",
+  "jdbcDriverClass": "com.vertica.jdbc.Driver",
+  "suggestVersion": "9.3.1-4",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "5433",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [
+      ],
+      "required": false,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "candidate": [
+      ],
+      "requiredOnSave": true
+    }
+  ]
+}

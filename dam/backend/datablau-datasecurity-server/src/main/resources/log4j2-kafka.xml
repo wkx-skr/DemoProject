@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration status="on" monitorInterval="10">
+    <properties>
+        <property name="LOG_HOME">${sys:logging.file.path}</property>
+        <property name="SERVER_LOG_FILE_NAME">spring</property>
+        <property name="SQL_PERF_LOG_FILE_NAME">sql_perf</property>
+        <property name="REST_API_PERF_LOG_FILE_NAME">rest_perf</property>
+        <Property name="KAFKA_SERVERS">${sys:spring.kafka.bootstrap-servers}</Property>>
+        <property name="FILE_PATTERN">[%d{HH:mm:ss:SSS}] %-5p [%t](%c:%L) - %m%n</property>
+        <property name="KAFKA_PATTERN">{"timeMillis":"%d{yyyy-MM-dd HH:mm:ss.SSS}","serverName":"${sys:spring.application.name}","localIp":"${sys:local-ip}","thread":"%t","threadId":"%T","traceId":"%X{X-B3-TraceId}","level":"%-5p","className":"%c{1.}.%M(%L)","message":"%m","exception":"%rEx"}%n</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] %-5p [%t](%c:%L) - %m%n"/>
+        </Console>
+
+        <RollingFile name="ServerLog"
+                     fileName="${LOG_HOME}/${SERVER_LOG_FILE_NAME}.log"
+                     filePattern="${LOG_HOME}/${SERVER_LOG_FILE_NAME}.log.%d{yyyy-MM-dd}-%i.gz">
+            <PatternLayout charset="UTF-8" pattern="[%d{yy/MM/dd HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <Kafka name="Kafka" topic="${sys:datablau.kafka.sys-log-topic}">
+            <PatternLayout pattern="${KAFKA_PATTERN}" />
+            <Property name="bootstrap.servers">${KAFKA_SERVERS}</Property>
+            <Property name="key.serializer">org.apache.kafka.common.serialization.StringSerializer</Property>
+            <Property name="value.serializer">org.apache.kafka.common.serialization.ByteArraySerializer</Property>
+        </Kafka>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="com.datablau" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="trace" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="com.andorj" level="debug" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="trace" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="org.apache.kafka" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="org.springframework.kafka" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <!-- 3rdparty Loggers -->
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="info" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="org.teiid" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="error" />
+            <AppenderRef ref="Console" level="debug" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="org.neo4j" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="debug" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="com.joestelmach" level="error" additivity="false">
+            <AppenderRef ref="ServerLog" level="error" />
+            <AppenderRef ref="Console" level="error" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="net.sf.ehcache" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="debug" />
+            <AppenderRef ref="Console" level="debug" />
+        </Logger>
+
+        <Logger name="org.hibernate.cache" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="debug" />
+            <AppenderRef ref="Console" level="debug" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="org.redisson" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+            <AppenderRef ref="Console" level="info" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <Logger name="com.netflix" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+            <AppenderRef ref="Console" level="warn" />
+            <AppenderRef ref="Kafka" level="info" />
+        </Logger>
+
+        <AsyncRoot level="info" additivity="false" includeLocation="true">
+            <AppenderRef ref="Console" level="info" />
+            <AppenderRef ref="Kafka" level="info" />
+        </AsyncRoot>
+
+
+    </Loggers>
+</configuration>

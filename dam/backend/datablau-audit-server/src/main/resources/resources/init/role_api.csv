@@ -1,0 +1,20 @@
+
+//-------------------------安全网关 日志审计-------------------------
+AUDIT, /jdbc/security/gateway, DATA_SECURITY_GATEWAY_AUDIT, post
+AUDIT, /jdbc/security/gateway/download, DATA_SECURITY_GATEWAY_AUDIT, post
+
+//-------------------------安全网关 日志审计-------------------------
+AUDIT, /jdbc/record, DATA_SECURITY_OP_LOG, post
+
+//数据资产， 日志记录
+AUDIT, /jdbc/record, DATA_ASSET_LOG_MANAGE, post
+//系统模块  系统日志
+AUDIT, /jdbc/sys/log, SYSTEM_LOG_MANAGE, post
+AUDIT, /jdbc/sys/server, SYSTEM_LOG_MANAGE, post
+AUDIT, /jdbc/sys/log/download, SYSTEM_LOG_MANAGE, post
+
+//系统模块  操作日志
+AUDIT, /jdbc/sys/log, FULL_OPERATION_LOG_MANAGE, post
+AUDIT, /jdbc/sys/server, FULL_OPERATION_LOG_MANAGE, post
+AUDIT, /jdbc/sys/log/download, FULL_OPERATION_LOG_MANAGE, post
+AUDIT, /jdbc/record, FULL_OPERATION_LOG_MANAGE, post

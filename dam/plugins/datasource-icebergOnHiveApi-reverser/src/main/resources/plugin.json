@@ -1,0 +1,5 @@
+{
+  "type" : "ICEBERG",
+  "loadClass" : "com.datablau.reverse.engineering.worker.iceberg.IcebergWorker",
+  "build": "${build.timestamp}"
+}

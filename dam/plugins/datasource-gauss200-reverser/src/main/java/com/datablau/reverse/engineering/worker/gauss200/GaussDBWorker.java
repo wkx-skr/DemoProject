@@ -1,0 +1,383 @@
+package com.datablau.reverse.engineering.worker.gauss200;
+
+import com.andorj.common.core.exception.UnexpectedStateException;
+import com.andorj.common.core.model.LDMTypes;
+import com.andorj.common.core.model.ModelX;
+import com.andorj.common.core.model.ObjectX;
+import com.datablau.reverse.engineering.api.JdbcPlugin;
+import com.datablau.reverse.engineering.data.ReversedSchema;
+import com.datablau.reverse.engineering.data.ReversedTable;
+import com.datablau.reverse.engineering.worker.ReverseForwardStrategyJdbc;
+import com.google.common.base.Strings;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * @program: datablau-datasource-plugins
+ * @description: GaussDBWorker
+ * @author: wang tong
+ * @create: 2023-08-03 14:48
+ **/
+public class GaussDBWorker extends ReverseForwardStrategyJdbc implements JdbcPlugin {
+
+
+    private static final Logger logger = LoggerFactory.getLogger(GaussDBWorker.class);
+
+    private static final int FetchSize = 2000;
+
+    @Override
+    public String getType() {
+        return "GAUSSDB";
+    }
+
+    /**
+     * 获取 table comment SQL
+     */
+    public String getSQL(String schema) {
+//        return String.format("SELECT a.relname , a.reltuples , b.last_autoanalyze " +
+//                "FROM pg_class a " +
+//                "LEFT JOIN pg_stat_all_tables b " +
+//                "ON a.relname = b.relname " +
+//                "WHERE a.relkind = 'r' and relnamespace = (select oid from pg_namespace where nspname = '%s') "
+//                +
+//                "ORDER BY a.relname", schema);
+        return null;
+    }
+
+    @Override
+    public ResultSet getTableCommentOfSchema(String catalog, String schema) {
+        try {
+            Statement stmt = jdbcDatasource.getConnection().createStatement();
+            String sql = this.getSQL(schema);
+            if (sql == null) {
+                return null;
+            }
+            return stmt.executeQuery(sql);
+        } catch (SQLException ex) {
+            throw new UnexpectedStateException(
+                    "Unable to get database table comment:" + ex.getMessage());
+        }
+    }
+
+
+    @Override
+    public ResultSet getPrimaryKeysOfSchema(String catalog, String schema) {
+        try {
+            return jdbcDatasource.getConnection().getMetaData().getPrimaryKeys(catalog, schema, null);
+        } catch (SQLException e) {
+            throw new UnexpectedStateException(
+                    "Unable to get pk :" + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResultSet getForeignKeysOfSchema(String catalog, String schema) {
+        try {
+            return jdbcDatasource.getConnection().getMetaData().getImportedKeys(catalog, schema, null);
+        } catch (SQLException e) {
+            throw new UnexpectedStateException(
+                    "Unable to get fk :" + e.getMessage());
+        }
+    }
+
+    @Override
+    public ResultSet getIndexesOfSchema(String catalog, String schema) {
+        Connection conn = jdbcDatasource.getConnection();
+
+        String sql;
+//        if (conn.haveMinimumServerVersion(ServerVersion.v8_3)) {
+//            sql = "SELECT NULL AS TABLE_CAT, n.nspname AS TABLE_SCHEM,   ct.relname AS TABLE_NAME, NOT i.indisunique AS NON_UNIQUE,   NULL AS INDEX_QUALIFIER, ci.relname AS INDEX_NAME,   CASE i.indisclustered     WHEN true THEN 1    ELSE CASE am.amname       WHEN 'hash' THEN 2      ELSE 3    END   END AS TYPE,   (i.keys).n AS ORDINAL_POSITION,   trim(both '\"' from pg_catalog.pg_get_indexdef(ci.oid, (i.keys).n, false)) AS COLUMN_NAME, "
+//                    + (conn.haveMinimumServerVersion(ServerVersion.v9_6) ? "  CASE am.amname     WHEN 'btree' THEN CASE i.indoption[(i.keys).n - 1] & 1       WHEN 1 THEN 'D'       ELSE 'A'     END     ELSE NULL   END AS ASC_OR_DESC, " : "  CASE am.amcanorder     WHEN true THEN CASE i.indoption[(i.keys).n - 1] & 1       WHEN 1 THEN 'D'       ELSE 'A'     END     ELSE NULL   END AS ASC_OR_DESC, ")
+//                    + "  ci.reltuples AS CARDINALITY, " + "  ci.relpages AS PAGES, " + "  pg_catalog.pg_get_expr(i.indpred, i.indrelid) AS FILTER_CONDITION "
+//                    + "FROM pg_catalog.pg_class ct " + "  JOIN pg_catalog.pg_namespace n ON (ct.relnamespace = n.oid) "
+//                    + "  JOIN (SELECT i.indexrelid, i.indrelid, i.indoption, " + "          i.indisunique, i.indisclustered, i.indpred, " + "          i.indexprs, " + "          information_schema._pg_expandarray(i.indkey) AS keys "
+//                    + "        FROM pg_catalog.pg_index i) i " + "    ON (ct.oid = i.indrelid) " + "  JOIN pg_catalog.pg_class ci ON (ci.oid = i.indexrelid) "
+//                    + "  JOIN pg_catalog.pg_am am ON (ci.relam = am.oid) " + "WHERE true ";
+//            if (schema != null && !schema.isEmpty()) {
+//                sql = sql + " AND n.nspname = " + this.escapeQuotes(conn, schema);
+//            }
+//        } else {
+        String select = "SELECT NULL AS TABLE_CAT, n.nspname AS TABLE_SCHEM, ";
+        String from = " FROM pg_catalog.pg_namespace n, pg_catalog.pg_class ct, pg_catalog.pg_class ci,  pg_catalog.pg_attribute a, pg_catalog.pg_am am ";
+        String where = " AND n.oid = ct.relnamespace ";
+        from = from + ", pg_catalog.pg_index i ";
+        if (schema != null && !schema.isEmpty()) {
+            where = where + " AND n.nspname = '" + schema + "' ";
+        }
+
+        sql = select + " ct.relname AS TABLE_NAME, NOT i.indisunique AS NON_UNIQUE, NULL AS INDEX_QUALIFIER, ci.relname AS INDEX_NAME, " + " CASE i.indisclustered " + " WHEN true THEN " + 1 + " ELSE CASE am.amname " + " WHEN 'hash' THEN " + 2 + " ELSE " + 3 + " END " + " END AS TYPE, " + " a.attnum AS ORDINAL_POSITION, " + " CASE WHEN i.indexprs IS NULL THEN a.attname " + " ELSE pg_catalog.pg_get_indexdef(ci.oid,a.attnum,false) END AS COLUMN_NAME, " + " NULL AS ASC_OR_DESC, " + " ci.reltuples AS CARDINALITY, " + " ci.relpages AS PAGES, " + " pg_catalog.pg_get_expr(i.indpred, i.indrelid) AS FILTER_CONDITION " + from + " WHERE ct.oid=i.indrelid AND ci.oid=i.indexrelid AND a.attrelid=ci.oid AND ci.relam=am.oid " + where;
+//        }
+
+//        sql = sql + " AND ct.relname = " + this.escapeQuotes(conn, tableName);
+        if (false) { // unique = false
+            sql = sql + " AND i.indisunique ";
+        }
+
+        sql = sql + " ORDER BY NON_UNIQUE, TYPE, INDEX_NAME, ORDINAL_POSITION ";
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            //        stmt.setString(1, schema == null ? "%" : schema);
+            stmt.closeOnCompletion();
+            stmt.setFetchSize(FetchSize);
+            return stmt.executeQuery();
+        } catch (SQLException e) {
+            logger.error("failed to get index ", e);
+        }
+
+        return null;
+    }
+
+
+    @Override
+    protected void buildProcedures(ModelX model, String catalog) {
+        // Procedures is defined as Functions in postgresql
+        return;
+    }
+
+    @Override
+    protected void buildFunctions(ModelX model, String catalog) {
+        logger.debug("Building Functions...");
+        try {
+            for (String s_schema : schemaPattern) {
+                readFunctions(model, s_schema, catalog);
+            }
+            logger.debug("Finished building Functions");
+        } catch (Exception e) {
+            logger.error("Failed to build Functions", e);
+            throw e;
+        }
+    }
+
+    private void readFunctions(ModelX modelX, String s_schema, String catalog) {
+        try {
+            logger.trace("try to get gaussDB Functions");
+
+            Connection connection = jdbcDatasource.getConnection();
+            int major = getMajorVersion(connection);
+
+            String typeFilter = " not p.proisagg\n AND not p.proiswindow\n ";
+            if (major > 10) {
+                typeFilter = " p.prokind in ('f', 'p') \n";
+            }
+            if (major < 8.4) {
+                typeFilter = " not p.proisagg\n ";
+            }
+
+            try (Statement stmt = jdbcDatasource.getConnection().createStatement()) {
+                String query = "SELECT\n" +
+                        "            n.nspname AS schema_name\n" +
+                        "            , p.proname AS function_name\n" +
+                        "            , pg_catalog.pg_get_function_result(p.oid) AS result_data_type\n" +
+                        "            , pg_catalog.pg_get_function_arguments(p.oid) AS argument_data_types\n" +
+                        "            , p.prosrc AS code\n" +
+                        "            , l.lanname AS language\n" +
+                        "            , p.provolatile AS volatile\n" +
+                        "FROM\n" +
+                        "            pg_catalog.pg_proc p\n" +
+                        "LEFT JOIN   pg_catalog.pg_namespace n\n" +
+                        "     ON     n.oid = p.pronamespace\n" +
+                        "LEFT JOIN   pg_catalog.pg_language l\n" +
+                        "     ON     l.oid = p.prolang\n" +
+                        "WHERE " + (s_schema.equals("%") ? "" : "n.nspname = '" + s_schema + "' AND") + "\n" +
+                        typeFilter +
+                        "     AND    not p.prorettype = 'pg_catalog.trigger'::pg_catalog.regtype\n" +
+                        "ORDER BY\n" +
+                        "            schema_name\n" +
+                        "            , function_name";
+
+                stmt.setFetchSize(10000);
+                try (ResultSet results = stmt.executeQuery(query)) {
+                    while (results.next()) {
+                        String schema = results.getString("schema_name");
+                        String name = results.getString("function_name");
+                        if (options.isInBlackList(name, LDMTypes.oFunction)) {
+                            logger.debug("Function '" + name + "' is in the black list");
+                            continue;
+                        }
+
+                        String code = results.getString("code");
+                        String argument = results.getString("argument_data_types");
+                        String returnData = results.getString("result_data_type");
+                        String language = results.getString("language");
+                        String volatileFlag = results.getString("volatile");
+
+                        // create new sp
+                        ObjectX newSp = createFunction(modelX);
+                        ReversedSchema reversedSchema = getOrCreateSchema(modelX, schema);
+                        setSchemaInfoToObject(reversedSchema, newSp);
+                        newSp.setName(name);
+                        if (!Strings.isNullOrEmpty(code)) {
+                            String text = "CREATE OR REPLACE FUNCTION " + name;
+                            if (!Strings.isNullOrEmpty(argument)) {
+                                text += "(\n" + argument + ")";
+                            }
+
+                            if (!Strings.isNullOrEmpty(returnData)) {
+                                text += "\nRETURNS " + returnData + " AS";
+                            }
+
+                            text += "\n$BODY$\n";
+                            text += code;
+                            text += "\n$BODY$\n";
+
+                            if (!Strings.isNullOrEmpty(language)) {
+                                text += "LANGUAGE " + language;
+                                if (!Strings.isNullOrEmpty(volatileFlag)) {
+                                    if (volatileFlag.equals("i")) {
+                                        text += " IMMUTABLE";
+                                    } else if (volatileFlag.equals("v")) {
+                                        text += " VOLATILE";
+                                    } else if (volatileFlag.equals("s")) {
+                                        text += " STABLE";
+                                    }
+                                }
+                            }
+
+                            text += ";";
+
+                            newSp.setProperty(LDMTypes.pSQL, text);
+                            newSp.setObjectIsFullyCreated();
+                        }
+
+                    }
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Failed to get gaussDB Function SQL", e);
+        }
+    }
+
+    @Override
+    public ResultSet getColumnsOfSchema(String catalog, String schema) {
+        try {
+            return jdbcDatasource.getConnection().getMetaData().getColumns(catalog, schema, null, null);
+        } catch (SQLException e) {
+            throw new UnexpectedStateException(
+                    "Unable to get database table columns:" + e.getMessage());
+        }
+    }
+
+    private int getMajorVersion(Connection connection) {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery("SELECT split_part(version(), ' ', 2) AS POSTGRES_VERSION")) {
+            while(rs.next()) {
+                String version = rs.getString("POSTGRES_VERSION");
+                logger.info("postgresql version:" + version);
+                String majorVersion = version.substring(0, version.indexOf("."));
+                return Integer.parseInt(majorVersion);
+            }
+        } catch (SQLException e) {
+            throw new UnexpectedStateException("Failed to obtain version information:" + e.getMessage(), e);
+        }
+        return 0;
+    }
+
+
+    @Override
+    protected void readColumns(ModelX model, String catalog, String schema, ResultSet columnResultSet) throws Exception {
+
+
+        logger.debug("loading columns of schema [" + schema + "]");
+
+        ReversedSchema reversedSchema = schemaMap
+                .get(Strings.isNullOrEmpty(schema) ? catalog : schema);
+
+        try (Statement stmt = jdbcDatasource.getConnection().createStatement()) {
+            String sql = "SELECT TABLE_CATALOG, TABLE_SCHEMA, TABLE_NAME, COLUMN_NAME, COLUMN_DEFAULT, UDT_NAME, CHARACTER_MAXIMUM_LENGTH, NUMERIC_PRECISION, NUMERIC_SCALE, DATETIME_PRECISION, INTERVAL_TYPE \n" +
+                    "FROM INFORMATION_SCHEMA.columns \n" +
+                    "WHERE TABLE_CATALOG = '" + catalog + "' \n" +
+                    "AND TABLE_SCHEMA = '" + schema + "' \n" +
+//                    "AND TABLE_NAME = '" + table.getName() + "'";
+                    "ORDER BY TABLE_NAME, COLUMN_NAME";
+
+            try (ResultSet rsColumnsDt = stmt.executeQuery(sql)) {
+                while (rsColumnsDt.next()) {
+                    String tableName = rsColumnsDt.getString("TABLE_NAME");
+                    ReversedTable table = reversedSchema.lookForTable(tableName);
+                    if (table == null)
+                        continue;
+
+                    String columnName = rsColumnsDt.getString("COLUMN_NAME");
+                    String dt = rsColumnsDt.getString("UDT_NAME").toUpperCase();
+                    table.addColumnType(columnName, generateFullDataType(rsColumnsDt, dt));
+                }
+                processSave();
+            }
+            super.readColumns(model, catalog, schema, columnResultSet);
+        } catch (Exception e) {
+            logger.error("Failed to get columns", e);
+        }
+
+    }
+
+
+    public String generateFullDataType(ResultSet result, String datatype) {
+        String colDataType = datatype;
+        try {
+            int scale = 0;
+            int precision = 0;
+
+            if (datatype.compareToIgnoreCase("CHARACTER VARYING") == 0
+                    || datatype.compareToIgnoreCase("CHAR") == 0
+                    || datatype.compareToIgnoreCase("CHARACTER") == 0
+                    || datatype.compareToIgnoreCase("VARCHAR") == 0
+                    || datatype.compareToIgnoreCase("NCHAR") == 0
+                    || datatype.compareToIgnoreCase("VARCHAR2") == 0
+                    || datatype.compareToIgnoreCase("NVARCHAR2") == 0
+                    || datatype.compareToIgnoreCase("BIT") == 0
+                    || datatype.compareToIgnoreCase("VARBIT") == 0
+            ) {
+                scale = result.getInt("character_maximum_length");
+                logger.info("character length is :" + scale);
+                if (scale > 0) {
+                    colDataType += "(" + scale + ")";
+                }
+            } else if (datatype.compareToIgnoreCase("NUMERIC") == 0
+                    || datatype.compareToIgnoreCase("DECIMAL") == 0
+                    || datatype.compareToIgnoreCase("NUMBER") == 0) {
+                scale = result.getInt("numeric_scale");
+                precision = result.getInt("numeric_precision");
+                logger.info("scale is:" + scale + "precision is :" + precision);
+                if (precision > 0) {
+                    colDataType += "(" + precision;
+                    colDataType += ",";
+                    colDataType += scale;
+                    colDataType += ")";
+                }
+            } else if (datatype.compareToIgnoreCase("TIME WITHOUT TIMEZONE") == 0
+                    || datatype.compareToIgnoreCase("TIME WITH TIMEZONE") == 0
+                    || datatype.compareToIgnoreCase("TIMESTAMP WITHOUT TIMEZONE") == 0
+                    || datatype.compareToIgnoreCase("TIMESTAMP WITH TIMEZONE") == 0
+                    || datatype.compareToIgnoreCase("TIMESTAMP") == 0
+                    || datatype.compareToIgnoreCase("TIMESTAMPTZ") == 0
+                    || datatype.compareToIgnoreCase("TIME") == 0
+            ) {
+                scale = result.getInt("datetime_precision");
+                if (scale > 0) {
+                    String[] strArray = datatype.split(" ");
+                    String newColDatatype = strArray[0];
+                    newColDatatype += "(";
+                    newColDatatype += scale;
+                    newColDatatype += ")";
+
+                    for (int i = 1; i < strArray.length; i++) {
+                        newColDatatype += strArray[i];
+                    }
+                    colDataType = newColDatatype;
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Failed to get scale", e);
+        }
+        return colDataType;
+    }
+
+
+}

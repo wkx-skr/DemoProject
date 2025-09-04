@@ -1,0 +1,11 @@
+[
+  {
+    "featureCode": "FE_JDBC_GATEWAY",
+    "interceptUrls": [
+      "/audit/jdbc/**",
+      "!!/audit/jdbc/record/**",
+      "!!/audit/jdbc/action/**",
+      "!!/audit/jdbc/getModuleType"
+    ]
+  }
+]

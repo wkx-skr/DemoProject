@@ -1,0 +1,40 @@
+{
+  "datasourceType": "MASTERDATA",
+  "displayName": "MASTERDATA",
+  "icon": "MASTERDATA",
+  "datasourceClass": "com.datablau.datasources.masterdata.MasterDataSource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "masterDataUrl",
+      "defaultValue": "",
+      "label": "主数据请求路径",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "masterDataSheet1",
+      "defaultValue": "",
+      "label": "主数据Excel表单sheet1名称",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "masterDataSheet2",
+      "defaultValue": "",
+      "label": "主数据Excel表单sheet2名称",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "masterDataSheet3",
+      "defaultValue": "",
+      "label": "主数据Excel表单sheet3名称",
+      "required": true,
+      "requiredOnSave": true
+    }
+  ]
+}

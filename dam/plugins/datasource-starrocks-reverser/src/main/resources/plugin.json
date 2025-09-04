@@ -1,0 +1,5 @@
+{
+  "type": "STARROCKS",
+  "loadClass": "com.datablau.reverse.engineering.worker.starrocks.StarRocksWorker",
+  "build": "${build.timestamp}"
+}

@@ -1,0 +1,43 @@
+{
+  "datasourceType": "CIRRODATA",
+  "displayName": "CirroData",
+  "icon": "cirrodata",
+  "datasourceClass": "com.datablau.datasources.cirrodata.CirroDataDatasource",
+  "jdbcDriverClass": "com.bonc.xcloud.jdbc.XCloudDriver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "31010",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

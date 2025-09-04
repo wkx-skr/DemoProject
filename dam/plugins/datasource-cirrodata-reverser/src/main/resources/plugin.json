@@ -1,0 +1,5 @@
+{
+  "type" : "CIRRODATA",
+  "loadClass" : "com.datablau.reverse.engineering.worker.cirrodata.CirroDataWorker",
+  "build": "${build.timestamp}"
+}

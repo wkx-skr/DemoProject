@@ -1,0 +1,279 @@
+
+//-------------------------数据安全-------------------------
+//分类信息项-新
+DATA_SECURITY, /datasecurity/sensitive/catalog/{catalogId}, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/catalog/{catalogId}, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/search/catalog, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/search/catalog, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/check/catalog, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/check/catalog, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/list/{catalogId}, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/list/{catalogId}, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/list/{sensitiveId}/{securityId}, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/list/{sensitiveId}/{securityId}, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/generate, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/generate, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/udps, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/udps, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/udp/{itemId}, DATA_SECURITY_AUTH_STANDARD, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/udp/{itemId}, DATA_SECURITY_AUTH_STANDARD_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/import/standard, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/export/standard, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/download/template, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/add, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/modify, DATA_SECURITY_AUTH_STANDARD_MANAGE, PUT
+DATA_SECURITY, /datasecurity/sensitive/classify/{catalogId}, DATA_SECURITY_AUTH_STANDARD_MANAGE, DELETE
+DATA_SECURITY, /datasecurity/sensitive/classify/sensitive/add, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/classify/sensitive/del, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/generate/{id}, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/udps, DATA_SECURITY_AUTH_STANDARD_MANAGE, POST
+//分类信息项 导入
+DATA_SECURITY, /datasecurity/sensitive/import/standard, DATA_SECURITY_AUTH_STANDARD_UPLOAD, POST
+//分类信息项 导出
+DATA_SECURITY, /datasecurity/sensitive/export/standard, DATA_SECURITY_AUTH_STANDARD_DOWNLOAD, POST
+//分类信息项目录 查看
+DATA_SECURITY, /datasecurity/sensitive/catalog/{catalogId}, DATA_SECURITY_AUTH_STANDARD_CATALOG, GET
+//分类信息项目录 编辑
+DATA_SECURITY, /datasecurity/sensitive/catalog/{catalogId}, DATA_SECURITY_AUTH_STANDARD_CATALOG_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/check/catalog, DATA_SECURITY_AUTH_STANDARD_CATALOG_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/add, DATA_SECURITY_AUTH_STANDARD_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/classify/modify, DATA_SECURITY_AUTH_STANDARD_CATALOG_MANAGE, PUT
+DATA_SECURITY, /datasecurity/sensitive/classify/{catalogId}, DATA_SECURITY_AUTH_STANDARD_CATALOG_MANAGE, DELETE
+
+DATA_SECURITY, /datasecurity/rule/get, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+//识别规则目录
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/add, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/modify, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/delete/{catalogId}/{type}, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/checkName, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_DISCERN_RULE_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/sensitive/object/{catalogId}, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+
+
+//数据分类-新
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_CATALOG, GET
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_CATALOG_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/sensitive/{catalogId}, DATA_SECURITY_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/sensitive/catalog/{catalogId}, DATA_SECURITY_CATALOG_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/search, DATA_SECURITY_CATALOG, GET
+DATA_SECURITY, /datasecurity/catalog/classify/detail/{id}, DATA_SECURITY_CATALOG, GET
+DATA_SECURITY, /datasecurity/catalog/sensitive/object/{catalogId}, DATA_SECURITY_CATALOG, POST
+DATA_SECURITY, /datasecurity/catalog/classify/add, DATA_SECURITY_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/classify/modify, DATA_SECURITY_CATALOG_MANAGE, PUT
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_CATALOG_MANAGE, DELETE
+DATA_SECURITY, /datasecurity/catalog/bind/sensitive/object/{catalogId}, DATA_SECURITY_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/unBind/sensitive/object, DATA_SECURITY_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/export, DATA_SECURITY_CATALOG_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/upload, DATA_SECURITY_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/export/template, DATA_SECURITY_CATALOG_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/export/assets/{catalogId}, DATA_SECURITY_CATALOG_ASSETS_EXPORT, GET
+DATA_SECURITY, /datasecurity/catalog/sensitive/{catalogId}, DATA_SECURITY_CATALOG, POST
+DATA_SECURITY, /datasecurity/catalog/sensitive/{catalogId}, DATA_SECURITY_CATALOG_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/reComb/sensitive/{catalogId}, DATA_SECURITY_CATALOG_RE_COMB, POST
+
+//数据分级-新
+DATA_SECURITY, /datasecurity/level/addorupdate, DATA_SECURITY_LEVEL_MANAGE, POST
+DATA_SECURITY, /datasecurity/level/del, DATA_SECURITY_LEVEL_MANAGE, POST
+DATA_SECURITY, /datasecurity/level/securitylist/checkname, DATA_SECURITY_LEVEL, GET
+DATA_SECURITY, /datasecurity/level/queryassets, DATA_SECURITY_LEVEL, POST
+DATA_SECURITY, /datasecurity/level/queryassets, DATA_SECURITY_LEVEL_MANAGE, POST
+
+//法规条文-新
+DATA_SECURITY, /datasecurity/regulation/add, DATA_SECURITY_REGULATION_MANAGE, POST
+DATA_SECURITY, /datasecurity/regulation/{regulationId}, DATA_SECURITY_REGULATION_MANAGE, DELETE
+DATA_SECURITY, /datasecurity/regulation/, DATA_SECURITY_REGULATION_MANAGE, POST
+DATA_SECURITY, /datasecurity/regulation/search, DATA_SECURITY_REGULATION_MANAGE, POST
+DATA_SECURITY, /datasecurity/regulation/download/{regulationId}, DATA_SECURITY_REGULATION_MANAGE, POST
+DATA_SECURITY, /datasecurity/regulation/detail/{regulationId}, DATA_SECURITY_REGULATION_MANAGE, GET
+
+//评审与发布-新
+DATA_SECURITY, /datasecurity/check/judgesssets, DATA_SECURITY_REVIEW_PUBLISH, POST
+
+//智能分类分级-新
+DATA_SECURITY, /datasecurity/rule/add, DATA_SECURITY_DISCERN_RULE_MANAGE, PUT
+DATA_SECURITY, /datasecurity/rule/delete, DATA_SECURITY_DISCERN_RULE_MANAGE, DELETE
+DATA_SECURITY, /datasecurity/rule/update, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /datasecurity/rule/test, DATA_SECURITY_DISCERN_RULE_MANAGE, PUT
+DATA_SECURITY, /datasecurity/rule/get, DATA_SECURITY_DISCERN_RULE, POST
+DATA_SECURITY, /datasecurity/rule/get/{ruleId}, DATA_SECURITY_DISCERN_RULE, GET
+DATA_SECURITY, /datasecurity/rule/get/{ruleId}, DATA_SECURITY_DISCERN_RULE_MANAGE, GET
+DATA_SECURITY, /datasecurity/algorithm/get, DATA_SECURITY_DISCERN_RULE, POST
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_DISCERN_RULE, POST
+DATA_SECURITY, /datasecurity/algorithm/get, DATA_SECURITY_DISCERN_RULE_MANAGE, POST
+DATA_SECURITY, /datasecurity/task/add, DATA_SECURITY_DISCERN_TASK_MANAGE, PUT
+DATA_SECURITY, /datasecurity/task/{taskId}, DATA_SECURITY_DISCERN_TASK_MANAGE, DELETE
+DATA_SECURITY, /datasecurity/task/update, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+DATA_SECURITY, /datasecurity/task/{taskId}, DATA_SECURITY_DISCERN_TASK, GET
+DATA_SECURITY, /datasecurity/task/{taskId}, DATA_SECURITY_DISCERN_TASK_MANAGE, GET
+DATA_SECURITY, /datasecurity/task/get, DATA_SECURITY_DISCERN_TASK, POST
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_DISCERN_TASK, POST
+DATA_SECURITY, /datasecurity/task/get, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+DATA_SECURITY, /datasecurity/result/get, DATA_SECURITY_DISCERN_RESULT, POST
+DATA_SECURITY, /datasecurity/rule/get, DATA_SECURITY_DISCERN_RESULT, POST
+DATA_SECURITY, /datasecurity/task/get, DATA_SECURITY_DISCERN_RESULT, POST
+DATA_SECURITY, /datasecurity/result/get, DATA_SECURITY_DISCERN_RESULT_MANAGE, POST
+DATA_SECURITY, /datasecurity/rule/get, DATA_SECURITY_DISCERN_RESULT_MANAGE, POST
+DATA_SECURITY, /datasecurity/task/get, DATA_SECURITY_DISCERN_RESULT_MANAGE, POST
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_DISCERN_RESULT_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/search, DATA_SECURITY_DISCERN_RESULT_MANAGE, GET
+DATA_SECURITY, /datasecurity/rule/import, DATA_SECURITY_DISCERN_RULE_UPLOAD, POST
+DATA_SECURITY, /datasecurity/rule/download, DATA_SECURITY_DISCERN_RULE_UPLOAD, POST
+DATA_SECURITY, /datasecurity/rule/export, DATA_SECURITY_DISCERN_RULE_DOWNLOAD, POST
+DATA_SECURITY, /datasecurity/result/{resultId}/{assetId}/{catalogId}/{tagId}/{status}, DATA_SECURITY_DISCERN_RESULT_MANAGE, GET
+DATA_SECURITY, /datasecurity/algorithm/add, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, PUT
+DATA_SECURITY, /datasecurity/algorithm/delete, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/update, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/test, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/get, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/get/{algorithmId}, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, GET
+DATA_SECURITY, /datasecurity/algorithm/get/select, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, GET
+DATA_SECURITY, /datasecurity/algorithm/toUpdate/{algorithmId}, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, GET
+DATA_SECURITY, /datasecurity/algorithm/import, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/export, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/download, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/get, DATA_SECURITY_DISCERN_ALGORITHM, POST
+DATA_SECURITY, /datasecurity/algorithm/get, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, POST
+DATA_SECURITY, /datasecurity/algorithm/get/{algorithmId}, DATA_SECURITY_DISCERN_ALGORITHM, GET
+DATA_SECURITY, /datasecurity/algorithm/get/{algorithmId}, DATA_SECURITY_DISCERN_ALGORITHM_MANAGE, GET
+//识别任务目录
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/add, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/modify, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/delete/{catalogId}/{type}, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/checkName, DATA_SECURITY_DISCERN_TASK_MANAGE, POST
+//识别算法目录 查看
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_DISCERN_ALGORITHM_CATALOG, POST
+//识别算法目录 管理
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_DISCERN_ALGORITHM_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/add, DATA_SECURITY_DISCERN_ALGORITHM_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/modify, DATA_SECURITY_DISCERN_ALGORITHM_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/delete/{catalogId}/{type}, DATA_SECURITY_DISCERN_ALGORITHM_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/checkName, DATA_SECURITY_DISCERN_ALGORITHM_CATALOG_MANAGE, POST
+//识别算法 导入
+DATA_SECURITY, /datasecurity/algorithm/import, DATA_SECURITY_DISCERN_ALGORITHM_UPLOAD, POST
+DATA_SECURITY, /datasecurity/algorithm/download, DATA_SECURITY_DISCERN_ALGORITHM_UPLOAD, POST
+//识别算法 导出
+DATA_SECURITY, /datasecurity/algorithm/export, DATA_SECURITY_DISCERN_ALGORITHM_DOWNLOAD, POST
+
+//协同分类分级-新
+DATA_SECURITY, /datasecurity/check/update/asset/{status}, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, POST
+DATA_SECURITY, /datasecurity/check/update/catalog/{catalogId}, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, POST
+DATA_SECURITY, /datasecurity/check/update/level/{levelId}, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, POST
+DATA_SECURITY, /datasecurity/check/add/catalog/{catalogId}, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, POST
+DATA_SECURITY, /datasecurity/check/scan/{modelId}, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, GET
+DATA_SECURITY, /datasecurity/catalog/search, DATA_SECURITY_CATALOG_ELEMENT_MANAGE, GET
+DATA_SECURITY, /datasecurity/check/export, DATA_SECURITY_ASSET_EXPORT, POST
+DATA_SECURITY, /datasecurity/check/export/{status}, DATA_SECURITY_ASSET_EXPORT, POST
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_ASSET_EXPORT, GET
+DATA_SECURITY, /datasecurity/catalog/search, DATA_SECURITY_ASSET_EXPORT, GET
+DATA_SECURITY, /datasecurity/check/import/{status}, DATA_SECURITY_ASSET_IMPORT, POST
+DATA_SECURITY, /datasecurity/catalog/classify/{catalogId}, DATA_SECURITY_ASSET_IMPORT, GET
+DATA_SECURITY, /datasecurity/catalog/search, DATA_SECURITY_ASSET_IMPORT, GET
+DATA_SECURITY, /datasecurity/check/download, DATA_SECURITY_ASSET_IMPORT, POST
+
+//访问策略管理
+//目录树
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_ACCESS_CATALOG_VIEW, POST
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_ACCESS_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/add, DATA_SECURITY_ACCESS_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/modify, DATA_SECURITY_ACCESS_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/checkName, DATA_SECURITY_ACCESS_CATALOG_MANAGE, POST
+DATA_SECURITY, /accessStrategy/catalog/delete/{catalogId}/{type}, DATA_SECURITY_ACCESS_CATALOG_MANAGE, POST
+
+//列表页
+DATA_SECURITY, /accessStrategy/get/basic/{strategyId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/batch/delete, DATA_SECURITY_STRATEGY_MANAGE, POST
+
+//脱敏策略
+DATA_SECURITY, /accessStrategy/mask/column, DATA_SECURITY_STRATEGY_MANAGE, PUT
+DATA_SECURITY, /accessStrategy/mask/table, DATA_SECURITY_STRATEGY_MANAGE, PUT
+DATA_SECURITY, /accessStrategy/mask/table, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/mask/column, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/mask/table/scope, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/mask/column/modify, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/mask/table/modify, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/mask, DATA_SECURITY_STRATEGY_MANAGE, DELETE
+
+//行级访问策略
+DATA_SECURITY, /accessStrategy/row/get/{accessControlId}/{scopeType}, DATA_SECURITY_STRATEGY_MANAGE, GET
+DATA_SECURITY, /accessStrategy/row/add, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/row/delete/{accessControlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+
+//访问策略
+DATA_SECURITY, /accessStrategy/add, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/modify, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get/modify/{controlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get/{controlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get/visitor/{controlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get/all/visitor/{controlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get/object/{controlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/delete/{strategyId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/column/{strategyId}/{objectId}/{typeId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /accessStrategy/get/{typeId}/{controlId}, DATA_SECURITY_STRATEGY_MANAGE, POST
+DATA_SECURITY, /entities/columns, DATA_SECURITY_STRATEGY_MANAGE, POST
+
+//访问策略查看
+//目录树
+DATA_SECURITY, /accessStrategy/catalog/tree, DATA_SECURITY_STRATEGY, POST
+
+//列表页
+DATA_SECURITY, /accessStrategy/get/basic/{strategyId}, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/get, DATA_SECURITY_STRATEGY, POST
+
+//脱敏策略
+DATA_SECURITY, /accessStrategy/mask/table, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/mask/column, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/mask/table/scope, DATA_SECURITY_STRATEGY, POST
+
+//行级访问策略
+DATA_SECURITY, /accessStrategy/row/get/{accessControlId}/{scopeType}, DATA_SECURITY_STRATEGY, GET
+
+//访问策略
+DATA_SECURITY, /accessStrategy/get/modify/{controlId}, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/get/{controlId}, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/get/visitor/{controlId}, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/get/all/visitor/{controlId}, DATA_SECURITY_STRATEGY, POST
+DATA_SECURITY, /accessStrategy/get/object/{controlId}, DATA_SECURITY_STRATEGY, POST
+
+
+//脱敏规则管理
+DATA_SECURITY, /datamasking/rules, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, GET
+DATA_SECURITY, /datamasking/page, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, GET
+DATA_SECURITY, /datamasking/rule, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, POST
+DATA_SECURITY, /datamasking/rules, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, DELETE
+DATA_SECURITY, /datamasking/rule/{id}, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, GET
+DATA_SECURITY, /datamasking/rule/verify, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, PUT
+DATA_SECURITY, /accessStrategy/catalog/tree, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, POST
+DATA_SECURITY, /accessStrategy/catalog/add, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, POST
+DATA_SECURITY, /accessStrategy/catalog/modify, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, POST
+DATA_SECURITY, /accessStrategy/catalog/delete/{catalogId}/{type}, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, POST
+DATA_SECURITY, /accessStrategy/catalog/checkName, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE, POST
+//脱敏规则导出
+DATA_SECURITY, /mask/rule/export, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE_DOWNLOAD, POST
+//脱敏规则导入
+DATA_SECURITY, /mask/rule/upload, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE_UPLOAD, POST
+DATA_SECURITY, /mask/rule/download, MAIN_DATA_AUTH_DESENSITIZATION_STATIC_RULE_UPLOAD, POST
+
+//脱敏函数管理
+//DATA_SECURITY, /datamasking/rules, MAIN_DATA_AUTH_POLICY_RULE_MANAGE, GET
+//DATA_SECURITY, /files/search/rule, MAIN_DATA_AUTH_POLICY_RULE_MANAGE, GET
+//DATA_SECURITY, /files/upload/rule, MAIN_DATA_AUTH_POLICY_RULE_MANAGE, POST
+
+
+//安全分类设计-新
+DATA_SECURITY, /datasecurity/structure/list, DATA_SECURITY_STRUCTURE_MANAGE, GET
+DATA_SECURITY, /datasecurity/structure/save, DATA_SECURITY_STRUCTURE_MANAGE, POST
+
+//-------------------------安全网关-------------------------
+DATA_SECURITY, /dataSecurity/create, MAIN_DATA_AUTH_SECURITY_GATEWAY, post
+DATA_SECURITY, /dataSecurity/update/{id}, MAIN_DATA_AUTH_SECURITY_GATEWAY, post
+DATA_SECURITY, /dataSecurity/enable/{id}/{enable}, MAIN_DATA_AUTH_SECURITY_GATEWAY, post
+DATA_SECURITY, /dataSecurity/delete/{id}, MAIN_DATA_AUTH_SECURITY_GATEWAY, delete
+DATA_SECURITY, /dataSecurity/page, MAIN_DATA_AUTH_SECURITY_GATEWAY, get
+
+DATA_SECURITY, /datasecurity/sensitive/classify/generate, DATA_SECURITY_PARAM_SETTING_MANAGE, GET
+DATA_SECURITY, /datasecurity/sensitive/classify/generate/{id}, DATA_SECURITY_PARAM_SETTING_MANAGE, POST
+

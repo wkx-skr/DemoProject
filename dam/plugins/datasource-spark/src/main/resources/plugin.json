@@ -1,0 +1,39 @@
+{
+  "datasourceType": "SPARK",
+  "displayName": "Spark",
+  "icon": "spark",
+  "datasourceClass": "com.datablau.datasources.spark.SparkDatasource",
+  "jdbcDriverClass": "org.apache.hive.jdbc.HiveDriver",
+  "suggestVersion": "2.1.1",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "10000",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    }
+  ]
+}

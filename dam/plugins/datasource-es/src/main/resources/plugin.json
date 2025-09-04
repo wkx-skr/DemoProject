@@ -1,0 +1,50 @@
+{
+  "datasourceType": "ES",
+  "displayName": "ElasticSearch",
+  "icon": "es",
+  "datasourceClass": "com.datablau.datasources.es.ElasticSearchDatasource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "localhost",
+      "candidate": null,
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "PortNumber",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "9200",
+      "candidate": null,
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "AuthenticationType",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "0",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "multiple": false,
+      "label": null
+    },
+    {
+      "candidate": [],
+      "code": "SelectedSchemas",
+      "defaultValue": null,
+      "label": "Indices",
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

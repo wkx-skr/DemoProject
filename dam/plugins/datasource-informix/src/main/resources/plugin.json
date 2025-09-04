@@ -1,0 +1,54 @@
+{
+  "datasourceType": "INFORMIX",
+  "displayName": "Informix",
+  "icon": "informix",
+  "datasourceClass": "com.datablau.datasources.informix.InformixDatasource",
+  "jdbcDriverClass": "com.informix.jdbc.IfxDriver",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "9092",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "0",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "InstanceName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true,
+      "label": "Server Instance"
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true,
+      "label": "database"
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

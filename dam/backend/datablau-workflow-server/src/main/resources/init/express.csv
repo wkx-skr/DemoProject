@@ -1,0 +1,13 @@
+发起人所在部门的正职领导, user(${startUserId}) -> organization -> leader
+发起人所在部门的副职领导, user(${startUserId}) -> organization -> deputyLeader
+发起人所在部门的某职位人员, user(${startUserId}) -> organization -> users -> title(职位)
+评审人所在部门的正职领导, user(${评审人表单编码}) -> organization -> leader
+评审人所在部门的副职领导, user(${评审人表单编码}) -> organization -> deputyLeader
+评审人所在部门的某职位人员, user(${评审人表单编码}) -> organization -> users -> title(职位)
+某部门的正职领导, organization(部门编码) -> leader
+某部门的副职领导, organization(部门编码) -> deputyLeader
+某部门的某职位人员, organization(部门编码) -> users -> title(职位)
+某用户组的某职位人员, group(用户组名称) -> users -> title(职位)
+某用户组的所有人员, group(用户组名称) -> users
+某角色的所有人员, role(appName:角色名称) -> users
+自定义审批人

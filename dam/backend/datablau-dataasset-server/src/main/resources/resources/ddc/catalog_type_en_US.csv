@@ -1,0 +1,6 @@
+#Column Supported asset type, hierarchy, type name
+CATALOG/1/SubjectAreaGrouping
+CATALOG/2/SubjectArea
+CATALOG/3/BusinessObjects
+CATALOG,TABLE,VIEW/4/LogicalDataEntities
+DATA_OBJECT/5/attribute

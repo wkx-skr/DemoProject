@@ -1,0 +1,42 @@
+{
+  "datasourceType": "TRINO",
+  "displayName": "Trino",
+  "icon": "trino",
+  "datasourceClass": "com.datablau.datasources.trino.TrinoDatasource",
+  "jdbcDriverClass": "io.trino.jdbc.TrinoDriver",
+  "suggestVersion": "2.3.1",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "32696",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false
+    }
+  ]
+}

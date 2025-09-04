@@ -1,0 +1,38 @@
+{
+  "datasourceType": "HANA",
+  "displayName": "SAP HANA",
+  "icon": "hana",
+  "datasourceClass": "com.datablau.datasources.hana.HanaDatasource",
+  "jdbcDriverClass": "com.sap.db.jdbc.Driver",
+  "suggestVersion": "S4HANA 2.00.046",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "30015",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "SelectedSchemas",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    }
+  ]
+}

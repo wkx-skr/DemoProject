@@ -1,0 +1,108 @@
+{
+  "datasourceType": "OFFLINEDUMP",
+  "displayName": "DB Offline Dump",
+  "icon": "offlinedump",
+  "datasourceClass": "com.datablau.datasources.offlineDump.OfflineDumpDatasource",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "OfflineDumpSourceDriverType",
+      "defaultValue": "ORACLE",
+      "required": true,
+      "requiredOnSave": true,
+      "candidate": [
+        {
+          "label": "MySQL",
+          "value": "MYSQL",
+          "options": [
+            {
+              "code": "driverId",
+              "defaultValue": "",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "HostServer",
+              "defaultValue": "localhost",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "PortNumber",
+              "defaultValue": "3306",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "AuthenticationType",
+              "candidate": [
+                "password",
+                "kerberos"
+              ],
+              "defaultValue": 0,
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "DatabaseName",
+              "defaultValue": "",
+              "required": false,
+              "multiple": true,
+              "candidate": [
+              ]
+            }
+          ]
+        },
+        {
+          "label": "Oracle",
+          "value": "ORACLE",
+          "options": [
+            {
+              "code": "driverId",
+              "defaultValue": "",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "HostServer",
+              "defaultValue": "localhost",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "PortNumber",
+              "defaultValue": "1521",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "AuthenticationType",
+              "candidate": [
+                "password",
+                "kerberos"
+              ],
+              "defaultValue": 0,
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "connectMode",
+              "candidate": [
+                "SID",
+                "Service Name"
+              ],
+              "defaultValue": "SID",
+              "required": true,
+              "requiredOnSave": true
+            },
+            {
+              "code": "OfflineDumpTargetSchemaName",
+              "required": false,
+              "multiple": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "type" : "CASSANDRA",
+  "loadClass" : "com.datablau.reverse.engineering.worker.cassandra.CassandraWorker",
+  "build": "${build.timestamp}"
+}

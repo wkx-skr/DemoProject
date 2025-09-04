@@ -1,0 +1,5 @@
+{
+  "type" : "HOLOGRES",
+  "loadClass" : "com.datablau.reverse.engineering.worker.hologres.HologresWorker",
+  "build": "${build.timestamp}"
+}

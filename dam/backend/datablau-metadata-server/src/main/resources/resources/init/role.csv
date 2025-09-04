@@ -1,0 +1,74 @@
+//每列含义：appName, roleName, roleFriendlyName, roleDescription, roleModule, roleModuleClass
+
+METADATA, ROLE_DAM_SERVER, METADATA Server, METADATA Server， normally it can only read resources and cannot edit resources, null, null
+METADATA, ROLE_LDAP, LDAP User, Datablau reflection of a user of an LDAP domain/Active Directory, null, null
+METADATA, ROLE_WEB_EDITOR, Web Editor, User can use edit functions in DDM web, null, null
+METADATA, ROLE_DATA_CATALOG_VIEWER, 元数据浏览, 能浏览元数据相关页面, null, null
+METADATA, ROLE_APP_MANAGE_ADMIN, 应用工程师, 能创建修改编辑应用相关的页面, null, null
+METADATA, ROLE_API_DEVELOP_ADMIN, 数据工程师, 能创建修改编辑数据相关的页面, null, null
+METADATA, ROLE_DATA_SERVICE_ADMIN, 数据服务管理员, 能审核和管理数据和应用相关的页面, null, null
+METADATA, ROLE_DOMAIN_VIEWER, 数据标准浏览, 能浏览数据标准相关页面, null, null
+METADATA, ROLE_DATA_MODEL_VIEWER, 数据模型浏览, 能浏览数据模型相关页面, null, null
+METADATA, ROLE_USER, 普通访问浏览, 可以登录此系统，可以访问公共资源，没有编辑权限, null, null
+METADATA, ROLE_REPORT_VIEWER, 查看报表, 能访问报表, null, null
+METADATA, ROLE_DOCUMENT_VIEWER, 查看文件, 能访问文件, null, null
+METADATA, ROLE_CHECK_JOB_VIEWER, 查看质量检查任务, 能读取质量检查任务, null, null
+METADATA, ROLE_DDM_SERVER, 模型服务器, 模型服务器调用此服务器时使用的角色, null, null
+METADATA, ROLE_PROCESS_MANAGE, 流程管理, 可以访问和编辑二级目录“流程管理”板块的所有页面, null, null
+METADATA, ROLE_MEASURE_ADMIN, 管理指标, 能创建和编辑指标以及相关维度等信息, null, null
+METADATA, ROLE_DOMAIN_ADMIN, 管理数据标准, 能创建和编辑数据标准相关内容, null, null
+METADATA, ROLE_LINEAGE_ADMIN, 管理数据流转, 可以导入和编辑血缘关系, null, null
+METADATA, ROLE_DS_ADMIN, 管理数据源, 能创建和编辑数据源，以及创建检查任务, null, null
+METADATA, ROLE_REQUIREMENT_ADMIN, 管理数据需求和应用, 能创建和编辑数据需求和应用, null, null
+METADATA, ROLE_DATA_CATALOG_ADMIN, 管理生产模型, 能编辑数据资产相关内容, null, null
+
+
+
+METADATA, ROLE_SYSTEM_MANAGE, 系统管理, 可以访问和编辑二级目录“系统管理”板块的所有页面, null, null
+
+//METADATA, MAIN_ASSET_SUMMARY, 查看, null, 元数据, 元数据概览
+
+//METADATA, METADATA_REPORT_VIEW, 查看, null, 元数据, 报表
+//METADATA, METADATA_REPORT_ADD, 添加报表, null, 元数据, 报表
+//METADATA, METADATA_REPORT_MODIFY, 编辑报表, null, 元数据, 报表
+//METADATA, METADATA_REPORT_DELETE, 删除报表, null, 元数据, 报表
+//METADATA, METADATA_REPORT_IMPORT, 导入报表, null, 元数据, 报表
+//METADATA, METADATA_REPORT_EXPORT, 导出报表, null, 元数据, 报表
+//METADATA, METADATA_REPORT_UDP, 扩展属性维护, null, 元数据, 报表
+
+
+METADATA, METADATA_MODEL_VIEW, 管理, null, 元数据, 采集管理
+
+METADATA, BUSINESS_ATTR, 业务属性, null, 元数据, 数据集
+METADATA, EXPORT_METADATA, 导出元数据, null, 元数据, 数据集
+METADATA, UPDATA_METADATA, 更新元数据, null, 元数据, 数据集
+METADATA, METADATA_VIEW, 查看, null, 元数据, 数据集
+METADATA, METADATA_EDIT, 编辑所有, null, 元数据, 数据集
+//METADATA, METADATA_SQL_ALL_GET, 查看SQL, null, 元数据, 数据集
+//METADATA, METADATA_SQL_VIEW_GET, 查看视图SQL, null, 元数据, 数据集
+//METADATA, METADATA_SQL_FUNCTION_GET, 查看函数SQL, null, 元数据, 数据集
+//METADATA, METADATA_SQL_PROCEDURE_GET, 查看存储过程SQL, null, 元数据, 数据集
+//METADATA, METADATA_SQL_PACKAGE_GET, 查看程序包SQL, null, 元数据, 数据集
+METADATA, METADATA_SAMPLE_VIEW_GET, 查看采样数据, null, 元数据, 数据集
+
+//METADATA, METADATA_EDIT_CURRENT_SYSTEM, 编辑所属系统, null, 元数据, 数据集
+
+//METADATA, METADATA_FILE_VIEW, 管理, null, 元数据, 文件
+
+METADATA, BLODD_VIEW, 查看血缘, null, 元数据, 血缘管理
+METADATA, BLODD_FILE, 血缘管理, null, 元数据, 血缘管理
+METADATA, BLODD_FOLDER, 目录管理, null, 元数据, 血缘管理
+METADATA, BLODD_SCRIPT, 脚本管理, null, 元数据, 血缘管理
+
+METADATA, MAIN_SYS_DATA_MAP, 查看, null, 元数据, 数据地图
+
+METADATA, GLOBAL_SEARCH_MANAGE, 全局搜索, null, -, -
+
+METADATA, METADATA_AQ_VIEW, 查看, null, 元数据, 数据质量检查
+METADATA, METADATA_SAME, 管理, null, 元数据, 元数据相似度检查
+
+
+METADATA, METADATA_SEARCH, 查看, null, 元数据, 元数据搜索
+METADATA, BASE_DATASOURCE_MANAGE, 管理, null, 元数据, 数据源
+METADATA, BASE_SYSTEM_MANAGE, 管理, null, 元数据, 应用系统
+

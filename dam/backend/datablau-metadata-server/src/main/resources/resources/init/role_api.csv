@@ -1,0 +1,286 @@
+
+//-------------------------元数据-------------------------
+//查看,   元数据,  数据集
+METADATA, /entities/{objectId}/summary, METADATA_VIEW, GET
+METADATA, /entities/udps/{propId}, METADATA_VIEW, delete
+METADATA, /models/fromre/page, METADATA_VIEW, post
+METADATA, /entities/search, METADATA_VIEW, post
+METADATA, /dataDepartment/{dataId}/{dataType}, METADATA_VIEW, get
+METADATA, /dataManager/{dataId}/{dataType}, METADATA_VIEW, get
+METADATA, /entities/{objectId}/summary, METADATA_VIEW, get
+METADATA, /tags/tree, METADATA_VIEW, get
+METADATA, /entities/{objectId}/columns, METADATA_VIEW, get
+METADATA, /graph/SearchNodeRelation, METADATA_VIEW, get
+METADATA, /tags/recommendations/types/{typeId}, METADATA_VIEW, get
+METADATA, /main/users, METADATA_VIEW, get
+METADATA, /thread/types/{typeId}/objects/{objectId}, METADATA_VIEW, get
+METADATA, /lineage/object/{objectId}/type, METADATA_VIEW, get
+METADATA, /profile/{objectId}/state, METADATA_VIEW, get
+METADATA, /entities/{objectId}/history, METADATA_VIEW, get
+METADATA, /api/apis/search, METADATA_VIEW, get
+METADATA, /entities/{objectId}/tech/rule, METADATA_VIEW, get
+METADATA, /entities/search, METADATA_VIEW, post
+METADATA, /me/tree, METADATA_VIEW, get
+METADATA, /entities/tables/{objectId}/ddminfo, METADATA_VIEW, get
+METADATA, /entities/{objectId}/relationships, METADATA_VIEW, get
+METADATA, /auth/check/batch, METADATA_VIEW, get
+METADATA, /entities/data/sample, METADATA_SAMPLE_VIEW_GET, post
+METADATA, /models/modeltree, METADATA_VIEW, get
+METADATA, /models/category/{categoryId}, METADATA_VIEW, get
+DOMAIN, /domains/code/getCode, METADATA_VIEW, post
+DOMAIN, /domains/tree/getTree, METADATA_VIEW, POST
+
+//编辑所有,   元数据,  数据集
+METADATA, /entities/{dataObjectId}/summary, METADATA_EDIT, put
+METADATA, /tags/recommendations/types/{typeId}, METADATA_EDIT, get
+METADATA, /entities/{objectId}/tags/choose, METADATA_EDIT, get
+METADATA, /entities/{objectId}/tags/delete, METADATA_EDIT, post
+METADATA, /dataDepartment/save, METADATA_EDIT, post
+METADATA, /dataManager/saves, METADATA_EDIT, post
+METADATA, /thread/types/{typeId}/objects/{objectId}, METADATA_EDIT, post
+METADATA, /models/category/{categoryId}, METADATA_EDIT, post
+DOMAIN, /domains/code/getCode, METADATA_EDIT, post
+METADATA, /domains/entities, METADATA_EDIT, POST
+
+//编辑当前系统,   元数据,  数据集
+METADATA, /entities/{dataObjectId}/summary, METADATA_EDIT_CURRENT_SYSTEM, put
+METADATA, /tags/recommendations/types/{typeId}, METADATA_EDIT_CURRENT_SYSTEM, get
+METADATA, /entities/{objectId}/tags/choose, METADATA_EDIT_CURRENT_SYSTEM, get
+METADATA, /entities/{objectId}/tags/delete, METADATA_EDIT_CURRENT_SYSTEM, post
+METADATA, /dataDepartment/save, METADATA_EDIT_CURRENT_SYSTEM, post
+METADATA, /dataManager/saves, METADATA_EDIT_CURRENT_SYSTEM, post
+METADATA, /thread/types/{typeId}/objects/{objectId}, METADATA_EDIT_CURRENT_SYSTEM, post
+METADATA, /models/category/{categoryId}, METADATA_EDIT_CURRENT_SYSTEM, post
+DOMAIN, /domains/code/getCode, METADATA_EDIT_CURRENT_SYSTEM, post
+METADATA, /domains/entities, METADATA_EDIT_CURRENT_SYSTEM, POST
+
+//更新元数据,   元数据,  数据集
+METADATA, /models/{modelId}/updateMetadata, UPDATA_METADATA, post
+
+//导出元数据,   元数据,  数据集
+METADATA, /models/search/metadata/export, EXPORT_METADATA, post
+METADATA, /models/{modelId}/export, EXPORT_METADATA, post
+METADATA, /models/category/{categoryId}, EXPORT_METADATA, post
+
+//编辑数据源,   元数据,  数据集
+METADATA, /agent/list, EDIT_DATA_SOURCE, get
+METADATA, /driver/isJdbc, EDIT_DATA_SOURCE, get
+METADATA, /models/fromre/data, EDIT_DATA_SOURCE, get
+METADATA, /driver/type, EDIT_DATA_SOURCE, get
+METADATA, /models/{modelId}/categories/{categoryId}, EDIT_DATA_SOURCE, PUT
+METADATA, /models/{modelId}/owner, EDIT_DATA_SOURCE, PUT
+
+//业务属性,   元数据,  数据集
+METADATA, /entities/udp/select, BUSINESS_ATTR, get
+METADATA, /entities/udps/{typeId}, BUSINESS_ATTR, POST
+METADATA, /entities/udps/{typeId}, BUSINESS_ATTR, GET
+
+//查看,   元数据,  报表
+DOMAIN, /me/dims/catalogs, METADATA_REPORT_VIEW, get
+DOMAIN, /domains/tree/getTree, METADATA_REPORT_VIEW, POST
+METADATA, /dataRequirement/, METADATA_REPORT_VIEW, get
+METADATA, /models/modeltree, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/tree, METADATA_REPORT_VIEW, get
+METADATA, /entities/udps/{typeId}, METADATA_REPORT_VIEW, get
+METADATA, /me/dims/catalogs, METADATA_REPORT_VIEW, get
+METADATA, /domains/tree, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/tree, METADATA_REPORT_VIEW, get
+METADATA, /me/dims/catalogs/{catalogId}/dims, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/tree, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/{dataReportId}, METADATA_REPORT_VIEW, get
+METADATA, /graph/SearchNodeRelation, METADATA_REPORT_VIEW, get
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, METADATA_REPORT_VIEW, GET
+
+METADATA, /dataDepartment/{dataId}/{dataType}, METADATA_REPORT_VIEW, get
+METADATA, /dataManager/{dataId}/{dataType}, METADATA_REPORT_VIEW, get
+METADATA, /auth/check/{itemId}/{itemType}, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/{drId}/resourceStatistics, METADATA_REPORT_VIEW, get
+
+METADATA, /entities/udp/select, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/tree, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/tree, METADATA_REPORT_IMPORT, get
+METADATA, /dataReport/tree, METADATA_REPORT_DELETE, get
+METADATA, /dataReport/tree, METADATA_REPORT_ADD, get
+METADATA, /dataReport/tree, METADATA_REPORT_EXPORT, get
+METADATA, /dataReport/tree, METADATA_REPORT_MODIFY, get
+METADATA, /datablau_jobs/, METADATA_REPORT_VIEW, get
+METADATA, /lineage/report/{objectId}/type, METADATA_REPORT_VIEW, get
+METADATA, /dataReport/importBI/test, METADATA_REPORT_VIEW, get
+METADATA, /entities/{objectId}/columns, METADATA_REPORT_VIEW, get
+METADATA, /thread/types/{typeId}/objects/{objectId}, METADATA_REPORT_VIEW, get
+//添加报表,   元数据,  报表
+METADATA, /entities/udps/{typeId}, METADATA_REPORT_ADD, get
+METADATA, /dataRequirement/, METADATA_REPORT_ADD, get
+METADATA, /me/dims/catalogs, METADATA_REPORT_ADD, get
+METADATA, /domains/tree, METADATA_REPORT_ADD, get
+DOMAIN, /domains/tree/getTree, METADATA_REPORT_ADD, POST
+METADATA, /entities/search, METADATA_REPORT_ADD, post
+METADATA, /models/modeltree, METADATA_REPORT_ADD, get
+METADATA, /me/dims/catalogs/{catalogId}/dims, METADATA_REPORT_ADD, get
+METADATA, /dataReport/, METADATA_REPORT_ADD, post
+METADATA, /dataReport/, METADATA_REPORT_ADD, get
+METADATA, /files/upload, METADATA_REPORT_ADD, POST
+METADATA, /files/commit, METADATA_REPORT_ADD, put
+METADATA, /files/{fileId}/download, METADATA_REPORT_ADD, get
+METADATA, /entities/{objectId}/columns, METADATA_REPORT_ADD, get
+//编辑报表,   元数据,  报表
+METADATA, /dataReport/{drId}/resourceStatistics, METADATA_REPORT_MODIFY, get
+METADATA, /entities/udps/{typeId}, METADATA_REPORT_MODIFY, get
+METADATA, /dataRequirement/, METADATA_REPORT_MODIFY, get
+METADATA, /me/dims/catalogs, METADATA_REPORT_MODIFY, get
+METADATA, /domains/tree, METADATA_REPORT_MODIFY, get
+DOMAIN, /domains/tree/getTree, METADATA_REPORT_MODIFY, POST
+METADATA, /entities/search, METADATA_REPORT_MODIFY, post
+METADATA, /models/modeltree, METADATA_REPORT_MODIFY, get
+METADATA, /me/dims/catalogs/{catalogId}/dims, METADATA_REPORT_MODIFY, get
+METADATA, /dataReport/, METADATA_REPORT_MODIFY, get
+METADATA, /files/upload, METADATA_REPORT_MODIFY, POST
+METADATA, /files/commit, METADATA_REPORT_MODIFY, put
+METADATA, /files/{fileId}/download, METADATA_REPORT_MODIFY, get
+METADATA, /entities/{objectId}/columns, METADATA_REPORT_MODIFY, get
+METADATA, /dataReport/update, METADATA_REPORT_MODIFY, post
+//删除报表,   元数据,  报表
+METADATA, /dataReport/delete, METADATA_REPORT_DELETE, post
+//导入报表,   元数据,  报表
+METADATA, /dataReport/file, METADATA_REPORT_IMPORT, get
+METADATA, /dataReport/file, METADATA_REPORT_IMPORT, post
+//导出报表,   元数据,  报表
+METADATA, /dataReport/file/report, METADATA_REPORT_EXPORT, post
+//扩展属性维护,   元数据,  报表
+METADATA, /entities/udps/{typeId}, METADATA_REPORT_UDP, get
+METADATA, /entities/udp/select, METADATA_REPORT_UDP, get
+METADATA, /entities/udps/{typeId}, METADATA_REPORT_UDP, post
+METADATA, /entities/udps/{propId}, METADATA_REPORT_UDP, delete
+
+
+//管理,   元数据,  业务流程
+METADATA, /busiObjects/flows/tree, BUSINESS_PROCESS_VIEW, get
+METADATA, /busiObjects/flows/, BUSINESS_PROCESS_VIEW, post
+METADATA, /busiObjects/flows/{flowId}/objects, BUSINESS_PROCESS_VIEW, get
+METADATA, /busiObjects/objects/, BUSINESS_PROCESS_VIEW, post
+METADATA, /busiObjects/objects/{objectId}/dam/bindings, BUSINESS_PROCESS_VIEW, get
+METADATA, /busiObjects/objects/{objectId}, BUSINESS_PROCESS_VIEW, put
+METADATA, /busiObjects/flows/{flowId}, BUSINESS_PROCESS_VIEW, put
+METADATA, /busiObjects/objects, BUSINESS_PROCESS_VIEW, put
+METADATA, /busiObjects/flows, BUSINESS_PROCESS_VIEW, put
+METADATA, /busiObjects/upload, BUSINESS_PROCESS_VIEW, put
+METADATA, /busiObjects/template, BUSINESS_PROCESS_VIEW, put
+METADATA, /busiObjects/objects/{objectId}/unbind/{tabId}, BUSINESS_PROCESS_VIEW, put
+
+//元数据,  业务实体
+METADATA, /busiObjects/tabs, BUSINESS_ENTITY_VIEW, get
+METADATA, /models/ddm/models, BUSINESS_ENTITY_VIEW, get
+METADATA, /busiObjects/tabs, BUSINESS_ENTITY_VIEW, post
+METADATA, /busiObjects/tabs, BUSINESS_ENTITY_VIEW, get
+METADATA, /busiObjects/tabs/{tabId}, BUSINESS_ENTITY_VIEW, put
+METADATA, /busiObjects/tabs, BUSINESS_ENTITY_VIEW, delete
+METADATA, /models/ddm/models/{modelId}, BUSINESS_ENTITY_VIEW, get
+METADATA, /busiObjects/tables/bind, BUSINESS_ENTITY_VIEW, get
+METADATA, /busiObjects/table/{smId}/{stId}/bindings, BUSINESS_ENTITY_VIEW, get
+METADATA, /models/ddm/models/{objectId}/tables, BUSINESS_ENTITY_VIEW, get
+METADATA, /modelCategories/template/dynamic, APPLICATION_SYSTEM_VIEW, get
+METADATA, /modelCategories/file/export, APPLICATION_SYSTEM_VIEW, get
+METADATA, /modelCategories/upload, APPLICATION_SYSTEM_VIEW, post
+METADATA, /entities/udps/{typeId}, APPLICATION_SYSTEM_VIEW, get
+METADATA, /entities/udp/select, APPLICATION_SYSTEM_VIEW, get
+METADATA, /entities/udps/{typeId}, APPLICATION_SYSTEM_VIEW, post
+METADATA, /entities/udps/{propId}, APPLICATION_SYSTEM_VIEW, delete
+METADATA, /systemcall/search, SYSTEM_CALL_VIEW, post
+METADATA, /models/category/{categoryId}, SYSTEM_CALL_VIEW, get
+METADATA, /systemcall/, SYSTEM_CALL_VIEW, post
+METADATA, /systemcall/{systemCallId}, SYSTEM_CALL_VIEW, delete
+METADATA, /systemcall/template, SYSTEM_CALL_VIEW, get
+METADATA, /systemcall/upload, SYSTEM_CALL_VIEW, post
+
+//元数据,  血缘管理
+METADATA, /lineage/imported, BLODD_VIEW, post
+METADATA, /lineage/folder/tree, BLODD_VIEW, post
+METADATA, /lineage/searchTables/, BLODD_VIEW, post
+METADATA, /entities/search, BLODD_VIEW, post
+METADATA, /lineage/endpoints/lineage, BLODD_VIEW, get
+METADATA, /models/modeltree, BLODD_VIEW, get
+
+METADATA, /lineage/imported, BLODD_FILE, post
+METADATA, /lineage/script-plsql/job/{jobName}, BLODD_FILE, post
+METADATA, /simplejobs/{jobId}, BLODD_FILE, get
+METADATA, /lineage/downloadGeneralSqlTemplate, BLODD_FILE, get
+METADATA, /lineage/downloadTemplate, BLODD_FILE, get
+METADATA, /lineage/{lineageId}, BLODD_FILE, delete
+METADATA, /files/{fileId}, BLODD_FILE, get
+METADATA, /files/{fileId}/download, BLODD_FILE, get
+METADATA, /lineage/{lineageId}/name, BLODD_FILE, get
+METADATA, /lineage/endpoints/lineage, BLODD_FILE, get
+METADATA, /datablau_jobs/instances/jobInstanceId}/stop, BLODD_FILE, put
+METADATA, /lineage/searchTables/, BLODD_FILE, post
+METADATA, /lineage/folder/tree, BLODD_FILE, post
+METADATA, /models/modeltree, BLODD_FILE, get
+
+METADATA, /lineage/folder/tree, BLODD_FOLDER, post
+METADATA, /lineage/folder/addOrUpdateFolder, BLODD_FOLDER, post
+METADATA, /lineage/folder/deleteFolder, BLODD_FOLDER, post
+METADATA, /lineage/folder/addOrUpdateFolderRef, BLODD_FOLDER, post
+METADATA, /lineage/folder/addOrUpdateFolderRefs, BLODD_FOLDER, post
+METADATA, /lineage/folder/find/model/{folderId}, BLODD_FOLDER, post
+METADATA, /lineage/folder/page/model/{folderId}, BLODD_FOLDER, post
+METADATA, /lineage/folder/find/script/{folderId}, BLODD_FOLDER, post
+METADATA, /lineage/folder/page/script/{folderId}, BLODD_FOLDER, post
+METADATA, /lineage/folder/deleteFolderRefs/{type}/{folderId}, BLODD_FOLDER, post
+METADATA, /lineage/folder/resetInheritModel, BLODD_FOLDER, post
+METADATA, /lineage/folder/job, BLODD_FOLDER, post
+METADATA, /lineage/script/testByContent, BLODD_SCRIPT, post
+METADATA, /lineage/script/testByScript, BLODD_SCRIPT, post
+METADATA, /lineage/script/getLineageType, BLODD_SCRIPT, post
+METADATA, /lineage/script/createScript, BLODD_SCRIPT, post
+METADATA, /lineage/script/updateScript, BLODD_SCRIPT, post
+METADATA, /lineage/script/deleteScript, BLODD_SCRIPT, post
+METADATA, /lineage/script/deleteScriptBatch, BLODD_SCRIPT, post
+METADATA, /lineage/script/enabled, BLODD_SCRIPT, post
+METADATA, /lineage/script/findScript, BLODD_SCRIPT, post
+METADATA, /lineage/script/page, BLODD_SCRIPT, post
+METADATA, /lineage/script/uploadScript, BLODD_SCRIPT, post
+METADATA, /lineage/script/exportScriptTemplates, BLODD_SCRIPT, post
+
+
+
+//元数据,  驱动管理
+METADATA, /driver/type/search, DRIVER_VIEW, get
+METADATA, /driver/search/, DRIVER_VIEW, get
+METADATA, /files/upload/driver, DRIVER_VIEW, post
+METADATA, /driver/, DRIVER_VIEW, post
+METADATA, /driver/{driverId}, DRIVER_VIEW, delete
+
+//元数据,  数据源
+METADATA, /agent/list, DATA_VIEW, get
+METADATA, /models/fromre/data, DATA_VIEW, get
+METADATA, /driver/isJdbc, DATA_VIEW, get
+METADATA, /driver/type, DATA_VIEW, get
+METADATA, /models/{modelId}, DATA_VIEW, delete
+METADATA, /models/{modelId}/owner, DATA_VIEW, delete
+METADATA, /models/{modelId}/categories/{categoryId}, DATA_VIEW, put
+METADATA, /models/connection/test/{modelId}, DATA_VIEW, get
+METADATA, /models/re/{jobId}/progress, DATA_VIEW, get
+METADATA, /models/re/dbs, DATA_VIEW, put
+METADATA, /agent/list, DATA_VIEW, put
+METADATA, /subscribe/, DATA_VIEW, put
+METADATA, /datablau_jobs/resources/{resourceId}/types/{typeId}/detail, DATA_VIEW, get
+
+METADATA, /datablau_jobs/select/options, DATA_VIEW, post
+METADATA, /datablau_jobs/page, DATA_VIEW, post
+METADATA, /datablau_jobs/{jobId}, DATA_VIEW, get
+METADATA, /datablau_jobs/{jobId}/history, DATA_VIEW, get
+METADATA, /datablau_jobs/{jobId}/enable, DATA_VIEW, put
+METADATA, /datablau_jobs/{jobId}/disable, DATA_VIEW, put
+METADATA, /datablau_jobs/{jobId}/run, DATA_VIEW, put
+METADATA, /datablau_jobs/{jobId}/events, DATA_VIEW, get
+METADATA, /datablau_jobs/{jobId}/reschedule, DATA_VIEW, put
+METADATA, /datablau_jobs/{jobId}, DATA_VIEW, put
+METADATA, /datablau_jobs/, DATA_VIEW, post
+METADATA, /datablau_jobs/{jobId}, DATA_VIEW, delete
+METADATA, /files/upload, DATA_VIEW, POST
+METADATA, /files/commit, DATA_VIEW, put
+
+METADATA, /org/groups/{groupId}/add, USER_GROUP_VIEW, post
+USERMGMT, /org/groups/{groupId}/add, USER_GROUP_VIEW, post
+METADATA, /org/groups/{groupId}/remove/{userId}, USER_GROUP_VIEW, delete
+USERMGMT, /org/groups/{groupId}/remove/{userId}, USER_GROUP_VIEW, delete

@@ -1,0 +1,5 @@
+{
+  "type" : "MYSQL",
+  "loadClass" : "com.datablau.reverse.engineering.worker.mysql.MySqlWorker",
+  "build": "${build.timestamp}"
+}

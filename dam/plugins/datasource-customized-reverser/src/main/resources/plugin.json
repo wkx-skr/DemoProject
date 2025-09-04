@@ -1,0 +1,5 @@
+{
+  "type" : "CUSTOMIZED",
+  "loadClass" : "com.datablau.reverse.engineering.worker.customized.CustomizedWorker",
+  "build": "${build.timestamp}"
+}

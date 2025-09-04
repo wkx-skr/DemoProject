@@ -1,0 +1,57 @@
+{
+  "datasourceType": "HIVE",
+  "displayName": "Hive",
+  "icon": "hive",
+  "datasourceClass": "com.datablau.datasources.hive.HiveDatasource",
+  "jdbcDriverClass": "org.apache.hive.jdbc.HiveDriver",
+  "suggestVersion": "2.1.1",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "10000",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    },
+    {
+      "label": "mysql的连接信息",
+      "code": "MysqlHostServerUrl",
+      "defaultValue": "",
+      "required": false
+    },
+    {
+      "label": "mysql用户",
+      "code": "userMysql",
+      "defaultValue": "",
+      "required": false
+    },
+    {
+      "label": "mysql密码",
+      "code": "passwordMysql",
+      "defaultValue": "",
+      "required": false
+    }
+  ]
+}

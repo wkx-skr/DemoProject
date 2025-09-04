@@ -1,0 +1,31 @@
+{
+  "datasourceType" : "PHOENIX",
+  "displayName" : "phoenix",
+  "icon" : "phoenix",
+  "datasourceClass" : "com.datablau.datasources.phoenix.PhoenixDatasource",
+  "jdbcDriverClass" : "org.apache.phoenix.jdbc.PhoenixDriver",
+  "build": "${build.timestamp}",
+  "options" : [{
+    "code": "HostServer",
+    "defaultValue": "localhost",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "PortNumber",
+    "defaultValue": "3333",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "AuthenticationType",
+    "candidate": [
+      "password"
+    ],
+    "defaultValue": 0,
+    "required": false
+  },  {
+    "code": "DatabaseName",
+    "defaultValue": "",
+     "required": true,
+ "requiredOnSave": true
+  }]
+}

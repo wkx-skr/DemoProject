@@ -1,0 +1,31 @@
+//Meaning of each column: appName, roleName, roleFriendlyName, roleDescription, roleModule, roleModuleClass
+
+DATA_ASSET, DATA_ASSET_MARKET_MANAGE, management, null, Data Assets, data marts
+DATA_ASSET, DATA_ASSET_ANALYSE_MANAGE,management, null, Data Assets, Asset Overview
+DATA_ASSET, DATA_ASSET_MANAGE, management, null, Data Assets, data asset management
+DATA_ASSET, DATA_ASSET_MANAGE_EXPORT, export data assets, null, Data Assets, data asset management
+DATA_ASSET, DATA_ASSET_MANAGE_IMPORT, import data assets, null, Data Assets, data asset management
+DATA_ASSET, DATA_ASSET_MANAGE_CATALOG_IMPORT, import asset catalog, null, Data Assets, data asset management
+DATA_ASSET, DATA_ASSET_MANAGE_CATALOG_EXPORT, export asset catalog, null, Data Assets, data asset management
+DATA_ASSET, DATA_ASSET_CATALOG_TYPE_MANAGE, management, null, Data Assets, Directory Type Settings
+DATA_ASSET, DATA_ASSET_CATALOG_STRUCTURE_MANAGE, management, null, Data Assets, directory space design
+DATA_ASSET, DATA_ASSET_CATALOG_TASK_MANAGE, management, null, Data Assets, task management
+
+DATA_ASSET, IDENTIFY_RULE_MANAGE, Identify Rule Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_RULE_VIEW, Identify Rule View, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_RULE_CATALOG_MANAGE, Identify Rule Catalog Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_RULE_CATALOG_VIEW, Identify Task Catalog View, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_RULE_IMPORT, Import Identify Rule, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_RULE_EXPORT, Export Identify Rule, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_TASK_CATALOG_MANAGE, Identify Task Catalog Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_TASK_CATALOG_VIEW, Identify Task Catalog View, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_TASK_MANAGE, Identify Task Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, IDENTIFY_TASK_VIEW, Identify Task View, null, Data Assets, Intelligent recognition
+DATA_ASSET, RECOMMEND_RESULT_MANAGE, Recommend Result Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, RECOMMEND_RESULT_VIEW, Recommend Result View, null, Data Assets, Intelligent recognition
+DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_CATALOG_MANAGE, Algorithm Catalog Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_CATALOG, Algorithm Catalog View, null, Data Assets, Intelligent recognition
+DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_MANAGE, Algorithm Library Manage, null, Data Assets, Intelligent recognition
+DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM, Algorithm Library View, null, Data Assets, Intelligent recognition
+DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_UPLOAD, Import Algorithm, null, Data Assets, Intelligent recognition
+DATA_ASSET, DATA_ASSET_DISCERN_ALGORITHM_DOWNLOAD, Export Algorithm, null, Data Assets, Intelligent recognition

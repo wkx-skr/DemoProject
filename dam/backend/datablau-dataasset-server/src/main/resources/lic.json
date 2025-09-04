@@ -1,0 +1,8 @@
+[
+  {
+    "featureCode": "FE_ASSETS",
+    "interceptUrls": [
+      "/assets/**"
+    ]
+  }
+]

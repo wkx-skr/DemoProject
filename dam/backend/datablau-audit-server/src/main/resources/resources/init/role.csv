@@ -1,0 +1,8 @@
+//AUDIT, DATA_SECURITY_GATEWAY_AUDIT, 管理, null, 安全网关, 日志审计
+
+//系统模块  服务日志
+AUDIT, SYSTEM_LOG_MANAGE, 管理, null, 系统管理, 服务日志
+
+//系统模块  操作日志
+AUDIT, FULL_OPERATION_LOG_MANAGE, 管理, null, 系统管理, 操作日志
+

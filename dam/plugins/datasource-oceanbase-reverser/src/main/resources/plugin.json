@@ -1,0 +1,5 @@
+{
+  "type" : "OCEANBASE",
+  "loadClass" : "com.datablau.reverse.engineering.worker.oceanbase.OceanBaseWorker",
+  "build": "${build.timestamp}"
+}

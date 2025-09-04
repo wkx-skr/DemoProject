@@ -1,0 +1,5 @@
+{
+  "type" : "INFORMIX",
+  "loadClass" : "com.datablau.reverse.engineering.worker.informix.InformixWorker",
+  "build": "${build.timestamp}"
+}

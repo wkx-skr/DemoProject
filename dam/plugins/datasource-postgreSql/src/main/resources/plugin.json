@@ -1,0 +1,43 @@
+{
+  "datasourceType": "POSTGRESQL",
+  "displayName": "PostgreSQL",
+  "icon": "postgresql",
+  "datasourceClass": "com.datablau.datasources.postgresql.PostgreSqlDatasource",
+  "jdbcDriverClass": "org.postgresql.Driver",
+  "suggestVersion": "9.5、10.15",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "5432",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "datasourceType": "KanBan",
+  "displayName": "KanBan",
+  "icon": "KanBan",
+  "datasourceClass": "com.datablau.datasource.reportKanBan.KanBanDatasource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "requestUrl",
+      "defaultValue": "localhost",
+      "label": "请求路径",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "reportMMSheet1",
+      "defaultValue": "",
+      "label": "reportMMSheet1",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "reportMMSheet2",
+      "defaultValue": "",
+      "label": "reportMMSheet2",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "reportMMSheet3",
+      "defaultValue": "",
+      "label": "reportMMSheet3",
+      "required": true,
+      "requiredOnSave": true
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "datasourceType": "CUSTOMIZED",
+  "displayName": "Customized",
+  "icon": "customized",
+  "datasourceClass": "com.datablau.datasources.customized.CustomizedDatasource",
+  "jdbcDriverClass": null,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [
+      ],
+      "multiple": true,
+      "required": false
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false
+    }
+  ]
+}

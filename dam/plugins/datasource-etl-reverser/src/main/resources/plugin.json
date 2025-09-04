@@ -1,0 +1,5 @@
+{
+  "type" : "ETL",
+  "loadClass" : "com.datablau.reverse.engineering.worker.etl.EtlWorker",
+  "build": "${build.timestamp}"
+}

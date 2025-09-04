@@ -1,0 +1,5 @@
+{
+  "type" : "GAUSSDB",
+  "loadClass" : "com.datablau.reverse.engineering.worker.gauss200.GaussDBWorker",
+  "build": "${build.timestamp}"
+}

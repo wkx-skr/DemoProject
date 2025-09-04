@@ -1,0 +1,28 @@
+{
+  "datasourceType": "API",
+  "displayName": "Api",
+  "icon": "api",
+  "datasourceClass": "com.datablau.datasource.api.ApiDatasource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "localhost",
+      "candidate": null,
+      "multiple": false,
+      "label": "API"
+    },
+    {
+      "candidate": [],
+      "code": "SelectedSchemas",
+      "defaultValue": null,
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

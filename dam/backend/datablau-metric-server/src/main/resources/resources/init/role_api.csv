@@ -1,0 +1,85 @@
+//-------------------METRIC-------------
+// 维度定义
+METRIC, /metricManagement/metricAuth/getPermission, METRIC_INDEX_DIMENSION, post
+METRIC, /categories/tree/, METRIC_INDEX_DIMENSION, post
+METRIC, /categories/get, METRIC_INDEX_DIMENSION, post
+METRIC, /categories/create, METRIC_INDEX_DIMENSION, post
+METRIC, /categories/update, METRIC_INDEX_DIMENSION, post
+METRIC, /categories/delete, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/page, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/create, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/update, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/delete, METRIC_INDEX_DIMENSION, post
+METRIC, /requirementmanagement/getall, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/get, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/list/get, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/tree/get, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/udp/get, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/udp/create, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/udp/update, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/udp/delete, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/downloadTemplate, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/export, METRIC_INDEX_DIMENSION, post
+METRIC, /dimension/import, METRIC_INDEX_DIMENSION, post
+// 原子/衍生指标
+METRIC, /metricManagement/metricAuth/getPermission, METRIC_INDEX_ATOM, post
+METRIC, /domains/udp/getUdps, METRIC_INDEX_ATOM, POST
+METRIC, /domains/tree/getTree, METRIC_INDEX_ATOM, POST
+METRIC, /dimension/page, METRIC_INDEX_ATOM, post
+METRIC, /domains/domain/getPage, METRIC_INDEX_ATOM, POST
+METRIC, /domains/domain/getDomainByCodes, METRIC_INDEX_ATOM, POST
+METRIC, /metricManagement/exportMetric, METRIC_INDEX_ATOM, post
+METRIC, /metricManagement/importMetric, METRIC_INDEX_ATOM, post
+METRIC, /metricManagement/downloadMetricTemplate, METRIC_INDEX_ATOM, post
+METRIC, /requirementmanagement/getall, METRIC_INDEX_ATOM, post
+METRIC, /domains/folder/createFolder, METRIC_INDEX_ATOM, post
+METRIC, /domains/folder/updateFolder, METRIC_INDEX_ATOM, post
+METRIC, /domains/folder/deleteFolder, METRIC_INDEX_ATOM, post
+METRIC, /domains/domain/createDomain, METRIC_INDEX_ATOM, POST
+METRIC, /domains/, METRIC_INDEX_ATOM, PUT
+METRIC, /domains/deleteByIds, METRIC_INDEX_ATOM, post
+METRIC, /domains/domain/getDomainById, METRIC_INDEX_ATOM, POST
+METRIC, /domains/domain/getDomainById, METRIC_INDEX_DERIVE, POST
+METRIC, /domains/udp/createUdps, METRIC_INDEX_ATOM, post
+METRIC, /domains/udp/createUdps, METRIC_INDEX_DERIVE, post
+// 派生指标
+METRIC, /metricManagement/metricAuth/getPermission, METRIC_INDEX_DERIVE, post
+METRIC, /metricManagement/metricAuth/getPermission, METRIC_INDEX_ATOM, post
+METRIC, /domains/tree/getTree, METRIC_INDEX_DERIVE, POST
+METRIC, /domains/udp/getUdps, METRIC_INDEX_DERIVE, POST
+METRIC, /dimension/page, METRIC_INDEX_DERIVE, post
+METRIC, /domains/domain/getPage, METRIC_INDEX_DERIVE, POST
+METRIC, /domains/folder/createFolder, METRIC_INDEX_DERIVE, post
+METRIC, /domains/folder/updateFolder, METRIC_INDEX_DERIVE, post
+METRIC, /domains/folder/deleteFolder, METRIC_INDEX_DERIVE, post
+METRIC, /domains/domain/getDomainById, METRIC_INDEX_DERIVE, POST
+// 修饰词管理
+METRIC, /dimension/udp/get, METRIC_INDEX_MODIFIER, post
+METRIC, /categories/tree/, METRIC_INDEX_MODIFIER, post
+METRIC, /categories/get, METRIC_INDEX_MODIFIER, post
+METRIC, /categories/create, METRIC_INDEX_MODIFIER, post
+METRIC, /categories/update, METRIC_INDEX_MODIFIER, post
+METRIC, /categories/delete, METRIC_INDEX_MODIFIER, post
+// 时间周期管理
+METRIC, /dimension/udp/get, METRIC_INDEX_TIME, post
+METRIC, /categories/tree/, METRIC_INDEX_TIME, post
+METRIC, /categories/get, METRIC_INDEX_TIME, post
+METRIC, /categories/create, METRIC_INDEX_TIME, post
+METRIC, /categories/update, METRIC_INDEX_TIME, post
+METRIC, /categories/delete, METRIC_INDEX_TIME, post
+// 主题目录
+METRIC, /categories/tree/, METRIC_INDEX_TOPIC, post
+METRIC, /categories/get, METRIC_INDEX_TOPIC, post
+METRIC, /categories/create, METRIC_INDEX_TOPIC, post
+METRIC, /categories/update, METRIC_INDEX_TOPIC, post
+METRIC, /categories/delete, METRIC_INDEX_TOPIC, post
+METRIC, /querytheme/page, METRIC_INDEX_TOPIC, post
+METRIC, /models/modeltree, METRIC_INDEX_TOPIC, GET
+METRIC, /querytheme/create, METRIC_INDEX_TOPIC, post
+METRIC, /querytheme/get, METRIC_INDEX_TOPIC, post
+METRIC, /querytheme/update, METRIC_INDEX_TOPIC, post
+METRIC, /querytheme/delete, METRIC_INDEX_TOPIC, post
+// 自主查询
+METRIC, /querytheme/findall, METRIC_INDEX_SEARCHSELF, post
+METRIC, /querytheme/mapping/list/get, METRIC_INDEX_SEARCHSELF, post
+METRIC, /querytheme/mapping/to/execute, METRIC_INDEX_SEARCHSELF, post

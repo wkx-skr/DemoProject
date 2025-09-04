@@ -1,0 +1,31 @@
+{
+  "datasourceType" : "FUSIONINSIGHT",
+  "displayName" : "FusionInsight",
+  "icon" : "fusionInsight",
+  "datasourceClass" : "com.datablau.datasources.fusioninsight.FusioninsightDatasource",
+  "jdbcDriverClass" : "org.apache.hive.jdbc.HiveDriver",
+  "build": "${build.timestamp}",
+  "options" : [{
+    "code": "HostServer",
+    "defaultValue": "localhost",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "PortNumber",
+    "defaultValue": "2181",
+     "required": true,
+ "requiredOnSave": true
+  }, {
+    "code": "AuthenticationType",
+    "candidate": [
+      "password"
+    ],
+    "defaultValue": 0,
+    "required": false
+  },  {
+    "code": "DatabaseName",
+    "defaultValue": "",
+     "required": true,
+ "requiredOnSave": true
+  }]
+}

@@ -1,0 +1,5 @@
+{
+  "type" : "HUDIONHIVESPARK",
+  "loadClass" : "com.datablau.reverse.engineering.worker.hudiOnHiveSpark.HudiOnHiveSparkWorker",
+  "build": "${build.timestamp}"
+}

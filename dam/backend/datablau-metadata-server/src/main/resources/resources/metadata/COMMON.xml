@@ -1,0 +1,103 @@
+<File>
+    <Model Seed="80400005" SeedMax="80010001" Type="Datablau.LDM.ModelM1">
+        <Property Id="90000001" Type="System.Int32" Value="90000000"/>
+        <Property Id="90000002" Type="System.Int32" Value="80010001"/>
+        <Property Id="90000003" Type="System.String" Value="COMMON"/>
+        <Property Id="90000004" Type="System.String" Value="This is Common."/>
+        <Property Id="90000006" Type="System.Guid" Value="2c85c9ca-d052-467c-8c55-d367d69982cf"/>
+        <Property Id="90000007" Type="System.Guid" Value="69c19e1e-a8ff-40f9-80f1-23db1c98fa93"/>
+        <Property Id="90000015" Type="System.String" Value="模版"/>
+        <Property Id="80000002" Type="System.String" Value="VARCHAR()"/>
+        <Property Id="80000020" Type="Datablau.LDM.DataStore_e" Value="Tabular"/>
+        <Property Id="80000031" Type="System.String" Value="Common"/>
+        <Property Id="80000033" Type="System.String" Value="Physical Relational Database"/>
+        <Object Type="Datablau.LDM.ObjectX">
+            <Property Id="90000001" Type="System.Int32" Value="90002032"/>
+            <Property Id="90000002" Type="System.Int32" Value="90000002"/>
+            <Property Id="90000003" Type="System.String" Value="Id"/>
+            <Property Id="90000004" Type="System.String" Value="对象在模型中的ID。"/>
+            <Property Id="90000005" Type="System.RuntimeType" Value="System.Int32"/>
+            <Property Id="90000006" Type="System.Guid" Value="9bf1ca58-22d8-4490-8512-48759e5ec474"/>
+            <Property Id="90000008" Type="System.String" Value="Integer"/>
+            <Property Id="90000012" Type="System.Boolean" Value="True"/>
+            <Property Id="90000014" Type="System.Boolean" Value="False"/>
+            <Property Id="90000015" Type="System.String" Value="Id"/>
+            <Property Id="90000026" Type="System.Boolean" Value="False"/>
+            <Property Id="90000033" Type="System.Boolean" Value="false"/>
+            <Property Id="80010049" Type="System.String" Value=" "/>
+            <Property Id="80600118" Type="System.String" Value=" "/>
+            <Property Id="80010048" Type="System.String" Value=" "/>
+            <Property Id="80100034" Type="System.String" Value=" "/>
+            <Property Id="90000020" Type="System.Boolean" Value="false"/>
+            <Property Id="80000021" Type="System.String" Value=" "/>
+            <Property Id="80010076" Type="Datablau.LDM.Catalog" Value=" "/>
+            <Property Id="80010108" Type="System.Int32" Value="1"/>
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+            <Property Id="90000001" Type="System.Int32" Value="90002032"/>
+            <Property Id="90000002" Type="System.Int32" Value="90000003"/>
+            <Property Id="90000003" Type="System.String" Value="Name"/>
+            <Property Id="90000004" Type="System.String" Value="对象在模型中的名称。"/>
+            <Property Id="90000005" Type="System.RuntimeType" Value="System.String"/>
+            <Property Id="90000006" Type="System.Guid" Value="cda3eb2e-c3a6-4013-b524-a4b27370f405"/>
+            <Property Id="90000008" Type="System.String" Value="String"/>
+            <Property Id="90000012" Type="System.Boolean" Value="True"/>
+            <Property Id="90000014" Type="System.Boolean" Value="False"/>
+            <Property Id="90000015" Type="System.String" Value="名称"/>
+            <Property Id="90000026" Type="System.Boolean" Value="False"/>
+            <Property Id="90000033" Type="System.Boolean" Value="false"/>
+            <Property Id="80010049" Type="System.String" Value=" "/>
+            <Property Id="80600118" Type="System.String" Value=" "/>
+            <Property Id="80010048" Type="System.String" Value=" "/>
+            <Property Id="80100034" Type="System.String" Value=" "/>
+            <Property Id="90000020" Type="System.Boolean" Value="false"/>
+            <Property Id="80000021" Type="System.String" Value=" "/>
+            <Property Id="80010076" Type="Datablau.LDM.Catalog" Value=" "/>
+            <Property Id="80010108" Type="System.Int32" Value="2"/>
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+            <Property Id="90000001" Type="System.Int32" Value="90002032"/>
+            <Property Id="90000002" Type="System.Int32" Value="90000004"/>
+            <Property Id="90000003" Type="System.String" Value="Definition"/>
+            <Property Id="90000004" Type="System.String" Value="对象和属性在模型中的定义。"/>
+            <Property Id="90000005" Type="System.RuntimeType" Value="System.String"/>
+            <Property Id="90000006" Type="System.Guid" Value="a268090d-af0d-469d-8955-61fd53d647f6"/>
+            <Property Id="90000008" Type="System.String" Value="String"/>
+            <Property Id="90000012" Type="System.Boolean" Value="True"/>
+            <Property Id="90000014" Type="System.Boolean" Value="False"/>
+            <Property Id="90000015" Type="System.String" Value="定义"/>
+            <Property Id="90000026" Type="System.Boolean" Value="False"/>
+            <Property Id="90000033" Type="System.Boolean" Value="false"/>
+            <Property Id="80010049" Type="System.String" Value=" "/>
+            <Property Id="80600118" Type="System.String" Value=" "/>
+            <Property Id="80010048" Type="System.String" Value=" "/>
+            <Property Id="80100034" Type="System.String" Value=" "/>
+            <Property Id="90000020" Type="System.Boolean" Value="false"/>
+            <Property Id="80000021" Type="System.String" Value=" "/>
+            <Property Id="80010076" Type="Datablau.LDM.Catalog" Value=" "/>
+            <Property Id="80010108" Type="System.Int32" Value="3"/>
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+            <Property Id="90000002" Type="System.Int32" Value="80100005"/>
+            <Property Id="90000001" Type="System.Int32" Value="90002032"/>
+            <Property Id="90000006" Type="System.Guid" Value="4235b246-6edf-428d-a708-780b24ebc832"/>
+            <Property Id="90000003" Type="System.String" Value="LogicalName"/>
+            <Property Id="90000004" Type="System.String" Value="This is the metadata for property1."/>
+            <Property Id="90000008" Type="System.String" Value="1.Basic"/>
+            <Property Id="90000012" Type="System.Boolean" Value="True"/>
+            <Property Id="90000015" Type="System.String" Value="中文名"/>
+            <Property Id="90000005" Type="System.RuntimeType" Value="System.String"/>
+            <Property Id="90000014" Type="System.Boolean" Value="False"/>
+            <Property Id="90000016" Type="System.Boolean" Value="False"/>
+            <Property Id="90000033" Type="System.Boolean" Value="false"/>
+            <Property Id="80010049" Type="System.String" Value=" "/>
+            <Property Id="80600118" Type="System.String" Value=" "/>
+            <Property Id="80010048" Type="System.String" Value=" "/>
+            <Property Id="80100034" Type="System.String" Value=" "/>
+            <Property Id="90000020" Type="System.Boolean" Value="false"/>
+            <Property Id="80000021" Type="System.String" Value=" "/>
+            <Property Id="80010076" Type="Datablau.LDM.Catalog" Value=" "/>
+            <Property Id="80010108" Type="System.Int32" Value="4"/>
+        </Object>
+    </Model>
+</File>

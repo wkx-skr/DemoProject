@@ -1,0 +1,47 @@
+{
+  "datasourceType": "METAMODELDEMO",
+  "displayName": "MetaModelDemo",
+  "icon": "MetaModelDemo",
+  "datasourceClass": "com.datablau.datasources.metamodeldemo.MetaModelDemoDatasource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "label": "IP地址",
+      "required": false,
+      "requiredOnSave": false
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "",
+      "required": false,
+      "requiredOnSave": false
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "UserDefine1",
+      "defaultValue": "",
+      "label": "用户自定义属性1",
+      "required": false,
+      "requiredOnSave": false
+    },
+    {
+      "code": "UserDefine2",
+      "defaultValue": "",
+      "label": "用户自定义属性2",
+      "required": false,
+      "requiredOnSave": false
+    }
+  ]
+}

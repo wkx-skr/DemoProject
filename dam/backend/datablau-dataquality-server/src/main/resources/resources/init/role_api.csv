@@ -1,0 +1,243 @@
+//-------------------------数据质量-------------------------
+//管理,   数据质量,  驾驶舱
+DATA_QUALITY, /quality/dashboard/quality/main, QUALITY_COCKPIT_VIEW, GET
+DATA_QUALITY, /quality/dashboard/quality/rule, QUALITY_COCKPIT_VIEW, GET
+DATA_QUALITY, /quality/categories/tree/, QUALITY_COCKPIT_VIEW, GET
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_COCKPIT_VIEW, POST
+DATA_QUALITY, /quality/quality/jobs/, QUALITY_COCKPIT_VIEW, POST
+
+//数据质量,  规则报告,
+DATA_QUALITY, /quality/dashboard/tech/rule/class/count, QUALITY_PLANNING_REPORT_VIEW, GET
+DATA_QUALITY, /quality/dashboard/tech/rule/category/count, QUALITY_PLANNING_REPORT_VIEW, GET
+DATA_QUALITY, /quality/dashboard/tech/rule/date/count, QUALITY_PLANNING_REPORT_VIEW, GET
+DATA_QUALITY, /quality/dashboard/tech/rule/count/download, QUALITY_PLANNING_REPORT_DOWNLOAD, GET
+
+//数据质量,  问题报告,
+DATA_QUALITY, /quality/dashboard/tech/task/class/count, QUALITY_PROBLEM_REPORTING_VIEW, GET
+DATA_QUALITY, /quality/dashboard/tech/task/category/count, QUALITY_PROBLEM_REPORTING_VIEW, GET
+DATA_QUALITY, /quality/dashboard/tech/task/date/count, QUALITY_PROBLEM_REPORTING_VIEW, GET
+DATA_QUALITY, /quality/dashboard/tech/rule/count/download, QUALITY_PROBLEM_REPORTING_DOWNLOAD, GET
+
+//数据质量,  规则模板
+DATA_QUALITY, /quality/template/query/page, QUALITY_RULE_TEMPLATE_VIEW, POST
+DATA_QUALITY, /quality/template/name, QUALITY_RULE_TEMPLATE_VIEW, get
+DATA_QUALITY, /quality/template/create, QUALITY_RULE_TEMPLATE_ADD, POST
+DATA_QUALITY, /quality/template/update, QUALITY_RULE_TEMPLATE_EDIT, POST
+DATA_QUALITY, /quality/template/delete, QUALITY_RULE_TEMPLATE_DELETE, POST
+DATA_QUALITY, /quality/template/import, QUALITY_RULE_TEMPLATE_IMPORT, POST
+DATA_QUALITY, /quality/template/export, QUALITY_RULE_TEMPLATE_EXPORT, POST
+
+//添加目录,   数据质量,  业务规则
+//DATA_QUALITY, /quality/categories/, QUALITY_BUSINESS_RULE_VIEW_CATALOG_ADD, post
+
+//重命名目录,   数据质量,  业务规则
+//DATA_QUALITY, /quality/categories/{categoryId}, QUALITY_BUSINESS_RULE_VIEW_CATALOG_RENAME, put
+
+//删除目录,   数据质量,  业务规则
+//DATA_QUALITY, /quality/categories/{categoryId}, QUALITY_BUSINESS_RULE_VIEW_CATALOG_DELETE, delete
+
+//查看(仅看自己的),   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rules/bu/report/page, QUALITY_BUSINESS_RULE_VIEW_MY, GET
+DATA_QUALITY, /quality/categories/tree/, QUALITY_BUSINESS_RULE_VIEW_MY, GET
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_BUSINESS_RULE_VIEW_MY, post
+
+//查看(查看全部的),   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rules/bu/report/page, QUALITY_BUSINESS_RULE_VIEW_ALL, GET
+DATA_QUALITY, /quality/categories/tree/, QUALITY_BUSINESS_RULE_VIEW_ALL, GET
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_BUSINESS_RULE_VIEW_ALL, post
+
+//创建,   数据质量,  业务规则
+DATA_QUALITY, /quality/categories/tree/, QUALITY_BUSINESS_RULE_VIEW_ADD, GET
+DATA_QUALITY, /quality/quality/rules/bu, QUALITY_BUSINESS_RULE_VIEW_ADD, post
+
+//编辑,   数据质量,  业务规则
+DATA_QUALITY, /quality/categories/tree/, QUALITY_BUSINESS_RULE_VIEW_EDIT, GET
+DATA_QUALITY, /quality/quality/rule/bu/{ruleId}, QUALITY_BUSINESS_RULE_VIEW_EDIT, put
+
+//删除,   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rules/bu/delete, QUALITY_BUSINESS_RULE_VIEW_DELETE, POST
+DATA_QUALITY, /quality/quality/rule/bu/deleteCopy, QUALITY_BUSINESS_RULE_VIEW_DELETE, POST
+
+//导入,   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rules/bu/file, QUALITY_BUSINESS_RULE_VIEW_IMPORT, post
+
+//导出,   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rules/bu/file, QUALITY_BUSINESS_RULE_VIEW_EXPORT, GET
+
+//新建,   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rules/bu, QUALITY_BUSINESS_RULE_VIEW_ADD, POST
+
+//编辑,   数据质量,  业务规则
+DATA_QUALITY, /quality/quality/rule/bu/{ruleId}, QUALITY_BUSINESS_RULE_VIEW_EDIT, PUT
+DATA_QUALITY, /quality/quality/rules/bu/delete, QUALITY_BUSINESS_RULE_VIEW_DELETE, POST
+DATA_QUALITY, /quality/quality/rules/bu/file, QUALITY_BUSINESS_RULE_VIEW_EXPORT, POST
+DATA_QUALITY, /quality/quality/rules/bu/file, QUALITY_BUSINESS_RULE_VIEW_IMPORT, POST
+//DATA_QUALITY, /quality/categories/, QUALITY_BUSINESS_RULE_VIEW_CATALOG_ADD, POST
+//DATA_QUALITY, /quality/categories/{categoryId}, QUALITY_BUSINESS_RULE_VIEW_CATALOG_DELETE, DELETE
+//DATA_QUALITY, /quality/categories/{categoryId}, QUALITY_BUSINESS_RULE_VIEW_CATALOG_RENAME, PUT
+
+//查看(仅看自己的),  数据质量,  技术规则
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_TECHNICAL_REGULATION_VIEW_MY, post
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_TECHNICAL_REGULATION_VIEW_MY, get
+DATA_QUALITY, /quality/quality/rules/tech/{tableId}/fields, QUALITY_TECHNICAL_REGULATION_VIEW_MY, post
+DATA_QUALITY, /quality/models/fromreunsafe/, QUALITY_TECHNICAL_REGULATION_VIEW_MY, get
+DATA_QUALITY, /quality/quality/rules/{ruleId}/lineage, QUALITY_TECHNICAL_REGULATION_VIEW_MY, get
+DATA_QUALITY, /quality/quality/rules/bu/report/tech/page, QUALITY_TECHNICAL_REGULATION_VIEW_MY, get
+DATA_QUALITY, /quality/entities/search, QUALITY_TECHNICAL_REGULATION_VIEW_MY, post
+
+//查看(全部),  数据质量,  技术规则
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_TECHNICAL_REGULATION_VIEW_ALL, post
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_TECHNICAL_REGULATION_VIEW_ALL, get
+DATA_QUALITY, /quality/quality/rules/tech/{tableId}/fields, QUALITY_TECHNICAL_REGULATION_VIEW_ALL, post
+DATA_QUALITY, /quality/quality/rules/{ruleId}/lineage, QUALITY_TECHNICAL_REGULATION_VIEW_ALL, get
+DATA_QUALITY, /quality/quality/rules/bu/report/tech/page, QUALITY_TECHNICAL_REGULATION_VIEW_ALL, get
+DATA_QUALITY, /quality/entities/search, QUALITY_TECHNICAL_REGULATION_VIEW_ALL, post
+
+//新建,   数据质量,  技术规则
+DATA_QUALITY, /quality/quality/rules/tech, QUALITY_TECHNICAL_REGULATION_ADD, POST
+DATA_QUALITY, /quality/quality/rules/tech/{tableId}/fields, QUALITY_TECHNICAL_REGULATION_ADD, POST
+DATA_QUALITY, /quality/quality/rule/test, QUALITY_TECHNICAL_REGULATION_ADD, post
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_TECHNICAL_REGULATION_ADD, post
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_TECHNICAL_REGULATION_ADD, get
+DATA_QUALITY, /quality/quality/rules/tech/{tableId}/fields, QUALITY_TECHNICAL_REGULATION_ADD, post
+DATA_QUALITY, /quality/quality/rules/{ruleId}/lineage, QUALITY_TECHNICAL_REGULATION_ADD, get
+DATA_QUALITY, /quality/quality/rules/bu/report/tech/page, QUALITY_TECHNICAL_REGULATION_ADD, get
+DATA_QUALITY, /quality/template/query/page, QUALITY_TECHNICAL_REGULATION_ADD, POST
+
+//编辑,   数据质量,  技术规则
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_TECHNICAL_REGULATION_EDIT, PUT
+DATA_QUALITY, /quality/quality/rule/test, QUALITY_TECHNICAL_REGULATION_EDIT, post
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_TECHNICAL_REGULATION_EDIT, post
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_TECHNICAL_REGULATION_EDIT, get
+DATA_QUALITY, /quality/quality/rules/tech/{tableId}/fields, QUALITY_TECHNICAL_REGULATION_EDIT, post
+DATA_QUALITY, /quality/quality/rules/{ruleId}/lineage, QUALITY_TECHNICAL_REGULATION_EDIT, get
+DATA_QUALITY, /quality/quality/rules/bu/report/tech/page, QUALITY_TECHNICAL_REGULATION_EDIT, get
+DATA_QUALITY, /quality/template/query/page, QUALITY_TECHNICAL_REGULATION_EDIT, POST
+
+//删除,   数据质量,  技术规则
+DATA_QUALITY, /quality/quality/rules/tech/delete, QUALITY_TECHNICAL_REGULATION_DELETE, POST
+DATA_QUALITY, /quality/quality/rule/tech/deleteCopy, QUALITY_TECHNICAL_REGULATION_DELETE, POST
+
+//导入导出,   数据质量,  技术规则
+DATA_QUALITY, /quality/quality/quality/rules/tech/export/query, QUALITY_TECHNICAL_REGULATION_EXPORT, POST
+DATA_QUALITY, /quality/quality/quality/rules/tech/export, QUALITY_TECHNICAL_REGULATION_EXPORT, POST
+DATA_QUALITY, /quality/quality/quality/rules/tech/import, QUALITY_TECHNICAL_REGULATION_IMPORT, POST
+
+//查看(仅看自己的),   数据质量,  检核任务
+DATA_QUALITY, /quality/quality/jobs, QUALITY_CHECK_TASK_VIEW_MY, POST
+DATA_QUALITY, /quality/quality/rule/tech/multi, QUALITY_CHECK_TASK_VIEW_MY, POST
+DATA_QUALITY, /quality/quality/rule/result/export, QUALITY_CHECK_TASK_VIEW_MY, get
+
+//查看(所有人的),   数据质量,  检核任务
+DATA_QUALITY, /quality/quality/jobs, QUALITY_CHECK_TASK_VIEW_ALL, POST
+DATA_QUALITY, /quality/quality/rule/tech/multi, QUALITY_CHECK_TASK_VIEW_ALL, POST
+DATA_QUALITY, /quality/quality/rule/result/export, QUALITY_CHECK_TASK_VIEW_ALL, get
+
+//新建,   数据质量,  检核任务
+DATA_QUALITY, /quality/quality/jobs, QUALITY_CHECK_TASK_ADD, POST
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_CHECK_TASK_ADD, post
+DATA_QUALITY, /quality/quality/rule/tech/multi, QUALITY_CHECK_TASK_ADD, POST
+DOMAIN, /domains/tree/getTree, QUALITY_CHECK_TASK_ADD, POST
+DOMAIN, /domains/code/getDatasetname, QUALITY_CHECK_TASK_ADD, post
+METADATA, /models/modeltree, QUALITY_CHECK_TASK_ADD, get
+METADATA, /entities/{objectId}/columns, QUALITY_CHECK_TASK_ADD, get
+
+//编辑,   数据质量,  检核任务
+DATA_QUALITY, /quality/quality/job/{jobId}, QUALITY_CHECK_TASK_EDIT, PUT
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_CHECK_TASK_EDIT, post
+DATA_QUALITY, /quality/quality/rule/tech/multi, QUALITY_CHECK_TASK_EDIT, POST
+
+//删除,   数据质量,  检核任务
+DATA_QUALITY, /quality/quality/job/{jobId}, QUALITY_CHECK_TASK_DELETE, DELETE
+
+//导出,   数据质量,  问题清单
+DATA_QUALITY, /quality/quality/rule/task/export, QUALITY_ISSUE_DATA_EXPORT_CHECK, POST
+DATA_QUALITY, /quality/quality/rule/task/export, QUALITY_ISSUE_DATA_EXPORT_QUERY, POST
+
+//查看(仅查看自己的),   数据质量,  问题清单
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_ISSUE_LIST_VIEW_MY, POST
+//数据质量页面需要此接口，元数据接口需要在此定义，放开权限
+METADATA, /entities/{objectId}/summary, QUALITY_ISSUE_LIST_VIEW_MY, get
+
+//查看(查看所有),   数据质量,  问题清单
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_ISSUE_LIST_VIEW_ALL, POST
+//数据质量页面需要此接口，元数据接口需要在此定义，放开权限
+METADATA, /entities/{objectId}/summary, QUALITY_ISSUE_LIST_VIEW_ALL, get
+
+//问题详情,   数据质量,  问题清单
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_DETAILS_ON_THE_PROBLEM, get
+
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/data/dispatch, QUALITY_DETAILS_ON_THE_PROBLEM, post
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/dispatch-user, QUALITY_DETAILS_ON_THE_PROBLEM, put
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/dispatch-org, QUALITY_DETAILS_ON_THE_PROBLEM, put
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/reassign, QUALITY_DETAILS_ON_THE_PROBLEM, post
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_DETAILS_ON_THE_PROBLEM, post
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/confirm, QUALITY_DETAILS_ON_THE_PROBLEM, GET
+
+//问题数据,   数据质量,  问题清单
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/data/solve, QUALITY_ISSUE_DATA, post
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_ISSUE_DATA, post
+
+//新建,   数据质量,  问题清单
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_ISSUE_LIST_ADD, post
+
+//查看(仅查看自己的),   数据质量,  问题监控
+//DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_PROBLEM_MONITORING_VIEW_MY, POST
+
+//查看(查看所有),   数据质量,  问题监控
+//DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_PROBLEM_MONITORING_VIEW_ALL, POST
+
+//问题详情,   数据质量,  问题监控
+//DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_PROBLEM_ISSUE_DATA, get
+
+//DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/data/dispatch, QUALITY_PROBLEM_ISSUE_DATA, post
+//DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/dispatch-user, QUALITY_PROBLEM_ISSUE_DATA, put
+//DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/dispatch-org, QUALITY_PROBLEM_ISSUE_DATA, put
+//DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/reassign, QUALITY_PROBLEM_ISSUE_DATA, post
+//DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_PROBLEM_ISSUE_DATA, post
+//DATA_QUALITY, /quality/entities/{objectId}/summary, QUALITY_PROBLEM_ISSUE_DATA, GET
+//DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/confirm, QUALITY_PROBLEM_ISSUE_DATA, GET
+
+//查看(仅查看自己的),   数据质量,  问题检验
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_PROBLEM_CHECK_VIEW_MY, POST
+
+//查看(查看所有),   数据质量,  问题检验
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_PROBLEM_CHECK_VIEW_ALL, POST
+
+//问题详情,   数据质量,  问题检验
+DATA_QUALITY, /quality/quality/rule/tech/{ruleId}, QUALITY_PROBLEM_CHECK_ISSUE_DATA, get
+
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/data/dispatch, QUALITY_PROBLEM_CHECK_ISSUE_DATA, post
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/dispatch-user, QUALITY_PROBLEM_CHECK_ISSUE_DATA, put
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/dispatch-org, QUALITY_PROBLEM_CHECK_ISSUE_DATA, put
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/reassign, QUALITY_PROBLEM_CHECK_ISSUE_DATA, post
+DATA_QUALITY, /quality/quality/rule/tasks, QUALITY_PROBLEM_CHECK_ISSUE_DATA, post
+DATA_QUALITY, /quality/quality/rules/tasks/{taskId}/confirm, QUALITY_PROBLEM_CHECK_ISSUE_DATA, GET
+
+//查看,   数据质量,  知识库管理
+DATA_QUALITY, /quality/knowledge/kds, QUALITY_KBM_VIEW, POST
+DATA_QUALITY, /quality/knowledge/kd/{kdId}, QUALITY_KBM_VIEW, GET
+DATA_QUALITY, /quality/knowledge/kd/{kdId}/history, QUALITY_KBM_VIEW, GET
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_KBM_VIEW, post
+
+//新建,   数据质量,  知识库管理
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_KBM_ADD, post
+DATA_QUALITY, /quality/knowledge/kd/, QUALITY_KBM_ADD, POST
+
+//编辑,   数据质量,  知识库管理
+DATA_QUALITY, /quality/knowledge/kd/, QUALITY_KBM_EDIT, POST
+DATA_QUALITY, /quality/knowledge/kd/{kdId}, QUALITY_KBM_EDIT, GET
+DATA_QUALITY, /quality/quality/rules/tech/page, QUALITY_KBM_EDIT, post
+
+//删除,   数据质量,  知识库管理
+DATA_QUALITY, /quality/knowledge/kd/delete, QUALITY_KBM_DELETE, POST
+
+//数据质量,  参数设置
+DATA_QUALITY, /quality/parameters/, QUALITY_PARAMETER_SETTING, POST
+DATA_QUALITY, /quality/parameters/{id}, QUALITY_PARAMETER_SETTING, put
+DATA_QUALITY, /quality/parameters/{id}, QUALITY_PARAMETER_SETTING, delete
+//数据质量,  参数设置
+DATA_QUALITY, /select/option/rule/list, RULE_TYPE_MANAGE, post
+DATA_QUALITY, /select/option/rule, RULE_TYPE_MANAGE, post
+DATA_QUALITY, /select/option/rule/{id}, RULE_TYPE_MANAGE, get
+

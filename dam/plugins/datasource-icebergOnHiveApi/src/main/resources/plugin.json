@@ -1,0 +1,40 @@
+{
+  "datasourceType": "ICEBERG",
+  "displayName": "Iceberg",
+  "icon": "iceberg",
+  "datasourceClass": "com.datablau.datasources.iceberg.IcebergDatasource",
+  "suggestVersion": "1.0.0",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "label": "Thrift",
+      "code": "HostServer",
+      "defaultValue": "thrift://192.168.6.168:9083",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "label": "CatalogName",
+      "code": "PortNumber",
+      "defaultValue": "Hive_Catalog",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "multiple": true,
+      "requiredOnSave": true
+    }
+  ]
+}

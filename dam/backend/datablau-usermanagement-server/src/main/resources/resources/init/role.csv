@@ -1,0 +1,3 @@
+//每列含义：appName, roleName, roleFriendlyName, roleDescription, roleModule, roleModuleClass
+DAM, ROLE_SUPERUSER, 超级系统运维管理, 拥有除了数据源外的全部权限, -, -
+//DAM, CUSTOM_COLUMN_MANAGEMENT, 自定义列管理, null, -, -

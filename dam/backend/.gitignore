@@ -1,0 +1,48 @@
+server-sso/target
+/target
+/classes
+#*.jar
+*.war
+*.ear
+*.class
+*.log
+es.pid
+.DS_Store
+# eclipse specific git ignore
+*.pydevproject
+.project
+.metadata
+bin/**
+tmp/**
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+/logs
+
+
+# External tool builders
+.externalToolBuilders/
+
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# intellj specific git ignore
+*.iml
+.idea/
+/target/
+/service-dds/target/
+/.run/
+*/target/
+services/service-synonym/library/*.dic
+/library/*.dic
+services/**/target/**
+components/**/target/**
+vec/**
+
+.flattened-pom.xml

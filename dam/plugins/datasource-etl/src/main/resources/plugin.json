@@ -1,0 +1,40 @@
+{
+  "datasourceType": "ETL",
+  "displayName": "Etl",
+  "icon": "Etl",
+  "datasourceClass": "com.datablau.datasources.etl.EtlDatasource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "requestUrl",
+      "defaultValue": "localhost",
+      "label": "请求路径",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "etlMMSheet1",
+      "defaultValue": "",
+      "label": "ETLSheet1",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "etlMMSheet2",
+      "defaultValue": "",
+      "label": "ETLSheet2",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "etlMMSheet3",
+      "defaultValue": "",
+      "label": "ETLSheet3",
+      "required": true,
+      "requiredOnSave": true
+    }
+  ]
+}

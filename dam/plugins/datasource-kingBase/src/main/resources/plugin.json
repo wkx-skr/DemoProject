@@ -1,0 +1,43 @@
+{
+  "datasourceType": "KINGBASE",
+  "displayName": "KingBase",
+  "icon": "kingbase",
+  "datasourceClass": "com.datablau.datasources.kingbase.KingBaseDatasource",
+  "jdbcDriverClass": "com.kingbase8.Driver",
+  "suggestVersion": "8.6.0",
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "localhost",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "54321",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password"
+      ],
+      "defaultValue": 0,
+      "required": false
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "candidate": [],
+      "requiredOnSave": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

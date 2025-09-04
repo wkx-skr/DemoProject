@@ -1,0 +1,96 @@
+{
+  "datasourceType": "UNSTRUCTUREDIRECTORY",
+  "displayName": "UNSTRUCTUREDIRECTORY",
+  "icon": "UNSTRUCTUREDIRECTORY",
+  "datasourceClass": "com.datablau.datasources.unstructuredir.UnstructureDirectoryDatasource",
+  "suggestVersion": "",
+  "noJdbc": true,
+  "customize": true,
+  "build": "${build.timestamp}",
+  "options": [
+    {
+      "code": "loginName",
+      "defaultValue": "",
+      "label": "用户名",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "ipAddress",
+      "defaultValue": "127.0.0.1",
+      "label": "访问ip",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "integrationKey",
+      "defaultValue": "",
+      "label": "集成key",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "clientTypeStr",
+      "defaultValue": "",
+      "label": "客户端类型",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "tokenUrl",
+      "defaultValue": "",
+      "label": "登录url",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "folderId",
+      "defaultValue": "30",
+      "label": "根目录ID",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "folderDetailUrl",
+      "defaultValue": "",
+      "label": "目录详情URL",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "subFolderUrl",
+      "defaultValue": "",
+      "label": "所有子目录URL",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "subFileUrl",
+      "defaultValue": "",
+      "label": "所有子文件URL",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "unstructuredDirectorySheet1",
+      "defaultValue": "",
+      "label": "非结构化目录ExcelSheet1",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "unstructuredDirectorySheet2",
+      "defaultValue": "",
+      "label": "非结构化目录ExcelSheet2",
+      "required": true,
+      "requiredOnSave": true
+    },
+    {
+      "code": "unstructuredDirectorySheet3",
+      "defaultValue": "",
+      "label": "非结构化目录ExcelSheet3",
+      "required": true,
+      "requiredOnSave": true
+    }
+  ]
+}

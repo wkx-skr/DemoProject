@@ -1,0 +1,104 @@
+{
+  "datasourceType": "HBASE",
+  "displayName": "HBase",
+  "icon": "hbase",
+  "datasourceClass": "com.datablau.datasources.hbase.HBaseDatasource",
+  "build": "${build.timestamp}",
+  "noJdbc": true,
+  "options": [
+    {
+      "code": "HostServer",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "localhost",
+      "candidate": null
+    },
+    {
+      "code": "PortNumber",
+      "required": true,
+      "requiredOnSave": true,
+      "defaultValue": "2181",
+      "candidate": null,
+      "multiple": false,
+      "label": "Zookeeper端口"
+    },
+    {
+      "code": "HBaseMasterPort",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "16000",
+      "candidate": null,
+      "multiple": false,
+      "label": "master端口"
+    },
+    {
+      "code": "HBaseRegionserverPort",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "16020",
+      "candidate": null,
+      "multiple": false,
+      "label": "Regionserver端口"
+    },
+    {
+      "code": "AuthenticationType",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "0",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "multiple": false,
+      "label": null
+    },
+    {
+      "code": "ScanSize",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "10000",
+      "candidate": null,
+      "multiple": false,
+      "label": "扫描数量(行)"
+    },
+    {
+      "code": "Encoding",
+      "required": false,
+      "requiredOnSave": false,
+      "defaultValue": "UTF-8",
+      "candidate": [
+        {
+          "label": "UTF-8",
+          "value": "UTF-8"
+        },
+        {
+          "label": "ASCII",
+          "value": "ASCII"
+        },
+        {
+          "label": "GB2312",
+          "value": "GB2312"
+        },
+        {
+          "label": "GBK",
+          "value": "GBK"
+        },
+        {
+          "label": "Unicode",
+          "value": "Unicode"
+        }
+      ],
+      "multiple": false,
+      "label": "字符编码"
+    },
+    {
+      "candidate": null,
+      "code": "SelectedSchemas",
+      "defaultValue": null,
+      "label": null,
+      "multiple": true,
+      "required": false,
+      "requiredOnSave": true
+    }
+  ]
+}

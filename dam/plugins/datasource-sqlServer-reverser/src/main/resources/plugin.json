@@ -1,0 +1,5 @@
+{
+  "type" : "SQLSERVER",
+  "loadClass" : "com.datablau.reverse.engineering.worker.sqlserver.SqlServerWorker",
+  "build": "${build.timestamp}"
+}
