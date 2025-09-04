@@ -10,6 +10,7 @@ import axios from 'axios'
 import { fetchEventSource } from '@microsoft/fetch-event-source'
 import DatablauInput from '@/next/components/basic/input/DatablauInput.vue'
 import GlossaryList from '@/view/dataStandardGlossary/glossaryList.vue'
+
 export default {
   components: {
     GlossaryList,
@@ -114,13 +115,13 @@ export default {
         {
           required: true,
           trigger: 'blur',
-          validator: (rule, value, callback) => {
+          validator: (rule, value, callback, source) => {
             if (!value) {
-              callback(new Error('请输入英文名称'));
+              callback(new Error('请输入英文名称'))
             } else if (!/^[A-Z][a-zA-Z ]*$/.test(value)) {
-              callback(new Error('英文名称只能包含字母和空格，且首字母需大写'));
+              callback(new Error('英文名称只能包含字母和空格，且首字母需大写'))
             } else {
-              callback();
+              callback()
             }
           },
           /*message: this.$t('domain.common.itemRequiredInput', {
@@ -150,9 +151,31 @@ export default {
         {
           required: true,
           trigger: 'blur',
-          message: this.$t('domain.common.itemRequiredInput', {
-            name: this.$t('domain.dataFind.businessDefinition'),
-          }),
+          // message: this.$t('domain.common.itemRequiredInput', {
+          //   name: this.$t('domain.dataFind.businessDefinition'),
+          // }),
+          validator: (rule, value, callback) => {
+            // 业务定义不能与中文名称或业务规则相同
+            const { chineseName, businessRule } = this.detail
+            if (!value) {
+              callback(new Error('请输入业务定义'))
+            } else if (value === chineseName || value === businessRule) {
+              callback(new Error('业务定义不能与中文名称或业务规则相同'))
+            }
+          },
+        },
+      ],
+      businessRule: [
+        {
+          validator: (rule, value, callback) => {
+            //业务规则不能与中文名称或业务定义相同
+            const { chineseName, description } = this.detail
+            if (value) {
+              if (value === chineseName || value === description) {
+                callback(new Error('业务规则不能与中文名称或业务定义相同'))
+              }
+            }
+          },
         },
       ],
       busRule: [
@@ -182,7 +205,7 @@ export default {
       unit: [
         {
           required: true,
-          message: '请输入数据单位'
+          message: '请输入数据单位',
         },
       ],
       dataPrecision: [

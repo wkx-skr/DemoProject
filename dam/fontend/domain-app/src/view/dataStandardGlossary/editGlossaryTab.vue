@@ -244,15 +244,48 @@ export default {
         chName: [
           {
             required: true,
-            message: this.$t('domain.glossary.nameNotEmpty'),
+            // message: this.$t('domain.glossary.nameNotEmpty'),
             trigger: 'blur',
+            validator(rule, value, callback) {
+              if (!value) {
+                callback(new Error('中文名称不能为空'))
+                return
+              }
+              // 只能包含中文、字母和数字，长度不超过15位
+              if (!/^[\u4e00-\u9fa5a-zA-Z0-9]+$/.test(value)) {
+                callback(new Error('中文名称只能包含中文、字母和数字'))
+                return
+              }
+              if (value.length > 15) {
+                callback(new Error('中文名称长度不能超过15位'))
+                return
+              }
+              callback()
+            },
           },
         ],
         enName: [
           {
             required: true,
-            message: this.$t('domain.glossary.nameNotEmpty'),
+            // message: this.$t('domain.glossary.nameNotEmpty'),
             trigger: 'blur',
+            validator(rule, value, callback) {
+              if (!value) {
+                callback(new Error('英文名称不能为空'))
+                return
+              }
+              // 只能是字母和空格
+              if (!/^[A-Za-z ]+$/.test(value)) {
+                callback(new Error('英文名称只能包含字母和空格'))
+                return
+              }
+              // 首字母大写
+              if (!/^[A-Z]/.test(value)) {
+                callback(new Error('首字母必须大写'))
+                return
+              }
+              callback()
+            },
           },
         ],
         folderId: [

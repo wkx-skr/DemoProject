@@ -133,6 +133,7 @@
                   {{ $t('domain.domain.autoCreate') }}
                 </datablau-checkbox>
               </el-form-item>
+              <!-- 中文名称 -->
               <el-form-item
                 :label="$version.domain.property.domainChName"
                 prop="chineseName"
@@ -145,6 +146,7 @@
                   "
                 ></datablau-input>
               </el-form-item>
+              <!-- 英文名称 -->
               <el-form-item
                 :label="$version.domain.property.domainEnName"
                 prop="englishName"

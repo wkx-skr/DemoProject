@@ -1,5 +1,6 @@
 <template>
   <div class="codePage standard-code-page">
+
     <datablau-dialog
       size="xl"
       :title="$t('domain.common.upd')"
@@ -15,6 +16,7 @@
         :standardCode="true"
       ></udps>
     </datablau-dialog>
+
     <datablau-dialog
       size="l"
       append-to-body
@@ -163,6 +165,7 @@
         </datablau-button>
       </div>
     </datablau-dialog>
+
     <el-dialog
       :title="$t('domain.code.importCode')"
       v-if="$isIE"
@@ -194,6 +197,7 @@
       </form>
       <iframe id="id_iframe" name="nm_iframe" style="display: none"></iframe>
     </el-dialog>
+
     <datablau-upload
       style="display: none"
       :action="uploadHost"
@@ -209,13 +213,16 @@
     >
       <datablau-button class="code-upload-btn"></datablau-button>
     </datablau-upload>
+
     <div class="tree-area" v-if="showList">
       <tree-catalogue
         ref="treeCatalog"
         @itemClick="treeNodeClick"
       ></tree-catalogue>
     </div>
+
     <div class="tree-area-margin-right"></div>
+
     <div class="content-area" v-if="showList">
       <code-list
         ref="codeList"
@@ -234,6 +241,7 @@
         :hasEditAuth="hasEditAuth"
       ></code-list>
     </div>
+
     <div class="detail-content" v-if="currentTab !== 'list'">
       <div class="breadcrumb-line top-back-line">
         <datablau-breadcrumb
