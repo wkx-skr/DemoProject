@@ -10,6 +10,7 @@
             clearable
             @change="handleSystemChange"
             @clear="handleSystemClear"
+            filterable
           >
             <el-option
               v-for="c in $modelCategories"
@@ -28,6 +29,7 @@
             clearable
             @change="handleModelChange"
             @clear="handleModelClear"
+            filterable
           >
             <el-option
               v-for="item in options.models"
@@ -43,6 +45,7 @@
             v-model="searchForm.tableId"
             placeholder="请选择"
             :disabled="!searchForm.ddmModelId"
+            filterable
           >
             <el-option
               v-for="item in options.tables"
