@@ -725,6 +725,7 @@
             </el-collapse-item>
           </datablau-form>
 
+          <!-- 管理类属性 start -->
           <datablau-form
             :inline-message="true"
             class="page-form thin-textarea standard-page"
@@ -748,6 +749,7 @@
                   ></i>
                 </div>
               </template>
+              <!-- 业务域 -->
               <el-form-item :label="'业务域'" prop="selectedOptions2">
                 <el-cascader
                   size="mini"
@@ -763,7 +765,8 @@
                   ref="pathSelector"
                 ></el-cascader>
               </el-form-item>
-              <el-form-item
+
+              <!--<el-form-item
                 :label="$t('domain.domain.authCategoryId')"
                 prop="authCategoryId"
                 v-if="useDam"
@@ -787,7 +790,8 @@
                     :value="item.categoryId"
                   ></el-option>
                 </datablau-select>
-              </el-form-item>
+              </el-form-item>-->
+
               <el-form-item
                 label=""
                 label-width="0"
@@ -829,6 +833,7 @@
               </el-form-item>
             </el-collapse-item>
           </datablau-form>
+          <!-- 管理类属性 end -->
 
           <datablau-form
             :inline-message="true"
