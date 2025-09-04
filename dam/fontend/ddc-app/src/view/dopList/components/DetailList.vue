@@ -72,6 +72,16 @@
           show-overflow-tooltip
         />
         <el-table-column
+          label="相似标准名称"
+          prop="anotherDomainNames"
+          show-overflow-tooltip
+        />
+        <el-table-column
+          label="跳过原因"
+          prop="skipReason"
+          show-overflow-tooltip
+        />
+        <el-table-column
           label="创建时间"
           prop="createTime"
           show-overflow-tooltip
