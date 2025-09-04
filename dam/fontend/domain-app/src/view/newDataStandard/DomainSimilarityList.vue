@@ -137,7 +137,7 @@ export default {
                   domainId: item.domainId,
                   domainName: item.chineseName,
                   anotherDomainNames: this.getOtherChineseNames(item.chineseName),
-                  anotherDomainIds: this.getOtherIds(item.domainId),
+                  // anotherDomainIds: this.getOtherIds(item.domainId),
                 }
               }),
             ])
