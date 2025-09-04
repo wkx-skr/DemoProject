@@ -40,9 +40,46 @@ export default {
       },
       tableLoading: false,
       tableDetailLoading: false,
+      dialogVisible: false,
+      skipReasonLoading: false,
+      form: { reason: '' },
+      rules: {
+        reason: [
+          { required: true, message: '跳过原因不能为空', trigger: 'blur' },
+        ],
+      },
     }
   },
   methods: {
+    // 获取其它中文名
+    getOtherChineseNames(chineseName) {
+      let arr = []
+      this.detailTableData.forEach(item => {
+        if (item.chineseName !== chineseName) arr.push(item.chineseName)
+      })
+      return arr.join(',')
+    },
+    // 获取其他id
+    getOtherIds(id) {
+      let arr = []
+      this.detailTableData.forEach(item => {
+        if (item.domainId !== id) arr.push(item.domainId)
+      })
+      return arr.join(',')
+    },
+    // 行是否可选
+    rowSelectable(row) {
+      return !(row.checkState === 'SKIP' || row.checkState === 'PASS')
+    },
+    handleCancel() {
+      this.dialogVisible = false
+      this.form.reason = ''
+    },
+    handleClose(done) {
+      this.skipReasonLoading = false
+      this.form.reason = ''
+      done()
+    },
     getList(reset) {
       if (reset) {
         this.searchFormData = {
@@ -52,7 +89,10 @@ export default {
       const url = this.$domain_url + '/domains/similarity/getSimilarityGroup'
       this.tableLoading = true
       this.$http
-        .post(url, { domainId: this.domainId, chineseName: this.searchFormData.keyword })
+        .post(url, {
+          domainId: this.domainId,
+          chineseName: this.searchFormData.keyword,
+        })
         .then(res => {
           this.tableData = res.data
         })
@@ -86,7 +126,34 @@ export default {
     },
     skipCheck() {
       if (this.selection && this.selection.length) {
-        this.$confirm(
+        this.$refs.form.validate(valid => {
+          if (!valid) return
+          this.skipReasonLoading = true
+          this.$http
+            .post(`${this.$domain_url}/domains/similarity/skipNew`, [
+              ...this.selection.map(item => {
+                return {
+                  reson: this.form.reason,
+                  domainId: item.domainId,
+                  domainName: item.chineseName,
+                  anotherDomainNames: this.getOtherChineseNames(item.chineseName),
+                  anotherDomainIds: this.getOtherIds(item.domainId),
+                }
+              }),
+            ])
+            .then(res => {
+              this.$showSuccess(res.message)
+              this.skipReasonLoading = false
+              this.dialogVisible = false
+              this.$emit('skipFinished')
+              this.form.reason = ''
+            })
+            .catch(err => {
+              this.skipReasonLoading = false
+              this.$showFailure(err)
+            })
+        })
+        /*this.$confirm(
           '确认跳过检查么，如存在相似标准，该标准在发布审批时可能被驳回。',
           '提示',
           {
@@ -112,7 +179,7 @@ export default {
                 this.$showFailure(err)
               })
           })
-          .catch(() => {})
+          .catch(() => {})*/
       }
     },
     tableSelectionChanged(selection) {
@@ -136,6 +203,7 @@ export default {
         data-selectable
         @selection-change="tableSelectionChanged"
         ref="domainSimilarityTable"
+        :rowSelectable="rowSelectable"
       >
         <el-table-column :label="'中文名'" prop="chineseName"></el-table-column>
         <el-table-column :label="'编码'" prop="domainCode"></el-table-column>
@@ -187,7 +255,7 @@ export default {
         <datablau-button
           type="primary"
           :disabled="!selection || !selection.length"
-          @click="skipCheck"
+          @click="dialogVisible = true"
         >
           {{ '跳过检查' }}
         </datablau-button>
@@ -198,7 +266,41 @@ export default {
           {{ $t('common.button.cancel') }}
         </datablau-button>
       </span>
+
+      <el-dialog
+        title="提示"
+        :visible.sync="dialogVisible"
+        width="500px"
+        :before-close="handleClose"
+        append-to-body
+      >
+        <div style="margin-bottom: 16px">
+          确认跳过检查么，如存在相似标准，该标准在发布审批时可能被驳回。
+        </div>
+        <el-form :model="form" :rules="rules" ref="form">
+          <el-form-item label="跳过原因" prop="reason" required>
+            <el-input
+              v-model="form.reason"
+              placeholder="请输入跳过原因"
+              clearable
+            />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <datablau-button @click="handleCancel" :disabled="skipReasonLoading">
+            取消
+          </datablau-button>
+          <datablau-button
+            type="primary"
+            @click="skipCheck"
+            :loading="skipReasonLoading"
+          >
+            确定
+          </datablau-button>
+        </div>
+      </el-dialog>
     </datablau-dialog>
+
     <datablau-list-search class="search-outer">
       <el-form ref="searchForm" :inline="true" :model="searchFormData">
         <el-form-item prop="domainName" style="width: 200px">
@@ -273,6 +375,7 @@ export default {
         </div>
       </template>
     </datablau-list-search>
+
     <datablau-table :loading="tableLoading" :data="tableData">
       <el-table-column
         :label="'标准数量'"
