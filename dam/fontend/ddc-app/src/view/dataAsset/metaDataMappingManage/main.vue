@@ -182,7 +182,7 @@
           ></el-table-column>
           <el-table-column
             prop="logicDataEntityEnName"
-            label="逻辑实体英文名"
+            label="逻辑数据实体英文名"
             width="150"
           ></el-table-column>
           <el-table-column

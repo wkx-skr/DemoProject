@@ -181,7 +181,7 @@
           ></el-table-column>
           <el-table-column
             prop="tableAlias"
-            label="表/实体中文名"
+            label="表/实体名称"
             width="150"
           ></el-table-column>
           <el-table-column
