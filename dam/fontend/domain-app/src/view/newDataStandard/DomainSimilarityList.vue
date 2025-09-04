@@ -207,7 +207,7 @@ export default {
       >
         <el-table-column :label="'中文名'" prop="chineseName"></el-table-column>
         <el-table-column :label="'编码'" prop="domainCode"></el-table-column>
-        <el-table-column :label="'主题'" prop="folderId">
+        <el-table-column :label="'业务域'" prop="folderId">
           <template slot-scope="scope">
             <i
               class="iconfont icon-file"
@@ -234,10 +234,10 @@ export default {
             {{ checkStatusFormatter(scope.row.checkState) }}
           </template>
         </el-table-column>
-        <el-table-column
+        <!--<el-table-column
           :label="'业务定义部门'"
           prop="descriptionDepartmentName"
-        ></el-table-column>
+        ></el-table-column>-->
         <el-table-column :label="'数据类型'" prop="dataType"></el-table-column>
         <el-table-column :label="'数据长度'" prop="dataScale"></el-table-column>
         <el-table-column
