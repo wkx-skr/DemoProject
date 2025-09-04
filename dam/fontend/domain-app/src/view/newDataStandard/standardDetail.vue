@@ -349,7 +349,7 @@
                   ></i>
                 </div>
               </template>
-              <el-form-item :label="'关联术语'" prop="referenceTerm">
+              <el-form-item :label="'关联业务术语'" prop="referenceTerm">
                 <datablau-input
                   maxlength="200"
                   ref="referenceTermInputDom"
@@ -530,6 +530,7 @@
                   :disabled="fieldState"
                 ></datablau-input>
               </el-form-item>
+              <!--数据单位-->
               <el-form-item
                 v-if="detail.dataType === '数值'"
                 label="数据单位"
@@ -541,6 +542,7 @@
                   :disabled="fieldState"
                 ></datablau-input>
               </el-form-item>
+              <!-- 数据精度 -->
               <el-form-item
                 :label="$version.domain.property.dataPrecision"
                 prop="dataPrecision"
@@ -555,8 +557,9 @@
                   :disabled="fieldState"
                 ></datablau-input>
               </el-form-item>
+              <!-- 关联参考数据 -->
               <el-form-item
-                :label="$t('domain.domain.referenceCode')"
+                label="关联参考数据"
                 prop="referenceCode"
                 v-if="categoryTypeId !== 2"
               >
