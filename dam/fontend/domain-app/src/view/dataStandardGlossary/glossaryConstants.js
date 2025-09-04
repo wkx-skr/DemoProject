@@ -45,7 +45,7 @@ export const columnDefs = (vThis, showOper = true) => {
       // },
       minWidth: 80,
     },
-    {
+    /*{
       headerName: vThis.$t('domain.glossary.managementDepartment'),
       field: 'managementDepartmentName',
       // valueFormatter: vThis.formatterTime,
@@ -53,7 +53,7 @@ export const columnDefs = (vThis, showOper = true) => {
       // tooltipValueGetter: vThis.formatterTime,
       // type: ['customSortCol'],
       width: 100,
-    },
+    },*/
     {
       headerName: vThis.$t('domain.glossary.firstPublish'),
       field: 'firstPublish',
