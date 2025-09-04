@@ -1,0 +1,36 @@
+.l-6dot2 {
+  display: inline-block;
+  background-color: transparent
+}
+.shape {
+  border-radius: 3px;
+  position: absolute;
+  display: inline-block;
+
+  //padding: 0 0.5em;
+  line-height: 1.8;
+  &.group {
+    border: 1px solid #dddddd;
+  }
+  &.table {
+    /*outline: 1px dashed #bfbfbf;*/
+    background-color: #dbdfee;
+    border: 1px solid #dbdfee;
+  }
+  &.input-table {
+    background-color: #dec692;
+    border: 1px solid #dec692;
+  }
+  &.output-table {
+    background-color: #d3e8cc;
+    border: 1px solid #d3e8cc;
+  }
+  &.column {
+    border-radius: 0;
+    background: #fff;
+  }
+}
+canvas {
+  /*position: absolute;*/
+  z-index: 0;
+}

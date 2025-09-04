@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="112px" height="48px" viewBox="0 0 112 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>CBASE</title>
+    <g id="数据源icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-1325.000000, -1074.000000)">
+            <g id="CBASE" transform="translate(1325.000000, 1074.000000)">
+                <rect id="矩形" fill="#FFFFFF" x="0" y="0" width="112" height="48"></rect>
+                <text id="分布式数据库" font-family="PingFangSC-Medium, PingFang SC" font-size="12" font-weight="400" fill="#4A4A4A">
+                    <tspan x="20" y="39">分布式数据库</tspan>
+                </text>
+                <text font-family="PingFangSC-Semibold, PingFang SC" font-size="20" font-weight="500" fill="#191919">
+                    <tspan x="22.06" y="24">CBASE</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

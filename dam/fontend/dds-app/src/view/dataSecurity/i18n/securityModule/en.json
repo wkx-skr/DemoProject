@@ -1,0 +1,11 @@
+{
+  "?securityModule": "数据安全模块",
+  "securityModule": {
+    "?common": "基本信息",
+    "common": {
+      "new": "新建",
+      "sure": "确定",
+      "cancel": "取消"
+    }
+  }
+}

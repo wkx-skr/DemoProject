@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="24px" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 18</title>
+    <defs>
+        <linearGradient x1="-53.7284662%" y1="50%" x2="103.227282%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#409EFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="702" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="BI任务管理-新建任务-完整" transform="translate(-746.000000, -706.000000)" fill="url(#linearGradient-1)">
+            <g id="编组-2" transform="translate(212.000000, 686.000000)">
+                <g id="编组-18" transform="translate(534.000000, 20.349806)">
+                    <path d="M9.7489237,-6.6577153e-15 L24.3723093,11.5768469 L9.7489237,23.1536938 L9.7489237,16.4513087 L0,16.4513087 L0,6.70238505 L9.7489237,6.70238505 L9.7489237,-6.6577153e-15 Z" id="形状结合"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

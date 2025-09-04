@@ -1,0 +1,38 @@
+{
+  "dbType": "OFFLINEDUMP_RAW",
+  "dbLabel": "Offline Dump_ex",
+  "icon": "offlinedump_ex",
+  "options": [
+    {
+      "code": "driverId",
+      "defaultValue": "",
+      "required": true
+    },
+    {
+      "code": "HostServer",
+      "defaultValue": "192.168.1.59",
+      "required": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+      "required": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": true
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": false,
+      "multiple": true,
+      "type": "select"
+    }
+  ]
+}

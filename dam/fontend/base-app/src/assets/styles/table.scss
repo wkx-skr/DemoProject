@@ -1,0 +1,109 @@
+@import './const.scss';
+body.body-for-dam {
+  .transparent-table {
+    &::before {
+      height: 0 !important;
+    }
+    background: transparent;
+    td,
+    th,
+    tr,
+    table {
+      background: transparent;
+      border: none !important;
+    }
+    .el-table__header-wrapper,
+    .el-table__fixed-header-wrapper {
+      font-weight: bold;
+      thead {
+        color: #e1e5e8;
+        background-color: transparent;
+        th.is-right .cell {
+          color: #e1e5e8;
+        }
+      }
+
+      .cell {
+        margin-top: -20px;
+        margin-bottom: -20px;
+      }
+    }
+    .el-table__body-wrapper,
+    .el-table__fixed-body-wrapper {
+      .cell {
+        margin-top: -12px;
+        margin-bottom: -14px;
+        color: #c1c5c8;
+      }
+    }
+    .el-table__row:hover .cell {
+      font-weight: bold;
+      color: #494850;
+    }
+  }
+  .plain-table {
+    font-size: 12px;
+    td,
+    tr {
+      border: none;
+    }
+    th {
+      border-top: none;
+      // border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-left: 1px solid var(--border-color-lighter);
+      // &.el-table-column--selection,&.el-table-column--selection + th,&:first-child {
+      &.el-table-column--selection,
+      &:first-child {
+        border-left: none;
+      }
+      &.el-table-column--selection + th {
+        border-left: 1px solid var(--border-color-lighter);
+      }
+    }
+    .el-table__header-wrapper,
+    .el-table__fixed-header-wrapper {
+      font-weight: bold;
+      color: #000;
+      thead {
+        color: var(--base-font-color);
+        th.is-right .cell {
+          color: var(--base-font-color);
+        }
+      }
+
+      .cell {
+        margin-top: -20px;
+        margin-bottom: -20px;
+      }
+    }
+    .el-table__body-wrapper,
+    .el-table__fixed-body-wrapper {
+      .cell {
+        margin-top: -6px;
+        margin-bottom: -6px;
+        button {
+          padding: 0;
+        }
+      }
+    }
+
+    .current-row td {
+      background-color: $light-blue !important;
+    }
+
+    a.blue {
+      color: #479eff;
+    }
+
+    // 第一列为空列, 添加 empty-column 类名
+    .empty-column + th {
+      border-left: none;
+    }
+  }
+}
+.el-table .el-table-column--selection .cell,
+.el-table .el-table-column--selection th div {
+  text-overflow: unset;
+}

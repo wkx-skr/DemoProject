@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>命名词典</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="light-tab" transform="translate(-760.000000, -70.000000)" fill-rule="nonzero">
+            <g id="命名词典" transform="translate(760.000000, 70.000000)">
+                <path d="M20,0 L20,20 L0,20 L0,0 L20,0 Z M19,1 L1,1 L1,19 L19,19 L19,1 Z" id="矩形" fill="#A0AAB9"></path>
+                <path d="M9.26592798,5 L10.7756233,5 L15,15 L13.0055402,15 L12.0914127,12.7118644 L7.83933518,12.7118644 L6.95290859,15 L5,15 L9.26592798,5 Z M11.4819945,11.1864407 L9.97229917,7.11864407 L8.43490305,11.1864407 L11.4819945,11.1864407 Z" id="形状" fill="#539FFD"></path>
+            </g>
+        </g>
+    </g>
+</svg>

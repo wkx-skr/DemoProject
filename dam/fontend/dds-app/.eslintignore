@@ -1,0 +1,8 @@
+src/view/scanModel/*
+src/view/home/dynamicLogo/*
+src/view/transform/FileSaver.js
+src/view/myItem/DrawGraph.js
+**/*.ts
+/static/libs/*
+/static/js/*
+src/assets/iconfont/*

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>逻辑模型</title>
+    <g id="可选数据源" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-453.000000, -208.000000)" fill-rule="nonzero">
+            <g id="逻辑模型" transform="translate(453.000000, 208.000000)">
+                <rect id="矩形" fill="#FFFFFF" x="5" y="1" width="6" height="4"></rect>
+                <path d="M11,1 L11,5 L5,5 L5,1 L11,1 Z M10,2 L6,2 L6,4 L10,4 L10,2 Z" id="矩形" fill="#999999"></path>
+                <rect id="矩形备份-6" fill="#FFFFFF" x="1" y="13" width="4" height="2"></rect>
+                <rect id="矩形备份-8" fill="#FFFFFF" x="11" y="13" width="4" height="2"></rect>
+                <rect id="矩形" fill="#5A86B6" x="5" y="0" width="6" height="2"></rect>
+                <path d="M0,16 L0,11 L6,11 L6,16 L0,16 Z M5,13 L1,13 L1,15 L5,15 L5,13 Z M10,16 L10,11 L16,11 L16,16 L10,16 Z M15,13 L11,13 L11,15 L15,15 L15,13 Z" id="形状结合" fill="#999999"></path>
+                <path d="M13.5,11 L12.5,11 L12.5,9 L10,9 L10,10 L6,10 L6,9 L3.5,9 L3.5,11 L2.5,11 L2.5,8 L6,8 L6,7 L7.5,7 L7.5,5 L8.5,5 L8.5,7 L10,7 L10,8 L13.5,8 L13.5,11 Z M9,8 L7,8 L7,9 L9,9 L9,8 Z" id="形状结合" fill="#BCBCBC"></path>
+            </g>
+        </g>
+    </g>
+</svg>

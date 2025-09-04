@@ -1,0 +1,78 @@
+$border:1px solid #e6e8ed;
+.com-tools {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 240px;
+  //outline:1px solid pink;
+  height: 50px;
+}
+.com-table {
+  position: absolute;
+  top: 10px;
+  right: 300px;
+  bottom: 10px;
+  left: 10px;
+}
+.com-recipe {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  bottom: 10px;
+  width: 290px;
+  //outline:1px solid pink;
+  border: 1px solid #dededc;
+}
+.headerCell {
+  padding-right: 0;
+  padding-left: 0;
+  div {
+    display: block;
+  }
+  .row-title {
+    //border:$border;
+    //border-right-style:none;
+    //border-bottom-style:none;
+    position: relative;
+    height: 28px;
+    line-height: 28px;
+    background: #fefefc;
+    .label {
+      display: inline-block;
+      width: 100%;
+      padding: 0 2em;
+      margin: 0 auto;
+      color: #494850;
+      text-align: center;
+      cursor: pointer;
+    }
+    .drop {
+      position: absolute;
+      top: -5px;
+      right: 0;
+    }
+    .type {
+      position: absolute;
+      left: 5px;
+      font-size: 10px;
+      font-weight: normal;
+    }
+  }
+  .row-line {
+    height: 6px;
+    background: #4eb6ac;
+  }
+  .row-gun {
+    height: 80px;
+    padding: 0 0;
+    //background:red;
+  }
+  .row-select {
+    height: 20px;
+    font-weight: normal;
+    line-height: 20px;
+    outline: 1px solid #fff;
+  }
+}
+
+

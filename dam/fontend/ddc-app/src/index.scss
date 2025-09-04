@@ -1,0 +1,512 @@
+// 全局样式文件
+.icon-zhibiao {
+  color: #d1af3e !important;
+}
+.icon-biao{
+  color: #0095D9 !important;
+}
+.icon-baobiao{
+  color: #008899 !important;
+}
+.icon-chucun{
+  color: #867BA9 !important;
+}
+.icon-shitu{
+  color: #4B5CC4 !important;
+}
+.icon-hanshu{
+  color: #C97586 !important;
+}
+.icon-daima{
+  color: #9D5B8B !important;
+}
+.icon-biaozhun{
+  color: #38B48B !important;
+}
+.icon-ziduan{
+  color: #B44C97  !important;
+}
+.icon-shujufuwu{
+  color: #00A497 !important;
+}
+.icon-tongyici-48{
+  color: #7BB15D !important;
+}
+.icon-chengxubao-48{
+  color: #5B7E91 !important;
+}
+// .icon-pdf{
+//   color:  !important;
+// }
+// .icon-word{
+//   color:  !important;
+// }
+// .icon-normal{
+//   color:  !important;
+// }
+// .icon-xls{
+//   color:  !important;
+// }
+// .icon-txt{
+//   color:  !important;
+// }
+// .icon-zip{
+//   color:  !important;
+// }
+// .icon-ppt{
+//   color:  !important;
+// }
+
+.el-textarea .el-input__count {
+  background: transparent;
+}
+
+
+
+body .el-table th.gutter {
+  display: table-cell !important;
+}
+
+body .el-table colgroup.gutter {
+  display: table-cell !important;
+}
+
+.success-color {
+  color: #66BF16;
+}
+
+.wait-color {
+  color: #E6AD00;
+}
+
+.fail-color {
+  color: #FF4B53;
+}
+
+.revoke-color {
+  color: #999999;
+}
+
+.el-message--success{
+  font-size: 20px !important;
+}
+
+// table组件里面含有select时，给datablau-select添加class（mini-select），高度默认28px
+.mini-select {
+  .el-select {
+    .el-input {
+      height: 28px !important;
+
+      .el-input__inner {
+        height: 28px !important;
+        line-height: 28px;
+      }
+
+      span {
+        i {
+          line-height: 28px !important;
+        }
+      }
+    }
+  }
+}
+
+// el-form  添加class='mini-form'后，高度34px；行高34px；
+.mini-form {
+  .el-form-item {
+    margin-bottom: 14px;
+
+    .el-form-item__label {
+      line-height: 34px;
+    }
+
+    .el-form-item__content {
+      line-height: 34px;
+    }
+  }
+}
+
+// list列表页的form中的文本框默认240px
+.list-search-content {
+  .search-item {
+    margin-right: 20px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    span {
+      padding-right: 6px;
+    }
+  }
+
+  .datablau-input {
+    display: inline-block;
+    width: 240px;
+
+    .el-input {
+      width: 100% !important;
+    }
+  }
+
+  .datablau-select {
+    display: inline-block;
+    width: 240px;
+
+    .el-select {
+      width: 100% !important;
+
+      .el-input {
+        width: 100% !important;
+      }
+    }
+  }
+}
+// 输入框有最大长度时，添加padding-right，避免内容被遮挡(添加class：maxlength-input）
+.maxlength-input{
+  .el-input{
+    input {
+      padding-right: 50px;
+    }
+  }
+}
+
+// 弹框中form里面基本样式，左边为120px；右面为300px
+.dialog-form-content {
+  .form-item {
+    margin-bottom: 14px;
+
+    >span {
+      box-sizing: border-box;
+      display: inline-block;
+      // width: 120px;
+      padding-right: 6px;
+      text-align: right;
+      font-size: 12px;
+    }
+
+    // span.el-input__suffix-inner {
+    //   padding-right: 0;
+    // }
+
+    .datablau-input {
+      display: inline-block;
+      // width: 300px;
+
+      .el-input {
+        width: 100% !important;
+      }
+    }
+
+    .datablau-select {
+      display: inline-block;
+      // width: 300px;
+
+      .el-select {
+        width: 100% !important;
+
+        .el-input {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+
+  .el-form-item {
+    margin-bottom: 14px;
+    line-height: 34px;
+
+    &.inline-form-item {
+
+      // 当右侧有按钮时
+      .el-form-item__content {
+        width: auto;
+
+        .datablau-input {
+          display: inline-block;
+          // width: 300px;
+        }
+
+        .datablau-select {
+          display: inline-block;
+          // width: 300px;
+        }
+
+        .is-block {
+          vertical-align: top;
+        }
+      }
+    }
+
+    .el-form-item__label {
+      // width: 120px;
+      padding-right: 6px;
+      vertical-align: top;
+    }
+
+    .el-form-item__content {
+      // width: 300px;
+      vertical-align: top;
+    }
+  }
+}
+
+// 详情页form基本样式,左边为180px；右面为500px;当class含有（form-inline-block）el-form-item为行级元素
+.detail-form-content {
+  &.form-inline-block {
+    .el-form-item {
+      display: inline-block;
+    }
+  }
+
+  .el-form-item {
+    margin-bottom: 14px;
+
+    &.el-form-item-btn {
+      .el-form-item__content {
+        width: auto;
+
+        .el-input-number {
+          line-height: 34px;
+
+          span {
+            width: 34px;
+            height: 32px;
+            line-height: 32px;
+
+            i {
+              margin-left: 0;
+            }
+          }
+
+          .el-input {
+            .el-input__inner {
+              height: 34px;
+              line-height: 34px;
+            }
+          }
+        }
+
+        .datablau-input {
+          width: 500px;
+        }
+
+        .is-block {
+          margin-left: 20px;
+        }
+
+        .datablau-select {
+          width: 500px;
+          display: inline-block;
+          height: 34px;
+          line-height: 34px;
+        }
+
+        i {
+          margin-left: 10px;
+        }
+      }
+    }
+
+    .el-form-item__label {
+      box-sizing: border-box;
+      width: 180px;
+      padding-right: 6px;
+      line-height: 34px;
+      text-align: right;
+    }
+
+    .el-form-item__content {
+      display: inline-block;
+      width: 500px;
+      line-height: 34px;
+
+
+      .el-checkbox-group {
+        line-height: 34px;
+      }
+
+      .el-checkbox {
+        line-height: 34px;
+      }
+
+      .datablau-input {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+// 公共样式
+.descriptionMessage-title {
+
+  .message-title {
+    position: relative;
+    display: inline-block;
+    padding-left: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+
+    &::before {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 4px;
+      height: 14px;
+      content: "";
+      background: #409eff;
+      border-radius: 1px;
+    }
+  }
+}
+
+// 详情面包靴的样式
+.datablau-breadcrumb-header {
+  height: 40px;
+  padding-top: 8px;
+  padding-left: 20px;
+  background-color: #fff;
+
+  >div {
+    height: 100%;
+    border-bottom: 1px solid var(--border-color-lighter);
+  }
+}
+
+//  提示图标
+.iconfont.icon-tips {
+  margin-left: 6px;
+  font-size: 14px;
+  color: #999;
+}
+
+.font-medium {
+  font-weight: 600;
+}
+
+// 删除button
+.manage-box {
+  vertical-align: middle;
+
+  .is-block.el-icon-delete {
+    height: 30px;
+    line-height: 28px;
+  }
+}
+
+
+// table操作按钮间距20px
+.is-block.operation-text-btn {
+  min-width: auto !important;
+}
+
+.el-form-item {
+  margin-bottom: 14px;
+}
+
+.dropdown-item-style {
+  >div {
+    font-size: 12px; // 下拉菜单字体
+  }
+}
+
+.el-form-item--small {
+  .el-form-item__error {
+    padding-top: 1px;
+  }
+}
+
+.el-form-item__error {
+  padding-top: 1px;
+}
+
+.max-textarea {
+
+  textarea {
+    max-height: 100px;
+  }
+}
+
+.three-point {
+  float: right;
+  width: 96%;
+  opacity: 0;
+}
+
+.three-point:hover {
+  opacity: 1;
+}
+
+#standardListForm .el-input {
+  // width: 10vw;
+  min-width: 100px;
+}
+
+#standardListForm .el-form-item {
+  margin-bottom: 0;
+}
+
+#codeTree .icon-i-folder {
+  margin-right: 5px;
+}
+
+@media screen and (min-width: 0\0) {
+
+  /* IE rule sets go here */
+  .el-cascader-node__postfix {
+    top: 13px;
+  }
+
+  .moveToRight {
+    position: absolute;
+    right: 0;
+  }
+}
+
+#categoryDetail_el-table {
+
+  .el-table__body,
+  .el-table__footer,
+  .el-table__header {
+    width: 100% !important;
+  }
+}
+
+#categoryDetail_el-table.el-table .cell.el-tooltip {
+  min-width: 150px !important;
+}
+// 识别对象，表，视图，字段的颜色
+.meta-data {
+  border-radius: 2px;
+  display: inline-block;
+  padding: 0px 6px;
+  width: auto;
+  height: 22px;
+  line-height: 22px;
+  vertical-align: middle;
+  color: #719ff5;
+  font-size: 12px;
+  margin: 0 auto;
+  &.surface {
+    color: #0095d9;
+    background: transparentize(#0095d9, 0.9);
+  }
+  &.view {
+    color: #4b5cc4;
+    background: transparentize(#4b5cc4, 0.9);
+  }
+  &.field {
+    color: #b44c97;
+    background: transparentize(#b44c97, 0.9);
+  }
+  &.report {
+    color: #008899;
+    background: transparentize(#008899, 0.9);
+  }
+  &.domain {
+    color: #38B48B;
+    background: transparentize(#38B48B, 0.9);
+  }
+}

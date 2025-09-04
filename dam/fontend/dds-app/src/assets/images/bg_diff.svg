@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="120" height="32" viewBox="0 0 120 32">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.989" y1="-0.085" x2="-0.007" y2="1.193" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#f8cb83"/>
+      <stop offset="1" stop-color="#e54935"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.924" y1="0.078" x2="-0.007" y2="1.193" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#de6f3d"/>
+      <stop offset="1" stop-color="#e04734"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.989" y1="-0.085" x2="-0.007" y2="1.193" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#ffb984"/>
+      <stop offset="1" stop-color="#e54935"/>
+    </linearGradient>
+  </defs>
+  <g id="有差异" transform="translate(-1062.252 -411)">
+    <rect id="矩形_17260" data-name="矩形 17260" width="120" height="32" transform="translate(1062.252 411)" fill="url(#linear-gradient)"/>
+    <path id="路径_2532" data-name="路径 2532" d="M12.426-1.09l83,31.268H25.751Z" transform="translate(1062.252 412.823)" opacity="0.444" fill="url(#linear-gradient-2)"/>
+    <path id="路径_2531" data-name="路径 2531" d="M115.053,0V32h-77Z" transform="translate(1066.942 411)" opacity="0.68" fill="url(#linear-gradient-3)"/>
+  </g>
+</svg>

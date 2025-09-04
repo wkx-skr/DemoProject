@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>采样数据</title>
+    <g id="dam-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="资产icon" transform="translate(-1292.000000, -876.000000)" fill="#409EFF">
+            <g id="采样数据" transform="translate(1292.000000, 876.000000)">
+                <circle id="椭圆形" opacity="0.1" cx="12" cy="12" r="12"></circle>
+                <g id="编组-27" transform="translate(5.000000, 5.000000)" fill-rule="nonzero">
+                    <path d="M0,12.0005349 L0,0.277534852 C0,0.277534852 2.4,-1.25846515 4.727,2.89653485 C7.054,7.05153485 9.276,3.16653485 11.237,3.18153485 C12.398959,3.20241898 13.457561,3.85374852 14,4.88153485 L14,11.9965349 L0,12.0005349 Z" id="路径_4234" opacity="0.5"></path>
+                    <path d="M0,13.9995349 L0,10.1615349 C0,10.1615349 3.036,6.42553485 5.364,8.84953485 C7.692,11.2735349 8.049,6.13253485 10.294,8.14953485 C12.539,10.1665349 14,7.00053485 14,7.00053485 L14,13.9995349 L0,13.9995349 Z" id="路径_4235"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

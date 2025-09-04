@@ -1,0 +1,408 @@
+/* 默认样式 */
+* { box-sizing: border-box; }
+html {
+  height: 100%;
+  //color:#1D1D1D;
+  //overflow: auto;
+  font-size: 12px;
+  //color:#606060;
+  color: var(--base-font-color);
+  ol,
+  ul,
+  li { list-style: none; }
+}
+body {
+  position: relative;
+  min-width: 991px;
+  height: 100%;
+  min-height: 400px;
+  background-color: #fff;
+}
+body,
+div,
+ul,
+li,
+span,
+img,
+input,
+form { padding: 0; margin: 0; }
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+li,
+dd { margin: 0; }
+ul,
+ol { padding: 0; }
+.one-line-eclipse {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.two-line-eclipse {
+  display: -webkit-box;
+  overflow: hidden;
+  text-align: justify;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.three-line-eclipse {
+  display: -webkit-box;
+  overflow: hidden;
+  text-align: justify;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+@import './constForDDC.sass';
+@import './standard.scss';
+@import './tree.scss';
+@import './tableForDDC.sass';
+@import './perfect-scrollbar.css';
+@import './components.sass';
+@import './pageForDDC.sass';
+@import './option.scss';
+@import '../font/style.css';
+@import '../font_ddc/style.css';
+@import './webkitScrollbarForDDC.scss';
+@import './rate.scss';
+@import '~@/next/components/basic/color.sass';
+
+.rect-checkbox {
+  vertical-align: middle;
+  &.condense {
+    margin-left: -1px !important;
+  }
+  &.is-bordered {
+    width: 70px;
+    height: 30px;
+    padding: 0;
+    text-align: center;
+    border-color: #eaecf1;
+    border-radius: 0;
+    &.is-checked {
+      background-color: #eff2f7;
+      border-color: #eff2f7;
+      .el-checkbox__label {
+        color: $blue;
+      }
+    }
+  }
+  &.dark {
+    &.is-bordered {
+      background-color: var(--default-bgc);
+      border-color: #e4e4e4;
+      &.is-checked {
+        background-color: $table-hover-color;
+        .el-checkbox__label {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .el-checkbox__label {
+    padding-left: 0;
+    font-size: 12px;
+    line-height: 30px;
+  }
+
+  .el-checkbox__input {
+    display: none;
+  }
+}
+.el-radio__label {
+  font-size: 12px;
+}
+input::-webkit-input-placeholder { /* WebKit browsers */
+  font-size: 12px;
+}
+input:focus::-webkit-input-placeholder {
+  color: transparent;
+}
+.ddc-rect-input {
+  display: inline-block;
+  width: 250px;
+  vertical-align: middle;
+  &.right-join input {
+    border-right: none;
+  }
+  input {
+    height: 30px;
+    border-radius: 0;
+  }
+  &.height-40 input {
+    height: 40px;
+  }
+  &.global {
+    width: 280px;
+    input {
+      height: 32px;
+      text-indent: 0;
+      background: var(--main-content-bgc);
+      border: none;
+      //color:$blue;
+    }
+  }
+}
+.rect-btn {
+  height: 30px;
+  padding: 0 15px;
+  margin-left: 0;
+  vertical-align: middle;
+  border-radius: 0;
+  &,
+  &:hover {
+  }
+}
+.rect-select {
+  width: 130px;
+  input {
+    //font-weight:bold;
+    height: 24px;
+
+    //border:none;
+    font-size: 12px;
+    border-radius: 0;
+  }
+  .el-input__icon {
+  }
+  .el-icon-arrow-up::before {
+    //content:''
+  }
+}
+.el-checkbox__input,
+.el-checkbox__label {
+  font-size: 12px;
+}
+
+
+
+
+.stripe-table.el-table {
+  border: 1px solid #e6e6e6;
+  td,
+  th {
+    height: 35px;
+    padding: 0;
+    border-bottom: none;
+    transition: background-color 0.2s linear;
+  }
+  th {
+    height: 39px;
+    background-color: var(--main-content-bgc);
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: var(--main-content-bgc);
+    }
+  }
+  thead {
+    color: initial;
+  }
+}
+.stripe-table.el-table {
+  border: 1px solid #e6e6e6;
+  &.table2list {
+    border: none;
+  }
+  td,
+  th {
+    height: 28px;
+    padding: 0;
+    font-size: 12px;
+    border-bottom: none;
+  }
+  th {
+    height: 39px;
+    background-color: var(--main-content-bgc);
+  }
+  tr {
+    &:nth-child(even) {
+      background-color: var(--main-content-bgc);
+    }
+  }
+  thead {
+    color: initial;
+  }
+}
+
+
+
+.icon-back {
+  display: inline-block;
+
+  height: 2.8em;
+  padding: 0 0.7em;
+  line-height: 2.8em;
+  color: var(--ddc-header-color);
+  border-radius: 3px;
+  transition: background-color 0.2s linear;
+  &:hover {
+    cursor: pointer;
+    background: var(--left-hover-color);
+  }
+}
+
+.list-detail em {
+  font-style: normal;
+  color: red;
+  background-color: #fdff9d;
+}
+.context-menu-style {
+  // padding: 0;
+  // margin: 0;
+  // line-height: 30px;
+  // background-color: #f8f9fc;
+  // i {
+  //   margin-right: 5px;
+  //   margin-left: 3px;
+  //   cursor: pointer;
+  //   &.fa {
+  //     display: inline-block;
+  //     width: 17px;
+  //     margin-right: 1px;
+  //   }
+  // }
+  // li {
+  //   list-style: none;
+  // }
+  // .context-option {
+  //   min-width: 9em;
+  //   padding-right: 1em;
+  //   padding-left: 1em;
+  //   background: var(--search-left-bgc);
+  //   &:hover {
+  //     cursor: pointer;
+  //     background: var(--grey-bgc);
+  //   }
+  // }
+}
+.tree-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 0 3px 0 -5px;
+  text-align: center;
+  vertical-align: middle;
+  background-size: cover;
+  &.fa {
+    height: 11px;
+    margin-bottom: 2px;
+  }
+  &.rule-set {
+    color: #4386f5;
+  }
+  &.folder {
+    position: relative;
+    top: -2px;
+    background-image: url("../../assets/images/modelTree/folder.png");
+  }
+  &.model {
+    background-image: url("../../assets/images/modelTree/model.png");
+  }
+  &.branch {
+    background-image: url("../../assets/images/modelTree/branch.png");
+  }
+  &.diagrams {
+    background-image: url("../../assets/images/modelTree/diagrams.png");
+  }
+  &.diagram {
+    background-image: url("../../assets/images/modelTree/diagram.png");
+  }
+  &.tables {
+    background-image: url("../../assets/images/modelTree/tables.png");
+  }
+  &.views {
+    width: 16px;
+    height: 16px;
+    background-image: url("../../assets/images/modelTree/6_ddc.png");
+    transform: translateY(2px);
+  }
+  &.view {
+    width: 16px;
+    height: 16px;
+    background-image: url("../../assets/images/modelTree/5_ddc.png");
+  }
+  &.attribute {
+    background-image: url("../../assets/images/modelTree/Attribute.png");
+  }
+  &.table {
+    width: 16px;
+    height: 16px;
+    background-image: url("../../assets/images/modelTree/table.png");
+  }
+  &.branch {
+    background-image: url("../../assets/images/modelTree/branch.png");
+  }
+
+  &.entity {
+    width: 16px;
+    height: 16px;
+    //transform:translateY(2px);
+    background-image: url("../../assets/images/modelTree/Entity.png");
+  }
+  &.relationship {
+    width: 16px;
+    height: 16px;
+    background-image: url("../../assets/images/modelTree/Relationship.png");
+    transform: translateY(2px);
+  }
+  &.attribute {
+    width: 16px;
+    height: 16px;
+    //transform:translateY(2px);
+    background-image: url("../../assets/images/modelTree/Attribute.png");
+  }
+  &.keygroup {
+    width: 16px;
+    height: 16px;
+    //transform:translateY(2px);
+    background-image: url("../../assets/images/modelTree/KeyGroup.png");
+  }
+}
+.svg-col {
+  //  cursor:pointer;
+  &:hover {
+    //      text-decoration: underline;
+  }
+  padding: 0 0.5em;
+  overflow: hidden;
+  line-height: 18px;
+  text-align: left;
+  text-indent: 1.5em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  //  background-image:url(../images/mxgraph/Column.png);
+  //  background-repeat: no-repeat;
+  //  background-position-x:0.5em;
+}
+.svg-title {
+  text-align: center;
+  text-indent: 0;
+  //  text-decoration: underline;
+  //  cursor:pointer;
+  &:hover {
+    //      font-weight: bold;
+  }
+}
+.step-icon {
+  display: inline-block;
+  float: left;
+  padding: 3px 4px;
+  font-size: 14px;
+  color: #000;
+  text-indent: 0 !important;
+  cursor: pointer;
+}
+
+@import "./themeBase.scss";

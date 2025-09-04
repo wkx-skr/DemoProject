@@ -1,0 +1,24 @@
+.container {
+  //background:pink;
+  padding: 15px;
+  h2 {
+    margin-bottom: 0.5em;
+    font-weight: normal;
+  }
+  h3 {
+    padding-left: 0.5em;
+    //font-weight: normal;
+    margin: 1em 0 0.5em;
+    font-size: 14px;
+    color: #494850;
+    border-left: 4px solid #4396f5;
+  }
+  p.definition {
+    text-indent: 2em;
+  }
+  li {
+    margin-bottom: 0.8em;
+    line-height: 1.2em;
+    color: #696969;
+  }
+}

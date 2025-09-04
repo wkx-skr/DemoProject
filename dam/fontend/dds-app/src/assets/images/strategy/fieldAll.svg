@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="69px" height="80px" viewBox="0 0 69 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>字段</title>
+    <defs>
+        <path d="M54,58 C54,61.3137085 51.7614237,64 49,64 C46.2385763,64 44,61.3137085 44,58 L10,58 L10,6 L10.0037839,5.76440136 C10.1068953,2.5598957 12.3043244,0 15,0 L59,0 C56.2385763,0 54,2.6862915 54,6 L54,58 Z" id="path-1"></path>
+        <filter x="-26.5%" y="-17.2%" width="153.1%" height="140.6%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.06 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-3" cx="13" cy="13" r="13"></circle>
+        <filter x="-26.9%" y="-19.2%" width="153.8%" height="153.8%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.705882353   0 0 0 0 0.298039216   0 0 0 0 0.592156863  0 0 0 0.3808184 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <circle id="path-5" cx="11" cy="11" r="11"></circle>
+        <filter x="-31.8%" y="-22.7%" width="163.6%" height="163.6%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.705882353   0 0 0 0 0.298039216   0 0 0 0 0.592156863  0 0 0 0.3808184 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="icon、颜色" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="空状态" transform="translate(-1063.000000, -633.000000)">
+            <g id="字段" transform="translate(1065.000000, 639.000000)">
+                <circle id="椭圆形" fill="#B44C97" opacity="0.102864583" cx="32" cy="32" r="32"></circle>
+                <g id="纸张">
+                    <path d="M0,58 L49,58 L49,64 L5,64 C2.23857625,64 0,61.3137085 0,58 Z M54,6 L64,6 C64,2.6862915 61.7614237,0 59,0 C56.2385763,0 54,2.6862915 54,6 Z" id="形状" fill="#F9F1F7"></path>
+                    <g id="路径">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                </g>
+                <path d="M14,8 L49,8 L49,10 L14,10 Z M14,14 L40,14 L40,16 L14,16 Z M14,20 L48,20 L48,22 L14,22 Z M14,26 L40,26 L40,28 L14,28 Z M14,32 L30,32 L30,34 L14,34 Z M14,38 L41,38 L41,40 L14,40 Z M14,44 L31,44 L31,46 L14,46 Z M14,50 L35,50 L35,52 L14,52 Z" id="形状结合" fill="#B44C97" opacity="0.201260231"></path>
+                <g id="视图" transform="translate(2.000000, 5.000000)">
+                    <g id="椭圆形备份-4">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                        <use fill="#DF71A9" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    </g>
+                    <path d="M19.741875,6.2581293 L19.698125,6.21875431 C19.6726267,6.19291603 19.6448006,6.16948354 19.615,6.14875432 C19.4701548,6.05141684 19.2995124,5.99961467 19.125,6.00000216 L6.875,6.00000216 C6.39175084,6.00000216 6,6.39175512 6,6.8750042 L6,19.1250023 C6,19.6082514 6.39175084,20.0000022 6.875,20.0000022 L19.125,20.0000022 C19.6082492,20.0000022 20,19.6082514 20,19.1250023 L20,6.8750042 C19.9990232,6.64331437 19.9061947,6.42147003 19.741875,6.2581293 Z M12.4166667,19.1250022 L6.875,19.1250022 L6.875,10.0833355 L12.4166667,10.0833355 L12.4166667,19.1250022 Z M19.125,19.1250022 L13.5833333,19.1250022 L13.5833333,10.0833355 L19.125,10.0833355 L19.125,19.1250022 Z" id="字段-48备份-2" fill="#FFFFFF" fill-rule="nonzero"></path>
+                </g>
+                <g id="视图备份" transform="translate(40.000000, 31.000000)">
+                    <g id="椭圆形备份-4">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                        <use fill="#CD68B1" fill-rule="evenodd" xlink:href="#path-5"></use>
+                    </g>
+                    <path d="M16.77875,5.22125369 L16.74125,5.18750369 C16.7193943,5.1653566 16.6955434,5.1452716 16.67,5.1275037 C16.545847,5.04407158 16.399582,4.99966972 16.25,5.00000185 L5.75,5.00000185 C5.33578644,5.00000185 5,5.33579011 5,5.7500036 L5,16.250002 C5,16.6642155 5.33578644,17.0000018 5.75,17.0000018 L16.25,17.0000018 C16.6642136,17.0000018 17,16.6642155 17,16.250002 L17,5.7500036 C16.9991627,5.55141232 16.9195954,5.36126002 16.77875,5.22125369 Z M10.5,16.2500018 L5.75,16.2500018 L5.75,8.50000185 L10.5,8.50000185 L10.5,16.2500018 Z M16.25,16.2500018 L11.5,16.2500018 L11.5,8.50000185 L16.25,8.50000185 L16.25,16.2500018 Z" id="字段-48备份-2" fill="#FFFFFF" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

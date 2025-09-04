@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="now">
+
+<meta http-equiv="Pragma" content="no-cache">
+<link rel="shortcut icon" href="../static/favicon.ico"/>
+<script>
+    delete window.exports;
+    delete window.module;
+</script>
+<script src="../static/js/polyfill.min.js" ></script>
+<script src="../static/js/jquery.min.js"></script>
+<script src="../static/js/jsencrypt2.min.js"></script>
+<script src="../static/js/publicString.js"></script>
+<!--<script src="./static/conf/setting.js"></script>-->
+<script>
+    document.write("<script src='../static/conf/setting.js?"+Math.random()+"'><\/script>");
+</script>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style>
+        *{box-sizing: border-box;
+            font-size:12px;
+        }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+        }
+        input {
+            outline:0px;
+        }
+        .right-part-row {
+            position: relative;
+            height:32px;
+            margin-top:30px;
+            color: #555;
+        }
+        .input-label {
+            position: absolute;
+            left: 0;
+            top: 11px;
+            line-height: 1;
+            color: #555;
+            display:block;
+        }
+        .input-text {
+            border:none;
+            display:block;
+            font-size:14px;
+            line-height: 32px;
+            width:100%;
+            padding-left: 50px;
+            border-bottom:1px solid #cdced0;
+        }
+        .input-text:focus {
+            color: #409EFF;
+            border-color: #409EFF;
+        }
+        .submit-btn {
+            margin-top:40px;
+            width:320px;
+            background:#479EFF;
+            height:46px;
+            color:#FFF;
+            line-height:46px;
+            cursor:pointer;
+            border:none;
+        }
+        .submit-btn:hover {
+        //  box-shadow:0 0 1px #009B61;
+        }
+
+        .outer-screen {
+            position: absolute;
+            top:0;left:0;right:0;bottom:0;
+        }
+        .inner-screen {
+            width:960px;
+            margin:0 auto;
+            height:540px;
+            position:relative;
+        }
+
+        .logo-box{
+            width: 150px;
+            margin-top: 26px;
+            height: 30px;
+            overflow: hidden;
+        }
+        .screen-logo {
+            visibility:hidden;
+            width:150px;
+            /* margin-top:26px; */
+        }
+        #product-group {
+            text-align: center;
+            position:relative;
+            top:50%;
+            margin-top:-240px;
+        }
+        #product-group .theme-text {
+            margin-bottom:100px;
+        }
+        .theme-text {
+            font-size:30px;
+            color:#f5f5f4;
+            text-align: center;
+        }
+        #product-group .product-box {
+            width: 355px;
+            height: 140px;
+            background-color: #ffffff;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 30px;
+            display: inline-block;
+            margin: 0 15px;
+            transition: background-color .21s;
+            visibility: hidden;
+        }
+
+        #product-group .product-box:hover {
+            transition: background-color .21s;
+            background-color: #efefef;
+        }
+
+        .dam-name, .ddm-name, .ddc-name {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            line-height: 30px;
+        }
+
+        .font-style {
+            font-size: 24px;
+            /*line-height: 140px;*/
+            text-align: center;
+            line-height: 78px;
+        }
+
+        #login-screen {
+            display: block;
+            background: #fff;
+        }
+
+        #login-screen.dam-class {
+            background: #2c4d7f;
+        }
+        #login-screen.dam-class .dam-only {
+            display: inline-block !important;
+        }
+
+        #login-screen.ddm-class .ddm-only {
+            display: inline-block;
+        }
+        #login-screen.ddc-class .ddc-only {
+            display: inline-block !important;
+        }
+        #login-screen.ddm-class {
+            background: #fff;
+        }
+        #login-screen.ddc-class {
+            background: #453a6f;
+        }
+        .right-title {
+            display:none;
+        }
+        .left-part {
+            display:none;
+        }
+        #login-area {
+            width:400px;height:640px;border-radius:10px;
+            position:absolute;
+            top:50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: url("../static/images/login/electron-bg.jpg") #fff 100%;
+            box-shadow: 0 4px 10px rgba(85,85,85, 0.2)
+        }
+        .left-box{
+            margin:60px 20px;
+            width: 510px;
+            height: 360px;
+            display: inline-block;
+            overflow: hidden;
+        }
+        .left-box .left-part {
+            width: 100%;
+            height: auto;
+        }
+        .right-part {
+            display: inline-block;
+            position: absolute;
+            top: 50%;
+            right: 40px;
+            transform: translateY(-200px);
+        }
+        .right-part h2 {
+            font-size: 20px;
+            line-height: 1;
+            color: #555;
+        }
+        #return-tab {
+            position: absolute;
+            top: 20px;
+            right: 0;
+            transition: background-color .8s, color .4s;
+        }
+
+        #return-tab:hover {
+            background-color: #46a2cf;
+
+        }
+
+        #return-tab:hover span {
+            color: #FFF;
+        }
+
+        #return-tab span {
+
+            height: 40px;
+            display: inline-block;
+            line-height: 40px;
+            padding: 0 1.5em;
+            border-radius: 3px;
+            cursor: pointer;
+            color: #bfc3c6;
+        }
+
+        #return-tab #download-ddm {
+            display: none;
+        }
+
+        .ddm-class #return-tab #download-ddm {
+            display: inline-block;
+        }
+
+        #return-tab span:hover {
+            /*background-color: #46a2cf;*/
+            /*transition: background-color .8s, color .4s;*/
+            color: #FFF;
+        }
+
+        .ddc-class #return-tab span:hover {
+            background-color: #6e678e;
+        }
+
+        #download-ddm {
+            display: none;
+        }
+    </style>
+    <style type="text/css">
+        html,body {
+            height:100%;
+            font-size:12px;
+            font-family: "Microsoft YaHei", "PingFang SC", serif;
+            color:#000;
+        }
+        body {
+            margin:0;
+        }
+        input {
+            border:none;
+        }
+        input:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+        }
+        input {
+            outline:0px;
+        }
+        .container {
+            height:100%;
+            display:flex;
+        }
+
+        .input-box {
+            width:100%;
+            height:50px;
+            position:relative;
+            border-bottom:1px solid #EAECF1;
+        }
+        .input-box .logo {
+            display:inline-block;
+            position:absolute;
+            left:5px;
+            top:18px;
+            font-size:21px;
+            color:#bcbcbc;
+        }
+        .input-box img {
+            width:20px;
+            opacity:0.4;
+        }
+        .input-box input {
+            height:30px;
+            margin-top:15px;
+            float:right;
+            width:285px;
+        }
+        .about-password {
+            margin-top:20px;
+            line-height:14px;
+            overflow: hidden;
+        }
+        .about-password input {
+            position:relative;top:1px;
+            float:left;
+            cursor:pointer;
+        }
+        .about-password label {
+            float:left;
+            margin-left:0.7em;
+            color:#000;
+            cursor:pointer;
+        }
+        .about-password a {
+            float:right;
+            text-decoration: none;
+            color:#009B61;
+        }
+        .submit-btn {
+            margin-top:40px;
+            width:320px;
+            background:#479EFF;
+            /* background:#009B61; */
+            height:46px;
+            color:#FFF;
+            line-height:46px;
+            cursor:pointer;
+        }
+        .submit-btn:hover {
+            /* box-shadow:0 0 1px #009B61; */
+        }
+        .page-logo {
+            visibility:hidden;
+            position:absolute;
+            top:18px;left:15px;
+        }
+        .graph-area {
+            width:710px;
+            height:730px;
+            position:relative;
+        }
+        .error-msg, .error-msg-name {
+            color: transparent;
+            float: right;
+            margin-top: 10px;
+        }
+        @media only screen and (min-width: 1700px) {
+            .graph-area {
+                transform: scale(1.1,1.1);
+            }
+        }
+        @media only screen and (max-width: 1366px) {
+            .graph-area {
+                transform: scale(0.8,0.8);
+            }
+        }
+        .name-not-ready {
+            visibility:hidden;
+        }
+        .dam-name,.ddm-name,.ddc-name{
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+    </style>
+    <script type="text/javascript">
+        var j = window.setting
+        localStorage.setItem('firstLogin',JSON.stringify(true));
+        var passwordBlur = function() {
+            var crypt = new JSEncrypt({default_key_size:2048});
+          crypt.setPublicKey(publicString);
+            var text = document.getElementById('password').value;
+            var enc = crypt.encrypt(text);
+            document.getElementById('j_password').value = enc;
+            // var replace = "";
+            // for (var i=0; i<text.length; i++) {
+            //   replace=replace + "*";
+            // }
+            // document.getElementById('password').value = replace;
+        }
+
+    </script>
+</head>
+<body onload="init()">
+<div class="outer-screen" id="login-screen">
+    <!-- <img src="./static/images/login/logo.svg" class="screen-logo"  alt=""> -->
+    <div id="login-area">
+        <div class="right-part">
+            <h2>登录</h2>
+            <div class="right-part-row">
+                <div class="input-label input-ip">IP</div>
+                <input
+                        class="input-text"
+                        type="text"
+                        id="j_ip"
+                        name="j_ip" size="20" maxlength="50" />
+            </div>
+            <div class="right-part-row">
+                <div class="input-label input-port">端口号</div>
+                <input
+                        class="input-text"
+                        type="text"
+                        id="j_port"
+                        name="j_port" size="20" maxlength="50" />
+            </div>
+            <div class="right-part-row">
+                <div class="input-label input-name">用户名</div>
+                <input
+                        class="input-text"
+                        type="text"
+                        id="j_username"
+                        name="j_username" size="20" maxlength="50" />
+            </div>
+            <div class="right-part-row">
+                <div class="input-label input-password">密码</div>
+                <input
+                        class="input-text"
+                        type="password" id="password"
+                        name="password" size="20" maxlength="50" onchange="passwordBlur()"/>
+                <span class="error-msg"></span>
+            </div>
+
+            <input type="hidden" name="j_password" id="j_password" value=""/>
+            <input class="submit-btn" type="submit" onclick="handleLogin()" id="submit" value="登录" />
+            <input type="hidden" name="backurl" id="backurlinput"/>
+            <div style="margin-top:10px;">
+                <input id="save-data" type="checkbox" />记住密码
+            </div>
+            <div style="margin-top: 80px;text-align: center;">
+                @北京数语科技有限公司
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+if (localStorage.getItem('fromLogout') === 'true') {
+  const { ipcRenderer } = window.require('electron')
+  ipcRenderer && ipcRenderer.send('logout')
+  localStorage.setItem('fromLogout', 'false')
+}
+$('#save-data').change(function () {
+  localStorage.setItem('checked', this.checked)
+})
+if (localStorage.getItem('checked') === 'true') {
+  $('#save-data')[0].checked = true
+} else {
+  $('#save-data')[0].checked = false
+}
+if ($('#save-data').is(':checked')) {
+  $('#j_ip').val(localStorage.getItem('ip'))
+  $('#j_port').val(localStorage.getItem('port'))
+  $('#j_username').val(localStorage.getItem('username'))
+  $('#password').val(localStorage.getItem('password'))
+  passwordBlur()
+}
+var $showLogo = true// show our logo
+var selectProduct = null
+var changeProduct = null
+var isEng = getLanguage() == 'English'
+function parseINIString (data) {
+  var regex = {
+    section: /^\s*\s*([^]*)\s*\]\s*$/,
+    param: /^\s*([\w\.\-\_]+)\s*=\s*(.*?)\s*$/,
+    comment: /^\s*;.*$/
+  }
+
+  var value = {}
+  var lines = data.split(/\r\n|\r|\n/)
+  var section = null
+  lines.forEach(function (line) {
+    if (regex.comment.test(line)) {
+      return
+    } else if (regex.param.test(line)) {
+      var match = line.match(regex.param)
+      if (section) {
+        value[section][match[1]] = match[2]
+      } else {
+        value[match[1]] = match[2]
+      }
+    } else if (regex.section.test(line)) {
+      var match = line.match(regex.section)
+      value[match[1]] = {}
+      section = match[1]
+    } else if (line.length == 0 && section) {
+      section = null
+    };
+  })
+  return value
+}
+var pathname = '/' + location.pathname.split('/')[1]
+if (pathname.length == 0) {
+  pathname = '/datablau-server'
+}
+$('.name-not-ready').css('visibility', 'visible')
+pathname = j.restApiPathName
+
+if (j.damOnly) {
+  changeProduct('dam')
+  $('#return-tab').hide()
+}
+pathname = j.restApiPathName
+if (!j.hideLogoOfLogin || j.hideLogoOfLogin !== 'true') {
+  $('.right-title').text('Datablau数据治理平台')
+  if (isEng) {
+    $('.right-title').text('Data Model Web Portal')
+  }
+  $('.screen-logo').css('visibility', 'visible')
+  $('.right-title').css('visibility', 'visible')
+  $('.name-not-ready').css('visibility', 'visible')
+} else {
+  $('.name-not-ready').attr('src', function () {
+    return $(this).attr('src').slice(0, -4) + '-no-logo.png'
+  })
+  $('.name-not-ready').css('visibility', 'visible')
+}
+if (j.logo === 'custom') {
+// $('.screen-logo').hide();
+  if (j.ddmName) {
+    $('.ddm-name').text(j.ddmName)
+    if (isEng) {
+      $('.ddm-name').text(j.ddmNameEn)
+    }
+  }
+  if (j.showBackBtn === 'false') {
+    $('#return-btn').css('display', 'none')
+  }
+  if (j.showLogo === 'false') {
+    $('.screen-logo').css('visibility', 'hidden')
+  }
+}
+const products = j.products
+let protocol = products.dam.protocol || location.protocol + '//'
+let hostname = products.dam.hostname || location.hostname
+let defaultPort = protocol === 'http://' ? 80 : 443
+let frontendPort = products.dam.frontendPort || defaultPort
+let webPath = products.dam.webPath || '/'
+selectProduct = protocol + hostname + ':' + frontendPort + webPath
+// 判断域名后是否有  '/'
+let curDomainName = ''
+if (selectProduct.charAt(selectProduct.length - 1) === '/') {
+  curDomainName = selectProduct
+} else {
+  curDomainName = selectProduct + '/'
+}
+$('#product-selection-screen .inner-screen img.screen-logo').attr({
+  'src': curDomainName + 'dam/service/files/download/image?fileId=ddmlogo',
+  'onerror': 'this.src="../static/images/login/logo.svg"'
+})
+$('#login-screen .inner-screen img.screen-logo').attr({
+  'src': curDomainName + 'dam/service/files/download/image?fileId=ddmlogo',
+  'onerror': 'this.src="../static/images/login/logo.svg"'
+})
+$('#login-area .graph .left-box>img.ddm-only').attr({
+  'src': curDomainName + 'dam/service/files/download/image?fileId=ddmlogin',
+  'onerror': 'this.src="../static/images/login/ddm-graph.png"'
+})
+
+window.onload = function () {
+  const height = $('#login-area .graph .left-box').height()
+  const imgH = $('#login-area .graph .left-box>img.ddm-only').height()
+  const top = (height - imgH) / 2
+  $('#login-area .graph .left-box>img.ddm-only').css('marginTop', top + 'px')
+  const logoBoxH = $('#product-selection-screen .inner-screen .logo-box').height()
+  const logoH = $('#product-selection-screen .inner-screen img.screen-logo').height()
+  $('#product-selection-screen .inner-screen img.screen-logo').css('marginTop', (logoBoxH - logoH) / 2 + 'px')
+  $('#login-screen .inner-screen img.screen-logo').css('marginTop', (logoBoxH - logoH) / 2 + 'px')
+}
+
+if (j.product) {
+  ['dam', 'ddm', 'ddc'].forEach(function (item) {
+    if (j.product.includes(item)) {
+      $('.product-box[data-name=' + item + ']').css('visibility', 'visible')
+    } else {
+      $('.product-box[data-name=' + item + ']').remove()
+    }
+  })
+} else {
+  $('.product-box').css('visibility', 'visible')
+}
+function getLanguage () {
+  if (window.setting.language) {
+    return window.setting.language
+  } else {
+    if (navigator.appName == 'Netscape') { var language = navigator.language } else { var language = navigator.browserLanguage }
+    if (language.indexOf('en') > -1) return 'English'
+    else if (language.indexOf('zh') > -1) return 'Chinese'
+    else { return 'English' }
+  }
+}
+if (j.logo && j.logo.toLowerCase() == 'datablau') {
+  if (isEng) {
+    $('title').text('Datablau Data Model Web Portal')
+    $('#title').text('Datablau Data Model Web Portal')
+  } else {
+    $('title').text('Datablau数据治理平台')
+    $('#title').text('Datablau数据治理平台')
+  }
+  $('.page-logo').css('visibility', 'hidden')
+} else if (!j.logo) {
+  if (isEng) {
+    $('title').text('Data Model Web Portal')
+    $('#title').text('Data Model Web Portal')
+  } else {
+    $('title').text('数据建模平台')
+    $('#title').text('数据建模平台')
+  }
+  $('.page-logo').css('visibility', 'hidden')
+} else {
+  if (isEng) {
+    $('title').text(j.enTitle)
+    $('#title').text(j.enTitle)
+  } else {
+    $('title').text(j.title)
+    $('#title').text(j.title)
+  }
+}
+if (isEng) {
+  document.getElementById('submit').value = 'Sign In'
+  $('.theme-text').text('Select the product you use')
+  $('#backSelect').text('Return to product selection')
+  $('.input-name').text('UserName')
+  $('.input-password').text('Password')
+  $('.ddm-name').text('Datablau Data Modeler')
+} else {
+  document.getElementById('submit').value = '登录'
+  $('.theme-text').text('选择你使用的产品')
+  $('#backSelect').text('返回产品选择')
+  $('.input-name').text('用户名')
+  $('.input-password').text('密码')
+}
+
+function handleLogin () {
+  var ip = $('#j_ip').val()
+  var port = $('#j_port').val()
+  var username = $('#j_username').val()
+  var password = $('#password').val()
+  localStorage.setItem('ip', ip)
+  localStorage.setItem('port', port)
+  localStorage.setItem('username', username)
+  localStorage.setItem('password', password)
+  $.post(j.gatewayEnable ? 'http://' + ip + ':' + port + '/gateway/login' : pathname + '/service/j_spring_security_check', {
+    j_username: $('#j_username').val(),
+    j_password: $('#j_password').val()
+  }, function (data) {
+    localStorage.setItem('fromLogin', 'true')
+    const { ipcRenderer } = window.require('electron')
+    ipcRenderer && ipcRenderer.send('hideWindow')
+    if (location.href.indexOf('localhost') > -1) {
+      location.href = '/'
+    } else {
+      location.href = 'app://./index.html'
+    }
+  }).catch(function (e) {
+    if (e && e.responseJSON && e.responseJSON.exception) {
+      var msg = '用户名或密码错误'
+      if (isEng) {
+        msg = 'Incorrect username or password'
+      }
+      $('.error-msg').css('color', 'red')
+      var responseText = e.responseJSON.exception
+      if (responseText) {
+        msg = responseText
+      }
+      $('.error-msg').text(msg)
+    } else {
+      $('.error-msg').css('color', 'red')
+      $('.error-msg').text('IP端口号用户名密码不正确')
+    }
+    // location.href = '/'
+  })
+}
+document.addEventListener('keydown', keydown)
+function keydown (event) {
+  if (event.key === 'Enter') {
+    passwordBlur()
+    handleLogin()
+  }
+}
+var init = function () {
+  var elem = document.getElementById('error_msg')
+
+  if (elem) {
+    var html = elem.innerHTML
+    if (getLanguage() == 'English') {
+      elem.innerHTML = html.replace('$ERROR', 'Sign In Failed')
+    } else {
+      elem.innerHTML = html.replace('$ERROR', '登录失败!')
+    }
+  }
+
+  var element = document.getElementById('backurlinput')
+  element.value = getURLParameter('backurl')
+}
+
+function getURLParameter (name) {
+  return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null
+}
+
+// 获取系统名字
+function getName (name, type) {
+  $.ajax({
+    type: 'GET',
+    url: '/dam/service/configs/get_one?name=' + name, // 访问的链接
+    dataType: 'jsonp',
+    // jsonp: 'jsonp',
+    success: function (res) {
+      if (typeof res === 'string') {
+        res = JSON.parse(res)
+      }
+      if (type === 'dam') {
+        $('#login-area .right-part .dam-name').html(res.propertyValue)
+        $('#product-group .product-box .dam-name').html(res.propertyValue)
+      } else {
+        // $('#login-area .right-part .ddm-name').html(res.propertyValue)
+        // $('#product-group .product-box .ddm-name').html(res.propertyValue)
+      }
+    }
+  })
+}
+// getName('configurable.web.dam.appname', 'dam');
+// getName('configurable.web.ddm.appname', 'ddm')
+</script>

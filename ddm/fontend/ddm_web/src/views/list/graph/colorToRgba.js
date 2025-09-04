@@ -1,0 +1,212 @@
+export default {
+  AliceBlue: 'rgba(240, 248, 255, 1)',
+  LightSalmon: 'rgba(255, 160, 122, 1)',
+
+  AntiqueWhite: 'rgba(250, 235, 215, 1)',
+  LightSeaGreen: 'rgba(32, 178, 170, 1)',
+
+  Aqua: 'rgba(0, 255, 255, 1)',
+  LightSkyBlue: 'rgba(135, 206, 250, 1)',
+
+  Aquamarine: 'rgba(127, 255, 212, 1)',
+  LightSlateGray: 'rgba(119, 136, 153, 1)',
+
+  Azure: 'rgba(240, 255, 255, 1)',
+  LightSteelBlue: 'rgba(176, 196, 222, 1)',
+
+  Beige: 'rgba(245, 245, 220, 1)',
+  LightYellow: 'rgba(255, 255, 224, 1)',
+
+  Bisque: 'rgba(255, 228, 196, 1)',
+  Lime: 'rgba(0, 255, 0, 1)',
+
+  Black: 'rgba(0, 0, 0, 1)',
+  LimeGreen: 'rgba(50, 205, 50, 1)',
+
+  BlanchedAlmond: 'rgba(255, 255, 205, 1)',
+  Linen: 'rgba(250, 240, 230, 1)',
+
+  Blue: 'rgba(0, 0, 255, 1)',
+  Magenta: 'rgba(255, 0, 255, 1)',
+
+  BlueViolet: 'rgba(138, 43, 226, 1)',
+  Maroon: 'rgba(128, 0, 0, 1)',
+
+  Brown: 'rgba(165, 42, 42, 1)',
+  MediumAquamarine: 'rgba(102, 205, 170, 1)',
+
+  BurlyWood: 'rgba(222, 184, 135, 1)',
+  MediumBlue: 'rgba(0, 0, 205, 1)',
+
+  CadetBlue: 'rgba(95, 158, 160, 1)',
+  MediumOrchid: 'rgba(186, 85, 211, 1)',
+
+  Chartreuse: 'rgba(127, 255, 0, 1)',
+  MediumPurple: 'rgba(147, 112, 219, 1)',
+
+  Chocolate: 'rgba(210, 105, 30, 1)',
+  MediumSeaGreen: 'rgba(60, 179, 113, 1)',
+
+  Coral: 'rgba(255, 127, 80, 1)',
+  MediumSlateBlue: 'rgba(123, 104, 238, 1)',
+
+  CornflowerBlue: 'rgba(100, 149, 237, 1)',
+  MediumSpringGreen: 'rgba(0, 250, 154, 1)',
+
+  Cornsilk: 'rgba(255, 248, 220, 1)',
+  MediumTurquoise: 'rgba(72, 209, 204, 1)',
+
+  Crimson: 'rgba(220, 20, 60, 1)',
+  MediumVioletRed: 'rgba(199, 21, 112, 1)',
+
+  Cyan: 'rgba(0, 255, 255, 1)',
+  MidnightBlue: 'rgba(25, 25, 112, 1)',
+
+  DarkBlue: 'rgba(0, 0, 139, 1)',
+  MintCream: 'rgba(245, 255, 250, 1)',
+
+  DarkCyan: 'rgba(0, 139, 139, 1)',
+  MistyRose: 'rgba(255, 228, 225, 1)',
+
+  DarkGoldenrod: 'rgba(184, 134, 11, 1)',
+  Moccasin: 'rgba(255, 228, 181, 1)',
+
+  DarkGray: 'rgba(169, 169, 169, 1)',
+  NavajoWhite: 'rgba(255, 222, 173, 1)',
+
+  DarkGreen: 'rgba(0, 100, 0, 1)',
+  Navy: 'rgba(0, 0, 128, 1)',
+
+  DarkKhaki: 'rgba(189, 183, 107, 1)',
+  OldLace: 'rgba(253, 245, 230, 1)',
+
+  DarkMagena: 'rgba(139, 0, 139, 1)',
+  Olive: 'rgba(128, 128, 0, 1)',
+
+  DarkOliveGreen: 'rgba(85, 107, 47, 1)',
+  OliveDrab: 'rgba(107, 142, 45, 1)',
+
+  DarkOrange: 'rgba(255, 140, 0, 1)',
+  Orange: 'rgba(255, 165, 0, 1)',
+
+  DarkOrchid: 'rgba(153, 50, 204, 1)',
+  OrangeRed: 'rgba(255, 69, 0, 1)',
+
+  DarkRed: 'rgba(139, 0, 0, 1)',
+  Orchid: 'rgba(218, 112, 214, 1)',
+
+  DarkSalmon: 'rgba(233, 150, 122, 1)',
+  PaleGoldenrod: 'rgba(238, 232, 170, 1)',
+
+  DarkSeaGreen: 'rgba(143, 188, 143, 1)',
+  PaleGreen: 'rgba(152, 251, 152, 1)',
+
+  DarkSlateBlue: 'rgba(72, 61, 139, 1)',
+  PaleTurquoise: 'rgba(175, 238, 238, 1)',
+
+  DarkSlateGray: 'rgba(40, 79, 79, 1)',
+  PaleVioletRed: 'rgba(219, 112, 147, 1)',
+
+  DarkTurquoise: 'rgba(0, 206, 209, 1)',
+  PapayaWhip: 'rgba(255, 239, 213, 1)',
+
+  DarkViolet: 'rgba(148, 0, 211, 1)',
+  PeachPuff: 'rgba(255, 218, 155, 1)',
+
+  DeepPink: 'rgba(255, 20, 147, 1)',
+  Peru: 'rgba(205, 133, 63, 1)',
+
+  DeepSkyBlue: 'rgba(0, 191, 255, 1)',
+  Pink: 'rgba(255, 192, 203, 1)',
+
+  DimGray: 'rgba(105, 105, 105, 1)',
+  Plum: 'rgba(221, 160, 221, 1)',
+
+  DodgerBlue: 'rgba(30, 144, 255, 1)',
+  PowderBlue: 'rgba(176, 224, 230, 1)',
+
+  Firebrick: 'rgba(178, 34, 34, 1)',
+  Purple: 'rgba(128, 0, 128, 1)',
+
+  FloralWhite: 'rgba(255, 250, 240, 1)',
+  Red: 'rgba(255, 0, 0, 1)',
+
+  ForestGreen: 'rgba(34, 139, 34, 1)',
+  RosyBrown: 'rgba(188, 143, 143, 1)',
+
+  Fuschia: 'rgba(255, 0, 255, 1)',
+  RoyalBlue: 'rgba(65, 105, 225, 1)',
+
+  Gainsboro: 'rgba(220, 220, 220, 1)',
+  SaddleBrown: 'rgba(139, 69, 19, 1)',
+
+  GhostWhite: 'rgba(248, 248, 255, 1)',
+  Salmon: 'rgba(250, 128, 114, 1)',
+
+  Gold: 'rgba(255, 215, 0, 1)',
+  SandyBrown: 'rgba(244, 164, 96, 1)',
+
+  Goldenrod: 'rgba(218, 165, 32, 1)',
+  SeaGreen: 'rgba(46, 139, 87, 1)',
+
+  Gray: 'rgba(128, 128, 128, 1)',
+  Seashell: 'rgba(255, 245, 238, 1)',
+
+  Green: 'rgba(0, 128, 0, 1)',
+  Sienna: 'rgba(160, 82, 45, 1)',
+
+  GreenYellow: 'rgba(173, 255, 47, 1)',
+  Silver: 'rgba(192, 192, 192, 1)',
+
+  Honeydew: 'rgba(240, 255, 240, 1)',
+  SkyBlue: 'rgba(135, 206, 235, 1)',
+
+  HotPink: 'rgba(255, 105, 180, 1)',
+  SlateBlue: 'rgba(106, 90, 205, 1)',
+
+  IndianRed: 'rgba(205, 92, 92, 1)',
+  SlateGray: 'rgba(112, 128, 144, 1)',
+  Indigo: 'rgba(75, 0, 130, 1)',
+  Snow: 'rgba(255, 250, 250, 1)',
+
+  Ivory: 'rgba(255, 240, 240, 1)',
+  SpringGreen: 'rgba(0, 255, 127, 1)',
+
+  Khaki: 'rgba(240, 230, 140, 1)',
+  SteelBlue: 'rgba(70, 130, 180, 1)',
+
+  Lavender: 'rgba(230, 230, 250, 1)',
+  Tan: 'rgba(210, 180, 140, 1)',
+
+  LavenderBlush: 'rgba(255, 240, 245, 1)',
+  Teal: 'rgba(0, 128, 128, 1)',
+
+  LawnGreen: 'rgba(124, 252, 0, 1)',
+  Thistle: 'rgba(216, 191, 216, 1)',
+
+  LemonChiffon: 'rgba(255, 250, 205, 1)',
+  Tomato: 'rgba(253, 99, 71, 1)',
+
+  LightBlue: 'rgba(173, 216, 230, 1)',
+  Turquoise: 'rgba(64, 224, 208, 1)',
+
+  LightCoral: 'rgba(240, 128, 128, 1)',
+  Violet: 'rgba(238, 130, 238, 1)',
+
+  LightCyan: 'rgba(224, 255, 255, 1)',
+  Wheat: 'rgba(245, 222, 179, 1)',
+
+  LightGoldenrodYellow: 'rgba(250, 250, 210, 1)',
+  White: 'rgba(255, 255, 255, 1)',
+
+  LightGreen: 'rgba(144, 238, 144, 1)',
+  WhiteSmoke: 'rgba(245, 245, 245, 1)',
+
+  LightGray: 'rgba(211, 211, 211, 1)',
+  Yellow: 'rgba(255, 255, 0, 1)',
+
+  LightPink: 'rgba(255, 182, 193, 1)',
+  YellowGreen: 'rgba(154, 205, 50, 1)',
+  Control: 'rgba(240, 240, 240, 1)',
+  Transparent: 'rgba(255, 255, 255, 0)'
+}

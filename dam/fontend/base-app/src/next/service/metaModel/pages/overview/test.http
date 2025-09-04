@@ -1,0 +1,5 @@
+POST http://192.168.4.26:8080/metamodel/getDomain
+Content-Type: application/x-www-form-urlencoded
+Authorization: Basic admin admin
+
+namespace=&name=

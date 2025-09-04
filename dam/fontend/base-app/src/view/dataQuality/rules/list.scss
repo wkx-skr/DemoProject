@@ -1,0 +1,43 @@
+.filter-row {
+  .label {
+    margin: 0 0.3em 0 1.2em;
+    &:first-child,
+    &.first {
+      margin-left: 10px;
+    }
+  }
+}
+
+.footer-row {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  left: 20px;
+}
+
+.icon-header-row {
+  margin-left: 5px;
+  font-size: 20px;
+  color: #479eff;
+  vertical-align: middle;
+}
+
+.icon-yellow {
+  color: #fcb100;
+}
+
+.icon-green {
+  color: #48bbc2;
+}
+
+.icon-red {
+  color: #fc595a;
+}
+
+.icon-grey {
+  color: #d6d9e0;
+}
+
+.uploadbtn {
+  display: inline-block;
+}

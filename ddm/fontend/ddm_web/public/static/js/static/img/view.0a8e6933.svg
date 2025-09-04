@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>视图</title>
+    <g id="模型目录" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="模型基本信息-模型摘要" transform="translate(-889.000000, -186.000000)">
+            <g id="编组-2" transform="translate(219.000000, 166.000000)">
+                <g id="数据项备份-9" transform="translate(640.000000, 0.000000)">
+                    <g id="视图" transform="translate(30.000000, 20.000000)">
+                        <path d="M19,19 L19,6 L20,6 L20,19 C20,19.5522847 19.5522847,20 19,20 L1,20 C0.44771525,20 -1.5440923e-16,19.5522847 0,19 L0,6 L1,6 L1,19 L19,19 Z" id="形状结合" fill="#A0AAB9"></path>
+                        <rect id="矩形" fill="#539FFD" opacity="0.2" x="1" y="1" width="18" height="4"></rect>
+                        <path d="M0,6 L0,1 C-6.76353751e-17,0.44771525 0.44771525,1.01453063e-16 1,0 L19,0 C19.5128358,-9.42064153e-17 19.9355072,0.38604019 19.9932723,0.883378875 L20,1 L20,6 L0,6 Z M6,1 L1,1 L1,5 L6,5 L6,1 Z M13,1 L7,1 L7,5 L13,5 L13,1 Z M19,1 L14,1 L14,5 L19,5 L19,1 Z" id="形状结合" fill="#539FFD"></path>
+                        <path d="M10.0200195,8.5 C12.4279441,8.5 14.5368252,9.68603695 16.3687288,12.0062502 C14.5354716,14.3188143 12.4179763,15.5 9.99468994,15.5 C7.5715047,15.5 5.45726585,14.3180252 3.63035945,12.0037738 C5.4583217,9.6842109 7.58110795,8.5 10.0200195,8.5 Z" id="矩形" stroke="#539FFD"></path>
+                        <circle id="椭圆形" fill="#539FFD" cx="10" cy="12" r="2"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

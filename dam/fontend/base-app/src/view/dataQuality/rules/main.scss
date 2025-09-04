@@ -1,0 +1,66 @@
+.citic-card-tabs {
+  top: 0;
+  left: 280px;
+  background: #fff;
+}
+.en-tree-box .input input {
+  height: 30px;
+  line-height: 30px;
+  background-color: #f6f6f6;
+  border: none;
+  border-radius: 3px;
+}
+.tree-area .manage-box {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  padding: 10px;
+  border-top: var(--border-color-lighter);
+  box-shadow: 0 -5px 14px -8px rgba(0, 0, 0, 0.2);
+}
+.anchor {
+  position: absolute;
+  display: block !important;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+}
+.dialog-container {
+  padding-bottom: 20px;
+  .page-form {
+    padding-bottom: 20px;
+  }
+}
+.tree-area {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 280px;
+  background-color: var(--white-grey-bgc);
+  border-right: none;
+  // border: 1px solid var(--border-color-lighter);
+  border-left: none;
+  .tree-box {
+    position: absolute;
+    top: 52px;
+    right: 0;
+    bottom: 50px;
+    // border-top: 1px solid #E6E6E6;
+    left: 0;
+    overflow: auto;
+  }
+}
+.folder-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 280px;
+  z-index: 2;
+  width: 1px;
+  cursor: e-resize !important;
+  background-color: #e0e0e0;
+}

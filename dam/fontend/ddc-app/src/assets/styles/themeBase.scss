@@ -1,0 +1,56 @@
+@import '../../next/components/basic/color.sass';
+// 根据主题色不同, 部分全局组件颜色改变
+//  全局主题颜色
+.el-loading-mask {
+  background-color: var(--loading-mask-bgc);
+}
+
+.el-dropdown-menu {
+  //background-color: var(--main-content-bgc);
+}
+
+.el-dropdown-menu__item:not(.is-disabled):hover,
+.el-dropdown-menu__item:focus {
+  background-color: var(--popover-hover-bgc);
+}
+
+//.el-popover {
+//  background-color: var(--main-content-bgc);
+//}
+
+.el-table {
+  color: var(--table-color);
+  background-color: var(--white-grey-bgc);
+}
+.el-table tr {
+  background-color: var(--white-grey-bgc);
+}
+.el-table--enable-row-hover,
+.datablau-table {
+  .el-table__body tr:hover > td {
+    background-color: $table-hover-color;
+  }
+}
+
+.graph-outer {
+  background-color: var(--default-bgc);
+}
+
+// TODO aggrid 主题, 修改默认主题的颜色, 之后要改成 替换主题
+.ag-theme-balham {
+  background-color: var(--white-grey-bgc);
+}
+.ag-theme-balham .ag-header {
+  background-color: var(--white-grey-bgc);
+}
+
+// table stripe 背景色
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+  background-color: var(--light-grey);
+}
+body {
+  .el-input.is-disabled .el-input__inner,
+  .el-textarea.is-disabled .el-textarea__inner {
+    color: var(--a-text-color);
+  }
+}

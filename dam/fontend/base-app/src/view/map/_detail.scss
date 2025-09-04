@@ -1,0 +1,176 @@
+$margin-left:20px;
+$blue:#3b85ff;
+$grey-1:#131315;
+$grey-2: #2f2f31;
+$grey-3: #494949;
+$grey-4: #606060;
+$grey-5: #969696;
+$grey-6: #c3c3c3;
+$font-color:#f1f5f8;
+.map-detail {
+  .search-result-cnt {
+    height: 40px;
+    padding-right: 10px;
+    padding-left: 20px;
+    line-height: 40px;
+    background-color: $grey-2;
+    .result {
+      font-size: 14px;
+      color: $font-color;
+    }
+    .cnt {
+      float: right;
+      color: $grey-5;
+    }
+  }
+  .map-title {
+    margin-top: 28px;
+    margin-left: $margin-left;
+    font-size: 22px;
+    font-weight: normal;
+    color: #fff;
+  }
+  .map-vice-title {
+    margin-top: 10px;
+    margin-left: $margin-left;
+    font-size: 20px;
+    font-weight: normal;
+    color: #fff;
+  }
+  .description {
+    display: -webkit-box;
+    height: 6em;
+    margin: 1em $margin-left 0;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.5em;
+    color: $grey-5;
+    text-align: justify;
+    text-overflow: ellipsis;
+    white-space: pre-line;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+  .property {
+    margin: 0 $margin-left;
+    color: $grey-5;
+  }
+  .list-box {
+    position: absolute;
+    top: 190px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: 20px;
+    &.search {
+      .el-tabs__header {
+        margin-left: 50px;
+        background-color: #444;
+      }
+    }
+    .el-tabs__header {
+      padding-left: 20px;
+      color: #fff;
+      background-color: $grey-4;
+    }
+    .el-tabs__nav-wrap::after {
+      height: 0;
+    }
+    .el-tab-pane {
+      padding: 0;
+    }
+    .el-tabs__item {
+      font-size: 12px;
+      color: $grey-6;
+      &.is-active {
+        color: $font-color;
+      }
+    }
+  }
+  .list-content {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+  }
+  .list-content-item {
+    padding-bottom: 0.6em;
+    cursor: pointer;
+    &:hover {
+      background: #4d6181;
+      .property,
+      .description {
+        //color:$font-color;
+        color: $grey-6;
+      }
+    }
+    border-bottom: 1px solid $grey-4;
+    .title {
+      padding-top: 1em;
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      font-size: 16px;
+    }
+  }
+  .el-table {
+    color: $font-color;
+    background-color: inherit;
+    .labelColumn {
+      color: $grey-6;
+    }
+    &::before {
+      height: 0;
+    }
+  }
+  tbody {
+    border-bottom: none;
+  }
+  thead tr {
+    background-color: $grey-2;
+  }
+  th {
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: $font-color;
+    background-color: inherit;
+    border: none !important;
+  }
+  .el-table__row {
+    background-color: inherit;
+    td {
+      padding-top: 7px;
+      padding-bottom: 7px;
+      background-color: inherit !important;
+      border-bottom: 1px solid $grey-4;
+    }
+    &:hover {
+      background-color: #4d6181;
+      td {
+        border-bottom: 1px solid #4d6181;
+      }
+    }
+  }
+}
+.el-tooltip__popper {
+  z-index: 9999 !important;
+}
+
+.inner-search-box {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  display: inline-block;
+  width: 140px;
+  height: 30px;
+  margin-right: 5px;
+  line-height: 32px;
+  vertical-align: bottom;
+  background-color: $grey-3;
+  input {
+    width: 100px;
+    margin-left: 1em;
+    color: #fff;
+  }
+}

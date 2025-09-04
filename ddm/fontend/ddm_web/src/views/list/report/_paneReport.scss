@@ -1,0 +1,201 @@
+.grey {
+  color: #b6b6b6;
+}
+.imp {
+  font-size:14px;
+  font-weight: bold;
+}
+.sub {
+  color:#989898;
+}
+.report-box-outer {
+  margin:20px;
+  margin-top:0;
+  width:1080px;
+  min-height:800px;
+}
+
+.report-box {
+  width: 1000px;
+  margin-left: 20px;
+  position: relative;
+}
+
+.top-right {
+  float: right;
+}
+
+// 导出 pdf 时, 不会去取父级元素的类, 所以可以将样式写在这里
+// 后面被覆盖后, 可以实现 页面 和 导出的 PDF 有两种样式
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.right-report-button {
+  display: none;
+  position: absolute;
+  top: 3px;
+  right: 0;
+  .report-top-bottom-item {
+    float:left;
+    margin-left: 1em;
+  }
+}
+
+.pane-report-component {
+  .title {
+    display: inline-block;
+    text-align: left;
+    margin: 0;
+    max-width: 830px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.show-skip-btn {
+      max-width: 730px;
+    }
+  }
+
+  .right-report-button {
+    display: inline-block;
+  }
+}
+
+table {
+  //border:1px solid #e8e8e8;
+  border-collapse: collapse;
+}
+
+tr {
+
+}
+
+td {
+  width:180px;
+  border:1px solid #e8e8e8;
+  &:last-child {
+    width:220px;
+  }
+  &.label, &.label2 {
+    width:140px;
+    text-align:center;
+    font-size:14px;
+    color: #989898;
+    line-height:1.5em;
+    padding:8px 0;
+    &.two {
+      letter-spacing: 2em;
+      text-indent:2em;
+    }
+  }
+  &.label2 {
+    width:120px;
+  }
+  &.value, &.value2 {
+    padding:8px 20px;
+    font-size:14px;
+    line-height:1.5em;
+  }
+  &.value2 {
+    width:140px;
+    &:last-child {
+      width:220px;
+    }
+  }
+  &.text-value {
+    padding:15px 20px;
+  }
+}
+.check-status {
+  display:inline-block;
+  width:24px;
+  height:24px;
+  line-height:22px;
+  text-align:center;
+  font-weight: bold;
+  font-size:16px;
+  border-radius:12px;
+  border:2px solid #80db6b;
+  background:#eefaeb;
+  color:#80db6b;
+  vertical-align: middle;
+  &.check {
+
+  }
+}
+.tag {
+  height:24px;
+  border-width:1px;
+  border-style:solid;
+  padding:3px 6px;
+  border-radius:3px;
+  &.red {
+    border-color: #fa5555;
+    color:#fa5555;
+    background: #ffe9e9;
+  }
+  &.green {
+    border-color: #80db6b;
+    color:#80db6b;
+    background:#eefaeb;
+  }
+  &.en {
+    display: inline-block;
+    width: 144px;
+    text-align: center;
+  }
+}
+.check-detail-row {
+  &:first-child {
+    margin-top:0;
+  }
+  margin-top:1.5em;
+  min-height:25px;
+  clear:both;
+  float:left;
+  //background-color:grey;
+  padding: 2px 0 0 0;
+  &:hover {
+    cursor:pointer;
+
+    .text, .red-text {
+      text-decoration: underline;
+      &.hide-underline {
+        text-decoration: none;
+      }
+    }
+  }
+  &.no-skip {
+    &:hover {
+      cursor: default;
+    }
+  }
+  .text {
+    font-size:14px;
+    text-indent:1.5em;
+    display:inline-block;
+  }
+  .red-text {
+    color:#fa5555;
+    font-size:14px;
+    margin-left:.2em;
+    line-height: 25px;
+
+    &.whole-line {
+      display:block;
+      text-indent: 90px;
+      margin-top:.5em;
+    }
+  }
+}
+.approved-icon {
+  //border: 1px solid red;
+  width: 100px;
+  height: 100px;
+  background: transparent no-repeat url('approved-seal.svg');
+}

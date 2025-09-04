@@ -1,0 +1,150 @@
+$grey-border: 1px solid #eaecf1;
+$blue: #268bd3;
+$tree-box-width: 240px;
+$border-text: 1px solid #aaa;
+@import '../../next/components/basic/color.sass';
+.codePage {
+  .dia-input-item {
+    width: 250px;
+  }
+
+  .tree-area {
+    width: $tree-box-width;
+
+    .tree-search-box {
+      padding: 10px;
+    }
+
+    .tree-box {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      bottom: 48px;
+      left: 0;
+
+      &.full {
+        bottom: 0;
+      }
+    }
+
+    .manage-box {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 48px;
+      padding: 10px;
+      border-top: $grey-border;
+
+      span {
+        position: absolute;
+        top: 15px;
+        right: 10px;
+        color: #9b9ea2;
+      }
+    }
+  }
+
+  .tree-area-margin-right {
+    position: absolute;
+    top: 0;
+    left: $tree-box-width - 3px;
+    width: 7px;
+    height: 100%;
+    cursor: e-resize !important;
+    background-color: transparent;
+    z-index: 2;
+  }
+
+  .content-area {
+    left: $tree-box-width;
+  }
+
+  .not-show-container {
+    position: absolute;
+    top: -500px;
+    left: -3393px;
+  }
+
+  .dowl {
+    margin-left: 0;
+  }
+}
+.exportError {
+  clear: both;
+  display: flex;
+  margin-top: 12px;
+  align-items: center;
+}
+.elRadioSelectBox {
+  height: 90px;
+  margin-bottom: 20px;
+
+  .elRadioSelect {
+    float: left;
+    width: 295px;
+    // height: 78px;
+    cursor: pointer;
+    background: #fff;
+    border: 1px solid $border-color;
+    border-radius: 2px;
+
+    .elRadioSelectCont {
+      padding: 10px 16px;
+
+      h3 {
+        padding-bottom: 4px;
+        font-size: 14px;
+        color: $text-default;
+      }
+
+      p {
+        font-size: 12px;
+        color: $text-default;
+      }
+    }
+
+    &:nth-of-type(2) {
+      margin-left: 10px;
+    }
+
+    &.elRadioSelectdisabled{
+      cursor: not-allowed;
+      opacity: .6;
+    }
+    &.elRadioSelectActive {
+      border: 1px solid $primary-color;
+
+      .elRadioSelectCont {
+        h3 {
+          color: $primary-color;
+        }
+
+        p {
+          color: $primary-color;
+        }
+      }
+    }
+  }
+}
+.uploadContent{
+  clear: both;
+  background: #f7f9fb;
+  border-radius: 4px;
+  padding: 16px;
+  .uploadtip{
+    font-size: 12px;
+    color: $text-message;
+    padding-bottom: 16px;
+    display: inline-block;
+  }
+  .autoCode{
+    padding-top: 16px;
+  }
+}
+
+.elRadioSelectBox.en-radio-page {
+  .elRadioSelect {
+    width: 355px;
+  }
+}

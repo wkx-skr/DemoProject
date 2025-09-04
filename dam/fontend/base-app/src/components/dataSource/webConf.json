@@ -1,0 +1,375 @@
+{
+  "sourceName": {
+    "code": "sourceName",
+    "type": "input",
+    "label": "数据源名称",
+    "defaultValue": "",
+    "placeholder": "请输入",
+    "required": true
+  },
+  "driverId": {
+    "code": "driverId",
+    "type": "select",
+    "candidate": "/service/driver/type?type=ORACLE",
+    "label": "驱动",
+    "defaultValue": "",
+    "placeholder": "请选择",
+    "required": true
+  },
+  "OfflineDumpSourceDriverType": {
+    "code": "OfflineDumpSourceDriverType",
+    "label": "存储数据库类型",
+    "type": "select",
+    "placeholder": "请选择",
+    "defaultValue": "ORACLE",
+    "required": true,
+    "candidate": [
+      {
+        "label": "MySQL",
+        "value": "MYSQL"
+      },
+      {
+        "label": "Oracle",
+        "value": "ORACLE"
+      }
+    ]
+  },
+  "HostServer": {
+    "code": "HostServer",
+    "if": {
+      "parentCode": "customConnection",
+      "targetValue": false
+    },
+    "type": "input",
+    "label": "服务器名称",
+    "defaultValue": "localhost",
+    "required": true
+  },
+  "PortNumber": {
+    "code": "PortNumber",
+    "if": {
+      "parentCode": "customConnection",
+      "targetValue": false
+    },
+    "type": "input",
+    "label": "端口",
+    "defaultValue": "1521",
+    "required": true
+  },
+  "connUrl": {
+    "code": "connUrl",
+    "if": {
+      "parentCode": "customConnection",
+      "targetValue": true
+    },
+    "type": "textarea",
+    "label": "连接串",
+    "defaultValue": "",
+    "required": true,
+    "placeholder": "请输入连接串"
+  },
+  "AuthenticationType": {
+    "code": "AuthenticationType",
+    "type": "select",
+    "label": "授权方式",
+    "candidate": [],
+    "defaultValue": "0",
+    "required": false
+  },
+  "user": [
+    {
+      "dbtype": "MAXCOMPUTE",
+      "code": "user",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "label": "AK ID",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true
+      },
+      "placeholder": "请输入"
+    },
+    {
+      "code": "user",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "label": "用户名",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true,
+        "notRequiredDbs": "HIVE,IMPALA,HBASE,ES,CLICKHOUSE,MONGODB,TIDB,HUDIONHIVESPARK"
+      },
+      "placeholder": "请输入"
+    }
+  ],
+  "password": [
+    {
+      "dbtype": "MAXCOMPUTE",
+      "code": "password",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "inputType": "password",
+      "label": "AK Secret",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true
+      },
+      "placeholder": "请输入"
+    },
+    {
+      "code": "password",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "inputType": "password",
+      "label": "密码",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true,
+        "notRequiredDbs": "HIVE,IMPALA,HBASE,ES,CLICKHOUSE,MONGODB,TIDB,HUDIONHIVESPARK"
+      },
+      "placeholder": "请输入"
+    }
+  ],
+  "ServicePrincipal": {
+    "code": "ServicePrincipal",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "input",
+    "label": "服务认证规则",
+    "defaultValue": "",
+    "required": true,
+    "requiredOnSave": true,
+    "placeholder": "Service Principal:Service/Hostname@REALM"
+  },
+  "UserPrincipal": {
+    "code": "UserPrincipal",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "input",
+    "label": "用户认证规则",
+    "defaultValue": "",
+    "required": false,
+    "placeholder": ""
+  },
+  "KeyTabPath": {
+    "code": "KeyTabPath",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "upload",
+    "drag": true,
+    "limit": 1,
+    "label": "keytab文件",
+    "accept": "all",
+    "defaultValue": "",
+    "required": false,
+    "placeholder": ""
+  },
+  "Krb5Path": {
+    "code": "Krb5Path",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "upload",
+    "drag": true,
+    "limit": 1,
+    "label": "krb5文件",
+    "accept": "all",
+    "defaultValue": "",
+    "required": true,
+    "requiredOnSave": true,
+    "placeholder": ""
+  },
+  "connectMode": {
+    "code": "connectMode",
+    "type": "select",
+    "candidate": [
+      {
+        "label": "SID",
+        "value": "SID"
+      },
+      {
+        "label": "Service Name",
+        "value": "Service Name"
+      }
+    ],
+    "label": "连接模式",
+    "defaultValue": "SID",
+    "required": true
+  },
+  "DatabaseName": [
+    {
+      "dbtype": "ORACLE",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "SID",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "SID"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "请输入SID名称"
+    },
+    {
+      "dbtype": "ORACLE",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "Service Name",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "Service Name"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "请输入Service Name名称"
+    },
+    {
+      "dbtype": "OFFLINEDUMP",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "SID",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "SID"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "请输入SID名称"
+    },
+    {
+      "dbtype": "OFFLINEDUMP",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "Service Name",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "Service Name"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "请输入Service Name名称"
+    },
+    {
+      "dbtype": "CUSTOMIZED",
+      "code": "DatabaseName",
+      "multiple": true,
+      "type": "select",
+      "if": {
+        "parentCode": "useCustomedDbTyeTarget",
+        "targetValue": "database"
+      },
+      "label": "数据库",
+      "disabled": "",
+      "defaultValue": "",
+      "required": false,
+      "placeholder": "请选择或输入"
+    },
+    {
+      "code": "DatabaseName",
+      "multiple": true,
+      "type": "select",
+      "label": "数据库",
+      "defaultValue": "",
+      "required": false,
+      "placeholder": "请选择或输入"
+    }
+  ],
+  "TestBtn": {
+    "code": "TestBtn",
+    "type": "button",
+    "label": "",
+    "required": false
+  },
+  "SelectedSchemas": [
+    {
+      "code": "SelectedSchemas",
+      "param": {
+        "type": "string",
+        "paramSplit": ";"
+      },
+      "multiple": true,
+      "type": "select",
+      "label": "Schema",
+      "defaultValue": "",
+      "required": false
+    },
+    {
+      "dbtype": "CUSTOMIZED",
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "type": "select",
+      "if": {
+        "parentCode": "useCustomedDbTyeTarget",
+        "targetValue": "schema"
+      },
+      "label": "schema",
+      "defaultValue": "",
+      "required": false,
+      "placeholder": "请选择或输入"
+    }
+  ],
+  "OfflineDumpTargetSchemaName": {
+    "code": "OfflineDumpTargetSchemaName",
+    "param": {
+      "type": "string",
+      "paramSplit": ";"
+    },
+    "multiple": true,
+    "type": "select",
+    "label": "Schema",
+    "required": false
+  },
+  "owner": {
+    "code": "owner",
+    "type": "select",
+    "label": "所有者",
+    "defaultValue": "",
+    "required": false
+  },
+  "useCustomedDbTyeTarget": {
+    "code": "useCustomedDbTyeTarget",
+    "type": "select",
+    "candidate": [
+      {
+        "label": "数据库",
+        "value": "database"
+      },
+      {
+        "label": "schema",
+        "value": "schema"
+      }
+    ],
+    "label": "目标类型",
+    "defaultValue": "database",
+    "required": false
+  },
+  "InstanceName": {
+    "code": "InstanceName",
+    "type": "input",
+    "label": "Server Instance",
+    "required": true
+  }
+}

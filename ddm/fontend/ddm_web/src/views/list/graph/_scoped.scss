@@ -1,0 +1,83 @@
+#graph-outline {
+  height: 208px;
+  width: 240px;
+  background: #fff;
+  // opacity: 0.9;
+  box-sizing: border-box;
+  border: 1px solid #EBEEF5;
+}
+#container {
+  position:absolute;
+  &.fixed {
+    position:fixed;
+    z-index:9;
+  }
+  z-index:0;
+  bottom:0;
+  right:0;
+  left:0;
+  top:0;
+  border:none;
+  background-color:#FFF;
+  overflow:hidden;
+  $reportHeight: 300px;
+  .drap-box, .report-container {
+    display: none;
+  }
+  &.show-report {
+    #consa-graph {
+      bottom: $reportHeight + 10px;
+    }
+    .report-container {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: $reportHeight;
+      .tablbe-conta {
+        // border: 1px solid red;
+        position: absolute;
+        bottom: 0;
+        top: 40px;
+        left: 20px;
+        right: 20px;
+      }
+    }
+  }
+  &.fixed.show-report {
+    .report-container.show-outline {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
+  }
+}
+#loading-box {
+  width:36px;
+  height:36px;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  i {
+    font-size:36px;
+  }
+}
+#test-btn {
+  position:absolute;
+  top:20px;
+  left:500px;
+}
+#consa-graph {
+  position:absolute;
+  border:1px solid #e5e5e5;
+  background-color: #FBFBFB;
+  //background:#F0F0F0;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  overflow:auto;
+}

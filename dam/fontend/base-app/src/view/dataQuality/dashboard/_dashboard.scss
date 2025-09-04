@@ -1,0 +1,21 @@
+$grey: #9096a3;
+.time-base {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  .button {
+    padding: 4px 15px 4px 5px;
+    color: $grey;
+    cursor: pointer;
+    border: 1px solid #e5e5e5;
+    transition: background-color 300ms;
+    i {
+      margin-right: 0.5em;
+    }
+    &:hover {
+      background-color: #e5e5e5;
+
+      /* font-weight: bold; */
+    }
+  }
+}

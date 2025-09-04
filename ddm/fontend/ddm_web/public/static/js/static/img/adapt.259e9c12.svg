@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="19px" viewBox="0 0 20 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>适应尺寸</title>
+    <g id="6.1-设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="适应尺寸">
+            <rect id="矩形" stroke="#539FFD" fill-opacity="0.2" fill="#539FFD" x="6.5" y="0.5" width="13" height="3"></rect>
+            <rect id="矩形备份-62" fill="#539FFD" x="6" y="5" width="14" height="4"></rect>
+            <rect id="矩形备份-63" stroke="#539FFD" fill-opacity="0.2" fill="#539FFD" x="6.5" y="10.5" width="13" height="3"></rect>
+            <rect id="矩形" fill="#A0AAB9" x="0" y="0" width="4" height="1"></rect>
+            <rect id="矩形备份-61" fill="#A0AAB9" x="1.5" y="1" width="1" height="13"></rect>
+            <rect id="矩形备份-64" fill="#A0AAB9" x="6" y="15" width="1" height="4"></rect>
+            <rect id="矩形备份-91" fill="#A0AAB9" x="19" y="15" width="1" height="4"></rect>
+            <rect id="矩形备份-60" fill="#A0AAB9" x="0" y="14" width="4" height="1"></rect>
+            <rect id="矩形备份-75" fill="#A0AAB9" x="7" y="16.5" width="13" height="1"></rect>
+        </g>
+    </g>
+</svg>

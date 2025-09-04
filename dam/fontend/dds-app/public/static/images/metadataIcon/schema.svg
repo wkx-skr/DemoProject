@@ -1,0 +1,12 @@
+<svg id="schema" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <circle id="椭圆_1617" data-name="椭圆 1617" cx="12" cy="12" r="12" fill="#edf3ff"/>
+  <g id="组_3996" data-name="组 3996" transform="translate(-1)">
+    <path id="路径_4236" data-name="路径 4236" d="M9.291,8.333l9.117,1.2" fill="none" stroke="#a0bbf9" stroke-width="1.4"/>
+    <path id="路径_4237" data-name="路径 4237" d="M15.877,17.845l-6.223-9.4" fill="none" stroke="#a0bbf9" stroke-width="1.4"/>
+    <path id="路径_4238" data-name="路径 4238" d="M7.54,15.4,9.415,8.348" fill="none" stroke="#a0bbf9" stroke-width="1.4"/>
+    <circle id="椭圆_1799" data-name="椭圆 1799" cx="3.5" cy="3.5" r="3.5" transform="translate(6 5)" fill="#2e69f0" stroke="#edf3ff" stroke-width="1"/>
+    <circle id="椭圆_1800" data-name="椭圆 1800" cx="1.5" cy="1.5" r="1.5" transform="translate(17 8)" fill="#2e69f0"/>
+    <circle id="椭圆_1801" data-name="椭圆 1801" cx="2" cy="2" r="2" transform="translate(14 16)" fill="#2e69f0"/>
+    <circle id="椭圆_1802" data-name="椭圆 1802" cx="1.5" cy="1.5" r="1.5" transform="translate(6 14)" fill="#2e69f0"/>
+  </g>
+</svg>

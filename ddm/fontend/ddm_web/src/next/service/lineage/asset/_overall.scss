@@ -1,0 +1,60 @@
+.l-6dot2 {
+  .shape .shape-item {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding: 0 .5em;
+
+  }
+  .group .shape-item {
+    cursor: move;
+    background-color: #dddddd;
+    height: 30px;
+    line-height: 30px;
+  }
+  .table {
+    // TODO 恢复拖拽功能
+    //禁止table 拖拽
+    //cursor: move;
+    cursor: default;
+  }
+  .column {
+    //cursor: pointer;
+    cursor: default;
+  }
+  .shape .column {
+    //color: #BBBBBB;
+
+    &:hover {
+      background-color: #f6ecd8;
+    }
+  }
+
+  .highlight .column {
+    background-color: #f6ecd8;
+  }
+}
+
+.drag-rect {
+  position: absolute;
+  border: 1px dashed #409EFF;
+  cursor: pointer;
+}
+
+// theme 黑色主题 颜色
+.graph-outer.dark-theme {
+  .l-6dot2 {
+    .shape .column {
+      &:hover {
+        background-color: #1E6ED2;
+      }
+    }
+
+    .highlight .column {
+      background-color: #1E6ED2;
+    }
+  }
+}
+.highlight, .highlight .shape-item {
+  color: #409eff;
+}

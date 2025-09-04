@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+    <currentversion>2.0.0.0</currentversion>
+	<stableversion>2.0.0.0</stableversion>
+    <currentrelease>http://localhost:18081/modelserver/static/updates/update.zip</currentrelease>
+	<stablerelease>http://localhost:18081/modelserver/static/updates/update.zip</stablerelease>
+    <changelog>http://localhost:18081/modelserver/static/updates/releasenotes.html</changelog>
+	<mandatory>false</mandatory>
+	<users>user name list</users>
+</item>

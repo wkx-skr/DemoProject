@@ -1,0 +1,7 @@
+@import './constForDDC';
+.el-button--text {
+  color: $blue;
+  &:hover {
+    color: #7eaef5;
+  }
+}

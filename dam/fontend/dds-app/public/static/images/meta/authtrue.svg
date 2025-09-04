@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="26px" viewBox="0 0 58 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>已认证</title>
+    <g id="元数据" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1.4-数据集/全部元数据-详情（摘要）备份" transform="translate(-1046.000000, -137.000000)">
+            <g id="表" transform="translate(200.000000, 95.000000)">
+                <g id="右边" transform="translate(773.000000, 25.000000)">
+                    <g id="已认证" transform="translate(73.000000, 17.000000)">
+                        <path d="M8,2 L48,2 C53.5228475,2 58,6.02943725 58,11 C58,15.9705627 53.5228475,20 48,20 L8,20 L8,2 Z" id="矩形_17794" fill="#1890FF" fill-rule="nonzero"></path>
+                        <g id="已认证-2" transform="translate(18.000000, 6.000000)" fill="#FFFFFF" font-family="PingFangSC-Regular, PingFang SC" font-size="10" font-weight="normal" line-spacing="10">
+                            <text id="已认证">
+                                <tspan x="0" y="11">已认证</tspan>
+                            </text>
+                        </g>
+                        <g id="徽章">
+                            <polygon id="路径_4090" fill="#66CEA6" fill-rule="nonzero" points="2.34 10.8 14.04 10.8 14.04 25.4 8.4078 21.5237 2.34 25.4"></polygon>
+                            <polygon id="路径_4089" fill="#FFB103" points="8.1 0 10.2798 1.7181 13.1058 1.5471 13.8078 4.1571 16.2 5.5971 15.1551 8.1 16.2 10.6029 13.8078 12.0429 13.1058 14.6529 10.2798 14.481 8.1 16.1991 5.9202 14.481 3.0942 14.6529 2.3922 12.0429 0 10.6029 1.0449 8.1 0 5.5971 2.3922 4.1571 3.0942 1.5471 5.9202 1.7181"></polygon>
+                            <circle id="椭圆_1746" fill="#F6E17C" fill-rule="nonzero" cx="8.1" cy="8.1" r="4.5"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

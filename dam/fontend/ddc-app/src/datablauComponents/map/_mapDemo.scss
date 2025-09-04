@@ -1,0 +1,129 @@
+$greyBorder:1px solid #e6e9ef;
+$leftWidth:40px;
+#neo-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  outline: 1px solid #e6e9ef;
+}
+#neo-container.simply {
+  #neo-top {
+    display: none;
+  }
+  #neo-left {
+    display: none;
+  }
+  #neo-main {
+    top: 0;
+    left: 0;
+  }
+  #neo-top-name {
+    //display:block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 40px;
+    padding-left: 1em;
+    font-size: 14px;
+    line-height: 38px;
+    border-bottom: $greyBorder;
+  }
+}
+#neo-top-name {
+  display: none;
+}
+#neo-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 40px;
+  padding-left: 10px;
+  line-height: 38px;
+  border-bottom: $greyBorder;
+}
+#neo-legend {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  left: 0;
+  height: 0;
+  padding-left: 10px;
+  line-height: 38px;
+  border-bottom: $greyBorder;
+  .legend-item {
+    display: inline-block;
+    height: 30px;
+    padding: 0 0.7em;
+    margin-top: 4px;
+    line-height: 30px;
+    cursor: pointer;
+    border: $greyBorder;
+  }
+  .item {
+    margin-right: 0;
+    background: #fff;
+  }
+}
+
+#neo-left {
+  position: absolute;
+  top: 40px;
+  bottom: 0;
+  left: 0;
+  width: $leftWidth;
+  border-right: $greyBorder;
+}
+#neo-main {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  left: $leftWidth;
+  overflow: auto;
+  .item-detail {
+    display: inline-block;
+    width: 300px;
+    padding: 10px;
+    margin: 10px;
+    background: #f5f5f5;
+    border-radius: 3px;
+  }
+}
+.left-btn {
+  height: 60px;
+
+  /* margin-bottom:1px; */
+  color: #717172;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: $greyBorder;
+  &:hover,
+  &.checked {
+    color: #fff;
+    background: #717172;
+  }
+  i {
+    display: inline-block;
+    margin: 12px 0 10px;
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 12px;
+    font-weight: normal;
+  }
+}
+#neo-detail-box {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  width: 300px;
+  overflow: auto;
+  background: #fff;
+  border-left: $greyBorder;
+}

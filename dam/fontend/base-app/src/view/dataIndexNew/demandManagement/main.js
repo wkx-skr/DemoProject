@@ -1,0 +1,74 @@
+import list from './list.vue'
+import items from './items.vue'
+import ResizeHorizontal from '@/components/common/ResizeHorizontal'
+import tableDetails from './details.vue'
+import editItem from './editItem.vue'
+import HTTP from '@/http/main.js'
+export default {
+  components: {
+    list,
+    items,
+    tableDetails,
+    editItem
+  },
+  mounted () {
+    this.initResizeHorizontal()
+  },
+  data () {
+    return {
+      showEditItem: false,
+      showDetails: false,
+      readOnly: true,
+      iscreate: false,
+      id: null,
+      categoryId: null
+    }
+  },
+  methods: {
+    initResizeHorizontal () {
+      setTimeout(() => {
+        new ResizeHorizontal({
+          leftDom: $(this.$refs.listBox.$el),
+          middleDom: $(this.$refs.resizeBar),
+          outerDom: $('#ddm-main-content'),
+          rightDom: $(this.$refs.rightBox),
+          noCrack: true,
+          minWith: { leftMinWidth: 240 },
+          callback: () => {}
+        })
+      }, 1000)
+    },
+    // 查看
+    handleItemClick (row) {
+      if (row.id) {
+        this.id = row.id
+        this.showDetails = true
+        this.readOnly = true
+      }
+      console.log('查看', row)
+    },
+    // 编辑
+    EditClick (row) {
+      if (row.id) {
+        this.id = row.id
+        this.iscreate = false
+        this.showEditItem = true
+      }
+    },
+    // 新增需求
+    addDemand (id) {
+      if (id) {
+        this.categoryId = id
+      } else {
+        this.categoryId = null
+      }
+      this.iscreate = true
+      this.showEditItem = true
+    },
+    backClick () {
+      this.showEditItem = false
+      this.showDetails = false
+      this.id = null
+    }
+  }
+}

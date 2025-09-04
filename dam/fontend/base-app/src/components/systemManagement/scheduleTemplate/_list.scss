@@ -1,0 +1,56 @@
+@import './src/next/components/basic/color';
+.container {
+  /* background-color: pink; */
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  bottom: 0;
+  left: 20px;
+  overflow: hidden;
+}
+.box-container {
+  position: absolute;
+  top: 35px;
+  right: 0;
+  bottom: 10px;
+  left: 0;
+  //outline: 1px solid pink;
+  padding: 10px 0;
+  overflow: auto;
+}
+.box {
+  display: inline-block;
+  width: 240px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  &.disabled {
+    background-color: $grey-5;
+  }
+  .title {
+    padding: 10px 10px 5px;
+    font-size: 14px;
+    border-bottom: 1px solid $border-color;
+  }
+  .description {
+    height: 82px;
+    padding: 5px 10px;
+    border-bottom: 1px solid $border-color;
+  }
+  .btn-line {
+    padding: 5px;
+    //outline: 1px solid pink;
+    .is-block.text {
+      margin-left: 0;
+    }
+  }
+}
+.edit-item {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+}

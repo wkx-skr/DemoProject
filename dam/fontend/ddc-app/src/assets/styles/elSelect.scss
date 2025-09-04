@@ -1,0 +1,33 @@
+.el-select.golden {
+  input {
+    border-radius: 2px;
+    //height:28px;
+  }
+}
+.el-select-dropdown.el-popper.golden {
+  margin-top: 2px;
+  .el-select-dropdown__list {
+    padding: 0;
+  }
+  .popper__arrow {
+    display: none;
+  }
+  .el-select-dropdown__item {
+    height: 34px;
+    padding: 0;
+    line-height: 34px;
+    text-align: center;
+    &.selected {
+      font-weight: normal;
+      color: #606266;
+    }
+    &.hover {
+      color: #9f905f;
+      background-color: #e9e1c9;
+      //font-weight: bold;
+    }
+  }
+}
+
+
+

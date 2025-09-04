@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="description" content=" ">
+  <meta name="keywords" content="">
+  <meta http-equiv="Pragma" content="no-cache">
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">-->
+  <link rel="shortcut icon" href="<%= BASE_URL %>static/guanwang_favicon.png"/>
+  <link rel="stylesheet" href="<%= BASE_URL %>static/libs/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" id="defatulThemeCss">
+  <link rel="stylesheet" href="<%= BASE_URL %>static/libs/icon/iconStyle.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>static/libs/icon/ddm-fonts/style.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>static/libs/icon/fonts_2020/style.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>static/libs/perfect-scrollbar/dist/css/perfect-scrollbar.min.css" />
+  <link rel="stylesheet" href="<%= BASE_URL %>static/libs/fake/base.css" />
+  <script src="<%= BASE_URL %>static/libs/jquery/jquery.min.js" ></script>
+  <script src="<%= BASE_URL %>static/libs/perfect-scrollbar/dist/js/perfect-scrollbar.min.js"></script>
+<!--  <script src="<%= BASE_URL %>static/conf/setting.js"></script>-->
+  <script src="<%= BASE_URL %>static/js/jsencrypt2.min.js"></script>
+  <script src="<%= BASE_URL %>static/js/pubkey.js"></script>
+  <script src="<%= BASE_URL %>static/js/datablauComponents7dot0.umd.min.js"></script>
+  <script>
+       document.write("<script src='./static/conf/setting.js?" + Math.random() + "'><\/script>");
+  </script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+  <script>eruda.init();</script> -->
+<!--  <script src="<%= BASE_URL %>static/login.js"></script>-->
+</head>
+<body>
+  <script type="text/javascript">
+    function getLanguage() {
+      if(localStorage.getItem('language') == 'English'){
+        window.lang = 'English';
+        return
+      }else if(localStorage.getItem('language') == 'Chinese'){
+        window.lang = 'Chinese';
+        return
+      }
+      if (navigator.appName == 'Netscape')
+        var language = navigator.language;
+      else
+        var language = navigator.browserLanguage;
+      if (language.indexOf('en') > -1) window.lang = 'English';
+      else if (language.indexOf('zh') > -1) window.lang = 'Chinese';
+      else
+        window.lang = 'English';
+    }
+    getLanguage();
+    let NODE_ENV = ''
+    try {
+      // es-lint-disable-nest-line
+      NODE_ENV = <%= JSON.stringify(process.env.NODE_ENV) %>
+    } catch (e) {
+      console.log(NODE_ENV + '不存在')
+    }
+    function formatterProduct (product) {
+      product.webPath = '/'
+      product.hostname = location.hostname
+      product.urlPrefix = 'http://'
+      product.frontendPort = product.serverPath === '/dam' ? 8071 : 8074
+      return product
+    }
+    if (NODE_ENV === 'development') {
+      formatterProduct(setting.products.dam)
+      formatterProduct(setting.products.ddm)
+    }
+  </script>
+<!--  <div id="pre-fake-heading"></div>-->
+<!--  <script src="./static/libs/fake/core.js"></script>-->
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+	<script type="text/javascript">
+    mxBasePath = "./static/libs/mxgraph/src";
+    // 使用全局定义的变量
+    // let process2 = <%= JSON.stringify(process) %>;
+    // let env2 = <%= JSON.stringify(process.env) %>;
+    // let vue_app_global_data_development = <%= JSON.stringify(process.env.vue_app_global_data_development) %>;
+  </script>
+	<link rel="stylesheet" href="./static/libs/mxgraph/src/css/common.css">
+</body>
+</html>

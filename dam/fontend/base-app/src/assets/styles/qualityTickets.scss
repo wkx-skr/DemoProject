@@ -1,0 +1,135 @@
+/*
+* @Author: Nicky
+* @Date:   2017-06-14 11:23:46
+* @Last Modified by:   Nicky
+* @Last Modified time: 2017-06-14 16:45:55
+*/
+
+$fontSmall:12px;
+$fontMiddle:16px;
+$fontLarge:44px;
+
+#data-quality {
+  /* padding: 20px; */
+  h2 {
+    color: #48576a;
+  }
+
+  & > .top {
+    width: 100%;
+
+    padding: 20px 0 0 20px;
+    background: #fff;
+    & > .card {
+
+      display: inline-block;
+      padding-bottom: 20px;
+      vertical-align: top;
+
+      .title {
+        margin-bottom: 30px;
+        font-size: $fontMiddle;
+      }
+      .number {
+        margin-bottom: 20px;
+        font-size: $fontLarge;
+        font-weight: 100;
+        line-height: 1;
+      }
+      .foot {
+        margin-bottom: 40px;
+        font-size: $fontMiddle;
+      }
+      & > .graph {
+        width: 330px;
+        height: 200px;
+        margin-left: -20px;
+      }
+    }
+  }
+
+  & > .middle {
+    width: 100%;
+    height: 60px;
+    padding: 12px 20px 12px 20px;
+    margin: 1px 0;
+    background: #fff;
+
+    & > .fliter {
+
+      display: inline-block;
+      padding-top: 7px;
+      font-size: 14px;
+    }
+    & > .operation {
+
+      display: inline-block;
+
+      float: right;
+
+      .botton {
+        display: inline-block;
+        padding: 0 20px 0 20px;
+
+        .el-button--text {
+          color: #1f2d3d;
+        }
+      }
+    }
+  }
+
+  .dialog {
+
+  }
+
+  .item-header {
+    font-size: 18px;
+    font-weight: bold;
+
+    .item-subheader {
+      display: none;
+    }
+  }
+
+  .no-data {
+    margin-left: 5px;
+    font-style: italic;
+    color: #d1d1d1;
+  }
+
+  div.el-collapse-item:hover {
+    overflow: hidden;
+    white-space: nowrap;
+    .item-subheader {
+      display: inline !important;
+      margin-left: 20px;
+      font-size: 15px;
+      font-style: italic;
+      color: lightgray;
+    }
+  }
+
+  .el-table {
+    border: none;
+  }
+
+
+  .el-row {
+    margin-bottom: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .grid-content {
+    min-height: 35px;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+}

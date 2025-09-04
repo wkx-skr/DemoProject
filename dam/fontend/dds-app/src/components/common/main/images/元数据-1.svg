@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="56" height="56" viewBox="0 0 56 56">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="矩形_18257" data-name="矩形 18257" width="56" height="56" transform="translate(6315 -321)" fill="#fff"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <path id="路径_4587" data-name="路径 4587" d="M40-16v8.727C40-3.254,31.047,0,20,0S0-3.254,0-7.273H0V-16c0,4.018,8.953,7.273,20,7.273S40-11.982,40-16Zm0-13v8.727C40-16.254,31.047-13,20-13S0-16.254,0-20.273H0V-29c0,4.018,8.953,7.273,20,7.273S40-24.982,40-29ZM20-47c11.047,0,20,3.356,20,7.5h0v6c0,4.144-8.953,7.5-20,7.5S0-29.356,0-33.5H0v-6C0-43.644,8.953-47,20-47Z" fill="none" clip-rule="evenodd"/>
+    </clipPath>
+    <clipPath id="clip-path-3">
+      <path id="路径_4586" data-name="路径 4586" d="M-1472,739H448V-861H-1472Z" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="蒙版组_45" data-name="蒙版组 45" transform="translate(-6315 321)" clip-path="url(#clip-path)">
+    <g id="组_4414" data-name="组 4414" transform="translate(6323 -269)" clip-path="url(#clip-path-2)">
+      <g id="组_4413" data-name="组 4413" clip-path="url(#clip-path-3)">
+        <path id="路径_4585" data-name="路径 4585" d="M-1-48H41V1H-1Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>

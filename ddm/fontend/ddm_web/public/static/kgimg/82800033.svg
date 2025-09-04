@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>时间周期类型</title>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="知识图谱" transform="translate(-3054.000000, -18.000000)">
+            <g id="时间周期类型" transform="translate(3054.000000, 18.000000)">
+                <circle id="椭圆形备份-11" fill="#E7F4FF" cx="32" cy="32" r="32"></circle>
+                <path d="M46,19 C47.1045695,19 48,19.8954305 48,21 L48,46 C48,47.1045695 47.1045695,48 46,48 L18,48 C16.8954305,48 16,47.1045695 16,46 L16,21 C16,19.8954305 16.8954305,19 18,19 L46,19 Z M46,21 L18,21 L18,46 L46,46 L46,21 Z" id="矩形备份-62" fill="#1392FF" fill-rule="nonzero"></path>
+                <rect id="矩形备份-63" fill="#1392FF" x="21" y="17" width="8" height="4" rx="1"></rect>
+                <rect id="矩形备份-64" fill="#1392FF" x="35" y="17" width="8" height="4" rx="1"></rect>
+                <polygon id="矩形备份-65" fill="#1392FF" points="18 25 46 25 46 27 18 27"></polygon>
+                <polygon id="矩形备份-66" fill-opacity="0.2" fill="#1392FF" points="18 21 46 21 46 25 18 25"></polygon>
+                <path d="M27,30 C28.1045695,30 29,30.8954305 29,32 L29,36 C29,37.1045695 28.1045695,38 27,38 L23,38 C21.8954305,38 21,37.1045695 21,36 L21,32 C21,30.8954305 21.8954305,30 23,30 L27,30 Z M27,32 L23,32 L23,36 L27,36 L27,32 Z" id="矩形" fill="#1392FF" fill-rule="nonzero"></path>
+                <rect id="矩形备份-78" fill="#1392FF" x="32" y="31" width="10" height="2" rx="1"></rect>
+                <rect id="矩形备份-79" fill="#1392FF" x="32" y="36" width="10" height="2" rx="1"></rect>
+                <rect id="矩形备份-80" fill="#1392FF" x="21" y="41" width="22" height="2" rx="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,56 @@
+@import './const';
+.el-button {
+  height: 30px;
+  border-radius: 0;
+}
+$blue: #4386f5;
+.el-button--primary {
+  height: 30px;
+  padding-right: 2em;
+  padding-left: 2em;
+  color: #f9fbff;
+  background-color: $blue;
+  border-radius: 1px;
+}
+.el-button--default:not(.el-button--primary) {
+  &:hover {
+    color: var(--table-color);
+    background: var(--table-hover-bgc);
+    border-color: rgb(220, 223, 230);
+  }
+  &:focus {
+    color: var(--table-color);
+    background: var(--default-bgc);
+    border-color: rgb(220, 223, 230);
+  }
+}
+.el-button + .el-button {
+  margin-left: 6px;
+}
+.el-radio-button {
+  position: relative;
+  top: -1px;
+  &:hover {
+    .el-radio-button__inner {
+      background: var(--icon-hover-bgc);
+    }
+  }
+  .el-radio-button__inner {
+    padding: 8px 10px 7px;
+    font-size: 14px;
+    i::before {
+      color: #afb4bf;
+    }
+  }
+}
+.el-radio-button__orig-radio:checked + .el-radio-button__inner {
+  background-color: inherit;
+  border-color: var(--border-color-lighter);
+  box-shadow: none;
+  i::before {
+    color: #4386f5;
+  }
+}
+.el-icon-refresh-right.animation {
+  animation: rotating 2s linear infinite;
+}

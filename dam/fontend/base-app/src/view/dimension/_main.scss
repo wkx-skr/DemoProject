@@ -1,0 +1,50 @@
+$grey-border:1px solid #e6e6e6;
+.title-line {
+  .title {
+    font-size: 24px;
+  }
+  margin-bottom: 22px;
+  vertical-align: top;
+}
+.tree-area {
+  .tree-search-box {
+    padding: 6px;
+  }
+  .tree-box {
+    position: absolute;
+    top: 41px;
+    right: 0;
+    bottom: 50px;
+    left: 0;
+    overflow: hidden;
+    border-top: $grey-border;
+  }
+  .manage-box {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 42px;
+    padding: 6px;
+    border-top: $grey-border;
+    span.count {
+      position: absolute;
+      top: 15px;
+      right: 10px;
+      color: #9b9ea2;
+    }
+  }
+}
+.content-area {
+  padding: 20px;
+  overflow: auto;
+  border: $grey-border;
+}
+.anchor {
+  position: absolute;
+  display: block !important;
+  width: 30px;
+  height: 30px;
+  background-color: transparent;
+  border: none;
+}

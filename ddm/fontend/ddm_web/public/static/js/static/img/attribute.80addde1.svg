@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 11</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="web-er" transform="translate(-566.000000, -401.000000)" fill="#539FFD">
+            <g id="编组-11" transform="translate(566.000000, 401.000000)">
+                <rect id="矩形" stroke="#529EFC" fill-opacity="0.1" x="0.5" y="0.5" width="15" height="15"></rect>
+                <path d="M2.5,4 L2.5,3 L9.5,3 L9.5,4 L6.5,4 L6.5,9 L5.5,9 L5.5,4 L2.5,4 Z" id="形状结合"></path>
+                <rect id="矩形" x="8" y="10" width="5" height="1"></rect>
+                <rect id="矩形备份-4" x="3" y="12" width="10" height="1"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>创建时间</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="查看/资产目录-摘要信息" transform="translate(-1595.000000, -788.000000)">
+            <g id="Content" transform="translate(420.000000, 65.500000)">
+                <g id="摘要信息" transform="translate(0.000000, 125.500000)">
+                    <g id="右侧属性" transform="translate(1161.000000, 44.000000)">
+                        <g id="编组-3" transform="translate(0.000000, 484.000000)">
+                            <g id="组_3880-6" transform="translate(0.000000, 64.000000)">
+                                <g id="创建时间" transform="translate(14.000000, 5.000000)">
+                                    <circle id="椭圆_1617-3" fill="#EDF3FF" fill-rule="nonzero" cx="12" cy="12" r="12"></circle>
+                                    <path d="M13.5088421,5.53915802 C16.9481458,6.02708138 19.4937749,8.98757275 19.4608421,12.461158 C19.4608421,16.3271512 16.3268353,19.4611579 12.4608421,19.4611579 C8.59484893,19.4611579 5.46084212,16.3271512 5.46084212,12.461158" id="路径_4239" stroke="#2E69F0" stroke-width="2" stroke-linecap="round" transform="translate(12.461000, 12.500158) rotate(90.000000) translate(-12.461000, -12.500158) "></path>
+                                    <path d="M12.5,5.5 C16.3659932,5.5 19.5,8.63400675 19.5,12.5 C19.5,16.3659932 16.3659932,19.5 12.5,19.5 C8.63400675,19.5 5.5,16.3659932 5.5,12.5 C5.5,8.63400675 8.63400675,5.5 12.5,5.5 Z" id="路径_4240" stroke="#2E69F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="3"></path>
+                                    <path d="M15.775,14.063 C15.775,14.5600563 15.3720563,14.963 14.875,14.963 L11.675,14.963 C11.1779437,14.963 10.775,14.5600563 10.775,14.063 L10.775,9.863 C10.775,9.36594373 11.1779437,8.963 11.675,8.963 C12.1720563,8.963 12.575,9.36594373 12.575,9.863 L12.575,13.163 L14.875,13.163 C15.3720563,13.163 15.775,13.5659437 15.775,14.063 Z" id="路径_4231" fill="#2E69F0" fill-rule="nonzero"></path>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

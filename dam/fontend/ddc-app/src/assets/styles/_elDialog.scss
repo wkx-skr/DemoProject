@@ -1,0 +1,48 @@
+.el-dialog__title {
+  font-size: 16px;
+  //font-weight:bold;
+}
+
+.el-dialog__footer {
+  padding-top: 0;
+  text-align: left;
+}
+
+.el-dialog__header {
+  padding: 16px 20px 20px;
+}
+
+.el-dialog__body {
+  padding-bottom: 20px;
+
+  .few-content & {
+    padding-bottom: 40px;
+  }
+}
+
+.el-dialog__footer {
+  padding-bottom: 16px;
+}
+
+.el-form-item:last-child {
+  margin-bottom: 0;
+}
+
+.el-message-box__btns {
+
+  float: right;
+
+  .el-button--primary {
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+.el-message-box__content {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.el-message-box__status {
+  //top:22px;
+}

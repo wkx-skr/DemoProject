@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>展开</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="规则类型设置" transform="translate(-184.000000, -183.000000)" fill="#979797" fill-rule="nonzero">
+            <g id="列表" transform="translate(176.000000, 90.000000)">
+                <g id="列表1备份" transform="translate(0.000000, 80.000000)">
+                    <path d="M21,13 C21.5522847,13 22,13.4477153 22,14 L22,26 C22,26.5522847 21.5522847,27 21,27 L9,27 C8.44771525,27 8,26.5522847 8,26 L8,14 C8,13.4477153 8.44771525,13 9,13 L21,13 Z M21,14 L9,14 L9,26 L21,26 L21,14 Z M18.5,19.5 C18.7761424,19.5 19,19.7238576 19,20 C19,20.2761424 18.7761424,20.5 18.5,20.5 L11.5,20.5 C11.2238576,20.5 11,20.2761424 11,20 C11,19.7238576 11.2238576,19.5 11.5,19.5 L18.5,19.5 Z" id="展开"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,25 @@
+{
+  "?config": "参数配置信息",
+  "config": {
+    "paramsConfig": "参数配置",
+    "code": "信息项编码",
+    "sync": "Ranger同步",
+    "fixedPrefix": "固定前缀",
+    "fixedSuffix": "固定后缀",
+    "DataDigit": "数据部分位数",
+    "maxVal": "最大值为9",
+    "startVal": "起始值",
+    "inputStartVal": "请输入起始值",
+    "autoincrement": "自增量",
+    "inputAutoincrement": "请输入自增量",
+    "nextGenerateCode": "下次生成编码样例",
+    "saveTip": "请先保存数据源配置",
+    "inputTip": "请先添加数据源配置",
+    "setSuccess": "设置成功",
+    "setFailed": "设置失败",
+    "editTip": "修改code模板，可能会与之前已采用的code模板相同，导致新生成的code大量重复，影响到code模板正常使用，确定修改吗？",
+    "inputService": "请输入 service name",
+    "supportType": "Ranger 同步只支持 hive 数据库",
+    "automatically": "自动生成"
+  }
+}

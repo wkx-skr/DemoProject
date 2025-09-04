@@ -1,0 +1,126 @@
+.el-radio-button__orig-radio:checked+.el-radio-button__inner {
+  background-color:#FFF;
+  border-color: #e0e0e0;
+}
+
+.el-table.datablau-table {
+  font-size:12px;
+  /* for current row's top and bottom blue line */
+  tr.current-row {
+    &,&+tr {
+      td {
+        border-color:#BCD6FF;
+        border-top:1px solid #BCD6FF;
+      }
+    }
+  }
+  .el-table__header-wrapper {
+    border-bottom: 1px solid #E5E5E5;
+  }
+  thead th {
+    border-bottom:none;
+    color: #606266;
+    color: #494850;
+    font-weight:bold;
+    //font-weight:bold;
+    //font-weight: 600;
+  }
+
+  td {
+    height:40px;
+    padding:0 0;
+  }
+  &.thin {
+    td {
+      height:40px;
+    }
+  }
+  th {
+    height:32px;
+    padding:0 0;
+    font-weight:normal;
+    .caret-wrapper {
+      transform: scaleX(0.6);
+    }
+  }
+  tr.row-can-click {
+    cursor:pointer;
+  }
+}
+
+.el-dialog__body {
+  padding:0 20px 10px;
+}
+.el-autocomplete-suggestion {
+  li {
+    font-size:12px;
+  }
+}
+
+.tag-box {
+  color:#4386f5;
+  .tag {
+    background-color: #ecf1f9;
+    border-radius: 3px;
+    height: 26px;
+    line-height: 26px;
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 0 0.75em;
+  }
+}
+.el-dialog {
+  font-size: 12px;
+  .el-dialog__header {
+    padding: 24px 20px 20px;
+    font-weight: bold;
+    color: #3A3E44;
+    .el-dialog__title {
+      font-size: 16px;
+    }
+  }
+  .el-form-item--mini .el-form-item__label {
+    color: #20293B;
+  }
+  .el-form-item.is-required:not(.is-no-asterisk)>.el-form-item__label:before {
+    color: #F46565;
+  }
+  .el-textarea__inner {
+    min-height: 110px!important;
+  }
+  .el-form-item__label {
+    padding-right: 10px;
+    font-size: 12px;
+  }
+  .el-button {
+    border-radius: 2px;
+    text-align: center;
+  }
+}
+.el-message-box {
+  width: 400px;
+  padding-bottom: 20px;
+  .el-message-box__header {
+    padding: 24px 20px 25px;
+    font-size: 16px;
+    color: #3A3E44;
+    font-weight: bold;
+  }
+  .el-message-box__content {
+    padding: 0 15px 25px;
+  }
+  .el-message-box__status.el-icon-warning {
+    color: #F79B3F;
+  }
+  .el-message-box__status+.el-message-box__message {
+    padding-left: 33px;
+  }
+  .el-message-box__message {
+    color: #3A3E44;
+  }
+  .el-button {
+    text-align: center;
+  }
+}

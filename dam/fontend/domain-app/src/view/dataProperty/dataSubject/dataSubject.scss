@@ -1,0 +1,99 @@
+$blue:#479eff;
+$light-blue:#add4ff;
+$lighter-blue:#ebf4ff;
+$grey-1:#f8f9fc;
+$grey-2:#d6d9e0;
+$grey-3:#777f95;
+$grey-4:#515560;
+$grey-5:#454850;
+$default-color:#454850;
+$aux-color:#777f9e;
+
+.subject-title {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  padding: 0 40px;
+  border-bottom: 1px solid #e5e5e5;
+  .text {
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+    &.main {
+      font-size: 16px;
+      color: $default-color;
+    }
+    &.vice {
+      margin-left: 0.5em;
+      font-size: 12px;
+      color: $aux-color;
+    }
+  }
+  .wrapper {
+    height: 60px;
+    margin-left: 20px;
+    line-height: 60px;
+  }
+}
+.subject-list {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0 30px;
+  overflow: hidden;
+  .item {
+    display: inline-block;
+    margin: 10px;
+    overflow: hidden;
+  }
+
+  .item .el-card {
+    position: relative;
+    width: 305px;
+    height: 140px;
+    padding-top: 10px;
+    border: 1px solid #f5f5f5;
+    border-radius: 6px;
+
+    box-shadow: none;
+    .image {
+      float: left;
+      width: 80px;
+      height: 80px;
+      font-size: 30px;
+      line-height: 80px;
+      color: $grey-3;
+      text-align: center;
+      background-color: $grey-1;
+      border-radius: 40px;
+    }
+    .text {
+      min-height: 60px;
+      margin-left: 95px;
+      .title {
+        margin-top: 5px;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: bold;
+        color: $default-color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .desc {
+        margin-top: 5px;
+        overflow: hidden;
+        font-size: 12px;
+        color: $aux-color;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+  .item:hover {
+    cursor: pointer;
+    box-shadow: 0 0 5px 5px #d7d7d7;
+    transform: translateY(-2px);
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "dbType": "MYSQL",
+  "dbLabel": "MySQL",
+  "icon": "mysql",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "192.168.1.59",
+      "required": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "3306",
+      "required": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": true
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": false,
+      "multiple": true,
+      "candidate": []
+    }
+  ]
+}

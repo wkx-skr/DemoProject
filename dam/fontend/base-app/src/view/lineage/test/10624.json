@@ -1,0 +1,740 @@
+{
+  "steps": {
+    "9beddabf": {
+      "name": "selectStatement0",
+      "schema": "@@",
+      "alias": [],
+      "id": "9beddabf",
+      "properties": {
+        "$parsed_step": "true"
+      },
+      "columns": [
+        {
+          "stepId": "9beddabf",
+          "name": "country_alpha2_code",
+          "id": "502a5aae",
+          "type": null,
+          "order": 3,
+          "table": "o",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "created_at",
+          "id": "3793d71d",
+          "type": null,
+          "order": 6,
+          "table": "ot",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "amount",
+          "id": "56db974a",
+          "type": null,
+          "order": 5,
+          "table": "o",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "payment_code",
+          "id": "4cadd368",
+          "type": null,
+          "order": 11,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": {
+            "$col_type": "Complex"
+          }
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "shopper_email_idx",
+          "id": "e09bdb4d",
+          "type": null,
+          "order": 8,
+          "table": "o",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "ID",
+          "id": "dbff6732",
+          "type": null,
+          "order": 0,
+          "table": "ot",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "db_region",
+          "id": "f5920c4a",
+          "type": null,
+          "order": 1,
+          "table": "ot",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "paid_result",
+          "id": "52499da2",
+          "type": null,
+          "order": 10,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": {
+            "$col_type": "Complex"
+          }
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "SOURCE",
+          "id": "6239904c",
+          "type": null,
+          "order": 2,
+          "table": "dci",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "merchant_name",
+          "id": "5454c03d",
+          "type": null,
+          "order": 7,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "channel",
+          "id": "3200716d",
+          "type": null,
+          "order": 12,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": {
+            "$col_type": "Complex"
+          }
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "currency",
+          "id": "05fbd799",
+          "type": null,
+          "order": 4,
+          "table": "o",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "9beddabf",
+          "name": "invoice",
+          "id": "1b55bb13",
+          "type": null,
+          "order": 9,
+          "table": "o",
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        }
+      ]
+    },
+    "cc886e46": {
+      "name": "insertStatement0",
+      "schema": "@@",
+      "alias": [],
+      "id": "cc886e46",
+      "properties": {
+        "$parsed_step": "true"
+      },
+      "columns": [
+        {
+          "stepId": "cc886e46",
+          "name": "ID",
+          "id": "e5e51d02",
+          "type": null,
+          "order": 0,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "invoice",
+          "id": "181f5523",
+          "type": null,
+          "order": 9,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "paid_result",
+          "id": "b7ccc27e",
+          "type": null,
+          "order": 10,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "channel",
+          "id": "25f8c341",
+          "type": null,
+          "order": 12,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "shopper_email_idx",
+          "id": "5b517c3f",
+          "type": null,
+          "order": 8,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "payment_code",
+          "id": "9f417728",
+          "type": null,
+          "order": 11,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "merchant_name",
+          "id": "97a95e47",
+          "type": null,
+          "order": 7,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "country_alpha2_code",
+          "id": "a488c03a",
+          "type": null,
+          "order": 3,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "SOURCE",
+          "id": "1058933b",
+          "type": null,
+          "order": 2,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "created_at",
+          "id": "0565365e",
+          "type": null,
+          "order": 6,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "db_region",
+          "id": "fde8543d",
+          "type": null,
+          "order": 1,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "amount",
+          "id": "c8dd729e",
+          "type": null,
+          "order": 5,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "cc886e46",
+          "name": "currency",
+          "id": "6ae49204",
+          "type": null,
+          "order": 4,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        }
+      ]
+    },
+    "f8926b35": {
+      "name": "dmp_test",
+      "schema": "@@",
+      "alias": [],
+      "id": "f8926b35",
+      "properties": {
+        "$input_table": "true",
+        "$output_table": "true"
+      },
+      "columns": [
+        {
+          "stepId": "f8926b35",
+          "name": "country_alpha2_code",
+          "id": "434ddaa5",
+          "type": null,
+          "order": 7,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "shopper_email_idx",
+          "id": "5dc9a801",
+          "type": null,
+          "order": 4,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "db_region",
+          "id": "38d08eaa",
+          "type": null,
+          "order": 10,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "amount",
+          "id": "0a4c3950",
+          "type": null,
+          "order": 11,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "SOURCE",
+          "id": "ccb5cc38",
+          "type": null,
+          "order": 8,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "ID",
+          "id": "30bb9db3",
+          "type": null,
+          "order": 0,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "created_at",
+          "id": "505837f1",
+          "type": null,
+          "order": 9,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "merchant_name",
+          "id": "362709b8",
+          "type": null,
+          "order": 6,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "paid_result",
+          "id": "1037cd1e",
+          "type": null,
+          "order": 2,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "channel",
+          "id": "01c5b5fd",
+          "type": null,
+          "order": 3,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "payment_code",
+          "id": "bfe62748",
+          "type": null,
+          "order": 5,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "invoice",
+          "id": "e8a2e1a5",
+          "type": null,
+          "order": 1,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "f8926b35",
+          "name": "currency",
+          "id": "4ba2d5f1",
+          "type": null,
+          "order": 12,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        }
+      ]
+    },
+    "ac7c1ac4": {
+      "name": "pay_union_dim_client_infos",
+      "schema": "@@",
+      "alias": [],
+      "id": "ac7c1ac4",
+      "properties": {
+        "$input_table": "true"
+      },
+      "columns": [
+        {
+          "stepId": "ac7c1ac4",
+          "name": "channel",
+          "id": "ffbd2ce9",
+          "type": null,
+          "order": 5,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "ac7c1ac4",
+          "name": "order_transaction_id",
+          "id": "455d6089",
+          "type": null,
+          "order": 3,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        },
+        {
+          "stepId": "ac7c1ac4",
+          "name": "SOURCE",
+          "id": "37274529",
+          "type": null,
+          "order": 1,
+          "table": null,
+          "schema": null,
+          "mergedColumns": null,
+          "properties": null
+        }
+      ]
+    }
+  },
+  "lines": [
+    {
+      "sourceStepId": "9beddabf",
+      "source": "5454c03d",
+      "targetStepId": "cc886e46",
+      "target": "97a95e47",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "1058933b",
+      "targetStepId": "f8926b35",
+      "target": "ccb5cc38",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "f5920c4a",
+      "targetStepId": "cc886e46",
+      "target": "fde8543d",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "b7ccc27e",
+      "targetStepId": "f8926b35",
+      "target": "1037cd1e",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "56db974a",
+      "targetStepId": "cc886e46",
+      "target": "c8dd729e",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "e5e51d02",
+      "targetStepId": "f8926b35",
+      "target": "30bb9db3",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "ac7c1ac4",
+      "source": "455d6089",
+      "targetStepId": "9beddabf",
+      "target": "3200716d",
+      "properties": {
+        "$compress_sql": "d5c3a615"
+      }
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "3200716d",
+      "targetStepId": "cc886e46",
+      "target": "25f8c341",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "ac7c1ac4",
+      "source": "ffbd2ce9",
+      "targetStepId": "9beddabf",
+      "target": "3200716d",
+      "properties": {
+        "$compress_sql": "d5c3a615"
+      }
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "181f5523",
+      "targetStepId": "f8926b35",
+      "target": "e8a2e1a5",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "502a5aae",
+      "targetStepId": "cc886e46",
+      "target": "a488c03a",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "3793d71d",
+      "targetStepId": "cc886e46",
+      "target": "0565365e",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "25f8c341",
+      "targetStepId": "f8926b35",
+      "target": "01c5b5fd",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "dbff6732",
+      "targetStepId": "cc886e46",
+      "target": "e5e51d02",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "a488c03a",
+      "targetStepId": "f8926b35",
+      "target": "434ddaa5",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "52499da2",
+      "targetStepId": "cc886e46",
+      "target": "b7ccc27e",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "97a95e47",
+      "targetStepId": "f8926b35",
+      "target": "362709b8",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "4cadd368",
+      "targetStepId": "cc886e46",
+      "target": "9f417728",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "5b517c3f",
+      "targetStepId": "f8926b35",
+      "target": "5dc9a801",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "c8dd729e",
+      "targetStepId": "f8926b35",
+      "target": "0a4c3950",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "1b55bb13",
+      "targetStepId": "cc886e46",
+      "target": "181f5523",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "fde8543d",
+      "targetStepId": "f8926b35",
+      "target": "38d08eaa",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "ac7c1ac4",
+      "source": "455d6089",
+      "targetStepId": "9beddabf",
+      "target": "52499da2",
+      "properties": {
+        "$compress_sql": "d5c3a615"
+      }
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "e09bdb4d",
+      "targetStepId": "cc886e46",
+      "target": "5b517c3f",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "6239904c",
+      "targetStepId": "cc886e46",
+      "target": "1058933b",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "0565365e",
+      "targetStepId": "f8926b35",
+      "target": "505837f1",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "9beddabf",
+      "source": "05fbd799",
+      "targetStepId": "cc886e46",
+      "target": "6ae49204",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "6ae49204",
+      "targetStepId": "f8926b35",
+      "target": "4ba2d5f1",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "cc886e46",
+      "source": "9f417728",
+      "targetStepId": "f8926b35",
+      "target": "bfe62748",
+      "properties": {}
+    },
+    {
+      "sourceStepId": "ac7c1ac4",
+      "source": "37274529",
+      "targetStepId": "9beddabf",
+      "target": "6239904c",
+      "properties": {
+        "$compress_sql": "d5c3a615"
+      }
+    }
+  ],
+  "properties": {
+    "d5c3a615": null
+  }
+}

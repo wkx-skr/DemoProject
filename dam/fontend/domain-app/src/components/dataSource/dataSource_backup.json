@@ -1,0 +1,392 @@
+[
+  {
+    "dbType": "ORACLE",
+    "dbLabel": "Oracle",
+    "options": [
+      {
+        "code": "sourceName",
+        "type": "input",
+        "label": "数据源名称",
+        "defaultValue": "",
+        "required": {
+          "edit": true,
+          "create": false
+        },
+        "maxlength": "50",
+        "placeholder": "请输入数据源名称"
+      },
+      {
+        "code": [
+          "categoryId",
+          "categoryName"
+        ],
+        "type": "select",
+        "label": "所属系统",
+        "required": true,
+        "placeholder": "请选择",
+        "description": "绑定id后根据id查name，两项都要传"
+      },
+      {
+        "code": "parameterMap.TagIds",
+        "type": "select",
+        "label": "标签",
+        "defaultValue": "",
+        "required": false,
+        "placeholder": "请选择"
+      },
+      {
+        "code": "type",
+        "type": "select",
+        "label": "数据库",
+        "defaultValue": "",
+        "required": true,
+        "placeholder": "请选择数据源类型"
+      },
+      {
+        "code": "!customConnection",
+        "type": "checkbox",
+        "label": "自定义连接串",
+        "api": "/service/driver/isJdbc?type=ORACLE",
+        "defaultValue": "code中带有！表示仅作为界面逻辑使用，不作为入参",
+        "required": false
+      },
+      {
+        "code": "driverId",
+        "type": "select",
+        "api": "/service/driver/type?type=ORACLE",
+        "label": "驱动",
+        "defaultValue": "",
+        "required": true
+      },
+      {
+        "code": "parameterMap.HostServer",
+        "if": {
+          "parentCode": "customConnection",
+          "targetValue": true
+        },
+        "type": "input",
+        "label": "服务器名称",
+        "defaultValue": "localhost",
+        "required": true,
+        "description": "自定义连接串勾选时可见"
+      },
+      {
+        "code": "parameterMap.PortNumber",
+        "if": {
+          "parentCode": "customConnection",
+          "targetValue": true
+        },
+        "type": "input",
+        "label": "服务器名称",
+        "defaultValue": "1521",
+        "required": true,
+        "description": "自定义连接串勾选时可见"
+      },
+      {
+        "code": "parameterMap.AuthenticationType",
+        "type": "select",
+        "label": "授权方式",
+        "defaultValue": 0,
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "credentialInfo.user",
+        "if": {
+          "parentCode": "parameterMap.AuthenticationType",
+          "targetValue": 0
+        },
+        "type": "input",
+        "label": "用户名",
+        "defaultValue": "",
+        "required": {
+          "edit": false,
+          "create": true
+        },
+        "placeholder": "请输入",
+        "description": ""
+      },
+      {
+        "code": "credentialInfo.password",
+        "if": {
+          "parentCode": "parameterMap.AuthenticationType",
+          "targetValue": 0
+        },
+        "type": "input",
+        "label": "密码",
+        "defaultValue": "",
+        "required": {
+          "edit": false,
+          "create": true
+        },
+        "placeholder": "请输入",
+        "description": ""
+      },
+      {
+        "code": "parameterMap.ServicePrincipal",
+        "if": {
+          "parentCode": "parameterMap.AuthenticationType",
+          "targetValue": 1
+        },
+        "type": "input",
+        "label": "服务认证规则",
+        "defaultValue": "",
+        "required": true,
+        "placeholder": "Service Principal:Service/Hostname@REALM",
+        "description": ""
+      },
+      {
+        "code": "parameterMap.UserPrincipal",
+        "if": {
+          "parentCode": "parameterMap.AuthenticationType",
+          "targetValue": 1
+        },
+        "type": "input",
+        "label": "用户认证规则",
+        "defaultValue": "",
+        "required": false,
+        "placeholder": "",
+        "description": ""
+      },
+      {
+        "code": "parameterMap.KeyTabPath",
+        "if": {
+          "parentCode": "parameterMap.AuthenticationType",
+          "targetValue": 1
+        },
+        "type": "upload",
+        "action": "/service/files/upload",
+        "drag": true,
+        "limit": 1,
+        "label": "keytab文件",
+        "defaultValue": "",
+        "required": false,
+        "placeholder": "",
+        "description": "KeyTabPath为fileId"
+      },
+      {
+        "code": "parameterMap.Krb5Path",
+        "if": {
+          "parentCode": "parameterMap.AuthenticationType",
+          "targetValue": 1
+        },
+        "type": "upload",
+        "action": "/service/files/upload",
+        "drag": true,
+        "limit": 1,
+        "label": "krb5文件",
+        "defaultValue": "",
+        "required": false,
+        "placeholder": "",
+        "description": "Krb5Path为fileId"
+      },
+      {
+        "code": "!connectMode",
+        "type": "select",
+        "candidate": [
+          {
+            "label": "SID",
+            "value": "SID"
+          },
+          {
+            "label": "Service Name",
+            "value": "Service Name"
+          }
+        ],
+        "label": "连接模式",
+        "defaultValue": "SID",
+        "required": true,
+        "description": "组合入参,code中带有！表示仅作为界面逻辑使用，不作为入参"
+      },
+      {
+        "code": "parameterMap.DatabaseName",
+        "paramKey": "connectMode",
+        "paramSplit": ":",
+        "type": "input",
+        "label": "SID",
+        "if": {
+          "parentCode": "parameterMap.DatabaseName",
+          "targetValue": "SID"
+        },
+        "defaultValue": "",
+        "required": true,
+        "description": "paramKey为组合参数的key，paramSplit为参数连接符，value默认为当前表单值，当连接模式为SID时展示"
+      },
+      {
+        "code": "parameterMap.DatabaseName",
+        "param": {
+          "type": "string",
+          "paramKey": "connectMode",
+          "paramSplit": ":"
+        },
+        "type": "input",
+        "label": "Service Name",
+        "if": {
+          "parentCode": "parameterMap.DatabaseName",
+          "targetValue": "Service Name"
+        },
+        "defaultValue": "",
+        "required": true,
+        "description": "paramKey为组合参数的key，paramSplit为参数连接符，value默认为当前表单值，当连接模式为Service Name时展示"
+      },
+      {
+        "code": "parameterMap.SelectedSchemas",
+        "param": {
+          "type": "string",
+          "paramSplit": ";"
+        },
+        "multiple": true,
+        "type": "select",
+        "label": "Schema",
+        "candidate": "/service/models/re/schemas",
+        "disabled": "!schemas.length",
+        "defaultValue": "",
+        "required": false,
+        "description": "测试成功后解锁，调接口获取schema列表"
+      },
+      {
+        "code": "",
+        "type": "checkbox",
+        "label": "采集设置",
+        "candidate": [
+          {
+            "code": "parameterMap.CommentToLogicalName",
+            "label": "自动补充元数据中文名",
+            "defaultValue": true
+          },
+          {
+            "code": "parameterMap.ViewFiltered",
+            "label": "抽取数据库的视图",
+            "defaultValue": true
+          },
+          {
+            "code": "parameterMap.ProceduresFiltered",
+            "label": "抽取数据库的存储过程",
+            "defaultValue": true
+          },
+          {
+            "code": "parameterMap.FunctionFiltered",
+            "label": "抽取数据库的函数",
+            "defaultValue": true
+          },
+          {
+            "code": "parameterMap.PackageFiltered",
+            "label": "抽取程序包",
+            "defaultValue": true
+          },
+          {
+            "code": "parameterMap.ReFK",
+            "label": "根据外键建立物理关联",
+            "defaultValue": true
+          }
+        ],
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "parameterMap.SelectedTables",
+        "type": "textarea",
+        "label": "选择表",
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "parameterMap.BlackListAppliedTypeIds",
+        "type": "checkboxGroup",
+        "label": "黑名单",
+        "param": {
+          "type": "string",
+          "paramSplit": ";"
+        },
+        "candidate": [
+          {
+            "desc": "表",
+            "label": "80000004"
+          },
+          {
+            "desc": "视图",
+            "label": "80500008"
+          },
+          {
+            "desc": "存储过程",
+            "label": "80010118"
+          },
+          {
+            "desc": "函数",
+            "label": "80010119"
+          },
+          {
+            "desc": "程序包",
+            "label": "82800024"
+          }
+        ],
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "parameterMap.SelectedBlackList",
+        "type": "textarea",
+        "label": "",
+        "disabled": "!BlackListAppliedTypeIds.length",
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "parameterMap.SelectedBlackList",
+        "type": "textarea",
+        "label": "",
+        "disabled": "!BlackListAppliedTypeIds.length",
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "dataConnect",
+        "type": "radioGroup",
+        "label": "数据连接性",
+        "candidate": [
+          {
+            "desc": "本数据源可连接",
+            "label": "SELF"
+          },
+          {
+            "desc": "备用数据源可连接",
+            "label": "BACKUP"
+          },
+          {
+            "desc": "不可连接",
+            "label": "DISABLED"
+          }
+        ],
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "dataSample",
+        "type": "radioGroup",
+        "label": "数据采样性",
+        "candidate": [
+          {
+            "desc": "可采样",
+            "label": true
+          },
+          {
+            "desc": "不可采样",
+            "label": false
+          }
+        ],
+        "disabled": "dataConnect===DISABLED",
+        "required": false,
+        "description": ""
+      },
+      {
+        "code": "backupDatasourceId",
+        "type": "select",
+        "label": "备用数据源",
+        "candidate": "/service/models/fromre/data",
+        "disabled": "dataConnect!==BACKUP",
+        "required": false,
+        "description": ""
+      }
+    ]
+  }
+]

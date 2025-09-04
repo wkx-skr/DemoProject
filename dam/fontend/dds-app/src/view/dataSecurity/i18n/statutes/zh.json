@@ -1,0 +1,24 @@
+
+{
+  "?statutes": "法规条文信息",
+  "statutes": {
+    "title": "法规条文",
+    "searchName": "搜索名称",
+    "publishDep": "发布部门",
+    "upLoadDep": "上传部门",
+    "upLoader": "上传人",
+    "upLoadTime": "上传时间",
+    "refer": "简称",
+    "uploadFile": "上传文件",
+    "downloadFile": "下载附件",
+    "clickUpload": "点击上传",
+    "regulationBrief": "法规简称",
+    "regulationSource": "法规来源",
+    "regulationDes": "法规描述",
+    "fileMustUpload": "文件为必传项",
+    "supportType": "支持word、excel、pdf",
+    "delTip": "被引用，不能删除",
+    "delTip1": "该法规被引用，不能删除",
+    "source": "来源"
+  }
+}

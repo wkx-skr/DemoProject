@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>业务对象</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1、主视觉-1" transform="translate(-687.000000, -36.000000)">
+            <g id="操作工具栏" transform="translate(0.000000, 30.000000)">
+                <g id="操作功能备份" transform="translate(20.000000, 6.000000)">
+                    <g id="工具按钮" transform="translate(210.000000, 0.000000)">
+                        <g id="业务对象" transform="translate(457.000000, 0.000000)">
+                            <path d="M24,0 L24,24 L0,24 L0,0 L24,0 Z M23,1 L1,1 L1,23 L23,23 L23,1 Z" id="矩形" fill="#539FFD" fill-rule="nonzero"></path>
+                            <path d="M24,0 L24,6 L0,6 L0,0 L24,0 Z M23,1 L1,1 L1,5 L23,5 L23,1 Z" id="矩形备份-75" fill="#666666" fill-rule="nonzero"></path>
+                            <path d="M18,9 L18,18 L15,18 L15,17 L17,17 L17,10 L10,10 L10,12 L9,12 L9,9 L18,9 Z" id="形状结合" fill="#539FFD" fill-rule="nonzero"></path>
+                            <polygon id="矩形" fill="#539FFD" transform="translate(16.146447, 19.146447) rotate(-315.000000) translate(-16.146447, -19.146447) " points="15.6464466 17.0251263 16.6464466 17.0251263 16.6464466 21.267767 15.6464466 21.267767"></polygon>
+                            <polygon id="矩形备份-90" fill="#539FFD" transform="translate(7.857003, 10.851784) rotate(-315.000000) translate(-7.857003, -10.851784) " points="7.35700264 8.73046379 8.35700264 8.73046379 8.35700264 12.9731045 7.35700264 12.9731045"></polygon>
+                            <polygon id="矩形备份-76" fill="#539FFD" transform="translate(15.988884, 11.004082) rotate(-315.000000) translate(-15.988884, -11.004082) " points="15.4841261 8.68618617 16.4841261 8.68618617 16.4936426 13.321978 15.4936426 13.321978"></polygon>
+                            <path d="M15,12 L15,21 L6,21 L6,12 L15,12 Z M14,13 L7,13 L7,20 L14,20 L14,13 Z" id="矩形" fill="#539FFD" fill-rule="nonzero"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

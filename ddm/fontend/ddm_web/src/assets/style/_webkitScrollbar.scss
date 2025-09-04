@@ -1,0 +1,40 @@
+* {
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  /* 槽 */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    //-webkit-box-shadow: inset 0 0 6px rgba(128, 128, 128, 0.3);
+  }
+
+  /* 滑块 */
+  ::-webkit-scrollbar-thumb {
+    margin: 12px;
+    cursor: default !important;
+    background-color: rgba(85, 85, 85, 0.1);
+    border-radius: 10px;
+    &:hover {
+      background-color: rgba(85, 85, 85, 0.3);
+    }
+    //-webkit-box-shadow: inset 0 0 6px rgba(128, 128, 128, 0.5);
+  }
+  ::-webkit-scrollbar-thumb:window-inactive {
+    margin: 12px;
+  }
+  ::-webkit-scrollbar-corner {
+    /* 横向、纵向滚动条的交汇背景色 */
+    background: transparent !important;
+}
+  //&:hover {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+.ps__scrollbar-y-rail {
+  z-index: 2;
+}

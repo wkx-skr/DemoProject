@@ -1,0 +1,213 @@
+@charset "utf-8";
+
+/* CSS layout */
+
+/* element ui input 验证成功, 绿色边框 */
+.el-form-item.is-success .el-input__inner,
+.el-form-item.is-success .el-input__inner:focus,
+.el-form-item.is-success .el-textarea__inner,
+.el-form-item.is-success .el-textarea__inner:focus {
+  /* border-color:#67C23A */
+
+  /* border-color:transparent */
+}
+.el-form-item.is-success .el-input-group__append .el-input__inner,
+.el-form-item.is-success .el-input-group__prepend .el-input__inner {
+  border-color: transparent;
+}
+.el-form-item.is-success .el-input__validateIcon {
+  color: #67c23a;
+}
+
+/* 默认样式 */
+* {
+  box-sizing: border-box;
+
+  /* color: var(--base-font-color); */
+}
+html { overflow-x: hidden; overflow-y: scroll; color: var(--base-font-color); }
+body,
+div,
+ul,
+li,
+span,
+img,
+input,
+form { padding: 0; margin: 0; }
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+li,
+dd { margin: 0; }
+ul,
+ol { padding: 0; }
+
+/* body{ font-size:12px;font-family:"冬青黑体简体中文","微软雅黑","宋体",Arial,sans-serif;} */
+html {
+  overflow: hidden;
+  overflow-x: auto;
+}
+body {
+  position: relative;
+  min-width: 1280px;
+}
+a {
+  color: var(--a-text-color);
+  text-decoration: none;
+}
+a.blue:hover {
+  color: #479eff;
+
+  /* font-weight: bold; */
+}
+li { list-style: none; }
+img { border: none 0; }
+input { background: none; border: none; outline: none; }
+input,
+textarea,
+select { margin: 0; }
+textarea { font-family: inherit; }
+input,
+textarea { padding: 0; }
+input::-ms-clear { display: none; }
+
+
+/* 浮动公共样式 */
+.left { _display: inline; float: left; }
+.right { _display: inline; float: right; }
+.clear-fix::after { display: block; height: 0; clear: both; content: ''; }
+
+/* .el-menu-item{
+  padding: 0 30px;
+}
+ */
+
+.mxTooltip td {
+  padding: 0 !important;
+  padding: 20px;
+  background: #bcdafd;
+}
+
+.mxTooltip .usage-container {
+  text-align: center;
+}
+
+.mxTooltip .detail-container {
+  padding: 4px;
+  background: #bcdafd;
+}
+
+.mxTooltip .title {
+  display: inline-block;
+  width: 70px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-weight: bold;
+  color: #0e7ffd;
+}
+
+.mxTooltip .content {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #fff;
+}
+
+.mxTooltip table {
+  border-collapse: collapse;
+}
+
+.domain-usage-tooltip {
+  width: 80px;
+  height: 100%;
+  font-size: 30px;
+  font-weight: bold;
+  color: #fff;
+}
+
+#department-tree i {
+  margin-right: 5px;
+}
+
+div.mxPopupMenu {
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ffffff+0,f6f6f6+47,ededed+100;White+3D+%231 */
+  background: #fff; /* Old browsers */
+  background: -moz-linear-gradient(top, #fff 0%, #f6f6f6 47%, #ededed 100%) !important; /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #fff 0%, #f6f6f6 47%, #ededed 100%) !important; /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #fff 0%, #f6f6f6 47%, #ededed 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed', GradientType=0) !important; /* IE6-9 */
+  border: 1px solid #9f9f9f !important;
+}
+
+.mxPopupMenuItemHover {
+  color: #fff !important;
+  background: #9f9f9f !important;
+}
+
+td.mxPopupMenuIcon {
+  background: none !important;
+}
+
+.breadcrumb ul li {
+  float: left;
+  height: 40px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+.breadcrumb ul li a {
+  color: #48576a;
+}
+.breadcrumb ul li a:hover {
+  color: #20a0ff;
+}
+.breadcrumb ul li.active {
+  font-weight: bold;
+}
+.breadcrumb ul .right {
+  float: right !important;
+}
+
+.right-align .el-menu {
+  right: 0;
+  left: initial !important;
+}
+.el-input {
+  font-size: 12px;
+}
+.el-input .el-input__icon {
+  top: 0;
+  right: 5px;
+}
+
+.physical-name-text {
+  margin-left: 5px;
+  font-size: 10px;
+  color: #efefef;
+}
+
+.physical-name-text:hover {
+  color: gray;
+}
+.el-collapse-item__content {
+  padding: 0 !important;
+}
+
+.permission-assign-node label {
+  margin-right: 5px;
+}
+
+::-ms-clear,
+::-ms-reveal { display: none; }
+.light-red {
+  color: #eb3941;
+}
+.el-loading-spinner {
+    width: 32px;
+}

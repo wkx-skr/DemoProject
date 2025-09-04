@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>发布时间</title>
+    <g id="icon、颜色" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="属性icon" transform="translate(-59.000000, -216.000000)">
+            <g id="发布时间" transform="translate(59.000000, 216.000000)">
+                <circle id="椭圆形" fill="#EBF5FF" cx="12" cy="12" r="12"></circle>
+                <polyline id="路径-3" stroke="#409EFF" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" points="9.49938164 16.5 9.49938164 12.5 4.5 11.5 17.5 5.5 13.5 18.5 11.5 14.5"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

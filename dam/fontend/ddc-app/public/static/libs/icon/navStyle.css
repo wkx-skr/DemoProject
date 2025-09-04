@@ -1,0 +1,116 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('nav-fonts/icomoon.eot?pqc2tt');
+  src:  url('nav-fonts/icomoon.eot?pqc2tt#iefix') format('embedded-opentype'),
+    url('nav-fonts/icomoon.ttf?pqc2tt') format('truetype'),
+    url('nav-fonts/icomoon.woff?pqc2tt') format('woff'),
+    url('nav-fonts/icomoon.svg?pqc2tt#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-table:before {
+  content: "\e820";
+  color: #55a6fe;
+}
+.icon-view:before {
+  content: "\e821";
+  color: #b3b3ff;
+}
+.icon-column:before {
+  content: "\e822";
+  color: #7fd3a9;
+}
+.icon-catalog:before {
+  content: "\e818";
+}
+.icon-standards:before {
+  content: "\e817";
+}
+.icon-delete:before {
+  content: "\e802";
+}
+.icon-edit:before {
+  content: "\e824";
+}
+.icon-export:before {
+  content: "\e823";
+}
+.icon-extension .path1:before {
+  content: "\e813";
+}
+.icon-extension .path2:before {
+  content: "\e814";
+  margin-left: -1em;
+}
+.icon-extension .path3:before {
+  content: "\e815";
+  margin-left: -1em;
+}
+.icon-extension .path4:before {
+  content: "\e816";
+  margin-left: -1em;
+}
+.icon-group:before {
+  content: "\e810";
+}
+.icon-import:before {
+  content: "\e811";
+}
+.icon-option:before {
+  content: "\e812";
+}
+.icon-refresh:before {
+  content: "\e80c";
+}
+.icon-setting1:before {
+  content: "\e80d";
+}
+.icon-template:before {
+  content: "\e80e";
+}
+.icon-tree:before {
+  content: "\e80b";
+}
+.icon-user:before {
+  content: "\e80a";
+}
+.icon-application:before {
+  content: "\e801";
+}
+.icon-find:before {
+  content: "\e803";
+}
+.icon-home:before {
+  content: "\e804";
+}
+.icon-map:before {
+  content: "\e805";
+}
+.icon-meta:before {
+  content: "\e806";
+}
+.icon-model:before {
+  content: "\e807";
+}
+.icon-quality:before {
+  content: "\e808";
+}
+.icon-setting:before {
+  content: "\e809";
+}

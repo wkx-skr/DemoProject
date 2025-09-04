@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="76px" height="72px" viewBox="0 0 76 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>统计异常</title>
+    <defs>
+        <path d="M48.4972328,16.5608187 L63.6544028,28.8289831 C64.0530254,29.1516269 64.1160564,29.7342275 63.7951865,30.1302581 L39.3937589,60.2474794 C39.0728889,60.6435099 38.4896251,60.7030016 38.0910025,60.3803578 L22.9338325,48.1121934 C22.5352099,47.7895496 22.4721789,47.2069489 22.7930488,46.8109184 L47.1944764,16.6936971 C47.5153463,16.2976666 48.0986102,16.2381749 48.4972328,16.5608187 Z" id="path-1"></path>
+        <filter x="-21.7%" y="-20.3%" width="143.5%" height="140.7%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.733827871   0 0 0 0 0.78061045   0 0 0 0 0.882699275  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M0.523687949,22.6571323 L27.331305,9.56525272 C27.793975,9.33930129 28.351976,9.53168526 28.5776352,9.99495432 L46.9642815,47.7419824 C47.1899407,48.2052515 46.9978055,48.7639751 46.5351356,48.9899265 L19.7275185,62.0818061 C19.2648486,62.3077575 18.7068475,62.1153736 18.4811883,61.6521045 L0.0945420549,23.9050764 C-0.131117153,23.4418074 0.0610180086,22.8830838 0.523687949,22.6571323 Z" id="path-3"></path>
+        <filter x="-19.1%" y="-17.1%" width="138.2%" height="134.2%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.733827871   0 0 0 0 0.78061045   0 0 0 0 0.882699275  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-5" x="12" y="3" width="40" height="54" rx="1"></rect>
+        <filter x="-22.5%" y="-16.7%" width="145.0%" height="133.3%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.733827871   0 0 0 0 0.78061045   0 0 0 0 0.882699275  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="35.4751587%" y1="17.1869278%" x2="96.8688965%" y2="90.263176%" id="linearGradient-7">
+            <stop stop-color="#FD8E8E" offset="0%"></stop>
+            <stop stop-color="#FA5555" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="44.71875%" y1="19.5458984%" x2="54.0973315%" y2="88.7761925%" id="linearGradient-8">
+            <stop stop-color="#FF9999" offset="0%"></stop>
+            <stop stop-color="#FA5555" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="19.5458984%" x2="88.791304%" y2="88.7761925%" id="linearGradient-9">
+            <stop stop-color="#FF9999" offset="0%"></stop>
+            <stop stop-color="#FA5555" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="检核任务6.5.3" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="检核任务-列表备份" transform="translate(-1238.000000, -566.000000)">
+            <g id="统计异常" transform="translate(1244.000000, 569.000000)">
+                <circle id="椭圆形" fill="#F2F3F5" cx="32" cy="32" r="32"></circle>
+                <g id="矩形备份-7">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                </g>
+                <g id="矩形备份-7">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                </g>
+                <polygon id="矩形" fill="#F0F1F5" transform="translate(12.894165, 26.675659) rotate(-27.000000) translate(-12.894165, -26.675659) " points="5.36475363 21.969777 20.4235772 21.969777 20.4235772 31.3815417 5.36475363 31.3815417"></polygon>
+                <polygon id="矩形备份-37" fill="#F0F1F5" transform="translate(47.717695, 31.675659) rotate(38.000000) translate(-47.717695, -31.675659) " points="40.188283 26.969777 55.2471066 26.969777 55.2471066 36.3815417 40.188283 36.3815417"></polygon>
+                <polygon id="矩形备份-38" fill="#F0F1F5" transform="translate(51.988146, 25.230523) rotate(38.000000) translate(-51.988146, -25.230523) " points="44.458734 24.2893469 59.5175575 24.2893469 59.5175575 26.1716998 44.458734 26.1716998"></polygon>
+                <g id="矩形备份-7">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
+                </g>
+                <g id="编组-20" transform="translate(17.882353, 41.000000)">
+                    <rect id="矩形" fill="#FEDCDC" x="4.70588235" y="6" width="2.82352941" height="4"></rect>
+                    <rect id="矩形备份-22" fill="#FEDCDC" x="14.1176471" y="2" width="2.82352941" height="8"></rect>
+                    <rect id="矩形备份-39" fill="#F0F1F5" x="23.5294118" y="4" width="2.82352941" height="6"></rect>
+                    <rect id="矩形备份-32" fill="#F0F1F5" x="0" y="0" width="2.82352941" height="10"></rect>
+                    <rect id="矩形备份-14" fill="#F0F1F5" x="9.41176471" y="3" width="2.82352941" height="7"></rect>
+                    <rect id="矩形备份-31" fill="#F0F1F5" x="18.8235294" y="6" width="2.82352941" height="4"></rect>
+                </g>
+                <rect id="矩形备份-34" fill="#F0F1F5" x="17" y="13" width="3" height="3"></rect>
+                <rect id="矩形备份-42" fill="#F0F1F5" x="17" y="18" width="3" height="3"></rect>
+                <rect id="矩形备份-44" fill="#F0F1F5" x="17" y="23" width="3" height="3"></rect>
+                <rect id="矩形备份-35" fill="#F0F1F5" x="22" y="13" width="25" height="3"></rect>
+                <rect id="矩形备份-46" fill="#F0F1F5" x="17" y="8" width="31" height="3"></rect>
+                <rect id="矩形备份-43" fill="#F0F1F5" x="22" y="18" width="25" height="3"></rect>
+                <rect id="矩形备份-45" fill="#F0F1F5" x="22" y="23" width="25" height="3"></rect>
+                <g id="编组-13" transform="translate(20.000000, 20.000000)">
+                    <path d="M9.29443387,1.62246881 L0.4105322,17.6839608 C0.141506487,18.170341 0,18.7208324 0,19.2810214 C0,21.0588142 1.39500539,22.5 3.11583174,22.5 L20.8836351,22.5 C21.4258737,22.5 21.9587255,22.3538091 22.4295205,22.0758775 C23.9236162,21.1938453 24.4427036,19.2275172 23.5889346,17.6839608 L14.7050329,1.62246881 C14.4290036,1.12342644 14.0286702,0.709840403 13.5456189,0.424673338 C12.0515232,-0.457358891 10.1482028,0.0789124076 9.29443387,1.62246881 Z" id="路径" stroke="url(#linearGradient-7)" stroke-width="2.4" fill="#FEEDED"></path>
+                    <path d="M12,5.94230769 C12.7638474,5.94230769 13.383068,6.56152834 13.383068,7.32537572 C13.383068,7.36275683 13.3815525,7.40012257 13.3785253,7.4373809 L12.8107373,14.4255403 C12.7764255,14.84784 12.4236914,15.1730769 12,15.1730769 C11.5763086,15.1730769 11.2235745,14.84784 11.1892627,14.4255403 L10.6214747,7.4373809 C10.5596159,6.6760424 11.1266563,6.00870917 11.8879948,5.94685042 C11.9252531,5.94382318 11.9626189,5.94230769 12,5.94230769 Z" id="矩形" fill="url(#linearGradient-8)"></path>
+                    <circle id="椭圆形" fill="url(#linearGradient-9)" cx="12" cy="17.4230769" r="1.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

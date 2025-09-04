@@ -1,0 +1,131 @@
+$fontColor: var(--document-color);
+.d-upper-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: $fontColor;
+}
+.d-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: $fontColor;
+}
+.d-vice-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: $fontColor;
+}
+.d-figure {
+  font-size: 13px;
+  color: $fontColor;
+}
+.d-text {
+  font-size: 12px;
+  color: $fontColor;
+}
+
+.d-bg-blue {
+  color: #e1ecfe;
+  background-color: #4386f5;
+}
+.d-bg-light-blue {
+  color: #558ef5;
+  background-color: #edf4ff;
+}
+.d-bg-black {
+  color: #f0f1f2;
+  background-color: #20293b;
+}
+.d-bg-grey-4 {
+  color: #dadce0;
+  background-color: #7d8493;
+}
+.d-bg-grey-3 {
+  color: #fdfdfd;
+  background-color: #afb4bf;
+}
+.d-bg-grey-2 {
+  color: #949aa5;
+  background-color: #e0e0e0;
+}
+.d-bg-grey-1 {
+  color: #8a919e;
+  background-color: #f6f6f6;
+}
+.d-bg-color-1 {
+  color: #e6ddfd;
+  background-color: #9571f5;
+}
+.d-bg-color-2 {
+  color: #fff;
+  background-color: #dd63ac;
+}
+.d-bg-color-3 {
+  color: #fff;
+  background-color: #f46565;
+}
+.d-bg-color-4 {
+  color: #fff;
+  background-color: #f0724c;
+}
+.d-bg-color-5 {
+  color: #fff;
+  background-color: #f79b3f;
+}
+.d-bg-color-6 {
+  color: #fff;
+  background-color: #f5dc71;
+}
+.d-bg-color-7 {
+  color: #fff;
+  background-color: #5cb793;
+}
+.d-bg-color-8 {
+  color: #fff;
+  background-color: #29a7ca;
+}
+.d-bg-color-11 {
+  color: #9571f5;
+  background-color: #f1f1fb;
+}
+.d-bg-color-12 {
+  color: #dd63ac;
+  background-color: #fdf3f8;
+}
+.d-bg-color-13 {
+  color: #f46565;
+  background-color: #fef0f0;
+}
+.d-bg-color-14 {
+  color: #f0724c;
+  background-color: #fef2ed;
+}
+.d-bg-color-15 {
+  color: #f79b3f;
+  background-color: #fff6ec;
+}
+.d-bg-color-16 {
+  color: #f5dc71;
+  background-color: #fefdf1;
+}
+.d-bg-color-17 {
+  color: #5cb793;
+  background-color: #eff9f4;
+}
+.d-bg-color-18 {
+  color: #29a7ca;
+  background-color: #ebf6fa;
+}
+
+.d-return {
+  display: inline-block;
+
+  height: 2.7em;
+  padding: 0 0.7em;
+  line-height: 2.7em;
+  color: $fontColor;
+  border-radius: 3px;
+  &:hover {
+    cursor: pointer;
+    background: var(--grey-bgc);
+  }
+}

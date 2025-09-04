@@ -1,0 +1,68 @@
+/*
+* @Author: Nicky
+* @Date:   2017-06-07 16:20:35
+* @Last Modified by:   Nicky
+* @Last Modified time: 2017-06-14 16:10:28
+*/
+
+#permission-assign {
+  padding: 20px;
+  color: #48576a;
+
+  fieldset {
+    padding: 10px;
+    border: 1px solid #efefef;
+    border-radius: 4px;
+
+    legend {
+      font-size: 18px;
+      font-weight: bold;
+      color: #48576a;
+    }
+  }
+
+  h3 {
+    margin-left: 20px;
+  }
+
+  .el-input {
+    padding: 5px 20px 5px 20px;
+  }
+
+  .permission-tree {
+    height: 300px;
+    margin: 5px 20px 20px 20px;
+    overflow-y: scroll;
+  }
+
+  .el-select {
+    width: 100%;
+  }
+
+  .access-list-container {
+    height: 400px;
+    overflow-y: scroll;
+    border: 1px solid #efefef;
+
+    .el-collapse {
+      border-top: none;
+      border-left: none;
+    }
+
+    .el-table {
+      border: none;
+    }
+  }
+}
+
+#user-permission-assignment {
+  padding: 0 20px 20px 20px !important;
+
+  .el-select {
+    width: 300px;
+  }
+
+  .el-col {
+    margin-top: 20px;
+  }
+}

@@ -1,0 +1,274 @@
+@import '../../../assets/styles/tableStyleWidthBorder.scss';
+
+.svg-table, .svg-view {
+  position: static;
+  //top: -1px;
+  background:#FFF;
+  color:#000;
+  border:1px solid #000;
+  //box-shadow:4px 4px #BBB;
+  //position:relative;
+  &.is-current {
+    background-color: #fff6b6;
+    &>.svg-tName {
+      background:yellow;
+    }
+  }
+  &.collapsed {
+    height:30px !important;
+    .table-body {
+      display:none;
+    }
+    .collapse-btn {
+      background: url('../../../assets/images/icon/collapse.png') no-repeat;
+      //transform: rotate(180deg);
+    }
+  }
+  &:hover {
+    .collapse-btn {
+      visibility: visible;
+    }
+  }
+}
+.svg-comment {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.svg-figure {
+  position: relative;
+  top: -1px;
+}
+.collapse-btn {
+  visibility: hidden;
+  background: url('../../../assets/images/icon/collapseReverse.png') no-repeat;
+  //display:inline-block;
+  width:13px;height:13px;
+  //float:right;
+  //margin-right:6px;
+  //margin-top:8px;
+  position:absolute;
+  right:6px;
+  top:8px;
+  cursor:pointer;
+}
+.svg-tName,.svg-col, .svg-view, .svg-figure {
+  &.highlight, &>span.highlight {
+    background-color:yellow!important;
+  }
+}
+.svg-view {
+  cursor:pointer;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  display: inline-block;
+  color:#000;
+  background: transparent;
+}
+.svg-view {
+  font-size: 12px;
+}
+.svg-tName {
+  font-size:12px;
+}
+.svg-tName {
+  &>span {
+    display:inline-block;
+    max-width: 100%;
+    &:hover {
+      text-decoration: underline;
+    }
+    cursor:pointer;
+    overflow : hidden;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+  }
+  //position:relative;
+  text-align:center;
+
+
+  height:30px;
+  line-height:30px;
+  background:#F0F0F0;
+  color:#000;
+  border-bottom:1px solid #000;
+}
+.er-tree-box {
+  display: none;
+  &.active {
+    display: block;
+  }
+}
+.tree-container {
+  display: inline-block;
+  >.er-tree-box {
+    display: inline-block;
+  }
+}
+.svg-col {
+
+  &>span {
+    cursor:pointer;
+    padding-right:0.5rem;
+    padding-left: 0.1rem;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  position: static;
+  text-align:left;
+  text-indent: 1.5rem;
+  line-height:18px;
+  height:18px;
+  padding:0 0.5rem;
+  overflow : hidden;
+  text-overflow: ellipsis;
+  white-space:nowrap;
+  background-image:url(../../../assets/images/mxgraph/Column.png);
+  &.field {
+    background-image:url(../../../assets/images/mxgraph/Field.png);
+  }
+  &.ds {
+    background-image:url(../../../assets/images/mxgraph/ColumnDS.png);
+  }
+  &.svg-fk {
+    background-image:url(../../../assets/images/mxgraph/FK.png);
+  }
+  &.svg-fvk {
+    background-image:url(../../../assets/images/mxgraph/FV.png);
+  }
+  &.svg-pk {
+    background-image:url(../../../assets/images/mxgraph/PK.png);
+    line-height:20px;
+  }
+  &.svg-puk {
+    background-image:url(../../../assets/images/mxgraph/PK.png);
+    line-height:20px;
+  }
+  &.svg-pnk {
+    background-image:url(../../../assets/images/mxgraph/PK.png);
+    line-height:20px;
+  }
+  &.svg-pfk {
+    background-image:url(../../../assets/images/mxgraph/PFK.png);
+    line-height:20px;
+  }
+  &.svg-fpk {
+    background-image:url(../../../assets/images/mxgraph/PFK.png);
+    line-height:20px;
+  }
+  &.svg-pfvk {
+    background-image:url(../../../assets/images/mxgraph/PFV.png);
+    line-height:20px;
+  }
+  &.svg-uk {
+    background-image:url(../../../assets/images/mxgraph/UK.png);
+  }
+  &.svg-nuk {
+    background-image:url(../../../assets/images/mxgraph/UK.png);
+  }
+  &.svg-unk {
+    background-image:url(../../../assets/images/mxgraph/UK.png);
+  }
+  &.svg-nk {
+    background-image:url(../../../assets/images/mxgraph/IK.png);
+  }
+  &.svg-nvk {
+    background-image:url(../../../assets/images/mxgraph/IV.png);
+  }
+  &.svg-vk {
+    background-image:url(../../../assets/images/mxgraph/VK.png);
+  }
+  &.svg-uvk {
+    background-image:url(../../../assets/images/mxgraph/UV.png);
+  }
+  &.svg-vnk {
+    background-image:url(../../../assets/images/mxgraph/IV.png);
+  }
+  &.svg-vuk {
+    background-image:url(../../../assets/images/mxgraph/UV.png);
+  }
+  &.svg-pvk {
+    background-image:url(../../../assets/images/mxgraph/PV.png);
+    line-height:20px;
+  }
+  &.sub-rank-2 {
+    transform:translateX(1.5em);
+  }
+  &.sub-rank-3 {
+    transform:translateX(3em);
+  }
+  &.sub-rank-4 {
+    transform:translateX(4.5em);
+  }
+  &.sub-rank-5 {
+    transform:translateX(6em);
+  }
+  background-repeat: no-repeat;
+  background-position-x:0.5rem;
+  &.tree {
+    overflow: unset;
+    position: relative;
+  }
+  .show-children {
+    position: absolute;
+    left: -1px;
+    top: 6px;
+    display: none;
+  }
+  .hide-children {
+    position: absolute;
+    left: 1px;
+    top: 4px;
+    display: block;
+  }
+  &.expand {
+    .show-children {
+      display: block;
+    }
+    .hide-children {
+      display: none;
+    }
+  }
+  .triangle {
+    width: 0;
+    height: 0;
+    border: 4px solid transparent;
+    &.left {
+      border-left-color: black;
+    }
+    &.top {
+      border-top-color: black;
+    }
+  }
+
+}
+
+.el-slider__bar {
+  background-color:initial;
+}
+#consa-graph > svg {
+  cursor:default;
+}
+#pane-graph .el-icon-circle-close {
+  position:relative;
+  top:-2px;
+}
+.model-graph-page {
+  .report-container {
+    .el-tabs__active-bar.is-top {
+      display: none;
+    }
+    .table-row-class {
+      cursor: pointer;
+      &.highlight-line {
+        background-color: #FFF6DB;
+      }
+    }
+  }
+  @include tableStyle;
+}
+.space-white {
+  margin-right: 10px !important;
+  border-radius: 4px !important;
+}

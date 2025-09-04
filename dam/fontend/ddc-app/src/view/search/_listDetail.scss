@@ -1,0 +1,128 @@
+$grey-font:#6d6d6d;
+$blue:#4278c9;
+@import '~@/next/components/basic/color.sass';
+.checkbox {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+.line-info{
+  margin-bottom:8px;
+  .type-detail-info{
+    display: inline-block;
+    white-space:nowrap;
+    position: static;
+     margin-right: 20px;
+     vertical-align: middle;
+     max-width: 300px;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     img{
+      margin-right:4px
+    }
+  }
+ 
+}
+.title {
+  .en-name {
+    color: #9b9b9b;
+  }
+  .ch-name {
+    //font-weight:bold;
+  }
+  display: inline-block;
+  font-size: 16px;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+.sup {
+  float: right;
+  margin: 3px 0;
+  color: $blue;
+  i {
+    margin-right: 0.1em;
+    margin-left: 0.8em;
+    font-size: 14px;
+    color: initial;
+  }
+}
+.description {
+  line-height: 2em;
+  color: $text-disabled;
+  em {
+    color: red !important;
+  }
+}
+
+.properties {
+  position: absolute;
+  top: 16px;
+  right: 40px;
+  width: 300px;
+  color: #9b9b9b;
+  .vote-rate {
+    display: inline-block;
+    margin-left: 20px;
+  }
+  .folder {
+    display: inline-block;
+    width: 160px;
+    margin-right: 1em;
+  }
+  .rate {
+    position: relative;
+    top: -3px;
+    display: inline-block;
+    float: right;
+    margin-right: 0;
+  }
+}
+.icon {
+  /* background: url('../../assets/images/icon/table2.png') no-repeat; */
+  position: absolute;
+  top: 16px;
+  left: 0;
+
+  /* width:30px;height:30px; */
+}
+.single-path {
+  margin-right: 0.7em;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.list-detail.is-report {
+  .report-image {
+    display: inline-block;
+  }
+  &.with-image{
+    min-height: 120px;
+    .description {
+      padding-left: 130px;
+    }
+    .detail-info{
+      padding-left: 130px;
+    }
+  }
+ 
+  
+  // min-height: 150px;
+}
+.report-image {
+  position: absolute;
+  top: 43px;
+  left: 42px;
+  display: none;
+  width: 120px;
+  height: 66px;
+}
+.tag-box{
+  span{
+    background-color: $table-hover-color;
+    color:$primary-color;
+  }
+
+}

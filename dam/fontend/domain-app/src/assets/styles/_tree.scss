@@ -1,0 +1,59 @@
+@import './const';
+.default-tree {
+  color: var(--table-color);
+  background-color: transparent;
+  .el-tree-node.is-current > .el-tree-node__content {
+    background: var(--grey-bgc);
+  }
+  .el-tree-node__content {
+    height: 34px;
+    &:hover {
+      background: var(--icon-hover-bgc);
+    }
+  }
+  .el-tree-node__expand-icon {
+    visibility: hidden;
+  }
+}
+.tree-icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 0 6px 0 -5px;
+  text-align: center;
+  vertical-align: middle;
+  background-size: cover;
+  &.fa {
+    height: 11px;
+    margin-bottom: 2px;
+  }
+  &.folder {
+    background-image: url("../../assets/images/modelTree/folder.png");
+  }
+  &.table {
+    background-image: url("../../assets/images/modelTree/table.png");
+  }
+  &.model {
+    background-image: url("../../assets/images/modelTree/model.png");
+  }
+}
+.catalog-tree {
+  .el-tree-node__label {
+    font-size: 12px;
+    color: var(--base-font-color);
+  }
+  .el-tree-node__expand-icon {
+    color: var(--base-font-color);
+    &.is-leaf {
+      color: transparent;
+    }
+  }
+  .el-tree-node.is-current > .el-tree-node__content {
+    background-color: initial;
+    .el-tree-node__label,
+    .tree-label {
+      font-weight: bold;
+      color: $blue;
+    }
+  }
+}

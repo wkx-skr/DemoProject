@@ -1,0 +1,15 @@
+.com-title {
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.el-card {
+  width: 200px;
+  margin-top: 20px;
+}
+.com-table {
+  margin-top: 10px;
+}
+.com-button {
+  float: right;
+}

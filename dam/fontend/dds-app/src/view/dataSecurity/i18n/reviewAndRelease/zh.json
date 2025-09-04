@@ -1,0 +1,21 @@
+{
+  "?reviewAndRelease": "评审与发布信息",
+  "reviewAndRelease": {
+    "title": "评审与发布",
+    "inventoryMode": "盘点模式",
+    "sortTime": "梳理时间",
+    "selectTime": "选择日期",
+    "table": "所在表",
+    "pass": "通过",
+    "reject": "驳回",
+    "infoItem": "所属信息项",
+    "sortPeople": "梳理人",
+    "errorTip": "数据资产已被元数据更新删除，不能进行确认结果",
+    "artificialInventory": "人工盘点",
+    "dataRecognition": "数据识别",
+    "batchImport": "批量导入",
+    "reviewPass": "评审通过",
+    "reviewReject": "评审驳回",
+    "searchName": "搜索资产名称"
+  }
+}

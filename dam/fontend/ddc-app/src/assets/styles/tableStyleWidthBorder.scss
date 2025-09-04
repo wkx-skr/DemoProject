@@ -1,0 +1,30 @@
+@mixin tableStyle {
+  $tableRowHeigth: 40px;
+  .el-table__header-wrapper {
+    thead {
+      height: 30px;
+      background-color: transparent;
+      .table-head-row {
+        height: $tableRowHeigth;
+        color: var(--default-opposite-color);
+        background: var(--main-content-bgc);
+        border: none;
+        th {
+          background-color: transparent;
+        }
+        .table-header-cell {
+        }
+      }
+    }
+  }
+  .table-check-box {
+    text-align: center;
+  }
+  .table-cell {
+    padding: 0 10px;
+    line-height: $tableRowHeigth;
+    .cell {
+      line-height: $tableRowHeigth;
+    }
+  }
+}

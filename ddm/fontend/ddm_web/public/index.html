@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!--    <link rel="icon" id="faviconIndex"  href="<%= BASE_URL %>favicon.ico">-->
+    <link rel="icon" id="faviconIndex"  href="data:;base64,=">
+    <title>Datablau Data Modeler</title>
+    <link rel="stylesheet" href="<%= BASE_URL %>static/libs/icon/style.css">
+    <script src="<%= BASE_URL %>static/js/polyfill.min.js" ></script>
+    <script>
+      delete window.exports
+      delete window.module
+    </script>
+    <script src="<%= BASE_URL %>static/js/jquery.min.js" ></script>
+    <script>mxBasePath = "<%= BASE_URL %>static/libs/mxgraph/src"</script>
+    <script>baseUrl = "<%= BASE_URL %>"</script>
+    <script src="<%= BASE_URL %>static/libs/mxgraph/mx.min.js"></script>
+<!--    <script src="<%= BASE_URL %>static/conf/setting.js"></script>-->
+    <script src="<%= BASE_URL %>static/js/jsencrypt2.min.js"></script>
+    <script src="<%= BASE_URL %>static/js/publicString.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+    <script>eruda.init();</script> -->
+    <script>
+        document.write("<script src='./static/conf/setting.js?"+Math.random()+"'><\/script>");
+    </script>
+    <script>
+      var userAgent = navigator.userAgent.toLowerCase()
+      var inElectron = userAgent.indexOf(' electron/') > -1
+      // if(inElectron) {
+      //   setTimeout(() => {
+      //     // $('#app').addClass('index-loading')
+      //   })
+      // }
+    </script>
+    <style>
+      @keyframes loading {
+        0%  {
+          width:0px;
+        }
+        100% {
+          width:100%;
+        }
+      }
+      .index-loading {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+        width:100%;
+        animation:loading 1s linear;
+        background-image: linear-gradient(to top, #e1ddd9, #e9e5e2);
+        height:20px;
+        border-radius:10px;
+        box-shadow: 0 1px 0px #bebbb9 inset, 0 1px 0 #fcfcfc;
+      }
+    </style>
+  </head>
+  <body style="min-width:1280px;position: absolute;top: 0;left: 0;right: 0;bottom: 0;">
+    <noscript>
+      <strong>We're sorry but ddm-web doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+<!--    <script type=text/javascript>mxBasePath = "<%= BASE_URL %>/static/libs/mxgraph/src";</script>-->
+    <script type=text/javascript>
+      function getQueryString (url) {
+        let obj = {}
+        let arr = url.split('?')[1]
+        if (arr) {
+          let newArr = arr.split('&')
+          newArr.forEach((item) => {
+            let key = item.split('=')[0]
+            let value = item.split('=')[1]
+            if(value.indexOf('%') == -1) {
+              // 不存在 % ,
+              obj[key] = value
+            } else {
+              // 存在，需要进行解码
+              obj[key] = JSON.parse(decodeURIComponent(value))
+            }
+          })
+        }
+        return obj
+      }
+      var queryObj = getQueryString(location.href)
+      if (queryObj['tenantId']) {
+        localStorage.setItem('tenantId', queryObj['tenantId'])
+      }
+    window.onload = function(){
+      var script = document.createElement("script");
+      script.setAttribute("type","text/javascript");
+      if (NODE_ENV === 'development') {
+        sessionStorage.setItem('env', 'development')
+        // script.src = location.protocol + "//" + location.hostname + ":" + location.port + "/static/conf/setting.js?" + Math.random()
+      } else {
+        sessionStorage.removeItem('env')
+        script.src = location.protocol + "//" + location.host + window.setting.products.dam.webPath + "static/conf/setting.js?" + Math.random()
+      }
+      document.getElementsByTagName("head")[0].appendChild(script);
+    }
+      let NODE_ENV = <%= JSON.stringify(process.env.NODE_ENV) %>;
+      // if (window.setting && !inElectron && NODE_ENV !== 'development') {
+      //   let product = window.setting.products.ddm
+      //   if (product.webPath !== location.pathname) {
+      //     if (product.frontendPort !== 80 && product.frontendPort !== 443) {
+      //       location.href = location.href.replace(product.frontendPort + location.pathname, product.frontendPort + product.webPath)
+      //     } else {
+      //       location.href = location.href.replace(location.host + location.pathname, location.host + product.webPath)
+      //     }
+      //   }
+      // }
+
+      function formatterProduct(product) {
+        product.webPath = '/'
+        product.hostname = location.hostname
+        product.urlPrefix = 'http://'
+        let frontendPort = null
+        if (product.serverPath === '/base') {
+          frontendPort = 8071
+        } else if (product.serverPath === '/user') {
+          frontendPort = 8072
+        } else if (product.serverPath === '/domain') {
+          frontendPort = 8073
+        } else if (product.serverPath === '/ddm') {
+          frontendPort = 8074
+        } else {
+          frontendPort = 8080
+        }
+        product.frontendPort = frontendPort
+        return product
+      }
+      if (NODE_ENV === 'development') {
+        formatterProduct(setting.products.dam)
+        formatterProduct(setting.products.ddm)
+        // formatterProduct(setting.products.ddt)
+        formatterProduct(setting.products.ddd)
+        formatterProduct(setting.products['base-app'])
+        formatterProduct(setting.products['domain-app'])
+        // formatterProduct(setting.products.ddt)
+        formatterProduct(setting.products['user-app'])
+      }
+
+      function getLanguage() {
+        if (localStorage.getItem('language') == 'English') {
+          window.lang = 'English';
+          return
+        } else if (localStorage.getItem('language') == 'Chinese') {
+          window.lang = 'Chinese';
+          return
+        }
+        if (navigator.appName == 'Netscape')
+          var language = navigator.language;
+        else
+          var language = navigator.browserLanguage;
+        if (language.indexOf('en') > -1) window.lang = 'English';
+        else if (language.indexOf('zh') > -1) window.lang = 'Chinese';
+        else
+          window.lang = 'English';
+      }
+
+      if (window.setting.language) {
+        window.lang = window.setting.language
+      } else {
+        getLanguage();
+      }
+    </script>
+  </body>
+</html>

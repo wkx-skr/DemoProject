@@ -1,0 +1,35 @@
+@import 'const';
+.el-dropdown-menu.menu {
+  width: 170px;
+
+  .el-dropdown-menu__item {
+    margin: 0 6px;
+    .d-figure {
+      color: var(--drop-down-color);
+    }
+    &:hover {
+      .d-figure {
+        color: $blue;
+      }
+    }
+  }
+}
+
+ul.log-con-ul {
+  padding-right: 4px;
+  padding-left: 4px;
+  .log-item {
+    height: 36px;
+    padding: 0 12px;
+    line-height: 36px;
+    &.d-figure {
+      color: var(--quill-tool-bar);
+    }
+    &:hover {
+      background: var(--popover-hover-bgc);
+      &.d-figure {
+        color: $blue;
+      }
+    }
+  }
+}

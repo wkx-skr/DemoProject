@@ -1,0 +1,41 @@
+@import '~@/next/components/basic/color.sass';
+.tabPageAbs.tab-page,
+.tabPageAbs .tab-page,
+.tab-page-ver2.tab-page,
+.tab-page-ver2 .tab-page {
+  top: 0;
+  .table-row {
+    top: 34px;
+    right: 20px;
+    left: 20px;
+  }
+  .left-button {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    .check-info {
+      display: inline-block;
+      width: 14px;
+      height: 14px;
+      margin-right: -13px;
+      vertical-align: middle;
+      background: $primary-color;
+    }
+    .footer-row-info {
+      height: 50px;
+      margin-right: 10px;
+      &::before {
+        margin-right: 5px;
+        font-family: 'element-icons';
+        font-size: 12px;
+        font-weight: 200;
+        line-height: 13px;
+        color: white;
+        vertical-align: middle;
+        content: '\e6da';
+      }
+    }
+  }
+}

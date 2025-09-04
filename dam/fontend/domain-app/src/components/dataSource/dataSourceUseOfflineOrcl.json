@@ -1,0 +1,95 @@
+{
+  "dbType": "OFFLINEDUMP",
+  "dbLabel": "offline dump",
+  "icon": "offlinedump",
+  "options": [
+    {
+      "code": "OfflineDumpSourceDriverType",
+      "defaultValue": "ORACLE",
+      "required": true,
+      "candidate": [
+        {
+          "label": "MySQL",
+          "value": "MYSQL",
+          "options": [
+            {
+              "code": "driverId",
+              "defaultValue": "",
+              "required": true
+            },
+            {
+              "code": "HostServer",
+              "defaultValue": "localhost",
+              "required": true
+            },
+            {
+              "code": "PortNumber",
+              "defaultValue": "3306",
+              "required": true
+            },
+            {
+              "code": "AuthenticationType",
+              "candidate": [
+                "password",
+                "kerberos"
+              ],
+              "defaultValue": 0,
+              "required": true
+            },
+            {
+              "code": "DatabaseName",
+              "defaultValue": "",
+              "required": false,
+              "multiple": true,
+              "candidate": []
+            }
+          ]
+        },
+        {
+          "label": "Oracle",
+          "value": "ORACLE",
+          "options": [
+            {
+              "code": "driverId",
+              "defaultValue": "",
+              "required": true
+            },
+            {
+              "code": "HostServer",
+              "defaultValue": "localhost",
+              "required": true
+            },
+            {
+              "code": "PortNumber",
+              "defaultValue": "1521",
+              "required": true
+            },
+            {
+              "code": "AuthenticationType",
+              "candidate": [
+                "password",
+                "kerberos"
+              ],
+              "defaultValue": 0,
+              "required": true
+            },
+            {
+              "code": "connectMode",
+              "candidate": [
+                "SID",
+                "Service Name"
+              ],
+              "defaultValue": "SID",
+              "required": true
+            },
+            {
+              "code": "OfflineDumpTargetSchemaName",
+              "required": false,
+              "multiple": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,172 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?mnk44l');
+  src:  url('fonts/icomoon.eot?mnk44l#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?mnk44l') format('truetype'),
+    url('fonts/icomoon.woff?mnk44l') format('woff'),
+    url('fonts/icomoon.svg?mnk44l#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-business:before {
+  content: "\e900";
+}
+.icon-dataSource:before {
+  content: "\e901";
+}
+.icon-home:before {
+  content: "\e902";
+}
+.icon-ic-data-add-tag:before {
+  content: "\e903";
+}
+.icon-ic-data-bin:before {
+  content: "\e904";
+}
+.icon-ic-data-boolean:before {
+  content: "\e905";
+}
+.icon-ic-data-ext:before {
+  content: "\e906";
+}
+.icon-ic-data-float:before {
+  content: "\e907";
+}
+.icon-ic-data-int:before {
+  content: "\e908";
+}
+.icon-ic-data-modify:before {
+  content: "\e909";
+}
+.icon-ic-data-shrink:before {
+  content: "\e90a";
+}
+.icon-ic-data-str:before {
+  content: "\e90b";
+}
+.icon-ic-data-time:before {
+  content: "\e90c";
+}
+.icon-ic-left-dashboard-asset:before {
+  content: "\e90d";
+}
+.icon-ic-left-dashboard-catalog:before {
+  content: "\e90e";
+}
+.icon-ic-left-dashboard-quality:before {
+  content: "\e90f";
+}
+.icon-ic-left-dataCatalog:before {
+  content: "\e910";
+}
+.icon-ic-left-datasource:before {
+  content: "\e911";
+}
+.icon-ic-left-dataStandard:before {
+  content: "\e912";
+}
+.icon-ic-left-job:before {
+  content: "\e913";
+}
+.icon-ic-left-permission .path1:before {
+  content: "\e914";
+  color: rgb(5, 5, 5);
+}
+.icon-ic-left-permission .path2:before {
+  content: "\e915";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-ic-left-permission .path3:before {
+  content: "\e916";
+  margin-left: -1em;
+  color: rgb(0, 0, 0);
+}
+.icon-ic-left-search:before {
+  content: "\e917";
+}
+.icon-ic-left-semantics:before {
+  content: "\e918";
+}
+.icon-ic-left-standard:before {
+  content: "\e919";
+}
+.icon-ic-left-task:before {
+  content: "\e91a";
+}
+.icon-ic-left-user:before {
+  content: "\e91b";
+}
+.icon-ic-quality-add:before {
+  content: "\e91c";
+}
+.icon-ic-quality-close:before {
+  content: "\e91d";
+}
+.icon-ic-quality-correct:before {
+  content: "\e91e";
+}
+.icon-ic-quality-error:before {
+  content: "\e91f";
+}
+.icon-ic-quality-export:before {
+  content: "\e920";
+}
+.icon-ic-quality-import:before {
+  content: "\e921";
+}
+.icon-ic-quality-problem:before {
+  content: "\e922";
+}
+.icon-ic-quality-sort:before {
+  content: "\e923";
+}
+.icon-ic-source-delete:before {
+  content: "\e924";
+}
+.icon-ic-source-history:before {
+  content: "\e925";
+}
+.icon-ic-top-collect:before {
+  content: "\e926";
+}
+.icon-ic-top-message:before {
+  content: "\e927";
+}
+.icon-ic-top-user:before {
+  content: "\e928";
+}
+.icon-lineage:before {
+  content: "\e929";
+}
+.icon-model:before {
+  content: "\e92a";
+}
+.icon-quality:before {
+  content: "\e92b";
+}
+.icon-standard:before {
+  content: "\e92c";
+}
+.icon-system:before {
+  content: "\e92d";
+}
+.icon-total:before {
+  content: "\e92e";
+}

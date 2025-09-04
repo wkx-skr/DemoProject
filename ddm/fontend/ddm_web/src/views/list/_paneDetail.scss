@@ -1,0 +1,126 @@
+.container {
+  margin-left:10px;
+  overflow-x:hidden;
+  /*outline:1px solid pink;*/
+}
+.title {
+  font-size:15px;
+  font-weight:bold;
+  padding-bottom:18px;
+  margin-bottom:1.5em;
+  color:#494850;
+  border-bottom:1px solid #dddddd;
+}
+.sub-title {
+  font-size: 14px;
+  //margin-top: 1em;
+  margin-bottom: 1em;
+  //font-weight: bold;
+}
+.table-label {
+  position:relative;
+  &.required {
+    &::before {
+      content: '*';
+      color: #e86666;
+      //position:absolute;
+      //left:-8px;
+      font-size:13px;
+    }
+  }
+}
+.property {
+  display:inline-block;
+  width:35%;
+  margin-right:4em;
+  max-width:500px;
+  min-height:4em;
+  line-height:2em;
+  &.thin {
+    width:140px;
+  }
+  &.broader {
+    //width:100%;
+    width: calc(100%);
+    max-width:100%;
+    margin-right:4em;
+  }
+  .label {
+    color:#9a9a9a;
+    display: inline-block;
+    width:110px;
+    vertical-align: top;
+    line-height:2em;
+    position:relative;
+    word-wrap: break-word;
+    &.required {
+      &::before {
+        content: '*';
+        color: #e86666;
+        position:absolute;
+        left:-8px;
+        font-size:13px;
+      }
+    }
+  }
+  .value {
+    width: calc(100% - 110px);
+    display:inline-block;
+    /*outline:1px solid pink;*/
+  }
+  .limited-switch {
+    vertical-align: middle;
+    margin: 0 10px;
+  }
+  .limited-config {
+    padding: 0 10px 0 10px;
+    display: inline-block;
+  }
+}
+.button-new-tag {
+  margin-left: -.5em;
+  height: 24px;
+  line-height: 22px;
+  padding-top: 0;
+  padding-bottom: 0;
+  position:relative;
+  top:-1px;
+}
+.content-box {
+  position: absolute;
+  top: 70px;
+  left: 20px;
+  bottom: 0;
+  right: 20px;
+  overflow: hidden;
+}
+.is-edit {
+  top:50px
+}
+.table-box2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  &.table-box1 {
+    top: 50px
+  }
+}
+.table-box1 {
+  height: 90%;
+  top: 50px
+}
+
+.status-outer {
+  display: inline-block;
+  margin-right: 10px;
+  vertical-align: top;
+}
+
+.edit-status {
+  vertical-align: top;
+  line-height: 24px;
+  padding: 0;
+}

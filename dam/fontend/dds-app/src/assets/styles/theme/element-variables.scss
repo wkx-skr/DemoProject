@@ -1,0 +1,83 @@
+// element-variables.scss
+
+//主题样式 变量 声明文件
+//datablau-web/src/assets/styles/theme/custom-style1/index.css
+
+@import './default-theme.scss';
+
+//引入 elementui 自定义主题文件
+//@import "~@/assets/styles/theme/custom-style-dark/index.css";
+
+//loading 自定义
+.el-loading-spinner .circular{
+  display: none;
+}
+.el-loading-spinner{
+  width: 32px;
+  height: 32px;
+  background-image: url('../../images/loading.svg');
+  background-size: 100% auto;
+  background-position: center;
+  animation: loading-rotate 2s linear infinite;
+  left: 50%;
+  top: 50%;
+  margin-left: -16px;
+  margin-top: -21px;
+  text-align: center;
+  .el-loading-text {
+    animation-play-state: paused;
+
+  }
+}
+.el-loading-mask {
+   &:after {
+     content: "加载中，请稍后...";
+     width: auto;
+     position: absolute;
+     left: calc(50% - 42px);
+     top: calc(50% + 20px);
+   }
+ }
+.body-for-dam_en .el-loading-mask {
+  &:after {
+    content: "loading...";
+    width: auto;
+    position: absolute;
+    left: calc(50% - 20px);
+    top: calc(50% + 20px);
+  }
+}
+.set_sample_loading_text .el-loading-mask {
+  &:after {
+    content: "正在采样中，请稍后...";
+    width: auto;
+    position: absolute;
+    left: calc(50% - 54px);
+    top: calc(50% + 20px);
+  }
+}
+.body-for-dam_en .set_sample_loading_text .el-loading-mask {
+  &:after {
+    content: "loading...";
+    width: auto;
+    position: absolute;
+    left: calc(50% - 20px);
+    top: calc(50% + 20px);
+  }
+}
+.no-loading-text .el-loading-mask {
+  &:after {
+    content: "";
+    width: auto;
+    position: absolute;
+    left: calc(50% - 42px);
+    top: calc(50% + 20px);
+  }
+}
+
+@keyframes loading-rotate {
+  100% {
+    transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,144 @@
+.page-heading {
+  height: 100%;
+  .datablau-logo {
+    margin-right: 15px;
+  }
+  .logo-container {
+    position: relative;
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100%;
+    margin-left: -20px;
+    //width: 160px;
+  }
+  .right {
+    color: #e4e4e4;
+
+    .search-outer {
+      // border: 1px solid red;
+      display: inline-block;
+      width: 40px;
+      height: 100%;
+      // text-align: center;
+      color: var(--banner-color);
+      cursor: pointer;
+      opacity: 0.7;
+      transition: all 0.4s;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      .input-outer {
+        display: inline-block;
+        width: 100%;
+        padding-right: 15px;
+        padding-right: 16px;
+        text-align: right;
+        transition: all 0.8s;
+        // overflow: hidden;
+      }
+
+      &.show-search-input {
+        width: 200px;
+        cursor: default;
+        opacity: 1;
+      }
+    }
+
+    .img-search {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+      vertical-align: middle;
+      background: url('navIcon/search.png');
+      background-size: contain;
+    }
+
+    .downlod-ddm {
+      margin-right: 20px;
+
+      .down-btn {
+        opacity: 0.7;
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      i {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+        vertical-align: middle;
+      }
+
+      .img-download {
+        background: url('./navIcon/download.png');
+        background-size: contain;
+      }
+
+      .img-workbench {
+        background: url('./navIcon/workbench.png');
+        background-size: contain;
+      }
+    }
+  }
+}
+
+#logo {
+  display: inline-block;
+  height: 30px;
+  margin-top: 10px;
+  margin-left: -5px;
+}
+
+.right {
+  float: right;
+  height: 50px;
+  line-height: 50px;
+}
+
+.portrait {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin-right: 5px;
+  vertical-align: middle;
+  background: #fff;
+  border-radius: 15px;
+}
+
+.el-dropdown {
+  font-size: 12px;
+  color: #e4e4e4;
+  cursor: pointer;
+
+  &:hover .oneline-eclipse {
+    opacity: 1;
+  }
+  &:hover .iconfont {
+    opacity: 1;
+  }
+  .oneline-eclipse {
+    opacity: 0.7;
+  }
+}
+.top-icon {
+  &::before {
+    color: var(--banner-color);
+  }
+  position: relative;
+  margin-right: 1em;
+  color: #f7f7f7;
+
+  cursor: pointer;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+

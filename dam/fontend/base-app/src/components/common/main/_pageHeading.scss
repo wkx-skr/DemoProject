@@ -1,0 +1,234 @@
+@import '../../../assets/styles/const';
+
+.right-group {
+
+  position: absolute;
+  top: 60px;
+  right: 200px;
+  display: none;
+  float: right;
+  line-height: 50px;
+  outline: 1px solid pink;
+
+  &.dark {
+    i {
+      color: #f6f6f6;
+    }
+
+    input {
+      color: #fff;
+    }
+  }
+
+  input {
+    width: 300px;
+    height: 30px;
+    text-indent: 1em;
+    border: 1px solid #dfdfdd;
+
+    &:focus {
+      outline: 1px solid $cl-color;
+    }
+  }
+
+  i {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+
+    //color: #f6f6f6;
+    &.helpIcon {
+      position: relative;
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  i.hide-outline {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  i.search {
+    position: relative;
+    top: 3px;
+  }
+
+  .icon-i-search::before {
+    color: #a7abb5;
+  }
+
+  .userMenu {
+    float: right;
+    min-width: 80px;
+    max-width: 200px;
+    margin-right: 10px;
+    margin-left: 1em;
+    text-align: center;
+
+    .text {
+      display: inline-block;
+      min-width: 50px;
+      max-width: 170px;
+      height: 50px;
+      line-height: 48px;
+      vertical-align: middle;
+    }
+
+    &.ddc-home {
+      color: #fff;
+    }
+
+    &.ddc-home .text {
+      color: #fff;
+      opacity: 0.7;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .el-dropdown-link {
+
+      display: block;
+      height: 50px;
+      font-size: 12px;
+      text-align: center;
+      cursor: pointer;
+
+      .dark & {
+        color: #f1f5f7; //用于IE下显示
+        color: var(--heading-color);
+      }
+
+      .portrait {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  i.red-bgc {
+    color: red;
+  }
+}
+
+.top-icon {
+  position: relative;
+  top: 0.2em;
+  margin-left: 1em;
+  cursor: pointer;
+  opacity: 0.7;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+#no-logo {
+  display: inline-block;
+  width: 160px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  color: #fff;
+  text-indent: 2em;
+  background-color: #373f4b;
+
+  /* font-family:'楷体'; */
+  &.ext {
+    width: 60px;
+    color: #373f4b;
+  }
+}
+
+.logo-box {
+  display: inline-block;
+  height: 48px;
+  padding-bottom: 14px;
+  vertical-align: top;
+}
+
+#datablau-logo {
+  position: relative;
+  display: inline-block;
+  max-height: 50px;
+  overflow: hidden;
+  line-height: 50px;
+  cursor: pointer;
+
+  &.ddc-home {
+    background-color: transparent;
+  }
+
+  &.white {
+    background: #fff;
+  }
+
+  &:not(.other).ext {
+    width: 60px;
+
+    img {
+      position: absolute;
+      clip: rect(0, 34px, 55px, 0);
+    }
+  }
+
+  img {
+    display: inline-block;
+    align-items: center;
+    min-width: 160px;
+    height: 50px;
+    // width: 130px;
+    margin: 0 15px;
+  }
+
+  &.other {
+    img {
+      width: auto;
+      margin: 0;
+    }
+
+    &.ext {
+      img {
+        width: auto;
+        clip: unset;
+      }
+    }
+  }
+}
+
+.page-heading {
+  .down-btn {
+    margin-left: 4px;
+    color: #3a8ee6;
+    cursor: pointer;
+
+    i {
+      margin-right: 4px;
+      color: #22b14c;
+    }
+  }
+}
+
+.loading-log {
+  display: inline-block;
+  margin-left: 5px;
+  color: #3a8ee6;
+}
+
+.log-con-ul {
+
+  // text-align: center;
+  .log-item {
+    width: 100%;
+    //margin: 10px 0;
+    cursor: pointer;
+    // border: 1px solid red;
+  }
+
+  .default-svg-logo {
+    width: 160px;
+  }
+}

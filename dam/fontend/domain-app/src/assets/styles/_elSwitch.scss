@@ -1,0 +1,20 @@
+.el-switch__core {
+  width: 33px !important;
+  height: 10px;
+  background-color: #dbdbdb;
+}
+.el-switch.is-checked .el-switch__core {
+  background-color: #ebf1fa;
+  border-color: transparent;
+}
+
+.el-switch__core::after {
+  top: -4px;
+  left: -2px;
+  box-shadow: 0 0 6px #e0e0e0;
+}
+.el-switch.is-checked .el-switch__core::after {
+  background-color: #4386f5;
+  box-shadow: 0 0 6px #a3c8ff;
+}
+

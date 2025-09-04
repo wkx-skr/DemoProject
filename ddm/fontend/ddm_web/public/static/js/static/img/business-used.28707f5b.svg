@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="14px" height="14px" viewBox="0 0 14 14" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>树-表-次</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="菜单样式" transform="translate(-354.000000, -422.000000)">
+            <g id="左侧菜单-数据模型" transform="translate(42.000000, 41.000000)">
+                <g id="左侧菜单备份-11" transform="translate(282.000000, 118.000000)">
+                    <g id="业务对象" transform="translate(0.000000, 225.000000)">
+                        <g id="编组备份-13" transform="translate(0.000000, 30.000000)">
+                            <g id="树-表-次" transform="translate(30.000000, 8.000000)">
+                                <path d="M0,14 L0,3 L1,3 L1,13 L13,13 L13,3 L14,3 L14,14 L0,14 Z" id="形状结合" fill="#999999"></path>
+                                <g id="编组-4" transform="translate(3.000000, 3.925742)" fill="#539FFD">
+                                    <path d="M8,0.0742576596 L8,6.07425766 L6,6.07425766 L6,5.07425766 L7,5.07425766 L7,1.07425766 L3,1.07425766 L3,2.07425766 L2,2.07425766 L2,0.0742576596 L8,0.0742576596 Z" id="形状结合" fill-rule="nonzero"></path>
+                                    <polygon id="矩形" transform="translate(6.646447, 6.720704) rotate(-315.000000) translate(-6.646447, -6.720704) " points="6.14644661 5.30649071 7.14644661 5.30649071 7.14644661 8.13491783 6.14644661 8.13491783"></polygon>
+                                    <polygon id="矩形备份-90" transform="translate(1.355278, 1.426926) rotate(-315.000000) translate(-1.355278, -1.426926) " points="0.855871982 0.0108678391 1.85587198 0.0108678391 1.85468405 2.842985 0.854684048 2.842985"></polygon>
+                                    <polygon id="矩形备份-76" transform="translate(6.567224, 1.500000) rotate(-315.000000) translate(-6.567224, -1.500000) " points="6.06246591 2.72848411e-12 7.06246591 2.72848411e-12 7.07198233 3 6.07198233 3"></polygon>
+                                    <path d="M6,2.07425766 L6,8.07425766 L0,8.07425766 L0,2.07425766 L6,2.07425766 Z M5,3.07425766 L1,3.07425766 L1,7.07425766 L5,7.07425766 L5,3.07425766 Z" id="矩形" fill-rule="nonzero"></path>
+                                </g>
+                                <rect id="矩形备份-19" fill="#539FFD" x="0" y="0" width="14" height="3"></rect>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

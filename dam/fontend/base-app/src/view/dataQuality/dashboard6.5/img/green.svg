@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="8px" viewBox="0 0 24 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>形状结合</title>
+    <g id="6.5dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="dashboard-全局筛选" transform="translate(-1765.000000, -1755.000000)" fill="#3AD1BF">
+            <g id="逾期分布" transform="translate(1045.000000, 1694.000000)">
+                <g id="注释" transform="translate(630.000000, 44.000000)">
+                    <g id="图例" transform="translate(90.000000, 0.000000)">
+                        <path d="M12,17 C13.8639271,17 15.4300871,18.2748927 15.8740452,20.0002435 L24,20 L24,22 L15.8737865,22.0007613 C15.429479,23.7256022 13.8635652,25 12,25 C10.1364348,25 8.57052105,23.7256022 8.12621352,22.0007613 L0,22 L0,20 L8.12595483,20.0002435 C8.56991294,18.2748927 10.1360729,17 12,17 Z M12,19 C10.8954305,19 10,19.8954305 10,21 C10,22.1045695 10.8954305,23 12,23 C13.1045695,23 14,22.1045695 14,21 C14,19.8954305 13.1045695,19 12,19 Z" id="形状结合"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

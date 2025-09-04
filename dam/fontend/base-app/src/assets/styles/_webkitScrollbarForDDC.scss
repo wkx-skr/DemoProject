@@ -1,0 +1,33 @@
+* {
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  /* 槽 */
+  ::-webkit-scrollbar-track {
+    //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+  }
+
+  /* 滑块 */
+  ::-webkit-scrollbar-thumb {
+    //background:#F5F5F5;
+    //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    cursor: default !important;
+    background: #bbb;
+    border-radius: 10px;
+  }
+  ::-webkit-scrollbar-thumb:window-inactive {
+    //background: rgba(255,0,0,0.4);
+    //background:#F5F5F5;
+  }
+  //&:hover {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  //}
+}
+

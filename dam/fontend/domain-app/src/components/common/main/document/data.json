@@ -1,0 +1,90 @@
+{
+  "metaData": {
+    "dataCatalog": [{
+      "function": "摘要",
+      "version": "5.6",
+      "description": "摘要里包含描述、字段信息（表和视图）、人与组织、元数据分组、系统属性等信息",
+      "access": ""
+    },{
+      "function": "字段信息",
+      "version": "5.6",
+      "description": "表和视图有字段信息，支持搜索",
+      "access": ""
+    },{
+      "function": "采样数据",
+      "version": "5.6",
+      "description": "表和视图有此项。内容实时获取，空白说明没有抽取到信息。",
+      "access": ""
+    },{
+      "function": "血缘关系",
+      "version": "5.6",
+      "description": "表和字段均有血缘关系。视图、存储过程和函数, 血缘关系项显示的是解析出的表和视图，有血缘关系的情况下（如oracle数据源），才会绘制血缘关系图。表和字段血缘有导出excel、血缘关系、影响分析、数据库、字段选项。视图/存储过程/函数有解绑、重新解析、显示全部过程、字段选项",
+      "access": ""
+    },
+      {
+        "function": "知识图谱",
+        "version": "5.6",
+        "description": "",
+        "access": ""
+      },
+      {
+        "function": "API",
+        "version": "5.6",
+        "description": "",
+        "access": ""
+      },
+      {
+        "function": "数据质量",
+        "version": "5.6",
+        "description": "",
+        "access": ""
+      },
+      {
+        "function": "变更历史",
+        "version": "5.6",
+        "description": "",
+        "access": ""
+      },
+      {
+        "function": "sql语句",
+        "version": "5.6",
+        "description": "",
+        "access": ""
+      },
+      {
+        "function": "问答",
+        "version": "5.6",
+        "description": "",
+        "access": ""
+      },
+      {
+        "function": "数据安全",
+        "version": "5.7",
+        "description": "新增数据安全模块，包括数据分类分级、数据智能识别、数据脱敏、数据申请等",
+        "access": ""
+      },
+      {
+        "function": "数据服务",
+        "version": "5.7",
+        "description": "展示数据服务模块发布的 API, 可以在元数据页面申请相关 API",
+        "access": ""
+      }
+    ],
+    "reportFormManage": [
+      {
+        "function": "功能点",
+        "version": "5.6,5.7",
+        "description": "描述",
+        "access": "权限"
+      }
+    ]
+  },
+  "dataQualityReport": {
+    "dataQualityDashboard": [{
+      "function": "基础框架编辑",
+      "version": "5.7",
+      "description": "可以在顶部、左侧、右侧三个区域内部进行组件选取和调整书顺序",
+      "access": "超管"
+    }]
+  }
+}

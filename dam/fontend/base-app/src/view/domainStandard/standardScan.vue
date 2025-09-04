@@ -1,0 +1,866 @@
+<template>
+  <div
+    id="standard-scan"
+    style="overflow-y: auto; overflow-x: hidden; height: 100%"
+    v-if="getData"
+    class="standard-scan-page"
+  >
+    <slot></slot>
+    <datablau-dialog
+      :title="$version.domain.viewCode"
+      width="850px"
+      append-to-body
+      :visible.sync="codeDialogVisible"
+    >
+      <div class="content">
+        <view-code :code="code" :key="code"></view-code>
+      </div>
+      <span slot="footer">
+        <datablau-button @click="codeDialogVisible = false">
+          {{ $t('domain.common.close') }}
+        </datablau-button>
+      </span>
+    </datablau-dialog>
+    <datablau-dialog
+      :title="$t('version.map')"
+      fullscreen
+      :visible.sync="mapVisible"
+      v-if="mapVisible"
+    >
+      <div style="position: absolute; top: 50px; left: 0; bottom: 0; right: 0">
+        <datablau-property-map
+          data-type="domain"
+          :data-id="details.domainId"
+          :data-name="details.chineseName"
+        ></datablau-property-map>
+      </div>
+    </datablau-dialog>
+    <div class="datablau-breadcrumb-header" v-if="!hideHeader">
+      <div>
+        <datablau-breadcrumb
+          @back="goBack"
+          :node-data="nodeData"
+          :couldClick="false"
+        ></datablau-breadcrumb>
+      </div>
+    </div>
+    <div class="detail-box" style="padding-bottom: 20px">
+      <div class="title-line clearfix">
+        <div class="text-box">
+          <div class="left-box">
+            <datablau-icon
+              v-if="details && details.categoryId === 2"
+              data-type="index"
+              key="index"
+              :isIcon="true"
+              :size="42"
+            ></datablau-icon>
+            <datablau-icon
+              v-if="details && details.categoryId !== 2"
+              data-type="dataStandard"
+              key="dataStandard"
+              :size="42"
+            ></datablau-icon>
+          </div>
+          <div class="right-box">
+            <div class="top-box">
+              <h2>{{ details.chineseName }}</h2>
+              <el-button
+                v-if="
+                  $auth['DATA_STANDARD_EDIT'] &&
+                  categoryTypeId === 2 &&
+                  !hideDerive
+                "
+                :title="$t('domain.domain.derive')"
+                size="mini"
+                icon="fa fa-link"
+                type="text"
+                @click="handleDerive"
+                style="margin-left: 20px"
+              >
+                {{ $t('domain.domain.derive') }}
+              </el-button>
+            </div>
+            <div class="text-row">
+              <p>{{ details.domainCode }}</p>
+              <!-- <div class="img">
+              <datablau-icon  data-type="table" :size="15" ></datablau-icon>
+            </div> -->
+            </div>
+          </div>
+        </div>
+        <el-button
+          v-if="
+            writable &&
+            $auth['DATA_STANDARD_EDIT'] &&
+            stas !== 'false' &&
+            hasEditAuth
+          "
+          type="primary"
+          class="btn-right"
+          :title="$t('common.button.edit')"
+          size="mini"
+          @click="handleEdit"
+        >
+          {{ $t('common.button.edit') }}
+        </el-button>
+        <div class="sub-button">
+          <datablau-subscribe
+            v-if="
+              details.state === 'A' &&
+              details.path &&
+              stas !== 'false' &&
+              useDam
+            "
+            style="margin: 1px 2em; vertical-align: top"
+            type-id="80010066"
+            display-type="buttonWithIcon"
+            :object-name="details.path.join('/') + '/' + details.chineseName"
+            :object-id="details.domainId"
+            :domainFolderId="details.categoryId"
+          ></datablau-subscribe>
+        </div>
+        <white-list
+          style="float: right; margin-right: 10px"
+          v-if="dataSecurity && data && data.domainId"
+          :itemId="data.domainId"
+          :itemType="80010066"
+        ></white-list>
+        <div class="right-button-box" v-if="useDam || useWorkflow">
+          <div class="status-box" v-if="useWorkflow">
+            <div class="title">{{ $t('domain.common.publishStatus') }}</div>
+            <div class="status">
+              <span
+                :style="`background-color:${getStatusColor}`"
+                class="circle"
+              ></span>
+              <span :style="`color:${getStatusColor}`">
+                {{ getStatusText }}
+              </span>
+            </div>
+          </div>
+          <div class="vote" v-if="useDam">
+            <div class="title">{{ $t('domain.common.score') }}</div>
+            <el-rate disabled v-model="vote"></el-rate>
+          </div>
+          <div class="visit-box" v-if="useDam">
+            <div class="title change">{{ $t('domain.domain.visitCount') }}</div>
+            <p>{{ this.visit }}</p>
+          </div>
+        </div>
+        <div
+          class="sup-name"
+          v-if="
+            categoryTypeId === 2 &&
+            this.parentDomain &&
+            this.parentDomain.chineseName
+          "
+          :title="this.parentDomain.chineseName"
+        >
+          <i class="fa fa-link"></i>
+          <span>{{ this.parentDomain.chineseName }}</span>
+        </div>
+        <el-alert
+          v-if="domainHasComment.has(details.domainId)"
+          style="margin-top: 1em"
+          type="error"
+          show-icon
+          :title="$t('domain.common.applyDeny')"
+          :description="
+            domainHasComment.get(details.domainId)
+              ? $t('domain.domain.reason') +
+                $t('domain.common.colon') +
+                domainHasComment.get(details.domainId)
+              : ''
+          "
+        ></el-alert>
+      </div>
+      <datablau-tabs
+        style="margin-left: 20px; margin-right: 20px"
+        v-if="!dataSecurity"
+        v-model="activeName"
+        @tab-click="handleClick"
+      >
+        <el-tab-pane :label="$t('domain.domain.infoShow')" name="first">
+          <div class="descriptionMessage-title">
+            <p class="message-title">{{ $t('domain.domain.baseInfo') }}</p>
+          </div>
+          <div class="description-line">
+            <div class="details-box">
+              <div class="detail" v-if="parentDomainName !== ''">
+                <span class="label">
+                  {{ $t('domain.domainStandard.parentDomain') }}
+                </span>
+                <span class="value">
+                  <datablau-button type="text" @click="goParentDomain">
+                    {{ parentDomainName }}
+                  </datablau-button>
+                </span>
+              </div>
+              <div class="detail" data-id="domainChName">
+                <span class="label">
+                  {{ $version.domain.property.domainChName }}
+                </span>
+                <span class="value">{{ details.chineseName }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">{{ labelText.domainCode }}</span>
+                <span class="value">{{ details.domainCode }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.domainEnName }}
+                </span>
+                <span class="value">{{ details.englishName }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.domainAbbr }}
+                </span>
+                <span class="value">{{ details.abbreviation }}</span>
+              </div>
+              <div
+                id="long-text"
+                class="detail"
+                v-for="(udp, index) in additionalProperties.filter(
+                  e => e.catalog === $t('domain.domain.standardProp')
+                )"
+                :key="index"
+              >
+                <span class="label">{{ udp.name }}</span>
+                <div style="display: inline-block">
+                  <span style="white-space: pre-wrap">{{ udp.value }}</span>
+                </div>
+              </div>
+              <div class="detail" style="width: 1000px">
+                <span class="label">{{ $version.domain.property.theme }}</span>
+                <span class="value" style="width: 500px">
+                  <!-- <span class="icon-i-folder">
+                    <span class="path1"></span>
+                    <span class="path3"></span>
+                  </span> -->
+                  <i class="iconfont icon-file"></i>
+                  {{ details.path ? details.path.join('/') : '' }}
+                </span>
+              </div>
+              <div class="detail broader">
+                <span class="label">
+                  {{ $t('domain.domainStandard.domainDefine') }}
+                </span>
+                <span class="value" v-html="nl2br(details.description)"></span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="prop-line alg-line"
+            v-if="
+              additionalProperties.filter(
+                e => e.catalog === $t('domain.domain.businessProp')
+              ).length !== 0
+            "
+          >
+            <div class="descriptionMessage-title">
+              <p class="message-title">
+                {{ $version.domain.propertyType.business }}
+              </p>
+            </div>
+            <div class="details-box">
+              <!-- <div class="detail broader">
+                <span class="label">
+                  {{ $version.domain.property.description }}
+                </span>
+                <span class="value" v-html="nl2br(details.description)"></span>
+              </div>
+              <div class="detail broader" style="display: none"></div>
+              <div id="long-text" class="detail">
+                <span class="label">
+                  {{ $version.domain.property.businessRule }}
+                </span>
+                <span class="value" v-html="nl2br(details.businessRule)"></span>
+              </div>
+              <div id="long-text" class="detail">
+                <span class="label">{{ $version.domain.property.source }}</span>
+                <span class="value" v-html="nl2br(details.source)"></span>
+              </div>
+              <div id="long-text" class="detail">
+                <span class="label">
+                  {{ $version.domain.property.synonym }}
+                </span>
+                <span class="value" v-html="nl2br(details.synonym)"></span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.authCategoryId }}
+                </span>
+                <span
+                  class="value"
+                  v-html="nl2br(details.authCategoryName)"
+                ></span>
+              </div>
+              <div id="long-text" class="detail" v-if="categoryTypeId === 2">
+                <span class="label">
+                  {{ $version.domain.property.function }}
+                </span>
+                <span class="value" v-html="nl2br(details.function)"></span>
+              </div>
+              <div id="long-text" class="detail" v-if="categoryTypeId === 2">
+                <span class="label">
+                  {{ $version.domain.property.measureUnit }}
+                </span>
+                <span class="value" v-html="nl2br(details.measureUnit)"></span>
+              </div>
+              <div id="long-text" class="detail" v-if="categoryTypeId === 2">
+                <span class="label">
+                  {{ $version.domain.property.monitorObjects }}
+                </span>
+                <span
+                  class="value"
+                  v-html="nl2br(details.monitorObjects)"
+                ></span>
+              </div> -->
+              <div
+                id="long-text"
+                class="detail"
+                v-for="(udp, index) in additionalProperties.filter(
+                  e => e.catalog === $t('domain.domain.businessProp')
+                )"
+                :key="index"
+              >
+                <span class="label">{{ udp.name }}</span>
+                <div style="display: inline-block">
+                  <span style="white-space: pre-wrap">{{ udp.value }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="prop-line alg-line">
+            <div class="descriptionMessage-title">
+              <p class="message-title">
+                {{ $version.domain.propertyType.technology }}
+              </p>
+            </div>
+            <div class="details-box">
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.rangeType }}
+                </span>
+                <span class="value">{{ details.rangeType }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.dataType }}
+                </span>
+                <span class="value">{{ details.dataType }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.dataScale }}
+                </span>
+                <span class="value">{{ details.dataScale }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.dataPrecision }}
+                </span>
+                <span class="value">{{ details.dataPrecision }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.notNull }}
+                </span>
+                <span class="value">
+                  {{
+                    details.notNull
+                      ? $t('domain.common.true')
+                      : $t('domain.common.false')
+                  }}
+                </span>
+              </div>
+              <div id="long-text" class="detail">
+                <span class="label">
+                  {{ $version.domain.property.dataFormat }}
+                </span>
+                <span class="value">{{ details.dataFormat }}</span>
+              </div>
+              <div
+                id="long-text"
+                class="detail"
+                v-for="(udp, index) in additionalProperties.filter(
+                  e => e.catalog === $t('domain.domain.techProp')
+                )"
+                :key="index"
+              >
+                <span class="label">{{ udp.name }}</span>
+                <div style="display: inline-block">
+                  <span style="white-space: pre-wrap">{{ udp.value }}</span>
+                </div>
+              </div>
+              <div class="detail" v-if="categoryTypeId !== 2">
+                <span class="label">
+                  {{ $version.domain.property.referenceCode }}
+                </span>
+                <span class="value" style="margin-left: 0.1em; color: #479eff">
+                  <span
+                    style="cursor: pointer"
+                    @click="viewCode(details.referenceCode)"
+                  >
+                    {{ details.referenceCode }}
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="prop-line alg-line">
+            <div class="descriptionMessage-title">
+              <p class="message-title">
+                {{ $version.domain.propertyType.management }}
+              </p>
+            </div>
+            <div class="details-box">
+              <div class="detail">
+                <span class="label">
+                  {{ $t('domain.domain.tecDefinitionDep') }}
+                </span>
+                <span class="value">
+                  {{ details.descriptionDepartmentName }}
+                </span>
+              </div>
+              <!-- <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.ownerOrg }}
+                </span>
+                <span class="value">{{ details.ownerOrgName }}</span>
+              </div> -->
+              <div class="detail" v-if="categoryTypeId === 2">
+                <span class="label">
+                  {{ $version.domain.property.parentCode }}
+                </span>
+                <span class="value">{{ details.parentCode }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.domain.property.submitter }}
+                </span>
+                <span class="value">{{ details.submitter }}</span>
+              </div>
+              <div class="detail">
+                <span class="label">{{ $t('domain.domain.createTime') }}</span>
+                <span class="value">
+                  {{ $timeFormatter(details.createTime) }}
+                </span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $version.tableHeader.publishTime }}
+                </span>
+                <span class="value">
+                  {{ $timeFormatter(details.firstPublish) }}
+                </span>
+              </div>
+              <div class="detail">
+                <span class="label">
+                  {{ $t('domain.domain.lastUpdateTime') }}
+                </span>
+                <span class="value">
+                  {{ $timeFormatter(details.lastModification) }}
+                </span>
+              </div>
+              <div
+                id="long-text"
+                class="detail"
+                v-for="(udp, index) in additionalProperties.filter(
+                  e => e.catalog === $t('domain.domain.manageProp')
+                )"
+                :key="index"
+              >
+                <span class="label">{{ udp.name }}</span>
+                <div style="display: inline-block">
+                  <span style="white-space: pre-wrap">{{ udp.value }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane :label="$t('domain.domain.quoteInfo')" name="second">
+          <div style="padding: 0" class="prop-line alg-line">
+            <div
+              class="descriptionMessage-title"
+              style="margin-bottom: 20px"
+              v-if="useDam"
+            >
+              <p class="message-title">
+                {{ $t('domain.domain.dataDomainReference') }}
+              </p>
+            </div>
+            <quoto
+              v-if="activeName === 'second'"
+              :domainId="details.domainId"
+              :domainCode="details.domainCode"
+              :key="details.domainId"
+            ></quoto>
+            <div class="descriptionMessage-title" style="margin-bottom: 20px">
+              <p class="message-title">
+                {{ $t('domain.domain.relationDocuments') }}
+              </p>
+            </div>
+            <relation-doc
+              :hideEdit="true"
+              :documentsIds="details.documentIds"
+              :useDam="false"
+            ></relation-doc>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          v-if="useDam && $knowledgeGraphEnabled && details.categoryId !== 3"
+          :label="$t('meta.DS.tableDetail.knowledgeGraph.label')"
+          name="third"
+        >
+          <knowledgeGraph
+            v-if="activeName === 'third'"
+            ref="knowledgeGraph"
+            :summary="{ properties: { Id: data.domainId, TypeId: '80010066' } }"
+          ></knowledgeGraph>
+        </el-tab-pane>
+        <el-tab-pane :label="$t('domain.domain.changeHistory')" name="fourth">
+          <div style="padding-top: 0" class="prop-line alg-line">
+            <div class="title">{{ $version.domain.propertyType.version }}</div>
+            <!-- <div class="line"></div> -->
+            <version
+              v-if="activeName === 'fourth'"
+              :typeIds="typeIds"
+              :domainId="details.domainId"
+              :key="details.domainId"
+              :udps="udps"
+            ></version>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('domain.domain.questionAndAnswer')"
+          name="fifth"
+          v-if="useDam"
+        >
+          <comment
+            v-if="activeName === 'fifth'"
+            :objectId="data.domainId"
+            :showRate="true"
+            :typeId="80010066"
+            :typeCategoryId="details.categoryId === 1 ? 80010066 : 82800003"
+            @rateSubmitSuccess="updateRate"
+          ></comment>
+        </el-tab-pane>
+      </datablau-tabs>
+      <div v-else style="padding: 0 20px">
+        <div class="descriptionMessage-title" style="margin-top: 20px">
+          <p class="message-title">{{ $t('domain.domain.baseInfo') }}</p>
+        </div>
+        <div class="description-line">
+          <!-- <div class="description" v-html="details.description"></div> -->
+          <div class="details-box">
+            <div class="detail" data-id="domainChName">
+              <span class="label">
+                {{ $version.domain.property.domainChName }}
+              </span>
+              <span class="value">{{ details.chineseName }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ labelText.domainCode }}</span>
+              <span class="value">{{ details.domainCode }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.domainEnName }}
+              </span>
+              <span class="value">{{ details.englishName }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.domainAbbr }}
+              </span>
+              <span class="value">{{ details.abbreviation }}</span>
+            </div>
+            <div class="detail" v-if="categoryTypeId !== 2">
+              <span class="label">
+                {{ $version.domain.property.referenceCode }}
+              </span>
+              <span
+                class="value"
+                @click="viewCode(details.referenceCode)"
+                style="margin-left: 0.1em; color: #479eff; cursor: pointer"
+              >
+                {{ details.referenceCode }}
+              </span>
+            </div>
+            <div
+              class="detail"
+              v-for="(udp, index) in additionalProperties.filter(
+                e => e.catalog === $t('domain.domain.standardProp')
+              )"
+              :key="index"
+            >
+              <span class="label">{{ udp.name }}</span>
+              <div style="display: inline-block">
+                <span style="white-space: pre-wrap">{{ udp.value }}</span>
+              </div>
+            </div>
+            <div class="detail" style="width: 800px">
+              <span class="label">{{ $version.domain.property.theme }}</span>
+              <span class="value" style="width: 500px">
+                <i class="iconfont icon-file"></i>
+                {{ details.path ? details.path.join('/') : '' }}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="prop-line alg-line" style="padding-top: 20px">
+          <div class="descriptionMessage-title">
+            <p class="message-title">
+              {{ $version.domain.propertyType.business }}
+            </p>
+          </div>
+          <div class="details-box">
+            <div class="detail broader">
+              <span class="label">
+                {{ $version.domain.property.description }}
+              </span>
+              <span class="value" v-html="nl2br(details.description)"></span>
+            </div>
+            <div class="detail broader" style="display: none"></div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.businessRule }}
+              </span>
+              <span class="value" v-html="nl2br(details.businessRule)"></span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $version.domain.property.source }}</span>
+              <span class="value" v-html="nl2br(details.source)"></span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $version.domain.property.synonym }}</span>
+              <span class="value" v-html="nl2br(details.synonym)"></span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.authCategoryId }}
+              </span>
+              <span
+                class="value"
+                v-html="nl2br(details.authCategoryName)"
+              ></span>
+            </div>
+            <div id="long-text" class="detail" v-if="categoryTypeId === 2">
+              <span class="label">{{ $version.domain.property.function }}</span>
+              <span class="value" v-html="nl2br(details.function)"></span>
+            </div>
+            <div id="long-text" class="detail" v-if="categoryTypeId === 2">
+              <span class="label">
+                {{ $version.domain.property.measureUnit }}
+              </span>
+              <span class="value" v-html="nl2br(details.measureUnit)"></span>
+            </div>
+            <div id="long-text" class="detail" v-if="categoryTypeId === 2">
+              <span class="label">
+                {{ $version.domain.property.monitorObjects }}
+              </span>
+              <span class="value" v-html="nl2br(details.monitorObjects)"></span>
+            </div>
+            <div
+              class="detail"
+              v-for="(udp, index) in additionalProperties.filter(
+                e => e.catalog === $t('domain.domain.businessProp')
+              )"
+              :key="index"
+            >
+              <span class="label">{{ udp.name }}</span>
+              <div style="display: inline-block">
+                <span style="white-space: pre-wrap">{{ udp.value }}</span>
+              </div>
+            </div>
+            <br v-if="categoryTypeId === 2" />
+            <div class="detail" v-if="categoryTypeId === 2">
+              <span class="label">{{ $version.domain.property.dim }}</span>
+              <span class="value" v-html="dimCodeStr"></span>
+              <span class="value" v-if="false">
+                <span class="list-outer" style="max-width: 80%">
+                  <span
+                    v-for="d in details.dimCodes"
+                    v-if="d.catalog.dimensionType === 'NORMAL'"
+                  >
+                    {{ d.catalog.catalog }} / {{ d.value }}
+                    <br />
+                  </span>
+                </span>
+              </span>
+            </div>
+            <br />
+            <!-- <div class="detail">
+            <span class="label">{{$version.domain.property.relationDocuments}}</span>
+          </div> -->
+            <!-- <div class="list-outer" style="max-width: 80%;">
+
+          </div> -->
+            <div class="detail2">
+              <span class="label">
+                {{
+                  $t('domain.domain.referenceTypeDomain', {
+                    domainType: labelText.nameAbbr,
+                  })
+                }}
+              </span>
+            </div>
+            <div class="list-outer">
+              <relation-domain-list
+                :domainCodes="details.relationDomain"
+                :categoryTypeId="categoryTypeId"
+              ></relation-domain-list>
+            </div>
+          </div>
+        </div>
+        <div class="prop-line alg-line">
+          <div class="descriptionMessage-title">
+            <p class="message-title">
+              {{ $version.domain.propertyType.management }}
+            </p>
+          </div>
+          <div class="details-box">
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.descriptionDepartment }}
+              </span>
+              <span class="value">{{ details.descriptionDepartmentName }}</span>
+            </div>
+            <div class="detail" v-if="categoryTypeId === 2">
+              <span class="label">
+                {{ $version.domain.property.parentCode }}
+              </span>
+              <span class="value">{{ details.parentCode }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.submitter }}
+              </span>
+              <span class="value">{{ details.submitter }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $t('domain.domain.createTime') }}</span>
+              <span class="value">
+                {{ $timeFormatter(details.createTime) }}
+              </span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $version.tableHeader.publishTime }}</span>
+              <span class="value">
+                {{ $timeFormatter(details.firstPublish) }}
+              </span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $t('domain.domain.lastUpdateTime') }}
+              </span>
+              <span class="value">
+                {{ $timeFormatter(details.lastModification) }}
+              </span>
+            </div>
+            <div
+              class="detail"
+              v-for="(udp, index) in additionalProperties.filter(
+                e => e.catalog === $t('domain.domain.domain')
+              )"
+              :key="index"
+            >
+              <span class="label">{{ udp.name }}</span>
+              <div style="display: inline-block">
+                <span style="white-space: pre-wrap">{{ udp.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="prop-line alg-line">
+          <div class="descriptionMessage-title">
+            <p class="message-title">
+              {{ $version.domain.propertyType.technology }}
+            </p>
+          </div>
+          <div class="details-box">
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.rangeType }}
+              </span>
+              <span class="value">{{ details.rangeType }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $version.domain.property.dataType }}</span>
+              <span class="value">{{ details.dataType }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.dataScale }}
+              </span>
+              <span class="value">{{ details.dataScale }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">
+                {{ $version.domain.property.dataPrecision }}
+              </span>
+              <span class="value">{{ details.dataPrecision }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $version.domain.property.notNull }}</span>
+              <span class="value">
+                {{
+                  details.notNull
+                    ? $t('domain.common.true')
+                    : $t('domain.common.false')
+                }}
+              </span>
+            </div>
+            <div id="long-text" class="detail">
+              <span class="label">
+                {{ $version.domain.property.dataFormat }}
+              </span>
+              <span class="value">{{ details.dataFormat }}</span>
+            </div>
+            <div class="detail">
+              <span class="label">{{ $version.domain.property.ownerOrg }}</span>
+              <span class="value">{{ details.ownerOrgName }}</span>
+            </div>
+            <div
+              class="detail"
+              v-for="(udp, index) in additionalProperties.filter(
+                e => e.catalog === $t('domain.domain.techProp')
+              )"
+              :key="index"
+            >
+              <span class="label">{{ udp.name }}</span>
+              <div style="display: inline-block">
+                <span style="white-space: pre-wrap">{{ udp.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+<script>
+import scan from './standardScan'
+export default scan
+</script>
+<style lang="scss" scoped>
+@import './standardScan';
+</style>
+<style lang="scss">
+#standard-scan {
+  //重写部分知识图谱的样式，适应当前页面
+  #network_id {
+    height: 72vh !important;
+  }
+  .el-tabs__content {
+    min-height: 778px;
+  }
+  .el-tabs__nav-wrap::after {
+    height: 1px;
+  }
+}
+</style>

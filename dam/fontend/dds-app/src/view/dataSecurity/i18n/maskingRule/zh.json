@@ -1,0 +1,33 @@
+{
+  "?maskingRule": "脱敏规则详情",
+  "maskingRule": {
+    "title": "脱敏规则",
+    "importMaskRule": "导入脱敏规则",
+    "importFileType": "仅支持上传单个文件，支持上传文件格式为：xlsx",
+    "exportTem": "下载模板",
+    "importFile": "上传文件",
+    "searchName": "搜索名称",
+    "inCatalog": "所在目录",
+    "databaseType": "支持数据库类型",
+    "databaseType1": "数据库类型",
+    "ruleContent": "规则内容",
+    "selFileType": "请选择xlsx格式文件",
+    "onlyImportType": "只能上传xlsx格式的文件",
+    "maskingRuleTem": "脱敏规则模板",
+    "viewRule": "查看脱敏规则",
+    "editRule": "编辑脱敏规则",
+    "newRule": "新建脱敏规则",
+    "insertAttr": "插入字段参数",
+    "ruleSuportFun": "规则内容支持各数据库的函数",
+    "inputContentTip": "规则内容中没有[[column]]占位符",
+    "insertError": "插入位置错误",
+    "selTestColumn": "选择测试字段",
+    "test": "测试",
+    "testResult": "测试结果",
+    "testFail": "测试失败",
+    "testSuccess": "测试成功",
+    "runSql": "执行SQL语句：",
+    "delTip": "（脱敏规则被引用不允许删除）",
+    "delFailTip": "删除失败：{num}条"
+  }
+}

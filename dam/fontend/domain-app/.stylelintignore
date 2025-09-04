@@ -1,0 +1,12 @@
+# Ignore artifacts:
+node_modules
+/dist/
+/public/
+/static/
+/tests/
+/zip_dist/
+/src/**/*.sass
+
+# Ignore all HTML files:
+# *.html
+# *.ts

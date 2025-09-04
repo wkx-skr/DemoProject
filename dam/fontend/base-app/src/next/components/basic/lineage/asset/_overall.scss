@@ -1,0 +1,34 @@
+.l-6dot2 {
+  .shape .shape-item {
+    padding: 0 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .group .shape-item {
+    height: 30px;
+    line-height: 30px;
+    cursor: move;
+    background-color: #ddd;
+  }
+  .table {
+    cursor: move;
+  }
+  .column {
+    cursor: pointer;
+  }
+  .shape .column {
+    &:hover {
+      background-color: #f6ecd8;
+    }
+  }
+  .highlight .column {
+    background-color: #f6ecd8;
+  }
+}
+
+.drag-rect {
+  position: absolute;
+  cursor: pointer;
+  border: 1px dashed #409eff;
+}

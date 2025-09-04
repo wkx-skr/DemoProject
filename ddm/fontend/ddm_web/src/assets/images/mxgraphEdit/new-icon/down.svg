@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 16</title>
+    <g id="1px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="light-树备份" transform="translate(-1381.000000, -604.000000)">
+            <g id="编组-16" transform="translate(1381.000000, 604.000000)">
+                <polygon id="矩形备份-67" fill-opacity="0.3" fill="#539FFD" points="8 6.88244629 10.8649292 5.44458008 16 8 8 12 0 8 5.12841797 5.44458008"></polygon>
+                <path d="M11,13 L8,16 L5,13 L11,13 Z M10.8649292,5.44458008 L16,8 L8,12 L0,8 L5.12841797,5.44458008 L8,6.88244629 L10.8649292,5.44458008 Z M10.867,6.562 L8.00051973,8.00106389 L5.127,6.562 L2.239,8.001 L8,10.881 L13.759,8.002 L10.867,6.562 Z" id="形状结合" fill="#539FFD" fill-rule="nonzero"></path>
+                <path d="M8,0 L16,4 L8,8 L0,4 L8,0 Z M8,1.118 L2.236,4 L8,6.881 L13.763,4 L8,1.118 Z" id="矩形" fill="#999999" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

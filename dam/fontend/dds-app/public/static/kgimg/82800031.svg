@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 15</title>
+    <g id="dam-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="资产状态" transform="translate(-1411.000000, -88.000000)">
+            <g id="编组-15" transform="translate(1411.000000, 88.000000)">
+                <circle id="椭圆形备份-18" fill="#FAF5FC" cx="32" cy="32" r="32"></circle>
+                <g id="编组-26" transform="translate(16.000000, 16.000000)">
+                    <rect id="矩形" fill="#CA8FDE" x="2" y="0" width="2" height="32" rx="1"></rect>
+                    <rect id="矩形" fill="#CA8FDE" x="0" y="28" width="32" height="2" rx="1"></rect>
+                    <circle id="椭圆形备份-12" fill="#DFACF0" cx="3" cy="3" r="3"></circle>
+                    <circle id="椭圆形备份-15" fill="#DFACF0" cx="29" cy="29" r="3"></circle>
+                    <circle id="椭圆形备份-16" fill="#DFACF0" cx="3" cy="29" r="3"></circle>
+                </g>
+                <g id="编组-36" transform="translate(21.746888, 13.324078)">
+                    <polygon id="矩形备份-22" stroke="#BA78D1" stroke-width="2" transform="translate(12.818083, 21.175922) rotate(45.000000) translate(-12.818083, -21.175922) " points="9.2678307 17.6256696 20.2427044 13.7513009 16.3683358 24.7261747 5.39346203 28.6005433"></polygon>
+                    <path d="M17.1521244,25.5099633 L21.8818368,12.1121685 L8.48404205,16.8418809 L3.75432966,30.2396757 L17.1521244,25.5099633 Z M18.6030832,15.3900832 L15.5840832,23.9420832 L7.03208323,26.9610832 L10.0510832,18.4090832 L18.6030832,15.3900832 Z" id="矩形备份-22" fill="#BA78D1" fill-rule="nonzero" transform="translate(12.818083, 21.175922) rotate(45.000000) translate(-12.818083, -21.175922) "></path>
+                    <polygon id="矩形备份-21" fill="#FFFFFF" transform="translate(12.818083, 15.761709) rotate(45.000000) translate(-12.818083, -15.761709) " points="9.68550747 12.6291328 19.3692196 9.2105722 15.950659 18.8942843 6.26694688 22.3128449"></polygon>
+                    <path d="M16.7344476,19.678073 L21.008352,7.57143983 L8.90171881,11.8453441 L4.6278145,23.9519773 L16.7344476,19.678073 Z M17.7300832,10.8490832 L15.1660832,18.1100832 L7.90508323,20.6730832 L10.4680832,13.4130832 L17.7300832,10.8490832 Z" id="矩形备份-21" fill="#CA8FDE" fill-rule="nonzero" transform="translate(12.818083, 15.761709) rotate(45.000000) translate(-12.818083, -15.761709) "></path>
+                    <polygon id="矩形" fill="#FFFFFF" transform="translate(12.818083, 10.347495) rotate(45.000000) translate(-12.818083, -10.347495) " points="10.1031842 7.632596 18.4957347 4.66984349 15.5329822 13.062394 7.14043172 16.0251465"></polygon>
+                    <path d="M16.3167709,13.8461826 L20.1348671,3.03071112 L9.31939558,6.84880735 L5.50129935,17.6642789 L16.3167709,13.8461826 Z M16.8560832,6.30808323 L14.7480832,12.2790832 L8.77908323,14.3860832 L10.8870832,8.41508323 L16.8560832,6.30808323 Z" id="矩形" fill="#DFACF0" fill-rule="nonzero" transform="translate(12.818083, 10.347495) rotate(45.000000) translate(-12.818083, -10.347495) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

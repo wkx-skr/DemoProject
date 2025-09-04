@@ -1,0 +1,229 @@
+@import "mixins/mixins";
+@import "common/var";
+@import "common/transition";
+@import "checkbox";
+@import '../../color';
+@include b(tree) {
+    position: relative;
+    cursor: default;
+    background: $--color-white;
+    color: $text-default;
+    @include e(empty-block) {
+        position: relative;
+        min-height: 60px;
+        text-align: center;
+        width: 100%;
+        height: 100%;
+    }
+    @include e(empty-text) {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: $--color-text-secondary;
+        font-size: $--font-size-base;
+    }
+    @include e(drop-indicator) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background-color: $--color-primary;
+    }
+}
+
+@include b(tree-node) {
+    white-space: nowrap;
+    outline: none;
+    &:focus {
+        /* focus */
+        >.el-tree-node__content {
+            background-color: $--tree-node-hover-background-color;
+        }
+    }
+    @include when(drop-inner) {
+        >.el-tree-node__content .el-tree-node__label {
+            background-color: $--color-primary;
+            color: #fff;
+            font-size: 12px;
+        }
+    }
+    @include e(content) {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &>.el-tree-node__expand-icon {
+            padding: 6px;
+            font-size: 16px;
+            transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
+            &.el-icon-caret-right{
+                margin-left: 0.9em;
+                font-weight: 700;
+                // line-height: 34px;
+                z-index: 9;
+            }
+            &.el-icon-caret-right:before {
+                color: #999;
+                font-size: 12px;
+                content: "\e6e0";
+                font-family: 'element-icons';
+            }
+        }
+        &>label.el-checkbox {
+            margin-right: 4px;
+        }
+        &:hover {
+            background-color: $--tree-node-hover-background-color;
+        }
+        .el-tree.is-dragging & {
+            cursor: move;
+            & * {
+                pointer-events: none;
+            }
+        }
+        .el-tree.is-dragging.is-drop-not-allow & {
+            cursor: not-allowed;
+        }
+    }
+    @include e(expand-icon) {
+        cursor: pointer;
+        color: $--tree-expand-icon-color;
+        font-size: 12px;
+        transform: rotate(0deg);
+        transition: transform 0.3s ease-in-out;
+        &.expanded {
+            transform: rotate(90deg);
+        }
+        &-no-transition {
+            transition: none;
+        }
+        &.is-leaf {
+            color: transparent;
+            cursor: default;
+        }
+    }
+    @include e(label) {
+        font-size: $--font-size-base;
+    }
+    @include e(loading-icon) {
+        margin-right: 8px;
+        font-size: $--font-size-base;
+        color: $--tree-expand-icon-color;
+    }
+    &>.el-tree-node__children {
+        overflow: hidden;
+        background-color: transparent;
+    }
+    &.is-expanded>.el-tree-node__children {
+        display: block;
+    }
+}
+
+.datablau-easy-tree{
+    .el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content,
+    .el-tree-node.is-current > .el-tree-node__content {
+        background-color: mix($--color-white, $--color-primary, 92%);
+        background-color: rgba(64,158,255,.1);
+        font-weight: 400;
+        color: #409eff;
+        .more {
+            opacity: 1;
+            background-color: inherit;
+          }
+        &:hover .more:hover {
+            color: $primary-color;
+            background-color: $table-hover-color;
+        }
+    }
+    .el-tree-node__content {
+        transition: all 0.2s ease-in-out;
+        .more {
+            font-size: 14px;
+            background-color: inherit;
+            width: 24px;
+            height: 24px;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 24px;
+            opacity: 0;
+            border-right: 2px;
+            transition: all 0.2s ease-in-out;
+            color: #409eff;
+        }
+        &:hover{
+            background-color: $table-hover-color;
+            .label-with-more {
+                right: 35px !important;
+            }
+            .more {
+                opacity: 1;
+                background-color: inherit;
+            }
+            .more:hover {
+                color: $primary-color;
+                background-color: $table-hover-color;
+            }
+        }
+    }
+    .el-checkbox {
+        position: relative;
+        top: 0;
+        .el-checkbox__input {
+            .el-checkbox__inner {
+            border-color: $text-disabled;
+            }
+            &.is-checked,
+            &.is-indeterminate {
+            .el-checkbox__inner {
+                border-color: $primary-color;
+            }
+            }
+            &.is-disabled {
+            .el-checkbox__inner {
+                border-color: $text-disabled;
+                background-color: $component-divide-color;
+                &:after {
+                border-color: $text-disabled;
+                }
+            }
+            }
+        }
+    }
+    .drag-hint {
+        width: 6px;
+        height: 10px;
+        display: inline-block;
+        position: absolute;
+        border: 2px dashed $text-disabled;
+        left: 0;
+    }
+    .el-tree.is-dragging.is-drop-not-allow .el-tree-node__content {
+        cursor: pointer !important;
+    }
+    .iconfontdomain {
+        font-size: 14px;
+        color: #38b48b;
+    }
+    .locked-tips.el-tooltip__popper.is-light {
+      border: 1px solid #ddd;
+    }
+    .locked-tips.el-tooltip__popper.is-light[x-placement^='bottom'] .popper__arrow {
+      border-bottom-color: #ddd;
+    }
+    html {
+      position: relative;
+    }
+    .locked-tips.el-tooltip__popper.is-light {
+      max-width: 240px !important;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+      word-break: break-all;
+      margin-top: 5px;
+    }
+    
+    .vue-recycle-scroller__item-view{
+        transition: 0.3s height ease-in-out;
+    }
+}
+.light-blue-tree .el-tree-node__content:hover{
+    background-color: rgba(64,158,255,.1)!important;
+}

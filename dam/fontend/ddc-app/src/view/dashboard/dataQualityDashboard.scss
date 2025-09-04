@@ -1,0 +1,316 @@
+@import '../../assets/styles/const.scss';
+$border: 1px solid #eaecf1;
+$red: $blue;
+$grey: #f6f6f6;
+$border2: 1px solid red;
+
+#q-d-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: auto;
+  .dashboard-inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-width: 1200px;
+    min-height: 850px;
+  }
+  #top-row {
+    width: auto;
+    min-width: 1200px;
+    padding: 20px 15px 0;
+    .card {
+      position: relative;
+      // height: 128px;
+      height: 150px;
+      background-color: #fff;
+      border: $border;
+      .graph {
+        position: relative;
+        float: left;
+        width: 49%;
+        max-width: 120px;
+        height: 110px;
+        // margin:10px;
+        margin-top: 10px;
+
+        [data-id] {
+          position: absolute;
+          top: 0;
+          left: 15%;
+          width: 300%;
+          height: 300px;
+          transform: scale(0.34, 0.34);
+          transform-origin: -8% -5% 0;
+        }
+      }
+      .right {
+        float: left;
+        width: 51%;
+        height: 90px;
+        padding-left: 20px;
+        margin-top: 20px;
+
+        @media only screen and (min-width: 1734px) {
+          float: right;
+          max-width: 220px;
+          padding-right: 20px;
+        }
+        .title {
+          font-size: 14px;
+          color: #333645;
+        }
+        .figure {
+          margin: 3px 0;
+          font-size: 40px;
+          font-weight: bold;
+        }
+      }
+      .detail { // 默认样式
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        overflow: hidden;
+        ul {
+          // transition: all .5s;
+          // height: 50px;
+          li {
+            display: inline-block;
+            margin: 0 5px;
+            line-height: 22px;
+          }
+          span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            margin: 0 0.5em;
+            background-color: #31cdbb;
+            border-radius: 5px;
+          }
+          li.hidden-li {
+            visibility: hidden;
+          }
+        }
+        .arrow-btn {
+          position: absolute;
+          top: 12px;
+          right: 10px;
+          z-index: 100;
+          display: none;
+          width: 20px;
+          height: 20px;
+          font-size: 20px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.5s;
+        }
+        .cover-mask {
+          position: fixed;
+          // border: 1px solid red;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          // background-color: #aaa;
+          z-index: 98;
+          display: none;
+        }
+      }
+      &.total-con {
+        text-align: center;
+        .graph {
+          width: 50%;
+          max-width: 150px;
+          margin: 0;
+          margin-top: 15px;
+          [data-id] {
+            left: 16%;
+            transform: scale(0.45, 0.45);
+
+            @media only screen and (max-width: 1500px) {
+              left: -5%;
+            }
+          }
+        }
+        .right {
+          width: 50%;
+          height: 80px;
+          padding: 0;
+          margin: 0;
+          margin-top: 40px;
+        }
+      }
+      &.content-way,
+      &.type-way {
+        .detail.overheight {
+          ul {
+            position: absolute; // 添加 z-index, 需要 position
+            top: 0;
+            right: 0;
+            left: 0;
+            padding-right: 40px;
+            cursor: default;
+            background-color: #fff;
+          }
+          .arrow-btn {
+            display: block;
+            &.rote-arr {
+              transform: rotate(-90deg);
+            }
+          }
+          &.show-list {
+            overflow: visible;
+            // display: block;
+            ul {
+              z-index: 99;
+              // border: $border;
+              background-color: rgb(241, 235, 235);
+              li.hidden-li {
+                visibility: visible;
+              }
+            }
+            .cover-mask {
+              display: block;
+            }
+          }
+        }
+      }
+    }
+  }
+  #second-row {
+    position: absolute;
+    top: 172px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    min-width: 1200px;
+    // position: relative;
+    padding: 0 15px 10px;
+
+    .mon-week {
+      position: absolute;
+      // display: none;
+      top: 15px;
+      right: 20px;
+      bottom: auto;
+      left: auto;
+      width: 140px;
+      height: 25px;
+      overflow: hidden;
+      line-height: 25px;
+      text-align: center;
+      background-color: $grey;
+      border-radius: 3px;
+      div {
+        // float: left;
+        // width: 70px;
+        height: 25px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+      div.active {
+        color: #fff;
+        background-color: $red;
+      }
+      &.sys-pro {
+        text-align: center;
+        div {
+          display: inline-block;
+          width: 35px;
+        }
+      }
+      &.imp-pro-time {
+        text-align: center;
+        div {
+          display: inline-block;
+          width: 35px;
+        }
+      }
+    }
+    .index-row {
+      .big-card-row {
+        height: 100%;
+        .big-card {
+          height: 100%;
+          .table {
+            .el-table {
+              height: 100%;
+            }
+          }
+        }
+      }
+    }
+    .echarts-row {
+      min-height: 320px;
+      .big-card-row {
+        min-height: 320px;
+      }
+    }
+  }
+}
+.big-card-row {
+  position: absolute;
+  width: 100%;
+  // border: 1px solid red;
+  .big-card {
+    position: absolute;
+    top: 5px;
+    // margin-top: 5px;
+    // margin-bottom: 5px;
+    height: 310px;
+    overflow: hidden;
+    background: #fff;
+    border: $border;
+
+    & > div {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    &:first-child {
+      //      flex-grow:69;
+      // float: left;
+      left: 0;
+    }
+
+    &:last-child {
+      //      flex-grow:40;
+      // float: right;
+      right: 0;
+    }
+    $lineHeight: 40px;
+
+    .title {
+      height: $lineHeight;
+      font-size: 14px;
+      line-height: $lineHeight;
+      color: #666;
+      text-indent: 1em;
+    }
+
+    .table {
+      position: absolute;
+      top: $lineHeight;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+  }
+}
+.el-table {
+  td {
+    height: 31px;
+  }
+}

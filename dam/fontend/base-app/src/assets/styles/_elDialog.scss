@@ -1,0 +1,75 @@
+.el-dialog__title {
+  font-size: 16px;
+  //font-weight:bold;
+}
+
+.el-dialog__footer {
+  padding-top: 0;
+  text-align: left;
+}
+
+.el-dialog__header {
+  padding: 16px 20px 20px;
+}
+
+.el-dialog__body {
+  padding-bottom: 20px;
+
+  .few-content & {
+    padding-bottom: 40px;
+  }
+}
+
+.el-dialog__footer {
+  padding-bottom: 16px;
+}
+
+.el-form-item:last-child {
+  margin-bottom: 0;
+}
+
+.el-message-box__btns {
+
+  float: right;
+
+  .el-button--primary {
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+.el-message-box__content {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.el-message-box__status {
+  //top:22px;
+}
+
+// log dialog
+.el-dialog.log-dialog .el-dialog__header {
+  display: none;
+}
+.el-dialog.log-dialog .el-dialog__body {
+  top: -10px !important;
+}
+.el-dialog.log-dialog .el-dialog__body .datablau-dialog-content {
+  padding: 0 0 !important;
+  .item {
+    display: block;
+    width: 300%;
+    min-height: 18px;
+    padding: 0 10px;
+    color: #a4b2b5;
+    background-color: #2b2b2b;
+    &:first-child {
+      min-height: 28px;
+      padding-top: 10px;
+    }
+  }
+  .item-container {
+    min-height: 600px;
+    background-color: #2b2b2b;
+  }
+}

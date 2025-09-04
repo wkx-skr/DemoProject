@@ -1,0 +1,402 @@
+.el-icon-arrow-down::before {
+  font-size: 14px;
+  -webkit-text-size-adjust: none;
+  //font-family: 'FontAwesome';
+  //content: "\f078";
+
+  //color: #494850;
+}
+.grey-tree.multiple-select {
+  .el-tree-node {
+    &.is-current > .el-tree-node__content {
+      color: inherit;
+      background-color: inherit;
+    }
+  }
+}
+.tree-icon {
+  width:24px;
+  display:inline-block;
+  text-align: center;
+  height:24px;
+  vertical-align:middle;
+  margin:-3px 6px 0 -5px;
+  &.fa {
+    height:11px;
+    margin-bottom:2px;
+  }
+  background-size: cover;
+  &.icon-18 {
+    margin-top: 9px;
+  }
+  &.folder{
+    background-image:url("../../assets/images/modelTree/folder.png");
+  }
+  &.blue {
+    background-image:url("../../assets/images/modelTree/blue.png");
+  }
+  &.table {
+    background-image:url("../../assets/images/modelTree/table.png");
+  }
+  &.attribute {
+    background-image:url("../../assets/images/modelTree/Attribute.png");
+  }
+  &.view {
+    background-image:url("../../assets/images/modelTree/view.png");
+    transform: scale(0.7);
+    margin-left:-4px;
+  }
+  &.model{
+    background: no-repeat center/61% url("../../assets/images/search/model.svg");
+    //background-image:url("../../assets/images/modelTree/model.png");
+  }
+  &.warehouse {
+    background: no-repeat center/61% url("../../assets/images/search/data-warehouse.svg");
+  }
+  &.column {
+    background: no-repeat center/61% url("../../assets/images/panedetail_icon/colum.svg");
+  }
+  &.table {
+    background: no-repeat center/61% url("../../assets/images/tables/table.svg");
+  }
+  &.model1{
+    background-image:url("../../assets/images/modelTree/model1.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.sql{
+    background-image:url("../../assets/images/modelTree/sql.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.py{
+    background-image:url("../../assets/images/modelTree/py.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.css{
+    background-image:url("../../assets/images/modelTree/css.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.default{
+    background-image:url("../../assets/images/modelTree/default.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.fxml{
+    background-image:url("../../assets/images/modelTree/fxml.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.html{
+    background-image:url("../../assets/images/modelTree/html.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.http{
+    background-image:url("../../assets/images/modelTree/http.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.java{
+    background-image:url("../../assets/images/modelTree/java.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.js{
+    background-image:url("../../assets/images/modelTree/js.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.ts{
+    background-image:url("../../assets/images/modelTree/ts.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.sql2{
+    background-image:url("../../assets/images/modelTree/sql2.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+  }
+  &.branch{
+    background-image:url("../../assets/images/modelTree/branch.png");
+  }
+  &.diagrams {
+    background-image:url("../../assets/images/modelTree/diagrams.png");
+  }
+  &.diagram {
+    background-image:url("../../assets/images/modelTree/diagram.png");
+  }
+  &.domain-code {
+    width:20px;
+    height:20px;
+    position:relative;
+    //top:-2px;
+    background-image:url("../../assets/images/modelTree/domainCode.png");
+  }
+  &.domain {
+    width:20px;
+    height:20px;
+    position:relative;
+    //top:-2px;
+    background-image:url("../../assets/images/modelTree/domain.png");
+  }
+  &.entity {
+    width:16px;height:16px;
+    //transform:translateY(2px);
+    background-image:url("../../assets/images/modelTree/Entity.png");
+  }
+  &.relationship {
+    width:16px;height:16px;
+    transform:translateY(2px);
+    background-image:url("../../assets/images/modelTree/Relationship.png");
+  }
+  &.attribute {
+    width:16px;height:16px;
+    //transform:translateY(2px);
+    background-image:url("../../assets/images/modelTree/Attribute.png");
+  }
+  &.keygroup {
+    width:16px;height:16px;
+    //transform:translateY(2px);
+    background-image:url("../../assets/images/modelTree/KeyGroup.png");
+  }
+  &.view {
+    width:16px;height:16px;
+    background-image:url("../../assets/images/modelTree/5.png");
+  }
+  &.big {
+    width:24px;
+    height:24px;
+  }
+  &.tree-hive{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-hive.svg");
+  }
+  &.tree-mysql{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-mysql.png");
+  }
+  &.tree-postgresql{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-postgresql.png");
+  }
+  &.tree-oracle{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-oracle.png");
+  }
+  &.tree-starrocks{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-starrocks.png");
+  }
+  &.tree-sqlserver{
+    width:14px;height:14px;margin-left: 0;
+    background-image:url("../../assets/images/database/tree-sqlserver.png");
+  }
+  &.tree-spark{
+    width:14px;height:14px;margin-left: 0;
+    background-image:url("../../assets/images/database/tree-spark.png");
+  }
+  &.tree-flinksql{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../images/database/tree-flinksql.svg");
+  }
+  &.tree-flinkjar{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-flinkjar.svg");
+  }
+  &.tree-flinkStream{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-flinkjar.svg");
+  }
+  &.tree-java{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../../assets/images/database/tree-java.svg");
+  }
+  &.tree-python{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../images/database/tree-python.svg");
+  }
+  &.tree-transwarp-inceptor{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../images/database/tree-transwarp-inceptor.png");
+  }
+  &.tree-gbase{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../images/database/tree-gbase.svg");
+  }
+  &.tree-shell{
+    width:14px;height:14px;
+    margin-left: 0;
+    background-image:url("../images/database/tree-shell.svg");
+  }
+  &.file{
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/database/file.png");
+  }
+
+  &.tree-migration {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/database/tree-migration.svg");
+  }
+
+  &.clickhouse {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/database/clickhouse.png");
+  }
+
+  &.oceanbase {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/database/oceanbase.png");
+  }
+
+  &.db2 {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    margin-left: 0;
+    background-image: url("../images/database/db2.png");
+  }
+
+  &.business-area {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/search/business_area.svg");
+  }
+
+  &.theme-area {
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/search/theme-area.svg");
+  }
+  &.tree-transformation{
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/database/tree-transformation.svg");
+  }
+  &.tree-job{
+    width: 14px;
+    height: 14px;
+    margin-left: 0;
+    background-image: url("../images/database/tree-job.svg");
+  }
+}
+.grey-tree {
+  color: var(--base-font-color);
+  background: transparent;
+  transition: background-color 0.3s;
+  .el-tree-node {
+    transition: background-color 0.3s;
+    &.is-current > .el-tree-node__content {
+      font-weight: bold;
+      color: #6691e7;
+      background-color: var(--tree-current-bgc);
+      transition: background-color 0.3s;
+    }
+  }
+  .el-tree-node__content {
+    height: 34px;
+    line-height: 34px;
+    .tree-label {
+      margin-left: 0.4em;
+    }
+    &:hover {
+      background-color: var(--hover-light-main-color);
+      .more {
+        display: inline-block;
+      }
+      .tree-label {
+        right: 28px;
+      }
+    }
+  }
+  .el-icon-caret-right {
+    margin-left: 1em;
+  }
+  .tree-item-outer {
+    position: relative;
+  }
+  .el-icon-caret-right:not(.is-leaf):hover::before {
+    color: #55d1f9;
+  }
+  .el-icon-caret-right::before {
+    font-family: 'FontAwesome';
+    font-size: 8px;
+    font-weight: bold;
+    color: #919191;
+    content: "\f054";
+    -webkit-text-size-adjust: none;
+  }
+}
+
+/* tree item function */
+.grey-tree {
+  .tree-item-outer .tree-label {
+    position: absolute;
+    right: 0;
+    left: 2em;
+  }
+  .tree-item-outer .tree-label-full {
+    position: absolute;
+    right: 0;
+    left: 2.4em;
+  }
+  .tree-item-outer {
+    &:hover {
+
+    }
+  }
+  .tree-item-outer .more {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    z-index: 2;
+    display: none;
+    padding: 0 8px 0 12px;
+    background: inherit;
+  }
+}
+span.el-tree-node__expand-icon {
+  font-size: 16px;
+  border-width: 0 !important;
+
+  &.is-leaf {
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,54 @@
+@import '../../basic/color.sass';
+.clearfix::after {
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+  content: '';
+}
+.db-richtip {
+  .popBase {
+    display: inline-block;
+    width: 100%;
+    height: 18px;
+    overflow: hidden;
+    // height: 100%;
+    line-height: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+    &.support-click {
+      color: $primary-color;
+      cursor: pointer;
+      &:hover {
+        color: #0084ff;
+      }
+    }
+  }
+}
+.richtip-popper {
+  height: 320px;
+  padding: 14px !important;
+
+  .topInfo {
+    display: flex;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #efefef;
+    .topIcon {
+      width: 28px;
+      height: 28px;
+    }
+    .info {
+      flex: 1;
+      margin-left: 10px;
+      .code {
+        font-size: 14px;
+        font-weight: 600;
+        color: $grey-1;
+      }
+      .form_oneline {
+        width: 100%;
+      }
+    }
+  }
+}

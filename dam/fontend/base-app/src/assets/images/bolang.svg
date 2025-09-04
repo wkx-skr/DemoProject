@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="188px" height="187px" viewBox="0 0 188 187" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>路径_11备份 + 路径_12备份 蒙版</title>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#A5D2FF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.718" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#A5D2FF" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.718" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="路径_11备份-+-路径_12备份-蒙版" transform="translate(0.835000, 0.013000)" fill-rule="nonzero">
+            <path d="M76.831,92.412 C112.004,107.236 127.857,62.612 167.762,84.946 C167.762,131.272197 130.207197,168.827 83.881,168.827 C37.5548029,168.827 -2.84217094e-14,131.272197 -2.84217094e-14,84.946 C41.581,120.97 28.265,74.928 76.831,92.412 Z" id="路径_11备份" fill="url(#linearGradient-1)" opacity="0.61"></path>
+            <path d="M86.2891622,90.9317961 C121.462162,105.755796 137.315162,61.1317961 177.220162,83.4657961 C177.220162,105.694121 168.389995,127.012031 152.672196,142.72983 C136.954397,158.447629 115.636487,167.277799 93.4081622,167.277799 C47.093138,167.288878 9.52327676,129.780776 9.45816224,83.4657961 C51.0401622,119.489796 37.7261622,73.4477961 86.2891622,90.9317961 Z" id="路径_12备份" stroke="#75A2F3" fill="url(#linearGradient-2)" opacity="0.605" transform="translate(93.339162, 122.180113) rotate(-14.000000) translate(-93.339162, -122.180113) "></path>
+        </g>
+    </g>
+</svg>

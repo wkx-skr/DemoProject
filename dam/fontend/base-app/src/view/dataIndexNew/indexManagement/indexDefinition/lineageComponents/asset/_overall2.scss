@@ -1,0 +1,44 @@
+
+.table .table {
+  background-color: transparent !important;
+}
+.l-6dot2 {
+  .shape .shape-item {
+    padding: 0 0.5em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .group .shape-item {
+    height: 30px;
+    line-height: 30px;
+    cursor: move;
+    background-color: #ddd;
+  }
+  .table {
+    cursor: move;
+    background-color: transparent;
+  }
+
+  .column {
+    cursor: pointer;
+  }
+  &.dataWarehouse {
+    .shape .column {
+      color: #bbb;
+      &:hover {
+        color: #ebebf1;
+        background-color: rgba(78, 133, 247, 0.5) !important;
+      }
+    }
+    .highlight .column {
+      background-color: rgba(78, 133, 247, 0.5) !important;
+    }
+  }
+}
+
+.drag-rect {
+  position: absolute;
+  cursor: pointer;
+  border: 1px dashed #409eff;
+}

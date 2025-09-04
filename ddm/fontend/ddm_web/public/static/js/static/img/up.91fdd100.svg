@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 14</title>
+    <g id="1px" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="light-树备份" transform="translate(-1358.000000, -604.000000)">
+            <g id="编组-14" transform="translate(1358.000000, 604.000000)">
+                <path d="M10.8918945,9.44594727 L16,12 L8,16 L0,12 L5.10043945,9.44978027 L8,10.881 L10.8918945,9.44594727 Z M13.763,12 L10.889,10.563 L8.0011803,11.9967686 L5.103,10.566 L2.236,12 L8,14.881 L13.763,12 Z" id="路径" fill="#979797" fill-rule="nonzero"></path>
+                <polygon id="矩形" fill-opacity="0.3" fill="#539FFD" points="8 4 16 8 8 12 0 8"></polygon>
+                <path d="M8,4 L16,8 L8,12 L0,8 L8,4 Z M8,5.118 L2.236,8 L8,10.881 L13.763,8 L8,5.118 Z M8,0 L11,3 L5,3 L8,0 Z" id="形状结合" fill="#539FFD" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

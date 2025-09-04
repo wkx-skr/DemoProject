@@ -1,0 +1,33 @@
+.filter-row {
+  height: 80px;
+  padding-left: 20px;
+  //border-bottom:1px solid #EEE;
+  .row-inner {
+    height: 40px;
+    margin-top: 20px;
+    overflow: hidden;
+    line-height: 40px;
+  }
+  .label {
+    margin: 0 0.3em 0 1.2em;
+    &:first-child,
+    &.first {
+      margin-left: 0;
+    }
+  }
+}
+.table-row {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  bottom: 50px;
+  left: 0;
+  //border-bottom:1px solid #EEE;
+  // border-top: 1px solid var(--border-color-lighter);
+}
+.footer-row {
+  position: absolute;
+  right: 20px;
+  bottom: 10px;
+  left: 20px;
+}

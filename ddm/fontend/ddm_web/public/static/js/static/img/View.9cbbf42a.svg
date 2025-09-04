@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>视图</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="图标" transform="translate(-756.000000, -14.000000)">
+            <g id="操作功能备份-2" transform="translate(530.000000, 11.000000)">
+                <g id="编组-14" transform="translate(176.000000, 3.000000)">
+                    <g id="编组" transform="translate(50.000000, 0.000000)">
+                        <path d="M23,7 L23,1 L1,1 L1,7 L23,7 Z M24,8 L0,8 L0,0 L24,0 L24,8 Z" id="形状结合" fill="#666666"></path>
+                        <polygon id="矩形备份-66" fill="#539FFD" points="23 8 24 8 24 24 23 24"></polygon>
+                        <polygon id="矩形备份-71" fill="#539FFD" points="0 8 1 8 1 24 0 24"></polygon>
+                        <rect id="矩形" fill="#539FFD" x="1" y="23" width="23" height="1"></rect>
+                        <path d="M11.7245445,12.5005459 L12,12.5016715 C15.2139296,12.5016715 16.3054346,13.7531894 17.9047035,15.5373254 C18.0431638,15.6917909 18.1851185,15.8501437 18.3319915,16.0120126 C16.6294376,18.010014 15.3947073,19.5 12,19.5 C8.56767936,19.5 7.41813275,18.0941216 5.73774373,16.0993483 C8.1309055,13.4425206 9.18809942,12.4557567 12,12.5016715 Z" id="椭圆形" stroke="#539FFD"></path>
+                        <circle id="椭圆形" fill="#539FFD" cx="12" cy="16" r="2"></circle>
+                        <rect id="矩形备份-227" fill="#666666" x="8" y="0" width="1" height="7"></rect>
+                        <rect id="矩形备份-228" fill="#666666" x="15" y="0" width="1" height="7"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="214px" height="98px" viewBox="0 0 214 98" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>卡片</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="202" height="86" rx="4"></rect>
+        <filter x="-5.0%" y="-9.3%" width="109.9%" height="123.3%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="1" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.401288911   0 0 0 0 0.579523007   0 0 0 0 0.763445426  0 0 0 0.1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="50%" y1="-25.5496003%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#409EFF" stop-opacity="0.50161167" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1、首页" transform="translate(-606.000000, -407.000000)">
+            <g id="内容" transform="translate(159.000000, 50.000000)">
+                <g id="卡片" transform="translate(453.000000, 361.000000)">
+                    <g id="蒙版">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <rect id="蒙版备份" stroke="#409EFF" fill-opacity="0.5" fill="url(#linearGradient-3)" opacity="0.8" x="0.5" y="0.5" width="201" height="85" rx="4"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

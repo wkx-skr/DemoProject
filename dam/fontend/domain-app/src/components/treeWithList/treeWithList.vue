@@ -1,0 +1,468 @@
+<!--
+ * @FileDescription: 通用组件, 左侧是树, 右侧是表(table)
+ * 配置参数:
+ *    // 树相关
+ *    getTreeData: fn, 获取 tree 数据
+ *    treeNodeRender: fn, 渲染树节点
+ *    nodeId: string, 树节点 node-key 属性名称
+ *    treeSearchPH: 树 搜索框 placeholder
+ *    treeProps: element tree props
+ *    showTreeTop: 是否显示树 顶部, 可以放置搜索框, 按钮
+ *    showTreeBottom: 是否显示底部, 可以放置 按钮
+ *    showTreeCheckBox: 树 是否显示复选框
+ *    filterTreeNode: 树 过滤函数, 如果使用树本身的过滤功能
+ *    showTreeMoreIcon: 是否显示 树顶部搜索框 旁边的 `...` 按钮
+ *    moreCallback: fn, 树顶部 `...` 按钮的 回调函数
+ *    treeDefaultExpanded: 树默认展开的节点
+ *    // 右侧列表相关
+ *    listShowData: table 展示 数据
+ *    listTotal: table 分页 总数
+ *    columnDefs: 字段定义
+ *    tableHideTopLine: 表是否显示顶部 搜索框
+ *    tableOption: element table 的 tableOption
+ * 监听事件:
+ * 组件方法:
+ *    左侧:
+ *    treeSetCurrent: 设置树 备选中的节点
+ *    treeMethod: 调用 tree 组件方法, 参数: 方法名, 参数列表
+ *    右侧:
+ *    refreshRightList: 刷新右侧树
+ *    tableMethod: 调用 table 组件方法, 参数: 方法名, 参数列表
+ *
+ -->
+<template>
+  <div
+    class="outer-box"
+    :class="{
+      'show-tree-bottom': showTreeBottom,
+      'show-tree-top': showTreeTop,
+    }"
+  >
+    <div class="tree-box">
+      <div class="tree-top-row">
+        <slot name="treeTopRow">
+          <el-input
+            size="small"
+            v-model="keyword"
+            clearable
+            suffix-icon="el-icon-search"
+            class="tree-search-input"
+            :placeholder="treeSearchPH"
+            :class="{ 'show-more-btn': showTreeMoreIcon }"
+          ></el-input>
+          <span
+            class="el-icon-more more"
+            @click="moreCallback"
+            v-if="showTreeMoreIcon"
+          ></span>
+        </slot>
+      </div>
+      <div class="tree-com-box">
+        <el-tree
+          v-loading="treeLoading"
+          ref="leftTree"
+          class="grey-tree"
+          :data="treeData"
+          :props="treeProps"
+          :default-expand-all="expandAll"
+          :filter-node-method="filterTreeNode"
+          :render-content="treeNodeRender"
+          :highlight-current="true"
+          :node-key="nodeId"
+          :show-checkbox="showTreeCheckBox"
+          :default-expanded-keys="treeDefaultExpanded"
+          @check-change="handleCheckChange"
+          @node-click="handleNodeClick"
+        ></el-tree>
+      </div>
+      <div class="tree-bottom-row">
+        <slot name="treeBottomRow"></slot>
+      </div>
+    </div>
+    <div class="resize-column-middle"></div>
+    <div class="right-box">
+      <div class="list-container">
+        <datablau-tab-with-eltable
+          ref="rightList"
+          :getShowData="listShowData"
+          :hideDefaultFilter="hideDefaultFilter"
+          :totalShow="listTotal"
+          :columnDefs="columnDefs"
+          :hideTopLine="tableHideTopLine"
+          :tableOption="tableOption"
+          @cellClicked="rightListRowClick"
+          @gridSelectionChanged="gridSelectionChanged"
+        >
+          <div slot="header">
+            <slot name="tableHeader"></slot>
+          </div>
+          <div slot="middle">
+            <slot name="tableMiddle"></slot>
+          </div>
+          <div slot="footer">
+            <slot name="tableFooter"></slot>
+          </div>
+        </datablau-tab-with-eltable>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      treeData: null,
+      keyword: '',
+      treeLoading: false,
+    }
+  },
+  props: {
+    hideDefaultFilter: {
+      default: false,
+      type: Boolean,
+    },
+    expandAll: {
+      default: false,
+      type: Boolean,
+    },
+    getTreeData: {
+      required: true,
+      type: Promise,
+    },
+    treeNodeRender: {
+      required: true,
+      type: Function,
+    },
+    nodeId: {
+      type: String,
+      default: 'id',
+    },
+    treeSearchPH: {
+      type: String,
+      default: '搜索...',
+    },
+    treeProps: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+    showTreeBottom: {
+      type: Boolean,
+      default: true,
+    },
+    showTreeTop: {
+      type: Boolean,
+      default: true,
+    },
+    showTreeCheckBox: {
+      type: Boolean,
+      default: true,
+    },
+    filterTreeNode: {
+      type: Function,
+      default: (value, data, node) => {
+        console.log(value, data, node, 'value, data, node')
+        return
+        let result = false
+        if (!value) {
+          result = true
+        } else if (value && node.label) {
+          const index = node.label.toLowerCase().indexOf(value.toLowerCase())
+          if (index !== -1) {
+            result = true
+          }
+        }
+        return result
+      },
+    },
+    showTreeMoreIcon: {
+      type: Boolean,
+      default: false,
+    },
+    moreCallback: {
+      type: Function,
+      default: function d() {},
+    },
+    treeDefaultExpanded: {
+      type: Array,
+      default() {
+        return []
+      },
+    },
+    // 右侧 列表
+    listShowData: {
+      type: Function,
+      required: true,
+    },
+    listTotal: {
+      type: Number,
+      default: 0,
+    },
+    columnDefs: {
+      type: Array,
+      required: true,
+    },
+    tableOption: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
+    tableHideTopLine: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  components: {},
+  computed: {},
+  mounted() {
+    this.setTreeData()
+  },
+  methods: {
+    refreshData() {
+      this.setTreeData()
+      if (this.$refs.rightList && this.$refs.rightList.refreshData) {
+        this.$refs.rightList.refreshData()
+      }
+    },
+    setTreeData() {
+      this.getTreeData
+        .then(res => {
+          this.treeData = res
+          this.treeLoading = false
+        })
+        .catch(e => {
+          this.treeLoading = false
+          this.$showFailure(e)
+        })
+    },
+    refreshLeftTree() {
+      this.setTreeData()
+    },
+    treeSetCurrent(nodeKey) {
+      if (this.$refs.leftTree && this.$refs.leftTree.setCurrentKey) {
+        this.$refs.leftTree.setCurrentKey(nodeKey)
+      }
+    },
+    // filterTreeNode(value, data, node) {
+    //   console.log(value, data, node, 'value, data, node')
+    //   let result = false;
+    //   if (!value) {
+    //     result = true;
+    //   } else if (value && data.name) {
+    //     let index = data.name.toLowerCase().indexOf(value.toLowerCase());
+    //     if (index !== -1) {
+    //       result = true;
+    //     }
+    //   }
+    //   return result;
+    // },
+    handleCheckChange(para) {
+      if (this.$refs.leftTree && this.$refs.leftTree.getCheckedKeys) {
+        const checkedKeys = this.$refs.leftTree.getCheckedKeys()
+        this.$emit('handleCheckChange', checkedKeys)
+      }
+    },
+    handleNodeClick(data, node, com) {
+      this.$emit('handleNodeClick', { data, node, com })
+    },
+    refreshRightList() {
+      if (this.$refs.rightList && this.$refs.rightList.refreshData) {
+        this.$refs.rightList.refreshData()
+      }
+    },
+    rightListRowClick(para) {
+      // console.log('row click')
+      this.$emit('rightListRowClick', para)
+    },
+    gridSelectionChanged(para) {
+      if (!para || !para.api) return
+      this.$emit('gridSelectionChanged', para)
+    },
+
+    treeMethod(method, ...paras) {
+      if (this.$refs.leftTree && this.$refs.leftTree[method]) {
+        this.$refs.leftTree[method](...paras)
+      }
+    },
+    tableMethod(method, ...paras) {
+      if (this.$refs.rightList && this.$refs.rightList[method]) {
+        this.$refs.rightList[method](...paras)
+      }
+    },
+  },
+  watch: {
+    keyword(newVal, oldVal) {
+      if (this.$refs.leftTree && this.$refs.leftTree.filter) {
+        this.$refs.leftTree.filter(newVal)
+      }
+    },
+  },
+}
+</script>
+
+<style lang="scss">
+.outer-box {
+  background-color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  // box-sizing: border-box;
+  .tree-box {
+    position: absolute;
+    left: 0;
+    // right:230px;
+    width: 300px;
+    top: 0;
+    bottom: 0;
+    // border: 1px solid red;
+    overflow: hidden;
+    .tree-top-row {
+      display: none;
+    }
+    .tree-com-box {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      overflow: auto;
+      .tree-item-outer {
+        position: relative;
+        .more-dot-btn {
+          position: absolute;
+          right: 0;
+          top: 0;
+          line-height: 34px;
+          width: 24px;
+          padding-right: 4px;
+          font-weight: bold;
+          text-align: center;
+          display: none;
+        }
+        &:hover {
+          .more-dot-btn {
+            display: inline-block;
+          }
+        }
+      }
+    }
+    .tree-bottom-row {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      line-height: 50px;
+      // border: 1px solid green;
+      border-top: 1px solid #eee;
+      display: none;
+    }
+  }
+  .resize-column-middle {
+    width: 0px;
+    left: 300px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    background-color: transparent;
+    cursor: e-resize !important;
+  }
+  .right-box {
+    position: absolute;
+    left: 300px;
+    right: 0px;
+    bottom: 0;
+    top: 0;
+    border-left: 1px solid var(--border-color-lighter);
+    // border: 1px solid red;
+    .list-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &.show-tree-top {
+    .tree-top-row {
+      display: block;
+      position: relative;
+      height: 52px;
+      .tree-search-input {
+        width: 280px;
+        margin: 10px;
+      }
+      .show-more-btn {
+        // border: 1px solid red;
+        // display: inline-block;
+        position: absolute;
+        height: 32px;
+        top: 10px;
+        left: 10px;
+        width: auto;
+        right: 40px;
+        bottom: 10px;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      .more {
+        // display: inline-block;
+        float: right;
+        display: inline-block;
+        width: 30px;
+        height: 20px;
+        vertical-align: middle;
+        margin: 15px 4px 0 0;
+        text-align: center;
+        padding-top: 5px;
+        cursor: pointer;
+        &:hover {
+          background-color: #ddd;
+        }
+      }
+    }
+    .tree-com-box {
+      top: 50px;
+    }
+  }
+  &.show-tree-bottom {
+    .tree-com-box {
+      bottom: 50px;
+    }
+    .tree-bottom-row {
+      display: block;
+    }
+  }
+}
+
+// .condense {
+//   position: absolute;
+//   width:20px;
+//   height:60px;
+//   background: #f0f0f0;
+//   cursor:pointer;
+//   color: #68758b;
+//   z-index:3;
+//   top: calc(50% - 30px);
+//   i {
+//     margin-top:24px;
+//     margin-left:7px;
+//   }
+//   &.right {
+//     left:420px;
+//     .fa-chevron-left {
+//       display:none;
+//     }
+//   }
+//   &.left {
+//     right:0;
+//     .fa-chevron-right {
+//       display:none;
+//     }
+//   }
+// }
+</style>

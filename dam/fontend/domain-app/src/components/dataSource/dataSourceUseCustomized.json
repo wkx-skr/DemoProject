@@ -1,0 +1,26 @@
+{
+  "dbType": "CUSTOMIZED",
+  "dbLabel": "Custom Driver",
+  "icon": "customdriver",
+  "options": [
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": true
+    },
+    {
+      "code": "DatabaseName",
+      "required": false,
+      "mutiple": false
+    },
+    {
+      "code": "SelectedSchemas",
+      "required": false,
+      "mutiple": true
+    }
+  ]
+}

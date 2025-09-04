@@ -1,0 +1,42 @@
+#breadCrum {
+  width: 100%;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+#job-preview {
+  padding: 20px;
+  h2 {
+    color: #48576a;
+  }
+
+  .item-header {
+    font-size: 18px;
+    //font-weight: bold;
+
+    .item-subheader {
+      display: none;
+    }
+  }
+
+  .no-data {
+    margin-left: 5px;
+    font-style: italic;
+    color: #d1d1d1;
+  }
+
+  div.el-collapse-item:hover {
+    overflow: hidden;
+    white-space: nowrap;
+    .item-subheader {
+      display: inline !important;
+      margin-left: 20px;
+      font-size: 15px;
+      font-style: italic;
+      color: lightgray;
+    }
+  }
+
+  .el-table {
+    border: none;
+  }
+}

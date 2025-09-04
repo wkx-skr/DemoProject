@@ -1,0 +1,27 @@
+{
+  "dbType": "MAXCOMPUTE",
+  "dbLabel": "MaxCompute",
+  "icon": "maxcompute",
+  "options": [
+    {
+      "code": "HostServer",
+      "label": "EndPoint",
+      "defaultValue": "localhost",
+      "required": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": true
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true
+    }
+  ]
+}

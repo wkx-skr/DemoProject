@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>树-主题-次</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="树-主题-次">
+            <polygon id="路径" fill="#539FFD" points="1 8 1 7 0 7 0 5 1 5 1 4 2 4 2 3 3 3 3 2 4 2 4 1 5 1 5 0 6 0 6 1 7 1 7 2 8 2 8 3 9 3 9 4 10 4 10 5 9 5 9 6 8 6 8 7 7 7 7 8 6 8 6 9 5 9 5 10 3 10 3 9 2 9 2 8"></polygon>
+            <polygon id="路径" fill="#F4D86A" points="10 15 10 14 9 14 9 13 8 13 8 12 9 12 9 11 10 11 10 10 11 10 11 9 12 9 12 8 13 8 13 9 14 9 14 10 15 10 15 11 16 11 16 12 15 12 15 13 14 13 14 14 13 14 13 15 12 15 12 16 11 16 11 15"></polygon>
+            <rect id="矩形" fill="#D8D8D8" opacity="0.502653213" x="8" y="2" width="6" height="1"></rect>
+            <rect id="矩形备份-202" fill="#D8D8D8" opacity="0.502653213" x="13" y="3" width="1" height="6"></rect>
+            <rect id="矩形备份-200" fill="#D8D8D8" opacity="0.502653213" x="4" y="14" width="6" height="1"></rect>
+            <rect id="矩形备份-201" fill="#D8D8D8" opacity="0.502653213" x="3" y="10" width="1" height="5"></rect>
+        </g>
+    </g>
+</svg>

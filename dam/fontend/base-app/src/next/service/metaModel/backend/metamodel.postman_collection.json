@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "cd2bb04e-828a-4975-bd80-de0435e9e9d3",
+		"name": "metamodel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3286627"
+	},
+	"item": [
+		{
+			"name": "获取Domain",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}getDomain?namespace={{namespace}}&name={{testDomain}}",
+					"host": [
+						"{{localContext}}getDomain"
+					],
+					"query": [
+						{
+							"key": "namespace",
+							"value": "{{namespace}}"
+						},
+						{
+							"key": "name",
+							"value": "{{testDomain}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取一个Domain的模型",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}loadModel?namespace={{namespace}}&domain={{testDomain}}",
+					"host": [
+						"{{localContext}}loadModel"
+					],
+					"query": [
+						{
+							"key": "namespace",
+							"value": "{{namespace}}"
+						},
+						{
+							"key": "domain",
+							"value": "{{testDomain}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "列出所有的Domain",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}listDomains?{{ns}}={{namespace}}",
+					"host": [
+						"{{localContext}}listDomains"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "基于Entity创建一个新类型的Asset - PhysicalTable",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}createAsset?{{ns}}={{namespace}}&{{db}}={{testDomain}}&copyAssetId=com.datablau.database.Entity&newAssetName=PhysicalTable",
+					"host": [
+						"{{localContext}}createAsset"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						},
+						{
+							"key": "{{db}}",
+							"value": "{{testDomain}}"
+						},
+						{
+							"key": "copyAssetId",
+							"value": "com.datablau.database.Entity"
+						},
+						{
+							"key": "newAssetName",
+							"value": "PhysicalTable"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "基于Entity创建一个新类型的Asset - PhysicalColumn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}createAsset?{{ns}}={{namespace}}&{{db}}={{testDomain}}&copyAssetId=com.datablau.database.Attribute&newAssetName=PhysicalColumn",
+					"host": [
+						"{{localContext}}createAsset"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						},
+						{
+							"key": "{{db}}",
+							"value": "{{testDomain}}"
+						},
+						{
+							"key": "copyAssetId",
+							"value": "com.datablau.database.Attribute"
+						},
+						{
+							"key": "newAssetName",
+							"value": "PhysicalColumn"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "建立PhysicalTable和PhysicalColumn之间的关联",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}createRelationship?sourceAssetId=com.datablau.database.PhysicalTable&targetAssetId=com.datablau.database.PhysicalColumn&name=TableOwnsColumn&forwardName=Table has column&backwardName=Column belongs to table&{{ns}}={{namespace}}",
+					"host": [
+						"{{localContext}}createRelationship"
+					],
+					"query": [
+						{
+							"key": "sourceAssetId",
+							"value": "com.datablau.database.PhysicalTable"
+						},
+						{
+							"key": "targetAssetId",
+							"value": "com.datablau.database.PhysicalColumn"
+						},
+						{
+							"key": "name",
+							"value": "TableOwnsColumn"
+						},
+						{
+							"key": "forwardName",
+							"value": "Table has column"
+						},
+						{
+							"key": "backwardName",
+							"value": "Column belongs to table"
+						},
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建一个叫Alias的属性",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\" : \"Alias\",\r\n    \"propertyMap\" : {\r\n        \"$name\" : {\r\n            \"id\" : \"$name\",\r\n            \"value\" : \"Alias\",\r\n            \"valueType\" : \"string\"\r\n        },\r\n        \"$namespace\" : {\r\n            \"id\" : \"$namespace\",\r\n            \"value\" : \"com.datablau\",\r\n            \"valueType\"  :  \"string\" \r\n        }, \r\n        \"$valueType\" : {\r\n            \"id\" : \"$valueType\",\r\n            \"value\" : \"string\",\r\n            \"valueType\" : \"string\"\r\n        },\r\n        \"$domainRef\" : {\r\n            \"id\" : \"$domainRef\",\r\n            \"value\" : \"Database\",\r\n            \"valueType\" : \"string\"\r\n        }\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localContext}}createAssetProperty?{{ns}}={{namespace}}",
+					"host": [
+						"{{localContext}}createAssetProperty"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "关联Alias到PhysicalTable",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    \"com.datablau.database.Alias\"\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localContext}}attachProperties?{{ns}}={{namespace}}&assetId=com.datablau.database.PhysicalTable",
+					"host": [
+						"{{localContext}}attachProperties"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						},
+						{
+							"key": "assetId",
+							"value": "com.datablau.database.PhysicalTable"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建一个物理表TableA,有alias为TableA Alias",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\" : \"TableA\",\r\n   \"domain\" : \"Database\",\r\n   \"typeId\" : \"com.datablau.database.PhysicalTable\",\r\n   \"properties\" : [ {\r\n        \"propertyId\" : \"com.datablau.database.Alias\",\r\n        \"value\" :\"TableA Alias\"\r\n      }, {\r\n         \"propertyId\" : \"com.datablau.database.Name\",\r\n         \"value\" : \"TableA\"\r\n      }, {\r\n         \"propertyId\" : \"com.datablau.database.PhysicalName\",\r\n         \"value\" : \"TableA\"\r\n      }\r\n   ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localContext}}createObject?{{ns}}={{namespace}}",
+					"host": [
+						"{{localContext}}createObject"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "修改物理表TableA,把alias改TableA Alias Copy",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\" : \"TableA\",\r\n   \"domain\" : \"Database\",\r\n   \"typeId\" : \"com.datablau.PhysicalTable\",\r\n   \"properties\" : [ {\r\n        \"propertyId\" : \"com.datablau.Alias\",\r\n        \"value\" :\"TableA Alias\"\r\n      }, {\r\n         \"propertyId\" : \"com.datablau.Name\",\r\n         \"value\" : \"TableA\"\r\n      }, {\r\n         \"propertyId\" : \"com.datablau.PhysicalName\",\r\n         \"value\" : \"TableA\"\r\n      }\r\n   ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localContext}}createObject?{{ns}}={{namespace}}",
+					"host": [
+						"{{localContext}}createObject"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "查询资产",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"domains\" : [\"Database\"],\r\n    \"typeIds\" : [\"com.datablau.PhysicalTable\"],\r\n    \"comparisons\" : [{\r\n        \"propertyId\" : \"com.datablau.Alias\",\r\n        \"propertyValue\" : \"TableA\",\r\n        \"exactMatch\" : false\r\n    }, {\r\n        \"propertyId\" : \"com.datablau.Name\",\r\n        \"propertyValue\" : \"A\",\r\n        \"exactMatch\" : false\r\n    }]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{localContext}}findObjects?{{ns}}={{namespace}}",
+					"host": [
+						"{{localContext}}findObjects"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "创建一个新的domain",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{localContext}}createDomain?{{ns}}={{namespace}}&newDomain=DataQuality",
+					"host": [
+						"{{localContext}}createDomain"
+					],
+					"query": [
+						{
+							"key": "{{ns}}",
+							"value": "{{namespace}}"
+						},
+						{
+							"key": "newDomain",
+							"value": "DataQuality"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

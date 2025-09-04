@@ -1,0 +1,25 @@
+{
+  "dbType": "ORACLE",
+  "dbLabel": "Oracle",
+  "icon": "oracle",
+  "options": [
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": true
+    },
+    {
+      "code": "DatabaseName",
+      "defaultValue": "",
+      "required": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "required": false
+    }
+  ]
+}

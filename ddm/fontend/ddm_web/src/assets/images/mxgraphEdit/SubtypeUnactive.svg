@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 11</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="light-tab" transform="translate(-569.000000, -353.000000)">
+            <g id="编组-11" transform="translate(569.000000, 353.000000)">
+                <rect id="矩形" stroke="#C6D0E0" fill-opacity="0.2" fill="#C6D0E0" x="8" y="0.5" width="4" height="4"></rect>
+                <rect id="矩形备份-4" stroke="#C6D0E0" fill-opacity="0.2" fill="#C6D0E0" x="8" y="8.5" width="4" height="4"></rect>
+                <path d="M2,10 L7.5,10 L7.5,11 L3,11 L3,15 L5,15 L5,20 L0,20 L0,15 L2,15 L2,10 Z M4,16 L1,16 L1,19 L4,19 L4,16 Z M17,11 L12.5,11 L12.5,10 L18,10 L18,15 L20,15 L20,20 L15,20 L15,15 L17,15 L17,11 Z M19,16 L16,16 L16,19 L19,19 L19,16 Z M9.5,5 L10.5,5 L10.5,8 L9.5,8 Z" id="形状结合" fill="#C6D0E0" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

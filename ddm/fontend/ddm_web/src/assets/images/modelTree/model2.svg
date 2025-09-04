@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>模型icon</title>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.2">
+        <g id="模型菜单-基本信息" transform="translate(-4.000000, 0.000000)">
+            <g id="模型icon" transform="translate(-1.000000, 0.000000)">
+                <g transform="translate(5.000000, 0.000000)">
+                    <polygon id="矩形" fill="#F4D86A" points="18.7939167 0 40 8.78576836 21.1871843 17 0 8.78576836"></polygon>
+                    <polygon id="矩形" fill="#539FFD" points="0 12 20 20 20 40 0 32"></polygon>
+                    <polygon id="矩形备份-208" fill="#72D8A9" points="40 12 22 20 22 40 40 32"></polygon>
+                    <polygon id="矩形备份" fill="#97C5FF" points="18.7939167 0 40 8.78576836 21.1871843 17 0 8.78576836"></polygon>
+                    <polygon id="矩形备份-209" fill="#A9CFFF" points="40 12 22 20 22 40 40 32"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

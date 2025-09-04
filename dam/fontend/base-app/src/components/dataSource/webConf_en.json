@@ -1,0 +1,375 @@
+{
+  "sourceName": {
+    "code": "sourceName",
+    "type": "input",
+    "label": "datasource name",
+    "defaultValue": "",
+    "placeholder": "please fill",
+    "required": true
+  },
+  "driverId": {
+    "code": "driverId",
+    "type": "select",
+    "candidate": "/service/driver/type?type=ORACLE",
+    "label": "driver",
+    "defaultValue": "",
+    "placeholder": "please select",
+    "required": true
+  },
+  "OfflineDumpSourceDriverType": {
+    "code": "OfflineDumpSourceDriverType",
+    "label": "Storage database type",
+    "type": "select",
+    "placeholder": "please select",
+    "defaultValue": "ORACLE",
+    "required": true,
+    "candidate": [
+      {
+        "label": "MySQL",
+        "value": "MYSQL"
+      },
+      {
+        "label": "Oracle",
+        "value": "ORACLE"
+      }
+    ]
+  },
+  "HostServer": {
+    "code": "HostServer",
+    "if": {
+      "parentCode": "customConnection",
+      "targetValue": false
+    },
+    "type": "input",
+    "label": "Host Server",
+    "defaultValue": "localhost",
+    "required": true
+  },
+  "PortNumber": {
+    "code": "PortNumber",
+    "if": {
+      "parentCode": "customConnection",
+      "targetValue": false
+    },
+    "type": "input",
+    "label": "Port Number",
+    "defaultValue": "1521",
+    "required": true
+  },
+  "connUrl": {
+    "code": "connUrl",
+    "if": {
+      "parentCode": "customConnection",
+      "targetValue": true
+    },
+    "type": "textarea",
+    "label": "connect Url",
+    "defaultValue": "",
+    "required": true,
+    "placeholder": "Please fill connect url"
+  },
+  "AuthenticationType": {
+    "code": "AuthenticationType",
+    "type": "select",
+    "label": "Authentication Type",
+    "candidate": [],
+    "defaultValue": "0",
+    "required": false
+  },
+  "user": [
+    {
+      "dbtype": "MAXCOMPUTE",
+      "code": "user",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "label": "AK ID",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true
+      },
+      "placeholder": "Please fill"
+    },
+    {
+      "code": "user",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "label": "user",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true,
+        "notRequiredDbs": "HIVE,IMPALA,HBASE,ES,CLICKHOUSE,MONGODB,TIDB,HUDIONHIVESPARK"
+      },
+      "placeholder": "Please fill"
+    }
+  ],
+  "password": [
+    {
+      "dbtype": "MAXCOMPUTE",
+      "code": "password",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "inputType": "password",
+      "label": "AK Secret",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true
+      },
+      "placeholder": "Please fill"
+    },
+    {
+      "code": "password",
+      "if": {
+        "parentCode": "AuthenticationType",
+        "targetValue": "0"
+      },
+      "type": "input",
+      "inputType": "password",
+      "label": "password",
+      "defaultValue": "",
+      "required": {
+        "edit": false,
+        "create": true,
+        "notRequiredDbs": "HIVE,IMPALA,HBASE,ES,CLICKHOUSE,MONGODB,TIDB,HUDIONHIVESPARK"
+      },
+      "placeholder": "Please fill"
+    }
+  ],
+  "ServicePrincipal": {
+    "code": "ServicePrincipal",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "input",
+    "label": "Service Principal",
+    "defaultValue": "",
+    "required": true,
+    "requiredOnSave": true,
+    "placeholder": "Service Principal:Service/Hostname@REALM"
+  },
+  "UserPrincipal": {
+    "code": "UserPrincipal",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "input",
+    "label": "User Principal",
+    "defaultValue": "",
+    "required": false,
+    "placeholder": ""
+  },
+  "KeyTabPath": {
+    "code": "KeyTabPath",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "upload",
+    "drag": true,
+    "limit": 1,
+    "label": "keytab file",
+    "accept": "all",
+    "defaultValue": "",
+    "required": false,
+    "placeholder": ""
+  },
+  "Krb5Path": {
+    "code": "Krb5Path",
+    "if": {
+      "parentCode": "AuthenticationType",
+      "targetValue": "1"
+    },
+    "type": "upload",
+    "drag": true,
+    "limit": 1,
+    "label": "krb5 file",
+    "accept": "all",
+    "defaultValue": "",
+    "required": true,
+    "requiredOnSave": true,
+    "placeholder": ""
+  },
+  "connectMode": {
+    "code": "connectMode",
+    "type": "select",
+    "candidate": [
+      {
+        "label": "SID",
+        "value": "SID"
+      },
+      {
+        "label": "Service Name",
+        "value": "Service Name"
+      }
+    ],
+    "label": "Connect Mode",
+    "defaultValue": "SID",
+    "required": true
+  },
+  "DatabaseName": [
+    {
+      "dbtype": "ORACLE",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "SID",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "SID"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "Please fill SID name"
+    },
+    {
+      "dbtype": "ORACLE",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "Service Name",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "Service Name"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "Please fill Service Name"
+    },
+    {
+      "dbtype": "OFFLINEDUMP",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "SID",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "SID"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "Please fill SID Name"
+    },
+    {
+      "dbtype": "OFFLINEDUMP",
+      "code": "DatabaseName",
+      "type": "input",
+      "label": "Service Name",
+      "if": {
+        "parentCode": "connectMode",
+        "targetValue": "Service Name"
+      },
+      "defaultValue": "",
+      "required": true,
+      "placeholder": "Please fill Service Name"
+    },
+    {
+      "dbtype": "CUSTOMIZED",
+      "code": "DatabaseName",
+      "multiple": true,
+      "type": "select",
+      "if": {
+        "parentCode": "useCustomedDbTyeTarget",
+        "targetValue": "database"
+      },
+      "label": "database",
+      "disabled": "",
+      "defaultValue": "",
+      "required": false,
+      "placeholder": "Please select/fill"
+    },
+    {
+      "code": "DatabaseName",
+      "multiple": true,
+      "type": "select",
+      "label": "database",
+      "defaultValue": "",
+      "required": false,
+      "placeholder": "Please select/fill"
+    }
+  ],
+  "TestBtn": {
+    "code": "TestBtn",
+    "type": "button",
+    "label": "",
+    "required": false
+  },
+  "SelectedSchemas": [
+    {
+      "code": "SelectedSchemas",
+      "param": {
+        "type": "string",
+        "paramSplit": ";"
+      },
+      "multiple": true,
+      "type": "select",
+      "label": "Schema",
+      "defaultValue": "",
+      "required": false
+    },
+    {
+      "dbtype": "CUSTOMIZED",
+      "code": "SelectedSchemas",
+      "multiple": true,
+      "type": "select",
+      "if": {
+        "parentCode": "useCustomedDbTyeTarget",
+        "targetValue": "schema"
+      },
+      "label": "schema",
+      "defaultValue": "",
+      "required": false,
+      "placeholder": "Please select/fill"
+    }
+  ],
+  "OfflineDumpTargetSchemaName": {
+    "code": "OfflineDumpTargetSchemaName",
+    "param": {
+      "type": "string",
+      "paramSplit": ";"
+    },
+    "multiple": true,
+    "type": "select",
+    "label": "Schema",
+    "required": false
+  },
+  "owner": {
+    "code": "owner",
+    "type": "select",
+    "label": "owner",
+    "defaultValue": "",
+    "required": false
+  },
+  "useCustomedDbTyeTarget": {
+    "code": "useCustomedDbTyeTarget",
+    "type": "select",
+    "candidate": [
+      {
+        "label": "database",
+        "value": "database"
+      },
+      {
+        "label": "schema",
+        "value": "schema"
+      }
+    ],
+    "label": "target type",
+    "defaultValue": "database",
+    "required": false
+  },
+  "InstanceName": {
+    "code": "InstanceName",
+    "type": "input",
+    "label": "Server Instance",
+    "required": true
+  }
+}

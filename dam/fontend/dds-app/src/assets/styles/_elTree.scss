@@ -1,0 +1,87 @@
+.el-icon-arrow-down::before {
+  font-size: 14px;
+  -webkit-text-size-adjust: none;
+}
+.grey-tree.multiple-select {
+  .el-tree-node {
+    &.is-current > .el-tree-node__content {
+      color: inherit;
+      background-color: inherit;
+    }
+  }
+}
+.grey-tree {
+  color: var(--base-font-color);
+  background: transparent;
+  transition: background-color 0.3s;
+  .el-tree-node {
+    transition: background-color 0.3s;
+    &.is-current > .el-tree-node__content {
+      font-weight: bold;
+      color: #6691e7;
+      background-color: var(--tree-current-bgc);
+      transition: background-color 0.3s;
+    }
+  }
+  .el-tree-node__content {
+    height: 34px;
+    line-height: 34px;
+    .tree-label {
+      margin-left: 0.4em;
+    }
+    &:hover {
+      background-color: var(--hover-light-main-color);
+      .more {
+        display: inline-block;
+      }
+      .tree-label {
+        right: 28px;
+      }
+    }
+  }
+  .el-icon-caret-right {
+    margin-left: 1em;
+  }
+  .tree-item-outer {
+    position: relative;
+  }
+  .el-icon-caret-right:not(.is-leaf):hover::before {
+    color: #55d1f9;
+  }
+  .el-icon-caret-right::before {
+    font-family:  "Microsoft YaHei", "PingFang SC", serif;
+    font-size: 8px;
+    font-weight: bold;
+    color: #919191;
+    content: "\f054";
+    -webkit-text-size-adjust: none;
+  }
+}
+
+/* tree item function */
+.grey-tree {
+  .tree-item-outer .tree-label {
+    position: absolute;
+    right: 0;
+    left: 2em;
+  }
+  .tree-item-outer .tree-label-full {
+    position: absolute;
+    right: 0;
+    left: 2.4em;
+  }
+  .tree-item-outer {
+    &:hover {
+
+    }
+  }
+  .tree-item-outer .more {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    z-index: 2;
+    display: none;
+    padding: 0 8px 0 12px;
+    background: inherit;
+  }
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>虚拟</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组-2备份-4" transform="translate(-10.000000, -8.000000)">
+            <g id="虚拟" transform="translate(10.000000, 8.000000)">
+                <path d="M10,17 L10,15 L11,15 L11,16 L12,16 L12,17 L10,17 Z M16,16 L16,17 L13,17 L13,16 L16,16 Z M11,11 L11,13 L10,13 L10,11 L11,11 Z M11,7 L11,9 L10,9 L10,7 L11,7 Z M11,3 L11,5 L10,5 L10,4 L9,4 L9,3 L11,3 Z M7,3 L7,4 L5,4 L5,3 L7,3 Z" id="形状结合" fill="#C6D0E0"></path>
+                <rect id="矩形备份-83" stroke="#C6D0E0" x="15.5" y="13.5" width="4" height="6"></rect>
+                <rect id="矩形备份-83" stroke="#C6D0E0" x="0.5" y="0.5" width="4" height="6"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

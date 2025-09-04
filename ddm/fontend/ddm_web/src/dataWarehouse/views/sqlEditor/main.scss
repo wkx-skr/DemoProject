@@ -1,0 +1,498 @@
+$bottomTabDefaultHeight: 32px;
+
+.content-edit-wrapper {
+  position: relative;
+  overflow: visible;
+  .workflowDefinitionBtn{
+    // float: right;
+    position: fixed;
+    top: 5px;
+    left: 240px;
+    line-height: 32px;
+  }
+}
+.ddt-editor-wrapper {
+    color: #555;
+    font-size: 12px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #333;
+    // position: relative;
+
+    .header-wrapper {
+      height: 40px;
+      background: #333;
+      position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 99;
+      .header-wrapper-left{
+        display: inline-block;
+      }
+      p{
+        display: inline-block;
+        font-size: 16px;
+        color: #555;
+        line-height: 40px;
+        margin-left: 16px;
+      }
+      h2 {
+        display: inline-block;
+        font-size: 16px;
+        color: #C6C6C6;
+        line-height: 40px;
+        margin-left: 16px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 400;
+      }
+      .header-wrapper-name{
+        margin-left: 24px;
+        color: #C6C6C6;
+        width: 178px;
+        font-size: 16px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      span{
+        width: 1px;
+        height: 10px;
+        background: #888888;
+        display: inline-block;
+        position: absolute;
+        left: 49px;
+        top: 16px;
+      }
+      .ruleButton{
+        position: absolute;
+        top: 0;
+        z-index: 10;
+
+        .ruleVerification{
+          display: inline-block;
+          line-height: 40px;
+          margin-right: 10px;
+        }
+      }
+      .rightPart{
+        float: right;
+        position: relative;
+        z-index: 10;
+        .downlod-ddm {
+          display: inline-block;
+          margin-right: 32px;
+          cursor: pointer;
+        .down-btn {
+          opacity: 0.7;
+          left: 0;
+          top: 10px;
+          background: none;
+          &:hover {
+            opacity: 1;
+          }
+        }
+        i{
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        margin-right: 4px;
+        vertical-align: middle;
+        }
+
+        .img-download{
+          background: url('../common/navIcon/download.png');
+          background-size: contain;
+        }
+        .img-workbench{
+          background: url('../common/navIcon/workbench.png');
+          background-size: contain;
+
+        }
+      }
+        .user-name {
+          display: inline-block;
+          font-size: 12px;
+          color: #999;
+          line-height: 40px;
+          margin-right: 16px;
+        }
+      }
+    }
+
+    .content-wrapper {
+      position: absolute;
+      top: 40px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-top: 1px solid #222222;
+    }
+
+    .left-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 240px;
+      border-right: 1px solid #222222;
+      .top-pane-wrapper {
+        width: 100%;
+
+        /deep/ .el-tabs__nav {
+          width: 100%;
+
+          & > div {
+            /*width: 50%;*/
+            width: 100%;
+            text-align: center;
+          }
+        }
+      }
+    }
+
+    .changes-wrapper {
+      position: absolute;
+      top: 32px;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: auto;
+      padding: 5px 20px;
+
+      h2 {
+        font-size: 14px;
+        margin-bottom: 10px;
+      }
+
+      height: 100px;
+      overflow: auto;
+
+      .change-item {
+        color: #409EFF;
+        font-size: 12px;
+        cursor: pointer;
+
+        &.active {
+          background: rgba(64, 158, 255, 0.1);
+        }
+
+        &:hover {
+          background: rgba(64, 158, 255, 0.1);
+        }
+
+        & + .change-item {
+          margin-top: 10px;
+        }
+      }
+    }
+
+    .file-explorer-wrapper {
+      position: absolute;
+      left: 0;
+      top: 0px;
+      bottom: 0;
+      right: 0;
+      overflow: auto;
+      background: #333333;
+
+      .file-tree-wrapper {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        right: 0;
+        bottom: 24px;
+        overflow: auto;
+      }
+    }
+    .hideDirectoryTree{
+        position: absolute;
+        height: 24px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: #3D3D3D;
+        color: #C6C6C6;
+        cursor: pointer;
+        .iconhide{
+           position: absolute;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+        }
+      }
+
+    .resize-column-middle {
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      overflow-y: hidden;
+      width: 10px;
+      left: 240px;
+      background-color: transparent;
+      z-index: 10;
+      cursor: e-resize !important;
+    }
+    .resize-column-right {
+      position: absolute;
+      top: 10px;
+      bottom: 10px;
+      overflow-y: hidden;
+      width: 10px;
+      left: 1000px;
+      background-color: transparent;
+      z-index: 11;
+      cursor: e-resize !important;
+    }
+    .content-edit-wrapper {
+      position: absolute;
+      left: 240px;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      overflow: visible;
+      transition: right .2s ease-in;
+      .mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1111;
+      }
+      .content-edit-wrapper-title{
+        height: 32px;
+        padding-top: 3px;
+        padding-left: 8px;
+      }
+      .bottom-info-tabs {
+        //border: 1px solid red;
+        min-height: 400px;
+        padding-top: 10px;
+      }
+      .edit-detail-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        // border-top: 1px solid #EFEFEF;
+      }
+    }
+
+    .operator-hint-wrapper {
+      position: absolute;
+      right: 0;
+      left: 1000px;
+      top: 40px;
+      bottom: 0;
+      border-left: 1px solid #222222;
+      transition: width .2s ease-in;
+      z-index: 10;
+    }
+
+    .auth-manage-container {
+      //border: 1px solid red;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      z-index: 3;
+      background-color: #fff;
+
+      .head-breadcrumb {
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        height: 40px;
+        padding: 8px 0 0 20px;
+      }
+
+      .manage-container {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 40px;
+      }
+    }
+
+    // 底部拖拽组件
+    .drag-container {
+      position: absolute;
+      top: 0px;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+
+      &.default-hidden {
+        bottom: 0 !important;
+      }
+    }
+
+    .middle-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 27px;
+      height: 10px;
+      cursor: n-resize;
+      z-index: 4;
+      //border: 1px solid green;
+
+      &.default-hidden {
+        display: none;
+      }
+    }
+
+    .bottom-container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 32px;
+      bottom: 0;
+      z-index: -1;
+      //transition: height .4s;
+
+      &.default-hidden {
+        display: none;
+      }
+    }
+}
+.iframe-container {
+  height: 100%;
+}
+
+.iframe-instance-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 30px;
+  bottom: 0;
+}
+/deep/ .tooltip-inner {
+  background: rgba(0, 0, 0, 0);
+}
+.black-theme {
+  /* 槽 */
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: none;
+    width: 16px;
+    border-radius: 0;
+    background: transparent;
+    /*滚动条有底色 #4e5152;*/
+    &:hover {
+      background: transparent;
+    }
+  }
+  /* 滑块 */
+  ::-webkit-scrollbar-thumb {
+    background:#666 !important;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 4px solid transparent;
+    background-clip: content-box;
+    /*&:hover {
+      background: rgb(79,79,79);
+    }*/
+
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+    height:8px;
+  }
+  ::-webkit-scrollbar-corner {
+      /* 横向、纵向滚动条的交汇背景色 */
+      background: #666 !important;
+  }
+}
+.dataMigration{
+  padding-left: 25px;
+  cursor: pointer;
+}
+.difference{
+  color: #bbb;
+  line-height: 32px;
+}
+  .cardBox{
+    color: #bbb;
+    background: #2A2A2A;;
+    border: 1px solid #333333;;
+   /deep/ .el-card__body{
+     padding: 10px 0;
+     div{
+       cursor: pointer;
+       padding:5px 10px;
+       &:hover{
+         background: rgba(24, 127, 255, .2);
+       }
+       &:last-child{
+         margin-bottom: 0
+       }
+     }
+   }
+  }
+  .homePage{
+    /*width: 100%;
+    height: 100%;*/
+    background: url('../../../assets/images/bg/gateway.png') no-repeat bottom right;
+    background-size: cover;
+    padding-left: 80px;
+    padding-top: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    .logoText{
+      font-size: 28px;
+      line-height: 1;
+      color: #EBEBF1;
+      font-family: PingFangSC-Medium, PingFang SC;
+    }
+    .des{
+      font-size: 16px;
+      margin-top: 16px;
+      color: #888888;
+      width: 784px;
+    }
+    .featureTab{
+      margin-top: 44px;
+      display: flex;
+      .tab{
+        width: 196px;
+        height: 84px;
+        background: rgba(60,63,65,0.2);
+        border-radius: 8px;
+        border: 1px solid #4C5052;
+        margin-right: 16px;
+        line-height: 84px;
+        color: #BBBBBB;
+        padding-left: 32px;
+        transition: all 1s;
+        cursor: pointer;
+        img{
+          margin-right: 23px;
+        }
+        &:hover{
+          background: rgba(24,127,255,0.2);
+          border: 1px solid #187FFF;
+          color: #EBEBF1;
+        }
+      }
+    }
+  }
+ /deep/.datablau-cascader  /deep/.el-cascader  /deep/.el-input input::placeholder{
+  color: #bbb;
+}

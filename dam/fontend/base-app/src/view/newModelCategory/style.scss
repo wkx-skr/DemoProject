@@ -1,0 +1,41 @@
+.api-outer-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--default-bgc);
+}
+
+.list-box {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.api-resize-column-middle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 7px;
+  cursor: e-resize !important;
+  background-color: transparent;
+}
+
+.api-right-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  overflow: auto;
+  border-left: 1px solid var(--border-color-lighter);
+}
+
+.page-btn-group {
+  text-align: center;
+}

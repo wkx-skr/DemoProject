@@ -1,0 +1,136 @@
+.page-container {
+  padding: 20px;
+}
+.card {
+  position: relative;
+  display: inline-block;
+  width: 350px;
+  //  height:240px;
+  margin: 5px;
+}
+.title {
+  position: absolute;
+  top: 20px;
+  width: 8em;
+  //  outline:1px solid pink;
+  font-size: 14px;
+}
+.sub-title {
+  position: absolute;
+  top: 40px;
+  font-size: 14px;
+
+  span {
+    display: inline-block;
+    max-width: 8em;
+    color: #479eff;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  i {
+    font-size: 16px;
+    color: #ccc;
+    cursor: pointer;
+    transform: translateY(-4px);
+  }
+  //  outline:1px solid pink;
+}
+.complete {
+  float: right;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  background-color: #fd4949;
+  border-radius: 50px;
+  &:hover {
+    .inner {
+      color: #fff;
+      background-color: #fd4949;
+    }
+  }
+  &.true:hover {
+    .inner {
+      color: #fff;
+      background-color: #13ce66;
+    }
+  }
+  .inner {
+    width: 40px;
+    height: 40px;
+    margin: 5px;
+    font-size: 20px;
+    line-height: 40px;
+    color: #fd4949;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 40px;
+  }
+  &.true {
+    background-color: #13ce66;
+    .inner {
+      color: #13ce66;
+    }
+  }
+}
+.row {
+  position: relative;
+  margin-top: 60px;
+  overflow: auto;
+}
+.mail-to-group {
+  float: left;
+}
+.mail-to {
+  display: inline-block;
+  margin: 0 5px;
+  .graph {
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    background-color: lightgrey;
+    border-radius: 40px;
+  }
+  &.view-all .graph {
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    border: 2px solid #479eff;
+    &:hover {
+      background-color: #479eff;
+      i {
+        color: #fff;
+      }
+    }
+    i {
+      display: inline-block;
+      font-size: 16px;
+      line-height: 36px;
+      color: #479eff;
+    }
+  }
+  .name {
+    width: 50px;
+    font-size: 10px;
+    text-align: center;
+  }
+}
+.time {
+  position: absolute;
+  right: 10px;
+  bottom: 2px;
+}
+.schedule {
+  .el-progress {
+    margin-top: 10px;
+  }
+}
+.s-title {
+  float: left;
+  margin-bottom: 3px;
+  font-weight: bold;
+}
+.s-cal {
+  float: right;
+  font-weight: bold;
+}
+

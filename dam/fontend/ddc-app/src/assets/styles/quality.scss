@@ -1,0 +1,221 @@
+/*
+* @Author: Nicky
+* @Date:   2017-06-14 11:23:46
+* @Last Modified by:   Nicky
+* @Last Modified time: 2017-06-14 16:45:55
+*/
+
+$fontFamily:'微软雅黑';
+$fontSmall:12px;
+$fontMiddle:16px;
+$fontLarge:44px;
+
+#data-quality {
+  /* padding: 20px; */
+  h2 {
+    color: #48576a;
+  }
+
+  & > .top {
+    width: 100%;
+    background: #fff;
+
+    & > .card {
+
+      display: inline-block;
+      height: 330px;
+      padding: 20px 0 0 20px;
+      vertical-align: top;
+
+      .title {
+        margin-bottom: 30px;
+        font-family: "Microsoft YaHei", "PingFang SC", serif;
+        font-size: $fontMiddle;
+      }
+      .number {
+        margin-bottom: 20px;
+        font-family:  "Microsoft YaHei", "PingFang SC", serif;
+        font-size: $fontLarge;
+        font-weight: 100;
+        line-height: 1;
+      }
+      .foot {
+        margin-bottom: 40px;
+        font-size: $fontMiddle;
+      }
+      & > .graph {
+        width: 95%;
+        height: 230px;
+      }
+    }
+
+    & > .seperator {
+
+      display: inline-block;
+      width: 1px;
+      height: 330px;
+      vertical-align: top;
+      background: #f5f5f5;
+    }
+  }
+
+  & > .middle {
+    width: 100%;
+    height: 60px;
+    padding: 12px 20px 12px 20px;
+    margin: 1px 0;
+    background: #fff;
+
+    & > .fliter {
+
+      display: inline-block;
+      padding-top: 7px;
+    }
+    & > .operation {
+
+      display: inline-block;
+
+      float: right;
+
+      .botton {
+        display: inline-block;
+        padding: 0 20px 0 20px;
+
+        .el-button--text {
+          color: #1f2d3d;
+        }
+      }
+    }
+  }
+
+  .dialog {
+
+  }
+
+  .item-header {
+    font-size: 18px;
+    font-weight: bold;
+
+    .item-subheader {
+      display: none;
+    }
+  }
+
+  .no-data {
+    margin-left: 5px;
+    font-style: italic;
+    color: #d1d1d1;
+  }
+
+  div.el-collapse-item:hover {
+    overflow: hidden;
+    white-space: nowrap;
+    .item-subheader {
+      display: inline !important;
+      margin-left: 20px;
+      font-size: 15px;
+      font-style: italic;
+      color: lightgray;
+    }
+  }
+
+  .el-table {
+    border: none;
+  }
+
+  .create-rule-dialog {
+    tr {
+      height: 20px !important;
+    }
+  }
+
+  .el-row {
+    margin-top: 20px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  .el-col {
+    border-radius: 4px;
+  }
+  .grid-content {
+    min-height: 25px;
+    font-size: 14px;
+    border-radius: 4px;
+  }
+  .grid-content-cost {
+    min-height: 25px;
+    margin-right: 5px;
+    font-size: 14px;
+    color: #479eff;
+    border-radius: 4px;
+  }
+  .grid-content-small {
+    min-height: 25px;
+    font-size: 12px;
+    border-radius: 4px;
+  }
+  .row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+  }
+
+  .button-text {
+    font-family: "Microsoft YaHei", "PingFang SC", serif;
+    font-style: normal;
+  }
+
+  .button-icon {
+    position: relative;
+    top: 2px;
+    margin-right: 6px;
+    font-size: 15px;
+  }
+
+  .icon-header-row {
+    margin-left: 5px;
+    font-size: 20px;
+    color: #479eff;
+    vertical-align: middle;
+  }
+
+  .icon-yellow {
+    color: #fcb100;
+  }
+
+  .icon-green {
+    color: #48bbc2;
+  }
+
+  .icon-red {
+    color: #fc595a;
+  }
+
+  .icon-grey {
+    color: #d6d9e0;
+  }
+}
+
+#top-tabs {
+  position: fixed;
+  z-index: 9;
+  width: 100%;
+  height: 41px;
+  padding-left: 20px;
+  overflow-x: auto;
+  background-color: #fff;
+  border-bottom: 1px solid lightgray;
+  .el-tabs {
+    float: left;
+    max-width: 80%;
+  }
+  .el-dropdown {
+    float: left;
+    margin: 0 20px;
+    line-height: 40px;
+  }
+  .el-button {
+    float: left;
+    margin-top: 6px;
+  }
+}

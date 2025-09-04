@@ -1,0 +1,65 @@
+{
+  "dbType": "ORACLE",
+  "dbLabel": "Oracle",
+  "icon": "oracle",
+  "options": [
+    {
+      "code": "HostServer",
+      "defaultValue": "192.168.1.59",
+      "required": true
+    },
+    {
+      "code": "PortNumber",
+      "defaultValue": "1521",
+      "required": true
+    },
+    {
+      "code": "AuthenticationType",
+      "candidate": [
+        "password",
+        "kerberos"
+      ],
+      "defaultValue": 0,
+      "required": true
+    },
+    {
+      "code": "connectMode",
+      "candidate": [
+        "SID",
+        "Service Name"
+      ],
+      "defaultValue": "SID",
+      "required": true
+    },
+    {
+      "code": "SelectedSchemas",
+      "required": false
+    },{
+      "label": "测试file1号",
+      "code": "Filepath",
+      "required": true,
+      "accept": ".xlsx,.xls"
+    },{
+      "label": "测试file2号",
+      "code": "Filepath2",
+      "required": true,
+      "accept": ".doc"
+    },{
+      "label": "测试input",
+      "code": "testParam",
+      "required": false
+    },{
+      "label": "测试select",
+      "code": "testParamsel",
+      "mutiple": true,
+      "required": true,
+      "candidate": [{
+        "label": 1,
+        "value": 1
+      },{
+        "label": 2,
+        "value": 2
+      }]
+    }
+  ]
+}

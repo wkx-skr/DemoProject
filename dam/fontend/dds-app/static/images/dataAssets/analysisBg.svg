@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="320px" height="80px" viewBox="0 0 320 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>矩形</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="数据资产dashboard（交互说明）" transform="translate(-65.000000, -83.000000)" fill="#EBF5FF">
+            <g id="Back" transform="translate(65.000000, 83.000000)">
+                <path d="M-1.8984375,0 L280.845619,0 C282.279963,3.08227601e-14 283.645233,0.615994161 284.594368,1.69139277 L318.598796,40.2194052 C320.354769,42.2089739 320.250627,45.2237605 318.36155,47.0874157 L286.460248,78.5594032 C285.524588,79.4824713 284.263095,80 282.948746,80 L1.32027722e-12,80 L1.32027722e-12,80 L-1.8984375,0 Z" id="矩形"></path>
+            </g>
+        </g>
+    </g>
+</svg>

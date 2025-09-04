@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>schema</title>
+    <g id="dam-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="资产icon" transform="translate(-1292.000000, -706.000000)" fill="#409EFF">
+            <g id="schema" transform="translate(1292.000000, 706.000000)">
+                <circle id="椭圆形" opacity="0.1" cx="12" cy="12" r="12"></circle>
+                <g id="编组-17" transform="translate(5.000000, 5.000000)">
+                    <circle id="椭圆形" cx="3.5" cy="3.5" r="3.5"></circle>
+                    <circle id="椭圆形备份" cx="12" cy="12" r="2"></circle>
+                    <circle id="椭圆形备份-2" cx="2.5" cy="11.5" r="1.5"></circle>
+                    <circle id="椭圆形备份-3" cx="13.5" cy="4.5" r="1.5"></circle>
+                    <path d="M7.28029046,6.28964355 L13.4949747,12.5050253 L12.5050253,13.4949747 L6.29063677,7.27959567 C6.675634,7.01019358 7.01100199,6.67472611 7.28029046,6.28964355 Z M4,8 L4.00365151,7.99970073 L3.18934849,12.6216497 L1.81065151,12.3783503 L2.62639667,7.75791434 C3.05476324,7.9145349 3.5174009,8 4,8 Z M7.96742388,3.48710503 L14.5332956,3.8007923 L14.4667044,5.1992077 L7.90132618,4.88692727 C7.96590695,4.60165126 8,4.30480706 8,4 C8,3.82622411 7.98891859,3.65503642 7.96742388,3.48710503 Z" id="形状结合" fill-rule="nonzero" opacity="0.5"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

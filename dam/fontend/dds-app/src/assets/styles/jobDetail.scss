@@ -1,0 +1,50 @@
+#breadCrum {
+  width: 100%;
+  padding: 20px;
+  padding-bottom: 0;
+
+  border-bottom: 1px solid #ccc;
+}
+#job-details {
+  padding-top: 10px;
+  padding-right: 20px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+
+  .right {
+    display: inline-block;
+    float: right;
+  }
+  .sub-header {
+    font-size: 14px;
+    //margin-bottom: 20px;
+  }
+  .cronSchedule {
+    width: 580px;
+  }
+  .el-form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .el-col {
+    margin-bottom: 5px;
+  }
+
+  .btn-outer {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 25px;
+  }
+}
+.select-box {
+  float: left;
+  width: 350px;
+  height: 400px;
+  margin-right: 20px;
+  overflow: auto;
+  &:last-child {
+    margin-right: 20px;
+    clear: right;
+  }
+}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="90px" height="27px" viewBox="0 0 90 27" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>形状结合</title>
+    <defs>
+        <path d="M1569,738 L1569,765 L1479,765 L1486.58265,744.526856 C1488.03557,740.603949 1491.77681,738 1495.96013,738 L1495.96013,738 L1569,738 Z" id="path-1"></path>
+        <filter x="-6.7%" y="-22.2%" width="113.3%" height="144.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="4.5" in="SourceAlpha" result="shadowBlurInner1"></feGaussianBlur>
+            <feOffset dx="3" dy="3" in="shadowBlurInner1" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.0590854458 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="6.1-设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="交互掩样式" transform="translate(-1479.000000, -738.000000)" fill-rule="nonzero">
+            <g id="形状结合" transform="translate(1524.000000, 751.500000) scale(1, -1) translate(-1524.000000, -751.500000) ">
+                <use fill="#F5F5F5" xlink:href="#path-1"></use>
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

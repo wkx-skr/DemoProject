@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="88px" height="88px" viewBox="0 0 88 88" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>编组 5</title>
+    <g id="设计方案" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页说明" transform="translate(-2363.000000, -814.000000)">
+            <g id="编组" transform="translate(2316.000000, 814.000000)">
+                <g id="编组-5" transform="translate(47.000000, 0.000000)">
+                    <circle id="椭圆形" fill="#E6EAF2" opacity="0.400902158" cx="44" cy="44" r="44"></circle>
+                    <g id="编组-24" transform="translate(22.000000, 31.625000)">
+                        <polygon id="路径-2" fill="#D0DAF8" points="9.625 8.25 2.91734314 17.6980057 41.1528168 17.875 34.375 8.25"></polygon>
+                        <rect id="矩形备份-48" fill="#ABBCF6" x="9.625" y="0" width="24.75" height="8.25"></rect>
+                        <polygon id="矩形备份-49" fill="#BDCAF7" points="0 13.75 9.625 -1.56319402e-13 9.625 8.25 0 22"></polygon>
+                        <polygon id="矩形备份-49" fill="#BDCAF7" transform="translate(39.187500, 11.000000) scale(-1, 1) translate(-39.187500, -11.000000) " points="34.375 13.75 44 -1.56319402e-13 44 8.25 34.375 22"></polygon>
+                        <path d="M44,13.75 L44,31 C44,32.1045695 43.1045695,33 42,33 L2,33 C0.8954305,33 1.02344917e-15,32.1045695 0,31 L0,13.75 L17.875,13.75 C17.875,16.0281746 19.7218254,17.875 22,17.875 C24.2781746,17.875 26.125,16.0281746 26.125,13.75 L44,13.75 Z" id="形状结合" fill="#7491F2" fill-rule="nonzero"></path>
+                    </g>
+                    <ellipse id="椭圆形" fill="#E6EAF2" cx="44" cy="71.5" rx="16.5" ry="4.125"></ellipse>
+                    <path d="M30.25,20.6353932 L41.8745217,27.8708609 L35.451551,16.5 L30.25,20.6353932 Z M57.75,23.2542092 L50.6326363,27.0238347 L54.8688955,20.6157061 L57.75,23.2542092 Z M43.1243809,23.2009743 L45.0004347,28.875 L46.6077524,21.9358917 L43.1243809,23.2009743 Z" id="形状结合" fill="#D6DCEA"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

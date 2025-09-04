@@ -1,0 +1,181 @@
+$blue:#4278c9;
+$greyText:#898989;
+$grey-border:1px solid #e4e4e4;
+
+.content-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  height: 40px;
+  margin-left: -10px;
+  line-height: 40px;
+  color: var(--table-color);
+
+  .menu {
+    color: #9f9f9e;
+  }
+
+  .fa-chevron-right {
+    margin: 0 0.3em;
+    color: #999998;
+  }
+}
+
+.content-preview {
+
+  //min-height:150px;
+  .title {
+    margin-bottom: 0.6em;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  .type-icon {
+    position: relative;
+    top: 3px;
+    width: 20px;
+  }
+
+  .description-line {
+    max-width: 66em;
+    margin-bottom: 1em;
+    font-size: 14px;
+
+    .el-button {
+      color: $blue;
+      vertical-align: middle;
+    }
+  }
+
+  .description {
+    max-width: 56em;
+    //display:inline-block;
+    line-height: 2em;
+    vertical-align: middle;
+  }
+
+  .properties {
+    margin-bottom: 1em;
+  }
+}
+
+.page-container {
+  .content-nav {
+    .menu {
+      cursor: pointer;
+    }
+
+    .path-item-text {
+      cursor: pointer;
+    }
+  }
+}
+
+.column-btn {
+  width: 100px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  margin-top: 8px;
+  font-size: 12px;
+  color: $deepBlueForBtn;
+  background-color: #ebf1fa;
+  border: 1px solid $deepBlueForBtn;
+  border-radius: 2px;
+
+  .view-btn {
+    display: inline-block;
+  }
+
+  & {
+    color: #fff;
+    background: $deepBlueForBtn;
+  }
+
+  &.is-disabled,
+  &.disable-btn {
+    color: #a8a8a8;
+    background: #f7f7f7;
+    border-color: #ddd;
+  }
+}
+
+.content-preview {
+  position: relative;
+
+  .btn-con {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    width: 120px;
+
+    .btn-item {
+      float: right;
+      width: 120px;
+      height: 36px;
+      padding: 0;
+      margin: 0;
+      margin-top: 8px;
+      color: $deepBlueForBtn;
+      background-color: #ebf1fa;
+      border: 1px solid $deepBlueForBtn;
+      border-radius: 4px;
+
+      .view-btn {
+        display: inline-block;
+      }
+
+      &:hover {
+        color: #fff;
+        background: $deepBlueForBtn;
+      }
+
+      &.is-disabled,
+      &.disable-btn {
+        color: #a8a8a8;
+        background: #f7f7f7;
+        border-color: #ddd;
+      }
+    }
+  }
+}
+
+.table-main-page {
+  .page-container {
+    .ps-container {
+      .properties {
+        .star {
+          .table-rate {
+            display: inline-block;
+          }
+        }
+
+        .collection {
+          box-sizing: border-box;
+          display: inline-block;
+          padding: 0 10px;
+          text-align: center;
+          cursor: pointer;
+          user-select: none;
+          // border: 1px solid #898989;
+          border-radius: 3px;
+
+          &>i,
+          &>span {
+            line-height: 20px;
+            vertical-align: top;
+          }
+
+          i {
+            color: #f93;
+          }
+
+          &:hover {
+            background-color: #e9e9e9;
+          }
+        }
+      }
+    }
+  }
+}

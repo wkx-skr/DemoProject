@@ -1,0 +1,29 @@
+.time-base-pop {
+  padding: 10px 10px;
+  .radio {
+    display: inline-block;
+    width: 30px;
+    height: 24px;
+    margin-right: 0.2em;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 2px;
+    &:hover {
+      cursor: pointer;
+    }
+    &.checked {
+      color: #4386f5;
+      background: #ebf1fa;
+    }
+    &.disabled {
+      color: #c0c5d1;
+      &:hover {
+        cursor: not-allowed;
+      }
+    }
+  }
+  .gun {
+    margin: 0 0.54em;
+    color: #e4e4e4;
+  }
+}

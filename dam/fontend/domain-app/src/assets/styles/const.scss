@@ -1,0 +1,123 @@
+/*
+ * 通用颜色
+ */
+:root {
+  //--main-color:#009B61;
+  //    --main-color:#479EFF;
+  //    --light-color:#d1E5FF;//#E6F3EB //ccebdf
+  //    --hover-color:#67AEFF;//#00AB81
+}
+//$cl-color:var(--main-color);
+//$blue:var(--main-color);
+//$color-blue:var(--main-color);
+//$light-color:var(--light-color);
+//$hover-color:var(--hover-color);
+$cl-color:#479eff;
+$blue:#479eff;
+$color-blue:#479eff;
+$light-color:#d1e5ff;
+$hover-color:#67aeff;
+$light-blue: #e0ecff;
+$lighter-blue:#ebf4ff;
+
+$grey-1:#f8f9fc;
+$grey-2:#d6d9e0;
+$grey-3:#777f95;
+$grey-4:#515560;
+$grey-5:#454850;
+$green:#48bbc2;
+$orange:#fcb100;
+$red:#f55c5c;
+
+$dark-black:#212733;
+$light-black:#363f4b;
+
+/*
+ * 字体
+ */
+$font-big:18px;
+$font-middle:14px;
+$font-small:12px;
+$default-color: var(--base-font-color);
+$aux-color:#777f9e;
+
+$filter-line-height: 40px;
+
+
+.tabPageAbs,
+.tab-page-ver2 {
+  // 设置 filter line 高度
+  &.tab-page,
+  .tab-page {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+  }
+  .filter-row {
+    position: relative;
+    box-sizing: border-box;
+    height: $filter-line-height;
+    padding-left: 0;
+    // border: 1px solid red;
+    .label {
+      display: none;
+    }
+    .row-inner {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      min-width: 900px;
+      height: auto;
+      margin-top: 0;
+      overflow: hidden;
+      line-height: normal;
+      transform: translate(0, -50%);
+      .search-container {
+        display: inline-block;
+        width: 50%;
+        min-width: 200px;
+        max-width: 300px;
+        // padding-left: 20px;
+      }
+      .el-input {
+        padding-left: 20px;
+      }
+    }
+    .page-btn-group.right-top {
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      transform: translate(0, -50%);
+    }
+  }
+  .table-row {
+    top: $filter-line-height;
+  }
+  #job-list {
+    top: $filter-line-height;
+  }
+}
+.db-fieldMessage-title {
+  .message-title {
+    position: relative;
+    display: inline-block;
+    padding-left: 10px;
+    // padding: 12px 0;
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    &::before {
+      position: absolute;
+      top: 4px;
+      left: 0;
+      width: 4px;
+      height: 14px;
+      content: '';
+      background: #409eff;
+      border-radius: 1px;
+    }
+  }
+}
