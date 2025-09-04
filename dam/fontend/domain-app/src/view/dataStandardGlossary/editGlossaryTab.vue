@@ -122,11 +122,11 @@
               />
             </datablau-select>
           </el-form-item>
-          <el-form-item
+<!--          <el-form-item
             :label="$t('domain.glossary.managementDepartment')"
             prop="managementDepartment"
-          >
-            <!--  TODO wangjie根据当前登录用户自动填充               -->
+            + 123>
+            &lt;!&ndash;  TODO wangjie根据当前登录用户自动填充               &ndash;&gt;
             <datablau-select
               ref="desOrgChoose"
               v-model="glossary.managementDepartment"
@@ -148,7 +148,7 @@
                 :value="item.bm"
               ></el-option>
             </datablau-select>
-            <!--            <datablau-select
+            &lt;!&ndash;            <datablau-select
               size="mini"
               v-model="glossary.managementDepartment"
               :placeholder="
@@ -163,8 +163,8 @@
                 :value="item.value"
                 :disabled="item.disabled"
               />
-            </datablau-select>-->
-          </el-form-item>
+            </datablau-select>&ndash;&gt;
+          </el-form-item>-->
           <el-form-item :label="$t('domain.glossary.source')">
             <datablau-input
               size="mini"
