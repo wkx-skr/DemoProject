@@ -312,6 +312,15 @@
               </p>
             </div>
             <div class="details-box">
+              <!-- 关联业务术语 -->
+              <div class="detail" v-if="useDam">
+                <span class="label">关联业务术语</span>
+                <span
+                  class="value"
+                  v-html="nl2br(details.referenceTermName)"
+                ></span>
+              </div>
+              <!-- 关联旧标准 s -->
               <div class="detail2">
                 <span class="label">
                   {{ $t('domain.domain.referenceOldDomain') }}
@@ -324,13 +333,7 @@
                   :categoryTypeId="categoryTypeId"
                 ></relation-domain-list>
               </div>
-              <div class="detail" v-if="useDam">
-                <span class="label">关联术语</span>
-                <span
-                  class="value"
-                  v-html="nl2br(details.referenceTermName)"
-                ></span>
-              </div>
+              <!-- 关联旧标准 e -->
               <div
                 id="long-text"
                 class="detail"
