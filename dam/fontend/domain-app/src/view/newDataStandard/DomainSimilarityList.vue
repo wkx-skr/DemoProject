@@ -86,7 +86,7 @@ export default {
           keyword: '',
         }
       }
-      const url = this.$domain_url + '/domains/similarity/getSimilarityGroup'
+      const url = this.$domain_url + '/domains/similarity/getSimilarityGroupNew'
       this.tableLoading = true
       this.$http
         .post(url, {
@@ -133,7 +133,7 @@ export default {
             .post(`${this.$domain_url}/domains/similarity/skipNew`, [
               ...this.selection.map(item => {
                 return {
-                  reson: this.form.reason,
+                  reason: this.form.reason,
                   domainId: item.domainId,
                   domainName: item.chineseName,
                   anotherDomainNames: this.getOtherChineseNames(item.chineseName),

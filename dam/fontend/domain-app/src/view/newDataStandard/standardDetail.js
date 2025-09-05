@@ -784,17 +784,17 @@ export default {
           })
         })
       })
-      Promise.all(promises).then(res => {
-        if (res.filter(r => !r).length === 0) {
+      // Promise.all(promises).then(res => {
+      //   if (res.filter(r => !r).length === 0) {
           if (isUpdate && !this.isDerive) {
             this.updateApply()
             return
           }
           this.save()
-        } else {
-          console.error('表单校验不通过')
-        }
-      })
+        // } else {
+        //   console.error('表单校验不通过')
+        // }
+      // })
     },
 
     updateDomain() {
@@ -938,7 +938,7 @@ export default {
     busInfoBlur(name, val) {
       if (name === this.$t('domain.domain.dataQualityRules') && val) {
         setTimeout(() => {
-          this.$refs.form2.clearValidate('busRule')
+          // this.$refs.form2.clearValidate('busRule')
         })
       }
     },
@@ -1001,17 +1001,18 @@ export default {
               case '实数':
               case '二进制':
                 dict['数值'].push(d)
-                dict['代码'].push(d)
-                dict['编码'].push(d)
+                dict['代码']?.push(d)
+                dict['编码']?.push(d)
                 break
               case '时间':
                 dict['时间'].push(d)
                 dict['日期'].push(d)
                 break
               case '字符串':
-                dict['文本'].push(d)
-                dict['代码'].push(d)
-                dict['编码'].push(d)
+                dict['文本']?.push(d)
+                dict['字符']?.push(d)
+                dict['代码']?.push(d)
+                dict['编码']?.push(d)
                 break
             }
           })
