@@ -93,6 +93,16 @@
           show-overflow-tooltip
         />
         <el-table-column
+          label="业务域"
+          prop="innerName"
+          show-overflow-tooltip
+        />
+        <el-table-column
+          label="资产编码"
+          prop="buCode"
+          show-overflow-tooltip
+        />
+        <el-table-column
           label="创建人"
           prop="applyCreator"
           show-overflow-tooltip
@@ -288,13 +298,13 @@ export default {
   methods: {
     // 初始化固定状态参数
     initFixedState() {
-      const { state,innerBuName,operate } = this.$route.query
+      const { state,buName,operate } = this.$route.query
       let mapObj = {
         "asset":["资产DL123"],
         "model":["资产DL45"],
         "standard":["标准数据元","业务术语"]
       }
-      let innerBuNameArr = innerBuName && innerBuName.split(",") ||[]
+      let innerBuNameArr = buName && buName.split(",") ||[]
       // if (state) {
       this.fixedState = state
       this.filterForm.innerState = state
@@ -503,6 +513,7 @@ export default {
     overflow: auto;
     padding: 0 20px 10px 20px;
     margin-bottom: 10px;
+    min-height: 500px;
   }
 
   .pagination-container {

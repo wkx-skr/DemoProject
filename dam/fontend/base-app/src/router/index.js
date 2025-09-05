@@ -1741,6 +1741,11 @@ const routes = [
         component: searchGlobal,
       },
       {
+        name: 'searchGlobal1',
+        path: 'searchGlobal1',
+        component: searchGlobal,
+      },
+      {
         name: 'fictitiousSource',
         path: 'fictitiousSource',
         component: fictitiousSource,

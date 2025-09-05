@@ -48169,7 +48169,7 @@ const directory = {
         ...ddcPageTree,
         "$t('common.page.数据标准')": {
           "$t('common.page.dataStandardDashboard')": ['dataStandardDashboard'],
-          "$t('common.page.domain')": ['dataStandard', 'abandonDomain', 'code', 'glossary'],
+          "$t('common.page.domain')": ['glossary', 'dataStandard', 'code', 'abandonDomain'],
           // "$t('common.page.otherDomain')": [
           //     "dataStandardField",
           //     "domainStandard",
@@ -48191,7 +48191,7 @@ const directory = {
           // ],
         },
         "$t('common.page.元数据')": {
-          "$t('common.page.metaData')": ['dataCatalogDashboard', 'map', 'dataCatalog', 'dataCatalogForDDC', 'reportFormManage', 'metaFolder'],
+          "$t('common.page.metaData')": ['searchGlobal1', 'dataCatalogDashboard', 'map', 'dataCatalog', 'dataCatalogForDDC', 'reportFormManage', 'metaFolder'],
           "$t('common.page.domain')": ['mapDataStandardDashboard'],
           "$t('common.page.mapAssetDirManage')": ['mapAssetDirManage'],
           "$t('common.page.dataResourceFile')": ['modelCategory', 'dataSource', 'metaDatasource', 'metaModel'],
@@ -48403,8 +48403,8 @@ const directory = {
       label: '全局搜索',
       vueRouter: '/main/searchGlobal',
       appName: 'base-app',
-      licenseRequired: null,
-      accessRequired: null,
+      licenseRequired: ['FE_META'],
+      accessRequired: ['METADATA_SEARCH'],
       hideLeftNav: true,
       hideInMenu: true
     },
@@ -48596,6 +48596,14 @@ const directory = {
       licenseRequired: ['FE_META'],
       accessRequired: ['MAIN_ASSET_SUMMARY'],
       openByWindow: false
+    },
+    searchGlobal1: {
+      name: 'searchGlobal1',
+      label: '全局搜索',
+      vueRouter: '/main/searchGlobal1',
+      appName: 'base-app',
+      licenseRequired: ['FE_META'],
+      accessRequired: ['METADATA_SEARCH']
     },
     map: {
       name: 'map',

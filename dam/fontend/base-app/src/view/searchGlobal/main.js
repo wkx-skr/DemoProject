@@ -5,6 +5,15 @@ export default {
   components: { IsShowTooltip,Panel },
   data() {
     return {
+      tableKey:0,
+      tableHeaderLabel:"数据表",
+      catalogTypeMap:{
+        "业务对象":1,
+        "逻辑数据实体":2,
+        "属性":3,
+        "业务域":4,
+        "主题域":6
+      },
       showGlobalSearch: true,
       keyword: '',
       pageSize: 20,
@@ -116,28 +125,28 @@ export default {
     },
     queryHistoryRecord(queryStr, cb) {
       this.queryHistoryRecordTimeout &&
-        clearTimeout(this.queryHistoryRecordTimeout)
+      clearTimeout(this.queryHistoryRecordTimeout)
       this.queryHistoryRecordTimeout = setTimeout(() => {
         cb(
           queryStr
             ? (this.historicalList || [])
-                .filter(item => {
-                  return item && item.indexOf(queryStr) > -1
-                })
-                .map((item, index) => {
-                  return {
-                    index,
-                    value: item,
-                    label: item,
-                  }
-                })
-            : (this.historicalList || []).map((item, index) => {
+              .filter(item => {
+                return item && item.indexOf(queryStr) > -1
+              })
+              .map((item, index) => {
                 return {
                   index,
                   value: item,
                   label: item,
                 }
               })
+            : (this.historicalList || []).map((item, index) => {
+              return {
+                index,
+                value: item,
+                label: item,
+              }
+            })
         )
       })
     },
@@ -273,8 +282,8 @@ export default {
       }
       let type =
         this.columnMapping[
-          databaseType + '_@@_' + row.replaceAll(/\s*\(.*?\)\s*/g, '')
-        ]
+        databaseType + '_@@_' + row.replaceAll(/\s*\(.*?\)\s*/g, '')
+          ]
       if (type !== undefined) {
         return type
       } else {
@@ -300,7 +309,7 @@ export default {
         if (this.isMetadata) {
           window.open(
             baseUrl +
-              `main/meta?type=META_MODEL&objectId=${result.data.itemId}&blank=true`,
+            `main/meta?type=META_MODEL&objectId=${result.data.itemId}&blank=true`,
             '_blank'
           )
         } else {
@@ -312,7 +321,7 @@ export default {
       } else if (result.data.itemType === 82800002) {
         window.open(
           baseUrl +
-            `main/reportFormManage?objectId=${result.data.itemId}&blank=true`,
+          `main/reportFormManage?objectId=${result.data.itemId}&blank=true`,
           '_blank'
         )
       } else if (result.data.itemType === 82800008) {
@@ -347,7 +356,7 @@ export default {
       } else if (result.data.itemType === 82800016) {
         window.open(
           baseUrl +
-            `main/dataQuality/qualityRule?id=${result.data.itemId}&blank=true`
+          `main/dataQuality/qualityRule?id=${result.data.itemId}&blank=true`
         )
       } else if (result.data.itemType === 82800012) {
         window.open(
@@ -356,7 +365,7 @@ export default {
       } else if (result.data.itemType === 80010001) {
         window.open(
           baseUrl +
-            `main/metaDatasource?keyword=${result.data.chineseName}&blank=true`
+          `main/metaDatasource?keyword=${result.data.chineseName}&blank=true`
         )
       }
     },
@@ -467,8 +476,24 @@ export default {
       })
       return name
     },
+    findNameById(list, name) {
+      for (const item of list) {
+        if (item.id === name) {
+          return item.chineseName; // 直接返回，终止搜索
+        }
+        if (item.elementList?.length > 0) {
+          const nestedResult = this.findNameById(item.elementList, name);
+          if (nestedResult) {
+            return nestedResult; // 找到则返回，否则继续循环
+          }
+        }
+      }
+      return ''; // 遍历完所有节点后未找到
+    },
     selectedItemTypeChangeEvent(name) {
-      console.log('selectedItemTypeChangeEvent', name, this.selectedItemType)
+      let id = name&&name.length>0?name[name.length-1]:''
+      this.tableHeaderLabel = this.findNameById(this.itemTypeOptions,id)
+      this.tableKey++
       const currentSelectedItemType = this.lastSelectedItemType
       if (currentSelectedItemType === 'sjb') {
         this.selectedItemTypeArr = ['80000004', '80500008']

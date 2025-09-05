@@ -5,6 +5,7 @@
       <!-- 导出按钮 -->
       <div class="table-header">
         <datablau-button
+          v-if="!hideBack"
           type="primary"
           @click="$router.back(-1)"
         >
@@ -158,10 +159,12 @@ export default {
       descriptionType: 0,
       dl45ExportData: [],
       tagsTreeArr: [],
-      tableData:[]
+      tableData:[],
+      hideBack:false
     }
   },
   mounted() {
+    this.hideBack = this.$route.query.hideBack
     this.getTableData(this.$route.query.id)
   },
   methods: {

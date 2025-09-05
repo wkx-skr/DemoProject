@@ -3,20 +3,13 @@
     <div class="top-section">
       <el-form :inline="true" size="mini">
         <el-form-item label="应用系统">
-          <el-cascader
-            v-model="modelCategoryId"
-            :options="systemOptions"
-            clearable
-            filterable
-            :props="{
-              value: 'categoryId',
-              label: 'name',
-              children: 'nodes',
-              checkStrictly: true,
-              emitPath: false,
-            }"
-            placeholder="请选择"
-          ></el-cascader>
+          <el-cascader v-model="modelCategoryId" :options="systemOptions" clearable filterable :props="{
+            value: 'categoryId',
+            label: 'name',
+            children: 'nodes',
+            checkStrictly: true,
+            emitPath: false,
+          }" placeholder="请选择"></el-cascader>
         </el-form-item>
         <el-form-item>
           <datablau-button type="normal" @click="onSearch">
@@ -32,77 +25,37 @@
         <div id="container" class="echart-container"></div>
       </div>
     </div>
-    <datablau-dialog
-      title="关系详情列表"
-      :visible.sync="flag"
-      :modal="false"
-      :close-on-click-modal="false"
-      width="60vw"
-      append-to-body
-    >
+    <datablau-dialog title="关系详情列表" :visible.sync="flag" :modal="false" :close-on-click-modal="false" width="60vw"
+                     append-to-body>
       <div class="details-table" v-loading="loadingDetails">
-        <datablau-table
-          :data="lineDetailsData"
-          height="100%"
-          style="width: 100%"
-        >
-          <el-table-column
-            prop="modelCategoryNameLeft"
-            label="上级系统"
-            show-overflow-tooltip
-          ></el-table-column>
-          <el-table-column label="上级实体权限" width="120">
+        <datablau-table :data="lineDetailsData" height="100%" style="width: 100%">
+          <el-table-column prop="modelCategoryNameLeft" label="上游系统" show-overflow-tooltip></el-table-column>
+          <el-table-column label="上游操作" width="120">
             <template #default="{ row }">
               <span v-if="row.permissionsCrudLeft">
-                <el-tag
-                  v-for="tag in getPermissionTags(row.permissionsCrudLeft)"
-                  :key="tag.char"
-                  :type="tag.type"
-                  size="mini"
-                  effect="light"
-                  style="margin-right: 4px"
-                >
+                <el-tag v-for="tag in getPermissionTags(row.permissionsCrudLeft)" :key="tag.char" :type="tag.type"
+                        size="mini" effect="light" style="margin-right: 4px">
                   {{ tag.char }}
                 </el-tag>
               </span>
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column
-            label="业务对象名称"
-            prop="l3Name"
-            width="200"
-            show-overflow-tooltip
-            align="center"
-          ></el-table-column>
-          <el-table-column
-            prop="l4Name"
-            label="逻辑实体名称"
-            width="200"
-            show-overflow-tooltip
-          ></el-table-column>
-          <el-table-column label="下级实体权限" width="120">
+          <el-table-column label="业务对象名称" prop="l3Name" width="200" show-overflow-tooltip
+                           align="center"></el-table-column>
+          <el-table-column prop="l4Name" label="逻辑实体名称" width="200" show-overflow-tooltip></el-table-column>
+          <el-table-column label="下游操作" width="120">
             <template #default="{ row }">
               <span v-if="row.permissionsCrudRight">
-                <el-tag
-                  v-for="tag in getPermissionTags(row.permissionsCrudRight)"
-                  :key="tag.char"
-                  :type="tag.type"
-                  size="mini"
-                  effect="light"
-                  style="margin-right: 4px"
-                >
+                <el-tag v-for="tag in getPermissionTags(row.permissionsCrudRight)" :key="tag.char" :type="tag.type"
+                        size="mini" effect="light" style="margin-right: 4px">
                   {{ tag.char }}
                 </el-tag>
               </span>
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column
-            prop="modelCategoryNameRight"
-            label="下级系统"
-            show-overflow-tooltip
-          ></el-table-column>
+          <el-table-column prop="modelCategoryNameRight" label="下游系统" show-overflow-tooltip></el-table-column>
           <!-- Empty state provided by datablau-table or element-plus table -->
           <template #empty>
             <el-empty description="无详细信息"></el-empty>
@@ -139,6 +92,9 @@ export default {
       boxWidth: 0,
       boxHeight: 0,
       resetView: null,
+      // 新增：跟踪已选择的节点和边
+      selectedNodes: new Set(),
+      selectedEdges: new Set(),
     }
   },
   mounted() {
@@ -438,10 +394,10 @@ export default {
               cursor: 'pointer',
             },
           },
-          type: 'rect',
+          // type: 'rect',
         },
         defaultEdge: {
-          type: 'polyline',
+          // type: 'polyline',
           labelCfg: {
             style: {
               fill: '#666',
@@ -500,7 +456,7 @@ export default {
           // 新增连线激活状态
           active: {
             stroke: '#333', // 深色激活状态
-            lineWidth: 1.4,
+            lineWidth: 1.8,
           },
           // 新增淡化状态
           dim: {
@@ -545,7 +501,15 @@ export default {
           if (target !== node) neighborNodes.add(target)
         })
 
-        // 2. 隐藏所有节点和边
+        // 2. 将新选择的节点和边添加到已选择集合中
+        neighborNodes.forEach(neighborNode => {
+          this.selectedNodes.add(neighborNode)
+        })
+        relatedEdges.forEach(relatedEdge => {
+          this.selectedEdges.add(relatedEdge)
+        })
+
+        // 3. 隐藏所有节点和边
         this.graph.getNodes().forEach(graphNode => {
           this.graph.hideItem(graphNode)
         })
@@ -554,16 +518,16 @@ export default {
           this.graph.hideItem(graphEdge)
         })
 
-        // 3. 显示相关节点和边
-        neighborNodes.forEach(neighborNode => {
-          this.graph.showItem(neighborNode)
+        // 4. 显示所有已选择的节点和边（累积效果）
+        this.selectedNodes.forEach(selectedNode => {
+          this.graph.showItem(selectedNode)
         })
 
-        relatedEdges.forEach(relatedEdge => {
-          this.graph.showItem(relatedEdge)
+        this.selectedEdges.forEach(selectedEdge => {
+          this.graph.showItem(selectedEdge)
         })
 
-        // 4. 聚焦显示的区域
+        // 5. 聚焦显示的区域
         // this.graph.fitView() // 添加边距
       })
 
@@ -663,11 +627,8 @@ export default {
 
       // 暴露高亮节点方法（可在外部调用）
       this.highlightNode = nodeId => {
+        // 清除所有状态
         this.resetView()
-        // 清除所有节点的聚焦状态
-        this.graph.getNodes().forEach(node => {
-          this.graph.clearItemStates(node, ['highlight'])
-        })
 
         const targetNode = this.graph.findById(nodeId)
         if (!targetNode) {
@@ -675,16 +636,46 @@ export default {
           return
         }
 
-        // 设置聚焦状态
-        this.graph.setItemState(targetNode, 'highlight', true)
+        // 1. 获取当前节点及其邻居节点
+        const neighborNodes = new Set()
+        const relatedEdges = new Set()
 
-        // 将节点移动到画布中心
-        this.graph.focusItem(targetNode, true, {
-          duration: 400,
-          easing: 'easeCubic',
+        // 添加当前节点
+        neighborNodes.add(targetNode)
+
+        // 获取直接相连的节点和边
+        const edges = targetNode.getEdges()
+        edges.forEach(edge => {
+          relatedEdges.add(edge)
+
+          const source = edge.getSource()
+          const target = edge.getTarget()
+
+          if (source !== targetNode) neighborNodes.add(source)
+          if (target !== targetNode) neighborNodes.add(target)
         })
-      }
 
+        // 2. 隐藏所有节点和边
+        this.graph.getNodes().forEach(graphNode => {
+          this.graph.hideItem(graphNode)
+        })
+
+        this.graph.getEdges().forEach(graphEdge => {
+          this.graph.hideItem(graphEdge)
+        })
+
+        // 3. 显示相关节点和边
+        neighborNodes.forEach(neighborNode => {
+          this.graph.showItem(neighborNode)
+        })
+
+        relatedEdges.forEach(relatedEdge => {
+          this.graph.showItem(relatedEdge)
+        })
+
+        // 4. 聚焦显示的区域
+        // this.graph.fitView()
+      }
       // 暴露重置
       this.resetView = () => {
         // 清除所有状态
@@ -702,6 +693,10 @@ export default {
         this.graph.getEdges().forEach(edge => {
           this.graph.showItem(edge)
         })
+
+        // 清空已选择的节点和边集合
+        this.selectedNodes.clear()
+        this.selectedEdges.clear()
 
         // 恢复整体视图
         this.graph.fitView()
