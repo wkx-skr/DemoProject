@@ -1,0 +1,330 @@
+//-------------------------数据标准-------------------------
+//管理,   数据标准,  标准概览
+DOMAIN, /me/dims/catalogs, DATA_STANDARD_DASHBOARD, get
+DOMAIN, /domains/getMonthlyStatistics, DATA_STANDARD_DASHBOARD, POST
+//查看,   数据标准,  基础标准
+
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, DATA_STANDARD_VIEW, get
+
+DOMAIN, /main/users, DATA_STANDARD_VIEW, get
+DOMAIN, /me/dims/catalogs, DATA_STANDARD_VIEW, get
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, DATA_STANDARD_VIEW, get
+DOMAIN, /domains/tree/getTree, DATA_STANDARD_VIEW, POST
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_VIEW, POST
+DOMAIN, /domains/domain/getPage, DATA_STANDARD_VIEW, POST
+DOMAIN, /domains/domain/getDomainByCodes, DATA_STANDARD_VIEW, POST
+
+//新增标准,   数据标准,  基础标准
+DOMAIN, /domains/domain/createDomain, DATA_STANDARD_ADD, POST
+
+//编辑标准,   数据标准,  基础标准
+
+//删除,  数据标准,  基础标准
+DOMAIN, /domains/deleteByIds, DATA_STANDARD_DELETE, post
+
+
+// 导入, 数据标准, 基础标准
+DOMAIN, /domains/domain/uploadDomain, DATA_STANDARD_IMPORT_STANDARDS, post
+DOMAIN, /domains/domain/uploadDomain, DATA_STANDARD_IMPORT_DIRECT, post
+
+//导出查询结果,   数据标准,  基础标准
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_EXPORT, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_EXPORT, post
+
+//导出勾选,   数据标准,  基础标准
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_EXPORT_CHECKED, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_EXPORT_CHECKED, post
+
+//扩展属性,   数据标准,  基础标准
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_EXPAND, post
+DOMAIN, /domains/udp/createUdps, DATA_STANDARD_EXPAND, post
+
+//目录管理,   数据标准,  基础标准
+DOMAIN, /domains/folder/createFolder, DATA_STANDARD_CATALOG, post
+DOMAIN, /domains/folder/updateFolder, DATA_STANDARD_CATALOG, post
+DOMAIN, /domains/folder/deleteFolder, DATA_STANDARD_CATALOG, post
+
+//查看,   数据标准,  标准代码
+DOMAIN, /domains/code/getDatasetname, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/code/getCodeUsages, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/code/getDdmCodeUsages, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/code/getEditHistory, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/code/getCode, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/code/getCodeHistory, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/mapping/getColumnMapping, STANDARD_CODE_VIEW, post
+DOMAIN, /domains/code/compareVersion, STANDARD_CODE_VIEW, post
+
+//创建标准代码, 数据标准,  标准代码
+DOMAIN, /domains/code/getDatasetname, STANDARD_CODE_ADD, post
+DOMAIN, /domains/code/createCode, STANDARD_CODE_ADD, post
+
+//编辑标准代码, 数据标准,  标准代码
+DOMAIN, /domains/code/getCode, STANDARD_CODE_EDIT, post
+DOMAIN, /domains/code/getDatasetname, STANDARD_CODE_EDIT, post
+DOMAIN, /domains/code/updateCode, STANDARD_CODE_EDIT, post
+
+//删除标准代码, 数据标准,  标准代码
+DOMAIN, /domains/code/deleteCode, STANDARD_CODE_DELETE, post
+
+//申请发布, 数据标准,  标准代码
+DOMAIN, /domains/code/getCode, STANDARD_CODE_RELEASE, post
+
+//申请废弃, 数据标准,  标准代码
+DOMAIN, /domains/code/getCode, STANDARD_CODE_SCRAP, post
+
+//申请变更, 数据标准,  标准代码
+DOMAIN, /domains/code/getCode, STANDARD_CODE_UPDATA, post
+DOMAIN, /domains/code/getDatasetname, STANDARD_CODE_UPDATA, post
+
+//导入, 数据标准,  标准代码
+DOMAIN, /domains/code/exportTemplate, STANDARD_CODE_IMPORT_CODE, post
+DOMAIN, /domains/code/uploadCode, STANDARD_CODE_IMPORT_CODE, post
+DOMAIN, /domains/code/uploadCode, STANDARD_CODE_IMPORT_DIRECT, post
+
+//导出, 数据标准,  标准代码
+DOMAIN, /domains/code/exportTemplate, STANDARD_CODE_EXPORT, post
+DOMAIN, /domains/code/exportCode, STANDARD_CODE_EXPORT, post
+
+//扩展属性， 数据标准， 标准代码
+DOMAIN, /domain/standards/udp/getUdps, STANDARD_CODE_EXPAND, post
+DOMAIN, /domain/standards/udp/createUdps, STANDARD_CODE_EXPAND, post
+
+//新建标准组, 数据标准,  领域数据标准
+DOMAIN, /domains/folder/createFolder, DATA_STANDARD_CATEGORY_CREATE, post
+
+//查看, 数据标准,  领域数据标准
+DOMAIN, /domains/category/getCategories, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/category/getGrant, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/category/getGrantList, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/category/grant, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/folder/deleteFolder, DATA_STANDARD_CATEGORY_VIEW, post
+
+
+DOMAIN, /domains/tree/getTree, DATA_STANDARD_CATEGORY_VIEW, POST
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_CATEGORY_VIEW, POST
+DOMAIN, /domains/domain/getPage, DATA_STANDARD_CATEGORY_VIEW, POST
+DOMAIN, /domains/domain/getDomainByCodes, DATA_STANDARD_CATEGORY_VIEW, POST
+DOMAIN, /domains/domain/createDomain, DATA_STANDARD_CATEGORY_VIEW, POST
+DOMAIN, /domains/code/getDatasetname, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getCodeUsages, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getDdmCodeUsages, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getEditHistory, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getCode, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getCodeHistory, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/mapping/getColumnMapping, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/compareVersion, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/domain/uploadDomain, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/udp/createUdps, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getDatasetname, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/createCode, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getCode, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/getDatasetname, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/updateCode, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/deleteCode, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/exportTemplate, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/uploadCode, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/exportTemplate, DATA_STANDARD_CATEGORY_VIEW, post
+DOMAIN, /domains/code/exportCode, DATA_STANDARD_CATEGORY_VIEW, post
+//-------------领域标准结束-------------
+
+
+//查看,   数据标准,  命名词典
+DOMAIN, /ns/category/getCategories, DICTIONARY_VIEW, post
+DOMAIN, /ns/ns/getNs, DICTIONARY_VIEW, post
+DOMAIN, /ns/ns/getHistory, DICTIONARY_VIEW, post
+
+//添加词汇,   数据标准,  命名词典
+DOMAIN, /ns/ns/createNs, DICTIONARY_ADD, post
+
+//编辑词汇,   数据标准,  命名词典
+DOMAIN, /ns/ns/updateNs, DICTIONARY_EDIT, post
+
+//删除词汇,   数据标准,  命名词典
+DOMAIN, /ns/ns/deleteNs, DICTIONARY_DELETE, post
+
+//导出词汇,   数据标准,  命名词典
+DOMAIN, /ns/ns/exportTemplate, DICTIONARY_EXPORT, post
+DOMAIN, /ns/ns/exportNs, DICTIONARY_EXPORT, post
+
+//导入词汇,   数据标准,  命名词典
+DOMAIN, /ns/ns/exportTemplate, DICTIONARY_IMPORT, post
+DOMAIN, /ns/ns/uploadNs, DICTIONARY_IMPORT, post
+
+
+//查看,   数据标准,  指标标准
+
+DOMAIN, /domains/tree/getTree, DATA_STANDARD_DIM_VIEW, POST
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_DIM_VIEW, POST
+DOMAIN, /domains/domain/getPage, DATA_STANDARD_DIM_VIEW, POST
+DOMAIN, /domains/domain/getDomainByCodes, DATA_STANDARD_DIM_VIEW, POST
+
+//新增指标,   数据标准,  指标标准
+DOMAIN, /domains/domain/createDomain, DATA_STANDARD_DIM_ADD, POST
+
+//编辑指标,   数据标准,  指标标准
+
+
+
+
+
+// 导入, 数据标准, 指标标准
+DOMAIN, /domains/domain/uploadDomain, DATA_STANDARD_DIM_IMPORT_STANDARDS, post
+DOMAIN, /domains/domain/uploadDomain, DATA_STANDARD_DIM_IMPORT_DIRECT, post
+
+//导出查询结果,   数据标准,  指标标准
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_DIM_EXPORT, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_DIM_EXPORT, post
+
+//导出勾选,   数据标准,  指标标准
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_DIM_EXPORT_CHECKED, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_DIM_EXPORT_CHECKED, post
+
+//扩展属性,   数据标准,  指标标准
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_DIM_EXPAND, post
+DOMAIN, /domains/udp/createUdps, DATA_STANDARD_DIM_EXPAND, post
+
+//目录管理,   数据标准,  指标标准
+DOMAIN, /domains/folder/createFolder, DATA_STANDARD_DIM_CATALOG, post
+DOMAIN, /domains/folder/updateFolder, DATA_STANDARD_DIM_CATALOG, post
+DOMAIN, /domains/folder/deleteFolder, DATA_STANDARD_DIM_CATALOG, post
+
+//查看,   数据标准,  域标准
+
+DOMAIN, /domains/tree/getTree, DATA_STANDARD_FIELD_VIEW, POST
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_FIELD_VIEW, POST
+DOMAIN, /domains/domain/getPage, DATA_STANDARD_FIELD_VIEW, POST
+DOMAIN, /domains/domain/getDomainByCodes, DATA_STANDARD_FIELD_VIEW, POST
+DOMAIN, /domains/udp/getUdps, DATA_STANDARD_FIELD_VIEW, post
+
+//管理,   数据标准,  域标准
+DOMAIN, /domains/domain/createDomain, DATA_STANDARD_FIELD_MANAGE, POST
+DOMAIN, /domains/domain/uploadDomain, DATA_STANDARD_FIELD_MANAGE, post
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_FIELD_MANAGE, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_FIELD_MANAGE, post
+DOMAIN, /domains/domain/exportDomain, DATA_STANDARD_FIELD_MANAGE, post
+DOMAIN, /domains/domain/exportDomainData, DATA_STANDARD_FIELD_MANAGE, post
+DOMAIN, /domains/udp/createUdps, DATA_STANDARD_FIELD_MANAGE, post
+
+//目录管理,   数据标准,  域标准
+DOMAIN, /domains/folder/createFolder, DATA_STANDARD_FIELD_CATALOG, post
+DOMAIN, /domains/folder/updateFolder, DATA_STANDARD_FIELD_CATALOG, post
+DOMAIN, /domains/folder/deleteFolder, DATA_STANDARD_FIELD_CATALOG, post
+
+//查看修饰维度,   数据标准,  维度管理
+DOMAIN, /me/dims/catalogs, DATA_STANDARD_DIM_CATALOG_VIEW, GET
+DOMAIN, /me/dims/catalogs/{catalogId}/dims, DATA_STANDARD_DIM_CATALOG_VIEW, GET
+
+//添加修饰维度,   数据标准,  维度管理
+DOMAIN, /me/dims, DATA_STANDARD_DIM_CATALOG_VALUE_ADD, POST
+
+//重命名,   数据标准,  维度管理
+DOMAIN, /me/dims, DATA_STANDARD_DIM_CATALOG_VALUE_RENAME, POST
+
+//删除,   数据标准,  维度管理
+DOMAIN, /me/dims/{dimId}, DATA_STANDARD_DIM_CATALOG_VALUE_DELETE, DELETE
+
+//导入,   数据标准,  维度管理
+DOMAIN, /me/dims/catalogs, DATA_STANDARD_DIM_CATALOG_IMPORT, POST
+
+
+
+
+//管理,   数据标准,  参数设置
+DOMAIN, /domain/generate/update, DATA_STANDARD_PARAM_MANAGE, post
+DOMAIN, /domain/generate/find/list, DATA_STANDARD_PARAM_MANAGE, post
+
+
+//------------------------数据指标-------------------------
+//数据指标,  需求管理
+DOMAIN, /requirementmanagement/page, DEMAND_MANAGEMENT, post
+DOMAIN, /categories/tree/, DEMAND_MANAGEMENT, post
+DOMAIN, /categories/get, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /categories/create, DEMAND_MANAGEMENT, post
+DOMAIN, /categories/update, DEMAND_MANAGEMENT, post
+DOMAIN, /categories/delete, DEMAND_MANAGEMENT, post
+DOMAIN, /requirementmanagement/create, DEMAND_MANAGEMENT, post
+DOMAIN, /requirementmanagement/requirementdataobject/maintain, DEMAND_MANAGEMENT, post
+DOMAIN, /requirementmanagement/requirementdataobject/get/list, DEMAND_MANAGEMENT, post
+DOMAIN, /metricManagement/getMetricsByRequirementId, DEMAND_MANAGEMENT, post
+DOMAIN, /dimension/requirement/get, DEMAND_MANAGEMENT, post
+DOMAIN, /dimension/requirement/get, DEMAND_MANAGEMENT, post
+DOMAIN, /requirementmanagement/update, DEMAND_MANAGEMENT, post
+DOMAIN, /requirementmanagement/delete, DEMAND_MANAGEMENT, post
+
+//数据指标,  自主查询
+DOMAIN, /querytheme/findall, SELF_DIRECTED_QUERIES, post
+DOMAIN, /querytheme/mapping/list/get, SELF_DIRECTED_QUERIES, post
+DOMAIN, /querytheme/mapping/to/execute, SELF_DIRECTED_QUERIES, post
+
+//数据指标,  维度管理
+DOMAIN, /categories/tree/, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /categories/get, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /categories/create, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /categories/update, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /categories/delete, DIMENSIONAL_MANAGEMENT, post
+
+DOMAIN, /dimension/page, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/create, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/update, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/delete, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /requirementmanagement/getall, DIMENSIONAL_MANAGEMENT, post
+
+DOMAIN, /dimension/get, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/list/get, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/tree/get, DIMENSIONAL_MANAGEMENT, post
+
+DOMAIN, /dimension/udp/get, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/udp/create, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/udp/update, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/udp/delete, DIMENSIONAL_MANAGEMENT, post
+
+DOMAIN, /dimension/downloadTemplate, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/export, DIMENSIONAL_MANAGEMENT, post
+DOMAIN, /dimension/import, DIMENSIONAL_MANAGEMENT, post
+
+//数据指标,  指标首页
+DOMAIN, /domains/domain/getPage, METRICS_HOME, post
+
+//数据指标,  指标管理
+DOMAIN, /metricManagement/metricAuth/getPermission, METRICS_MANAGEMENT, post
+
+DOMAIN, /domains/tree/getTree, METRICS_MANAGEMENT, POST
+DOMAIN, /domains/udp/getUdps, METRICS_MANAGEMENT, POST
+DOMAIN, /domains/domain/getPage, METRICS_MANAGEMENT, POST
+DOMAIN, /domains/domain/getDomainByCodes, METRICS_MANAGEMENT, POST
+
+DOMAIN, /domains/domain/createDomain, METRICS_MANAGEMENT, POST
+
+
+DOMAIN, /metricManagement/importMetric, METRICS_MANAGEMENT, post
+
+DOMAIN, /metricManagement/exportMetric, METRICS_MANAGEMENT, post
+
+DOMAIN, /metricManagement/downloadMetricTemplate, METRICS_MANAGEMENT, post
+
+DOMAIN, /domains/udp/getUdps, METRICS_MANAGEMENT, post
+DOMAIN, /domains/udp/createUdps, METRICS_MANAGEMENT, post
+
+//数据指标,  主题管理
+DOMAIN, /querytheme/page, METRICS_THEME, post
+DOMAIN, /querytheme/create, METRICS_THEME, post
+DOMAIN, /querytheme/get, METRICS_THEME, post
+DOMAIN, /querytheme/update, METRICS_THEME, post
+DOMAIN, /querytheme/delete, METRICS_THEME, post
+
+DOMAIN, /categories/tree/, METRICS_THEME, post
+DOMAIN, /categories/get, METRICS_THEME, post
+DOMAIN, /categories/create, METRICS_THEME, post
+DOMAIN, /categories/update, METRICS_THEME, post
+DOMAIN, /categories/delete, METRICS_THEME, post
+
+//聚合推荐
+METADATA, /domains/tree, RECOMMENDED_VIEW, get
+//智能对标
+METADATA, /models/modeltree, INTELLIGENT_VIEW, get
+METADATA, /domains/entities, INTELLIGENT_VIEW, POST

@@ -1,0 +1,153 @@
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  servlet:
+    multipart:
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+  cloud:
+    config:
+      enabled: false
+  main:
+    allow-circular-references: true
+  kafka:
+    # docker http://192.168.2.202:8080
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      retries: 3
+      acks: 1
+      batch-size: 16384
+      properties:
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      # key的序列化类
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value的序列化类
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 生产者生成的所有数据的压缩类型，此配置接受标准压缩编解码器（'gzip'，'snappy'，'lz4'，'zstd'）
+      # 默认为none
+      compression-type: none
+    consumer:
+      group-id: metadata_datablau_base
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.*"
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /base
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      springframework:
+        session: error
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    build:
+      version: 7.0.0
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: db_base_70
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    #redis的地址，在redisson.yaml中引用了该属性
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 6111
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-base-web
+    enable: true
+  #swagger-ui 开启配置 (true: 开启; false: 关闭)
+  swagger-ui-open: false
+  #是否启用kafka
+  kafka:
+    enable: false
+  plugins:
+    datasource:
+      path: d:/plugins
+    build-in:
+      path: /opt/datablau-base/buildinplugins
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    #ES的用户名
+    username: ${common.ddc.username}
+    #ES的密码
+    password: ${common.ddc.password}
+    #同义词配置
+    synonyms:
+      #同义词接口
+      path: ${common.ddc.synonyms.path}
+      #同义词刷新时间
+      interval: ${common.ddc.synonyms.interval}
+      #是否开启同义词
+      enable: ${common.ddc.synonyms.enable}
+    #es索引名称
+    indices:
+      model_category: ddc_model_category
+  kafka-topic:
+    star-update: ${common.kafka.topic.base.star-update}
+    vote-update: ${common.kafka.topic.base.vote-update}
+    visit-add: ${common.kafka.topic.base.visit-add}
+    schema-update: ${common.kafka.topic.base.schema-update}
+    audit-system-log: ${common.kafka.topic.audit.system-log}
+    rule-update: ${common.kafka.topic.base.rule-update:rule-update}
+    audit-common-log: ${common.kafka.topic.audit.log}
+    datasource-create: ${common.kafka.topic.base.datasource-create}

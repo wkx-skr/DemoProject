@@ -1,0 +1,1 @@
+"writer":{"name":"db2writer","parameter":{"column":[COLUMNNAMES],"connection":[{"jdbcUrl":JDBCURL,"table":[TABLEDATAX]}],"password":PASSWORDDATAX,"username":USERNAMEDATAX,"preSql":[PRESQLDATAX],"postSql":[POSTSQLDATAX]}}}],"setting":{"speed":{"channel":3}}}}

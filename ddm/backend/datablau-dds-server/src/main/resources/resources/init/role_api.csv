@@ -1,0 +1,4 @@
+//服务总览
+DDS, /app/apis/{searchTime}, DDS_COCKPIT_VIEW, get
+DDS, /app/appTables, DDS_COCKPIT_VIEW, get
+DDS, /app/apiAuth/apis, DDS_COCKPIT_VIEW, get

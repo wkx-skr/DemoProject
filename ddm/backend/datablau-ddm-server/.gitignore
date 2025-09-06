@@ -1,0 +1,6 @@
+/target/
+!lib/
+.settings/
+/test-output/
+/webapp/
+test.properties

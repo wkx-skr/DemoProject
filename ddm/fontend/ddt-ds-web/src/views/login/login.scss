@@ -1,0 +1,29 @@
+.blackinput{
+    background-color: transparent !important;
+    .n-input__border{
+        border: 1px solid #4D4D4D;
+    }
+    .n-input__input-el::placeholder{
+        color: #888888;
+    }
+    .n-input__input-el{
+        color: #bbb;
+    }
+}
+.blackbtn{
+    background-color: #187FFF;
+}
+.btn-login{
+    background-color: #479EFF;
+}
+.tip-p-black{
+    color: #B92412;
+    padding: 20px 20px;
+}
+.tip-p{
+    color: #F2220A;
+    padding: 20px 20px;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}

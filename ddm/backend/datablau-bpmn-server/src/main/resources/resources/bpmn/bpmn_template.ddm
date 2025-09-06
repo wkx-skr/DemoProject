@@ -1,0 +1,57 @@
+<File>
+  <Header RepositoryId="" ModelId="0" MetaVersion="1.0.1" Version="" VersionName="" PriorVersionName="" Storage="File" BirthUUID="" FilePath="bpmn_template.ddm" StorePath="" />
+  <Model Seed="4" SeedMax="0" Type="Datablau.LDM.ModelSource">
+    <Property Id="90000001" Type="System.Int32" Value="80010001" />
+    <Property Id="90000002" Type="System.Int32" Value="2" />
+    <Property Id="90000003" Type="System.String" Value="Model_1" />
+    <Property Id="90000006" Type="System.Guid" Value="a94a5b9b-9837-4fa8-ada2-0a1e4112ec40" />
+    <Property Id="90000007" Type="System.Guid" Value="721ac3dc-dabe-4be2-ae47-cbd6b0a14d80" />
+    <Object Type="Datablau.BPMN.Definitions">
+      <Property Id="90000001" Type="System.Int32" Value="80210002" />
+      <Property Id="90000002" Type="System.Int32" Value="1" />
+      <Property Id="90000003" Type="System.String" Value="Definitions" />
+      <Property Id="80210001" Type="System.String" Value="sample-diagram" />
+    </Object>
+    <Object Type="Datablau.BPMN.BpmnProcess">
+      <Property Id="90000001" Type="System.Int32" Value="80210005" />
+      <Property Id="90000002" Type="System.Int32" Value="3" />
+      <Property Id="90000003" Type="System.String" Value="Process" />
+      <Property Id="80210001" Type="System.String" Value="Process_1" />
+    </Object>
+
+    <UDP>
+      <Header RepositoryId="" ModelId="0" MetaVersion="1.0.1" Version="" VersionName="" PriorVersionName="" Storage="File" BirthUUID="25dd157b-9185-4a22-afb6-3847876118e1" FilePath="bpmn_template.ddm" StorePath="" />
+      <Model Seed="70000011" SeedMax="0" Type="Datablau.LDM.ModelM1">
+        <Property Id="90000001" Type="System.Int32" Value="90000000" />
+        <Property Id="90000002" Type="System.Int32" Value="80000000" />
+        <Property Id="90000003" Type="System.String" Value="ModelUDP" />
+        <Property Id="90000004" Type="System.String" Value="This is the virtual data UDP model m1 for common model." />
+        <Property Id="90000006" Type="System.Guid" Value="25dd157b-9185-4a22-afb6-3847876118e1" />
+        <Property Id="90000007" Type="System.Guid" Value="69c19e1e-a8ff-40f9-80f1-23db1c98fa93" />
+        <Property Id="80000002" Type="System.String" Value="VARCHAR()" />
+        <Property Id="80000020" Type="Datablau.LDM.DataStore_e" Value="Tabular" />
+        <Property Id="80000031" Type="System.String" Value="ModelUDP" />
+        <Property Id="80000033" Type="System.String" Value="Common Data Model" />
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80000004" />
+          <Property Id="90000003" Type="System.String" Value="Entity" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for Entity." />
+          <Property Id="90000006" Type="System.Guid" Value="fd734420-ba3e-4029-bf73-f293d2c45928" />
+          <Property Id="90000008" Type="System.String" Value="Entities" />
+          <Property Id="90000012" Type="System.Boolean" Value="True" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="80000010" />
+          <Property Id="90000003" Type="System.String" Value="ModelUDP_owns_Entity" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for ModelUDP_owns_Entity." />
+          <Property Id="90000006" Type="System.Guid" Value="311000cd-0d5d-47e0-b715-79d1d2e2f280" />
+          <Property Id="90000010" Type="System.Int32" Value="80000000" />
+          <Property Id="90000011" Type="System.Int32" Value="80000004" />
+        </Object>
+
+      </Model>
+    </UDP>
+  </Model>
+</File>

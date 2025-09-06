@@ -1,0 +1,176 @@
+spring:
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1024MB
+  cloud:
+    config:
+      enabled: false
+  main:
+    allow-circular-references: true
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      retries: 3
+      acks: 1
+      batch-size: 16384
+      properties:
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: none
+    consumer:
+      #每个模块接入Kafka 使用自己的模块名称作为监听组，防止消费后其他模块无法消费
+      group-id: datablau-metric
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.metric.management.mq, com.datablau.workflow.common.entity.dto"
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /metric
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      apache:
+        kafka: error
+      springframework:
+        session: error
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    build:
+      version: 7.0.1.0
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: domain
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    #redis的地址，在redisson.yaml中引用了该属性
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: classpath:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 6103
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    #ES的用户名
+    username: ${common.ddc.username}
+    #ES的密码
+    password: ${common.ddc.password}
+    #同义词配置
+    synonyms:
+      #同义词接口
+      path: ${common.ddc.synonyms.path}
+      #同义词刷新时间
+      interval: ${common.ddc.synonyms.interval}
+      #是否开启同义词
+      enable: ${common.ddc.synonyms.enable}
+    #es索引名称
+    indices:
+      domain: ddc_domain
+      stdcode: ddc_stdcode
+  kafka-topic:
+    #生产者
+      #删除数据标准
+      domain-delete: datablau-domain.domain.delete
+      #更新数据标准
+      domain-update: datablau-domain.domain.update
+      #更新标准代码
+      standard-update: datablau-domain.standard.update
+    #消费者
+      #workflow 公共前缀 来自于 WorkflowEventResult.EVENT_RESULT_TOPIC_PREFIX
+      topic-workflow-prefix: datablau-workflow-
+      #指标发布
+      workflow-metric-publish: ${datablau.kafka-topic.topic-workflow-prefix}DDD_METRIC_PUBLISH
+      #指标变更
+      workflow-metric-update: ${datablau.kafka-topic.topic-workflow-prefix}DDD_METRIC_UPDATE
+      #指标废弃
+      workflow-metric-abolish: ${datablau.kafka-topic.topic-workflow-prefix}DDD_METRIC_ABOLISH
+      #指标权限申请
+      workflow-metric-auth: ${datablau.kafka-topic.topic-workflow-prefix}METRIC_AUTH
+      entity-change-event: ${common.kafka.topic.entity-change-event}
+  graph:
+    enable: false
+  ddm:
+    server:
+      #数据标准发布时的初始状态  A:已发布，C:审核中，D:待审核，X:已废弃
+      publish-type: D
+      #ddm是否可连接
+      connectable: ${common.ddm.connectable}
+      #DDM加载数据标准时判断是否加载指标
+      loadIndex: false
+  dam:
+    server:
+      #dam是否可连接（在仅部署ddm而不部署dam时候设置为false）
+      connectable: ${common.dam.connectable}
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-metric-web
+    enable: true
+  workflow:
+    enabled: true
+  #swagger-ui 开启配置 (true: 开启; false: 关闭)
+  swagger-ui-open: false
+  #是否启用kafka
+  kafka:
+    enable: false
+  job:
+    update: true
+    version: 7.0.0
+    file: file:///D:/test/datablau_domain/resource/job.jar
+

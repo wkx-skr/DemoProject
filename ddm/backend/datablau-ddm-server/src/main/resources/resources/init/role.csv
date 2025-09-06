@@ -1,0 +1,43 @@
+//每列含义：appName, roleName, roleFriendlyName, roleDescription, roleModule, roleModuleClass
+
+//DDM
+DDM, ROLE_SUPERUSER_DDM, 模型库超级管理员, null, 模型库管理, 模型库管理
+DDM, ROLE_MODEL_VIEW_DDM, 模型库查看, null, 模型库管理, 模型库管理
+//数仓建模管理员
+//DDM, ROLE_DW_SUPERUSER_DDM, 数仓建模管理员, null, 数仓建模管理, 数仓建模
+
+DDM, ROLE_TAG_MANAGE_DDM, 管理, null, 系统管理, 标签管理
+DDM, ROLE_DDL_MANAGE_DDM, 管理, null, 系统管理, DDL配置
+DDM, ROLE_UDP_MANAGE_DDM, 管理, null, 系统管理, 自定义属性
+DDM, ROLE_PHASE_MANAGE_DDM, 管理, null, 系统管理, 自定义状态
+DDM, ROLE_DRIVER_MANAGE_DDM, 管理, null, 系统管理, 驱动管理
+DDM, ROLE_OPS_LOG_MANAGE_DDM, 管理, null, 系统管理, 操作日志
+DDM, ROLE_CONTROL_MANAGE_DDM, 管理, null, 系统管理, 控制面板
+DDM, ROLE_TEMPLATE_MANAGE_DDM, 管理, null, 系统管理, 实体模板管理
+DDM, ROLE_SYSTEM_MESSAGE_DDM, 管理, null, 系统管理, 系统消息管理
+DDM, ROLE_DATA_TYPE_MANAGE_DDM, 管理, null, 系统管理, 数据类型转换
+
+//DDM, ROLE_PROCENTRE_MANAGE_DDM, 管理, null, 流程管理, 流程中心
+//DDM, ROLE_PROMONITOR_MANAGE_DDM, 管理, null, 流程管理, 流程监控
+
+//DDM, ROLE_CHECK_STRATEGY_DDM, 管理, null, 规则与策略, 检查策略管理
+//DDM, ROLE_MODEL_CHECK_DDM, 管理, null, 规则与策略, 模型检查规则
+//DDM, ROLE_SYSTEM_CHECK_DDM, 管理, null, 规则与策略, 内置检查规则
+
+DDM, ROLE_OPS_REPORT_DDM, 管理, null, 运营管理, 运营报告
+DDM, ROLE_LICENSE_MANAGE_DDM, 管理, null, 运营管理, 许可证管理
+DDM, ROLE_EDITING_STATUS_DDM, 管理, null, 运营管理, 在线用户
+
+DDM, ROLE_ORGANIZATIONAL_MANAGE_DDM, 管理, null, 用户管理, 机构管理
+DDM, ROLE_USER_MANAGE_DDM, 管理, null, 用户管理, 用户管理
+DDM, ROLE_GROUP_MANAGE_DDM, 管理, null, 用户管理, 角色管理
+
+DDM, ROLE_SERVER_LICENSE_DDM, 管理, null, 配置管理, 产品许可管理
+
+
+//ARCHY, ARCHY_HEAD_MANAGE, 管理, null, 架构管理, 首页
+//ARCHY, ARCHY_DATA_DISTR_MANAGE, 管理, null, 架构管理, 数据分布视图
+//ARCHY, ARCHY_DATA_CIRCU_MANAGE, 管理, null, 架构管理, 数据流转视图
+ARCHY, ARCHY_BUSINESS_OBJECT_MANAGE, 管理, null, 架构管理, 业务对象模型
+//ARCHY, ARCHY_APP_SYSTEM_MANAGE, 管理, null, 架构管理, 应用系统模型
+//ARCHY, ARCHY_BUSINESS_CIRCU_MANAGE, 管理, null, 架构管理, 业务流程模型

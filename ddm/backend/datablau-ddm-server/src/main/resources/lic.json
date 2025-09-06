@@ -1,0 +1,28 @@
+[
+  {
+    "featureCode": "FE_DDM",
+    "interceptUrls": [
+      "/ddm/**",
+      "!/ddm/editor/**",
+      "!/ddm/archy/**"
+    ]
+  },
+  {
+    "featureCode": "FE_DDM_WEB",
+    "interceptUrls": [
+      "/ddm/editor/**"
+    ]
+  },
+  {
+    "featureCode": "FE_DDM_ARCH",
+    "interceptUrls": [
+      "/ddm/archy/**"
+    ]
+  },
+  {
+    "featureCode": "FE_DDM_WEB_DISPLAY",
+    "interceptUrls": [
+      ""
+    ]
+  }
+]

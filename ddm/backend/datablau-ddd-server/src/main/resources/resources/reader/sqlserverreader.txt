@@ -1,0 +1,1 @@
+"reader":{"name":"sqlserverreader","parameter":{"connection":[{"jdbcUrl":[JDBCURL],"querySql":[QUERYSQL]}],"password":PASSWORDDATAX,"username":USERNAMEDATAX}},

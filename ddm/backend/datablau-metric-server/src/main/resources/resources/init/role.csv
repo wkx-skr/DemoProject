@@ -1,0 +1,7 @@
+METRIC, METRIC_INDEX_DIMENSION, 维度定义, null, 指标管理, 指标管理
+METRIC, METRIC_INDEX_ATOM, 原子/衍生指标, null, 指标管理, 指标管理
+METRIC, METRIC_INDEX_DERIVE, 派生指标, null, 指标管理, 指标管理
+METRIC, METRIC_INDEX_MODIFIER, 修饰词管理, null, 指标管理, 指标管理
+METRIC, METRIC_INDEX_TIME, 时间周期管理, null, 指标管理, 指标管理
+METRIC, METRIC_INDEX_TOPIC, 主题目录, null, 指标管理, 主题目录
+METRIC, METRIC_INDEX_SEARCHSELF, 自主查询, null, 指标管理, 自主查询

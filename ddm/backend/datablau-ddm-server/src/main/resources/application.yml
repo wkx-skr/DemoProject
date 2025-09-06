@@ -1,0 +1,342 @@
+spring:
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration, org.springframework.cloud.netflix.archaius.ArchaiusAutoConfiguration, com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration
+  main:
+    allow-circular-references: true
+    banner-mode: console
+  aop:
+    proxy-target-class: true
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      retries: 3
+      acks: 1
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: none
+    consumer:
+      #每个模块接入Kafka 使用自己的模块名称作为监听组，防止消费后其他模块无法消费
+      group-id: ddm
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.domain.management.mq, com.datablau.workflow.common.entity.dto, com.datablau.base.mq.message"
+
+server:
+  port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+  address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+  servlet:
+    context-path: /ddm
+  ############# Domain Config  ##################
+  naming:
+    private:
+      #是否开启自定义命名词典功能. 若否则客户端看不到自定义标准目录，不能创建自定义标准
+      enable: true
+    publish:
+      #是否开启自定义命名词典的发布功能. 若否则客户端不能将自定义命名词典发布到公共命名词典
+      enable: true
+  domain:
+    version:
+      public:
+        #是否开启使用数据标准版本功能. 若否，则客户端看不到标准历史版本
+        enable : false
+    private:
+      #是否开启自定义数据标准功能. 若否则客户端看不到自定义标准目录，不能创建自定义标准
+      enable: true
+    code:
+      private:
+        #是否开启自定义标准代码功能. 若否则客户端看不到自定义标准目录，不能创建自定义标准代码
+        enable: true
+      publish:
+        #是否开启自定义标准代码的发布功能. 若否则客户端不能将自定义标准代码发布到公共标准代码
+        enable: true
+    publish:
+      #是否开启自定义数据标准的发布功能. 若否则客户端不能将自定义数据标准发布到数据公共标准
+      enable: true
+  model:
+    auto:
+      merge:
+        #允许保存模型版本冲突时自动合并可合并的对象
+        enable: false
+
+    relaiton:
+      #模型关系支持
+      enable: true
+
+  branch:
+    auto:
+      merge:
+        # 允许用户从分支版本自动合并到master
+        enable: false
+
+  category:
+    private:
+      folder:
+        # 客户端创建“我的模型”目录
+        enable: false
+
+  # 更新目录权限应用到模型和子目录时，同步更新权限还是异步更新权限，默认异步
+  permission:
+    async: true
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      apache:
+        kafka: info
+      springframework:
+        session: error
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的ip
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的port
+    build:
+      timstamp: @project.build.number@
+      version: @datablau.project.version@
+      number: 1
+      release: true
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: ddm
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50  # 最大可用连接数
+    min-idle: 2   # 空闲时保持的最小连接数
+    max-wait-millis: 30000
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 2100
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  emoji:
+    #mysql数据库是否支持utf8-mb4，支持的话用true，不支持的话用false，oracle不用关心这个配置
+    enable: false
+    # 需要手工创建一个空目录用于跳过扫描
+  plugins:
+    datasource:
+      path: C:\data
+    reverser:
+      path: C:\data
+  domain:
+    service:
+      #是否启用数据标准微服务
+      enable: false
+  workflow:
+    #是否开启工作流的rmi调用
+    enable: true
+  archy:
+    #是否开启Archy的rmi调用
+    enable: false
+  bpmn:
+    #是否开启BPMN的rmi调用
+    enable: false
+  #swagger-ui 开启配置 (true: 开启; false: 关闭)
+  swagger-ui-open: false
+  web-instance:
+    name: ddm-web
+    enable: true
+  branch:
+    permission: true
+  lic-custom-path: null #/opt/ddm/Datablau/DDM/ddmserver.lic | null #${datablau.lic-custom-path} #lic文件的绝对路径
+  performance:
+    log-enable: true
+    long-time-query: 1
+    long-time-request: 1
+  minio:
+    enable: false
+    endpoint: http://api.minio.nas.13com.net:60201/
+    region: nas
+    accessKey: datablau
+    secretKey: datablau
+  kafka-topic:
+    #消费者
+    #workflow 公共前缀 来自于 WorkflowEventResult.EVENT_RESULT_TOPIC_PREFIX
+    topic-workflow-prefix: datablau-workflow-
+    #模型报告发布
+    workflow-modelReport-publish: ${datablau.kafka-topic.topic-workflow-prefix}MODEL_REPORT
+
+    #应用系统创建
+    base-model-category-create: topic.base.application.edit
+  kafka:
+    system-log:
+      enable: false #服务系统日志
+  message:
+    base: classpath*:com/datablau/model/local/resources/message,classpath:resources/i18n/message,classpath*:**/datablau/i18n/message
+security:
+  permission:
+    grant:
+      #判断用户是否有指定对象的访问权限的类，一般不变
+      strategy: com.datablau.model.data.security.DatablauPermissionGrantingStrategy
+    factory:
+      #创建ACL的permission，一般不变
+      class: com.datablau.model.data.security.DatablauPermissionFactory
+
+ddm:
+  server:
+    remote:
+      #DDM是否可以被其它服务调用
+      connectable: ${common.ddm.connectable}
+  config:
+    auto:
+      sync:
+        model:
+          #当DDM配置连接了DAM的情况下，是否要自动同步DAM的系统为DDM模型库中目录
+          category: true
+    lic:
+      #lic是不是在LocalAppData环境变量下
+      localappdata: true
+
+general:
+  cust:
+    #当前客户编码配置，某些特定的客户有定制的UI，前端会读取这个值来显示不同UI
+    code: datablau
+
+########### AD AUTH ######################
+use:
+  active:
+    directory:
+      #是否启用AD验证
+      authentication: false
+      #AD连接的域名
+      domain: datablau.com
+      #AD域服务器地址
+      url: ldap://192.168.1.172:389
+      user:
+        #连接AD域的用户名，此用户用来在域中读取和搜索用户
+        username: wanxi08@datablau.com
+        #连接AD域的密码
+        password: 68182B7F7972CF9E
+
+  ############LDAP AUTH#####################
+  general:
+    ldap:
+      authentication: false
+      user:
+        #LDAP连接的域名
+        fqdn: cn=manager,dc=datablau,dc=com
+        #LDAP用户的密码
+        password: FA2B9D662F686B03
+        uid:
+          #LDAP的用户名的格式
+          placeholder: cn={0}
+      #LDAP连接的服务器地址
+      url: ldap://192.168.1.189:389
+    ladp:
+      user:
+        search:
+          #LDAP在哪个分类下搜索
+          context: dc=datablau,dc=com
+
+dam:
+  server:
+    remote:
+      #是否能连接DAM
+      connectable: ${common.dam.connectable}
+      auth:
+        #是否通过DAM来做用户验证，如果是话，那么DDM会调用DAM的接口把用户名密码发送给DAM做验证，否则在DDM本地做验证
+        users: true
+
+############# Model Store Config ##############
+model:
+  save:
+    relation:
+      # 是否允许模型保存的时候， 给被更新对象的上下游血缘关系对象发送更新通知
+      notice: false
+  store:
+    use:
+      #是否开启动态FE Template功能，设置后连接server时，FE Template使用<安装目录>\FETemplate目录下的文件，默认不开启
+      fe:
+        template:
+          enable: false
+          #以下配置只针对平安（是否脚本校验、是否脚本预览只读、是否可以执行脚本）
+        ddl:
+          check:
+            enable: false
+
+  datastandard:
+    #是否开启客户端数据标准增量更新功能。默认开启
+    incremental: true
+  search:
+    #是否开启模型库搜索支持全文索引功能，默认false
+    optimization: false
+mapping:
+  manager:
+    #是否开启mapping manager. 暂时只是用于poc，请勿开启
+    enable: false
+    #是否开启数仓映射设计，暂时用于poc，请勿开启
+  design:
+    enable: false
+
+############### Custom JDBC #####################################################
+customized:
+  jdbc:
+    path: /WEB-INF/ext/
+
+############ DDM Floating License 管理平台, 多个用分号分割 #######
+lic:
+  server:
+    # licserver的地址. 若有多个用分号分割
+    url:
+  # 激活提示许可扩容系数, 许可证总数 * recommendedActiveFactor(%) = x, 当实际使用峰值大于x提示推荐扩容数量
+  recommendedActiveFactor: 60
+  # 推荐扩容数量 许可证总数 * recommendedIncreaseFactor(%) = x, x为推荐扩容数量
+  recommendedIncreaseFactor: 150
+
+########## Gitlab Related ####################################
+git:
+  use:
+  # 平安需要设成true, 其他不用管
+  pingan: false

@@ -1,0 +1,125 @@
+spring:
+  aop:
+    proxy-target-class: true
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  session:
+    store-type: redis
+  main:
+    allow-circular-references: true
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      acks: 1
+      retries: 4
+      batch-size: 16384
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        mechanism: PLAIN
+        jaas:
+          config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: none
+    consumer:
+      #每个模块接入Kafka 使用自己的模块名称作为监听组，防止消费后其他模块无法消费
+      group-id: archy
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        sasl:
+          mechanism: PLAIN
+          jaas:
+            config: org.apache.kafka.common.security.plain.PlainLoginModule required username="${common.kafka.n}" password="${common.kafka.w}";
+        security:
+          protocol: SASL_PLAINTEXT
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.archy.server.mq, com.datablau.workflow.common.entity.dto"
+
+server:
+  port: ${datablau.server.port}
+  address: ${datablau.server.address}
+  servlet:
+    context-path: /archy
+  error:
+    include-stacktrace: always
+
+logging:
+  config: classpath:log4j2-spring.xml
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      springframework:
+        session: error
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port}
+    address: ${spring.cloud.nacos.discovery.ip}
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: archy
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-archy-web
+    enable: true
+  kafka-topic:
+    #消费者
+    #workflow 公共前缀 来自于 WorkflowEventResult.EVENT_RESULT_TOPIC_PREFIX
+    topic-workflow-prefix: datablau-workflow-
+    #业务对象发布
+    workflow-archyObject-publish: ${datablau.kafka-topic.topic-workflow-prefix}ARCHY_OBJECT_PUBLISH
+    #业务对象变更
+    workflow-archyObject-update: ${datablau.kafka-topic.topic-workflow-prefix}ARCHY_OBJECT_UPDATE
+    #业务对象废弃
+    workflow-archyObject-abolish: ${datablau.kafka-topic.topic-workflow-prefix}ARCHY_OBJECT_ABOLISH
+    #业务领域发布
+#    workflow-archyDomain-publish: ${datablau.kafka-topic.topic-workflow-prefix}ARCHY_DOMAIN_PUBLISH
+    #业务领域变更
+#    workflow-archyDomain-update: ${datablau.kafka-topic.topic-workflow-prefix}ARCHY_DOMAIN_UPDATE
+    #业务领域废弃
+#    workflow-archyDomain-abolish: ${datablau.kafka-topic.topic-workflow-prefix}ARCHY_DOMAIN_ABOLISH
+  message:
+    base: classpath:i18n/message

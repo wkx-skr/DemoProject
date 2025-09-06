@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>datablau-gateway</artifactId>
+    <groupId>com.datablau</groupId>
+    <version>7.0.4-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.datablau</groupId>
+  <artifactId>datablau-gateway-api</artifactId>
+  <version>7.0.4-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.andorj</groupId>
+      <artifactId>andorj-general-utils-lib</artifactId>
+      <version>${datablau.snapshot.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.security</groupId>
+          <artifactId>spring-security-config</artifactId>
+        </exclusion>
+        <exclusion>
+          <artifactId>spring-security-core</artifactId>
+          <groupId>org.springframework.security</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <artifactId>spring-session-data-redis</artifactId>
+      <groupId>org.springframework.session</groupId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-session-data-redis</artifactId>
+      <groupId>org.springframework.session</groupId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+    </dependency>
+    <dependency>
+      <artifactId>spring-web</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+
+
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**/*.csv</include>
+          <include>**/*.xml</include>
+          <include>**/*.properties</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.csv</include>
+        </includes>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+</project>

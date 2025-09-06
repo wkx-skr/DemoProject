@@ -1,0 +1,1 @@
+"writer":{"name":"starrockswriter","parameter":{"column":[COLUMNNAMES],"connection":[{"jdbcUrl":JDBCURL,"selectedDatabase":SELECTEDDATABASE,"table":[TABLEDATAX]}],"loadUrl":[LOADURL],"password":PASSWORDDATAX,"username":USERNAMEDATAX,"preSql":[PRESQLDATAX],"postSql":[POSTSQLDATAX]}}}],"setting":{"speed":{"channel":3}}}}

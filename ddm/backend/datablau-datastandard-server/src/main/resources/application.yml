@@ -1,0 +1,203 @@
+spring:
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 1024MB
+  cloud:
+    config:
+      enabled: false
+  main:
+    allow-circular-references: true
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      retries: 3
+      acks: 1
+      batch-size: 16384
+      properties:
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: none
+    consumer:
+      #每个模块接入Kafka 使用自己的模块名称作为监听组，防止消费后其他模块无法消费
+      group-id: datablau-domain
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.domain.management.mq.message, com.datablau.workflow.common.entity.dto"
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /domain
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      apache:
+        kafka: info
+      springframework:
+        session: error
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    build:
+      version: 7.0.0
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: domain
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    #redis的地址，在redisson.yaml中引用了该属性
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    #ES的用户名
+    username: ${common.ddc.username}
+    #ES的密码
+    password: ${common.ddc.password}
+    #同义词配置
+    synonyms:
+      #同义词接口
+      path: ${common.ddc.synonyms.path}
+      #同义词刷新时间
+      interval: ${common.ddc.synonyms.interval}
+      #是否开启同义词
+      enable: ${common.ddc.synonyms.enable}
+    #es索引名称
+    indices:
+      domain: ddc_domain
+      stdcode: ddc_stdcode
+  kafka-topic:
+      audit-system-log: ${common.kafka.topic.audit.system-log}
+    #生产者
+      #删除数据标准
+      domain-delete: datablau-domain.domain.delete
+      #更新数据标准
+      domain-update: datablau-domain.domain.update
+      #更新标准代码
+      standard-update: datablau-domain.standard.update
+    #消费者
+      #workflow 公共前缀 来自于 WorkflowEventResult.EVENT_RESULT_TOPIC_PREFIX
+      topic-workflow-prefix: datablau-workflow-
+      #数据标准发布
+      workflow-domain-publish: ${datablau.kafka-topic.topic-workflow-prefix}DOMAIN_PUBLISH
+      #指标发布
+      workflow-metric-publish: ${datablau.kafka-topic.topic-workflow-prefix}METRIC_PUBLISH
+      #领域标准发布
+      workflow-territoryDomain-publish: ${datablau.kafka-topic.topic-workflow-prefix}TERRITORY_DOMAIN_PUBLISH
+      #数据标准变更
+      workflow-domain-update: ${datablau.kafka-topic.topic-workflow-prefix}DOMAIN_UPDATE
+      #指标变更
+      workflow-metric-update: ${datablau.kafka-topic.topic-workflow-prefix}METRIC_UPDATE
+      #领域标准变更
+      workflow-territoryDomain-update: ${datablau.kafka-topic.topic-workflow-prefix}TERRITORY_DOMAIN_UPDATE
+      #数据标准废弃
+      workflow-domain-abolish: ${datablau.kafka-topic.topic-workflow-prefix}DOMAIN_ABOLISH
+      #指标废弃
+      workflow-metric-abolish: ${datablau.kafka-topic.topic-workflow-prefix}METRIC_ABOLISH
+      #领域标准废弃
+      workflow-territoryDomain-abolish: ${datablau.kafka-topic.topic-workflow-prefix}TERRITORY_DOMAIN_ABOLISH
+
+      #标准代码发布
+      workflow-standard-publish: ${datablau.kafka-topic.topic-workflow-prefix}STANDARD_PUBLISH
+      #领域标准代码发布
+      workflow-territoryStandard-publish: ${datablau.kafka-topic.topic-workflow-prefix}TERRITORY_STANDARD_PUBLISH
+      #标准代码变更
+      workflow-standard-update: ${datablau.kafka-topic.topic-workflow-prefix}STANDARD_UPDATE
+      #领域标准代码变更
+      workflow-territoryStandard-update: ${datablau.kafka-topic.topic-workflow-prefix}TERRITORY_STANDARD_UPDATE
+      #标准代码废弃
+      workflow-standard-abolish: ${datablau.kafka-topic.topic-workflow-prefix}STANDARD_ABOLISH
+      #领域标准代码废弃
+      workflow-territoryStandard-abolish: ${datablau.kafka-topic.topic-workflow-prefix}TERRITORY_STANDARD_ABOLISH
+      #标签变更
+      domain-tag-update: ${common.kafka.topic.domain.domain-tag-update}
+      audit-common-log: ${common.kafka.topic.audit.log}
+      entity-change-event: ${common.kafka.topic.entity-change-event}
+  graph:
+    enable: false
+  kafka:
+    system-log:
+      enable: false #服务系统日志
+  ddm:
+    server:
+      #数据标准发布时的初始状态  A:已发布，C:审核中，D:待审核，X:已废弃
+      publish-type: D
+      #标准代码发布时的初始状态  A:已发布，C:审核中，D:待审核，X:已废弃
+      code-publish-type: D
+      #DDM加载数据标准时判断是否加载指标
+      loadIndex: false
+      #DDM加载数据标准时是否加载其他属性到UDP,多个使用英文逗号分隔,只写英文：businessRule(业务规则),source(标准来源),synonym(同义词),relationDomain(相关标准),authCategoryId(权威系统),descriptionDepartment(业务定义部门),ownerOrg(技术部门),rangeType(信息类型)
+      loadDomainExtraAttributes:
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-domain-web
+    enable: true
+  workflow:
+    enabled: true
+  #swagger-ui 开启配置 (true: 开启; false: 关闭)
+  swagger-ui-open: false
+  job:
+    update: true
+    version: 7.0.0
+    file: file:///D:/test/datablau_domain/resource/job.jar
+  plugins:
+    datasource:
+      path: /opt/datablau_standard/plugins
+    remote:
+      load: true

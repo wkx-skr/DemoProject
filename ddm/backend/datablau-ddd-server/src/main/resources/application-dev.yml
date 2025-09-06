@@ -1,0 +1,144 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration, org.springframework.cloud.netflix.archaius.ArchaiusAutoConfiguration, com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration
+
+#  session:
+#    store-type: redis
+  cloud:
+    config:
+      uri: ${datablau.config.url}
+  messages:
+    basename: classpath:i18n/message_zh_CN
+
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      acks: 1
+      retries: 3
+      batch-size: 16384
+      properties:
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: none
+    consumer:
+      group-id: datablau-ddd
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      listener:
+        concurrency: 6
+        ack-mode: MANUAL
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.ddd.server.mq"
+
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  servlet:
+    context-path: /ddd/service/
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      springframework:
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t] [%C{1.}:%L] - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: ddd
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: classpath:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 4100
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  #swagger-ui 开启配置 (true: 开启; false: 关闭)
+  swagger-ui-open: false
+  web-instance:
+    name: datablau-ddd-web
+    enable: true
+  plugins:
+    datasource:
+      path: d:/plugins
+  dam:
+    service:
+      #是否启用dam微服务
+      enable: false
+  ddm:
+    service:
+      #是否启用ddm微服务
+      enable: false
+  kafka-topic:
+    #消费者
+    #workflow 公共前缀 来自于 WorkflowEventResult.EVENT_RESULT_TOPIC_PREFIX
+    topic-workflow-prefix: datablau-workflow-
+    #项目版本发布
+    workflow-version-publish: ${datablau.kafka-topic.topic-workflow-prefix}PROJECT_PUBLISH
+    #模型发布
+    workflow-model-publish: ${datablau.kafka-topic.topic-workflow-prefix}DATA_MODEL_VERSION
+    #开发需求评审
+    workflow-requirement-publish: ${datablau.kafka-topic.topic-workflow-prefix}REQUIREMENT_APPLY
+    #开发需求变更
+    workflow-requirement-update: ${datablau.kafka-topic.topic-workflow-prefix}REQUIREMENT_CHANGE_APPLY
+    #开发需求废弃
+    workflow-requirement-abolish: ${datablau.kafka-topic.topic-workflow-prefix}REQUIREMENT_ABOLISH_APPLY
+
+dolphinScheduler:
+  url: http://192.168.7.158:12345
+  token: e1d24bc8dec8ab3a89c48514e1c65971
+
+seata:
+  enabled: ${seata.enable}
+
+ddd:
+  realtime:
+    update: false

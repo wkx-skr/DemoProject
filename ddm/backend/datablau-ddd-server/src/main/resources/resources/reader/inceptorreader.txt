@@ -1,0 +1,1 @@
+"reader":{"name":"inceptorreader","parameter":{"connection":[{"jdbcUrl":[JDBCURL],"querySql":[QUERYSQL]}],"password":PASSWORD,"username":USERNAME,"encoding":"UTF-8","nullFormat":"","fileType":"text","fieldDelimiter":"\t"}},

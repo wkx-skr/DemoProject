@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <groupId>com.datablau</groupId>
+        <artifactId>datablau-parent</artifactId>
+        <version>202302-SNAPSHOT</version>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>datablau-projects-parent</artifactId>
+    <name>Datablau Projects Parent</name>
+    <groupId>com.datablau</groupId>
+    <packaging>pom</packaging>
+    <version>${revision}</version>
+
+    <properties>
+        <revision>${datablau.version}</revision>
+        <!-- Datablau 主版本 -->
+        <datablau.version>8.0.0-SNAPSHOT</datablau.version>
+        <datablau.api.version>${datablau.version}</datablau.api.version>
+        <datablau.common.version>${datablau.version}</datablau.common.version>
+        <datablau.tomcat.version>9.0.97</datablau.tomcat.version>
+
+
+        <elastic.client.sql.version>7.10.2.0</elastic.client.sql.version>
+
+        <!--发版后删除-->
+        <andorj.common.version>${datablau.version}</andorj.common.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-dependencies</artifactId>
+                <version>${datablau.api.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-graph-api</artifactId>
+                <version>${datablau.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-integrate-api</artifactId>
+                <version>${datablau.api.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>datablau-workflow-api</artifactId>
+                        <groupId>com.datablau</groupId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-ddd-api</artifactId>
+                <version>${datablau.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-base-api</artifactId>
+                <version>${datablau.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-usermgmt-api</artifactId>
+                <version>${datablau.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.datablau</groupId>
+                <artifactId>datablau-metadata-api</artifactId>
+                <version>${datablau.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>andorj-general-utils-lib</artifactId>
+                <groupId>com.andorj</groupId>
+                <version>${datablau.common.version}</version>
+            </dependency>
+
+            <!--jdbc version-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.49</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mariadb.jdbc</groupId>
+                <artifactId>mariadb-java-client</artifactId>
+                <version>3.3.2</version>
+            </dependency>
+
+            <dependency>
+                <artifactId>nacos-client</artifactId>
+                <groupId>com.alibaba.nacos</groupId>
+                <version>1.4.1</version>
+            </dependency>
+            <!--发版后删除-->
+            <dependency>
+                <groupId>com.andorj</groupId>
+                <artifactId>andorj-commons-lib</artifactId>
+                <version>${andorj.common.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.fasterxml.jackson.core</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!--cassandra drivw-->
+            <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>metrics-core</artifactId>
+                <version>3.2.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>2.7.8</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-eclipse-plugin</artifactId>
+                    <version>2.10</version>
+                    <configuration>
+                        <downloadSources>true</downloadSources>
+                        <downloadJavadocs>true</downloadJavadocs>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.2</version>
+                    <configuration>
+                        <source>17</source>
+                        <target>17</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>3.1.2</version>
+                    <configuration>
+                        <configLocation>datablau/checkstyle_datablau.xml</configLocation>
+                        <encoding>UTF-8</encoding>
+                        <consoleOutput>true</consoleOutput>
+                        <failOnViolation>false</failOnViolation>
+                        <linkXRef>false</linkXRef>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>com.datablau</groupId>
+                            <artifactId>codestyle</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>com.puppycrawl.tools</groupId>
+                            <artifactId>checkstyle</artifactId>
+                            <version>9.1</version>
+                        </dependency>
+                    </dependencies>
+                    <executions>
+                        <execution>
+                            <id>validate</id>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>2.6</version>
+                    <configuration>
+                        <!--如果想在没有web.xml文件的情况下构建WAR，请设置为false。-->
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>1.6.0</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <modules>
+        <module>datablau-usermanagement-server</module>
+        <module>datablau-archy-server</module>
+        <module>datablau-audit-server</module>
+        <module>datablau-ddd-server</module>
+        <module>datablau-ddm-server</module>
+        <module>datablau-workflow-server</module>
+        <module>datablau-datastandard-server</module>
+        <module>datablau-base-server</module>
+        <module>datablau-metric-server</module>
+        <module>datablau-dds-server</module>
+        <module>datablau-bpmn-server</module>
+    </modules>
+</project>

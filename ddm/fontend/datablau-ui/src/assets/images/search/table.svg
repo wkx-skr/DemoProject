@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>表-48</title>
+    <g id="dam-icon" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="资产状态" transform="translate(-528.000000, -626.000000)" fill="#0095D9" fill-rule="nonzero">
+            <g id="编组-27" transform="translate(0.000000, 600.000000)">
+                <path d="M573,26 L531,26 C529.343146,26 528,27.3431458 528,29 L528,71 C528,72.6568542 529.343146,74 531,74 L573,74 C574.656854,74 576,72.6568542 576,71 L576,29 C576,27.3431458 574.656854,26 573,26 Z M543,71 L531,71 L531,62 L543,62 L543,71 Z M543,59 L531,59 L531,51 L543,51 L543,59 Z M543,48 L531,48 L531,40 L543,40 L543,48 Z M558,71 L546,71 L546,62 L558,62 L558,71 Z M558,59 L546,59 L546,51 L558,51 L558,59 Z M558,48 L546,48 L546,40 L558,40 L558,48 Z M573,71 L561,71 L561,62 L573,62 L573,71 Z M573,59 L561,59 L561,51 L573,51 L573,59 Z M573,48 L561,48 L561,40 L573,40 L573,48 Z" id="表-48"></path>
+            </g>
+        </g>
+    </g>
+</svg>

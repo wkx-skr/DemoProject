@@ -1,0 +1,143 @@
+spring:
+  main:
+    allow-circular-references: true
+  redis:
+    redisson:
+      config: nacos-data-id:redisson.yaml
+  cloud:
+    gateway:
+      routes:            #gateway 路由配置
+        - id: dam         #dam路由配置
+          uri: lb://dam-web   #动态路由，去nacos注册列表，查找对应微服务的ip:port
+          predicates:       #断言匹配
+            - Path=/dam/**
+        - id: ddm             #ddm路由配置
+          uri: lb://ddm-web
+          predicates:
+            - Path=/ddm/**
+          filters:
+            - RewritePath=/ddm/service/, /ddm/
+        - id: domain          #数据标准路由配置
+          uri: lb://datablau-domain-web
+          predicates:
+            - Path=/domain/**
+        - id: workflow          #workflow路由配置
+          uri: lb://datablau-workflow-web
+          predicates:
+            - Path=/workflow/**
+        - id: user            #用户微服务路由配置
+          uri: lb://datablau-user-web
+          predicates:
+            - Path=/user/**
+        - id: dataAgent            #用户微服务路由配置
+          uri: lb://datablau-data-agent-web
+          predicates:
+            - Path=/dataAgent/**
+        - id: plugin              # DDM-Plugin微服务路由配置
+          uri: lb://ddm-plugin-web
+          predicates:
+            - Path=/plugin/**
+        - id: base
+          uri: lb://datablau-base-web
+          predicates:
+            - Path=/base/**
+        - id: metadata
+          uri: lb://datablau-metadata-web
+          predicates:
+            - Path=/metadata/service/**
+        - id: scheduler
+          uri: lb://datablau-scheduler-web
+          predicates:
+            - Path=/job/**
+        - id: archy
+          uri: lb://datablau-archy-web
+          predicates:
+            - Path=/archy/**
+        - id: bpmn
+          uri: lb://datablau-bpmn-web
+          predicates:
+            - Path=/bpmn/**
+        - id: ddm-re-instance
+          uri: lb://ddm-re-instance
+          predicates:
+            - Path=/ddm-re-instance/**
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /
+  error:
+    include-stacktrace: always
+    include-message: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    map: ${gateway.server.map}
+    build:
+      timstamp: ${gateway.server.build.timstamp}
+      version: ${gateway.server.build.version}
+      number: ${gateway.server.build.number}
+      release: ${gateway.server.build.release}
+    http:
+      baseUrl: ${gateway.server.http.baseUrl}
+  redis:
+    address: ${common.redis.address}
+  session: # 设置超时时间，单位是秒。如果设置超时时间30分钟， 值就是1800
+    maxInterval: ${datablau.session.maxInterval}
+  ldap:   #ladp认证配置
+    enable: ${common.ldap.enable}  #是否开启  true|false
+    urls: ${common.ldap.urls}     #ldap的url路径 ldap://192.168.1.161:389
+    base: ${common.ldap.base}      #ldap的查询目录路径dc=datablau,dc=com
+    username: ${common.ldap.username}  #预留查询账号名cn=manager,dc=datablau,dc=com
+    password: ${common.ldap.password}  # 预留查询账号密码
+    queryItem: ${common.ldap.queryItem}  # 查询目标字段uid
+  ad:
+    enable: ${common.ad.enable}
+    urls: ${common.ad.urls}
+    base: ${common.ad.base}
+    username: ${common.ad.username}
+    password: ${common.ad.password}
+    domain-placeholder: ${common.ad.domain-placeholder}
+  data-agent:   #job agent的路由，这里只适用于dam-ent版本
+    enable: false
+    urls: http://192.168.1.191:8880
+  login-fail-max-count: 5    #登录失败次数
+  transport:
+    http: true
+  redisTopic:
+    enable: ${datablau.redisTopic.enable}  #true|false
+  security-url:
+    login: ${gateway.security-url.login}        #form表单登录地址
+    logout: ${gateway.security-url.logout}      #登出地址
+    ignore: ${gateway.security-url.ignore}      #gateway不拦截的地址
+    client-token: ${gateway.security-url.client-token}        #ddm打开客户端认证地址
+  sso-ddt:    #dolphinscheduler sso登录
+    enable: ${datablau.sso-ddt.enable}    # true | false
+    url: ${datablau.sso-ddt.url}                                # http://192.168.7.158:12345/dolphinscheduler/login
+  balancer:
+    type: ${gateway.balancer.type}                #目前支持:base(轮询，默认), session(按session路由)
+  # 多租户配置
+  multitenant:
+    # 是否启用多租户
+    connectable: ${common.multitenant.connectable}
+    # 默认租户名：MySQL为数据库名，Oracle为用户名
+    defaultTenant: ${common.multitenant.defaultTenant}

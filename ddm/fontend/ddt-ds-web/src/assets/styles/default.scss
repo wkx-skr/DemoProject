@@ -1,0 +1,264 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+* {
+  outline: 0;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  //scrollbar-width: none;
+  //-ms-overflow-style: none;
+  //::-webkit-scrollbar {
+  //  display: none;
+  //}
+}
+
+html,
+body,
+p,
+dl,
+dd,
+dt {
+  margin: 0;
+  padding: 0;
+}
+@import '../iconfont/iconfont.css';
+.iconfont {
+  color: #409EFF;
+}
+
+.tree-icon {
+  width:24px;
+  display:inline-block;
+  text-align: center;
+  height:24px;
+  vertical-align:middle;
+  margin:-3px 6px 0 -5px;
+  &.sql{
+    background:url("../images/modelTree/sql.png") ;
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.py{
+    background-image:url("../images/modelTree/py.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.css{
+    background-image:url("../images/modelTree/css.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.default{
+    background-image:url("../images/modelTree/default.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.fxml{
+    background-image:url("../images/modelTree/fxml.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.html{
+    background-image:url("../images/modelTree/html.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.http{
+    background-image:url("../images/modelTree/http.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.java{
+    background-image:url("../images/modelTree/java.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.js{
+    background:url("../images/modelTree/js.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.ts{
+    background:url("../images/modelTree/ts.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.hive{
+    background:url("../images/modelTree/hive.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.mysql{
+    background:url("../images/modelTree/mysql.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.postgresql{
+    background:url("../images/modelTree/postgresql.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.oracle{
+    background:url("../images/modelTree/oracle.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.starrocks{
+    background:url("../images/modelTree/starrocks.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.sqlserver{
+    background:url("../images/modelTree/sqlserver.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.flinksql{
+    background:url("../images/modelTree/flinksql.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.flinkjar{
+    background:url("../images/modelTree/flinkjar.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.java{
+    background:url("../images/modelTree/java.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.python{
+    background:url("../images/modelTree/python.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.model1{
+    background:url("../images/modelTree/model1.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.transwarpInceptor{
+    background:url("../images/modelTree/transwarpInceptor.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.clickhouse{
+    background:url("../images/modelTree/clickHouse.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.oceanbase{
+    background:url("../images/modelTree/oceanbase.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.db2{
+    background:url("../images/modelTree/db2.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.flinkStream{
+    background:url("../images/modelTree/flinkjar.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.spark{
+    background:url("../images/modelTree/tree-spark.png");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.migration{
+    background:url("../images/modelTree/migration.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.gbase{
+    background:url("../images/modelTree/gbase.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+  &.shell{
+    background:url("../images/modelTree/shell.svg");
+    width:14px;
+    height: 14px;
+    margin-left: 3px;
+    background-size: cover;
+  }
+}

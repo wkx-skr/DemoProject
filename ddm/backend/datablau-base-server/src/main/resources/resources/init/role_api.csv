@@ -1,0 +1,76 @@
+//系统管理,  系统设置
+BASE, /synonym/, BASE_SYSTEM_SETUP_VIEW, put
+BASE, /synonym/, BASE_SYSTEM_SETUP_VIEW, post
+BASE, /synonym/, BASE_SYSTEM_SETUP_VIEW, delete
+BASE, /mail/, BASE_SYSTEM_SETUP_VIEW, post
+BASE, /ikdict/update/item, BASE_SYSTEM_SETUP_VIEW, post
+BASE, /ikdict/delete/item, BASE_SYSTEM_SETUP_VIEW, post
+
+//系统管理,  日志管理
+BASE, /operationLogs/deleteOperations, BASE_OPERATION_LOG_VIEW, post
+
+//查看,  标签管理
+BASE, /tags/{tagId}/usages, BASE_TAGES_VIEW, get
+BASE, /ruletag/{tagId}, BASE_TAGES_VIEW, get
+BASE, /tags/rules/tags/{tagId}, BASE_TAGES_VIEW, get
+BASE, /tags/taggableObjects, BASE_TAGES_VIEW, get
+BASE, /tags/category, BASE_TAGES_VIEW, get
+BASE, /tags/group, BASE_TAGES_VIEW, get
+
+//添加,  标签管理
+BASE, /tags/group, BASE_TAGES_VIEW_ADD, post
+BASE, /ruletag/{tagId}/reg, BASE_TAGES_VIEW_ADD, put
+BASE, /ruletag/, BASE_TAGES_VIEW_ADD, put
+
+//编辑,  标签管理
+BASE, /tags/group, BASE_TAGES_VIEW_MODIFY, post
+BASE, /ruletag/test/reg, BASE_TAGES_VIEW_MODIFY, post
+BASE, /ruletag/test/custom, BASE_TAGES_VIEW_MODIFY, put
+BASE, /ruletag/{tagId}/disable, BASE_TAGES_VIEW_MODIFY, put
+BASE, /ruletag/{tagId}/enable, BASE_TAGES_VIEW_MODIFY, put
+BASE, /ruletag/{tagId}/reg, BASE_TAGES_VIEW_MODIFY, put
+BASE, /ruletag/{tagId}/custom/, BASE_TAGES_VIEW_MODIFY, put
+BASE, /tags/{tagId}, BASE_TAGES_VIEW_MODIFY, put
+
+//删除,  标签管理
+BASE, /tags/group/{groupId}, BASE_TAGES_VIEW_DELETE, delete
+BASE, /ruletag/{tagId}, BASE_TAGES_VIEW_DELETE, delete
+
+
+//流程管理, 流程中心
+WORKFLOW, /workflow/process/page, BASE_WORKFLOW_CENTER_MANAGE, post
+WORKFLOW, /workflow/process/deploy/{id}, BASE_WORKFLOW_MONITOR_MANAGE, get
+WORKFLOW, /workflow/process/, BASE_WORKFLOW_CENTER_MANAGE, post
+WORKFLOW, /workflow/process/{id}, BASE_WORKFLOW_CENTER_MANAGE, delete
+WORKFLOW, /model/{modelId}/json, BASE_WORKFLOW_CENTER_MANAGE, get
+
+//系统管理, 机构管理
+USERMGMT, /org/organization/{id}, BASE_ORGANIZATION_MANAGE, get
+USERMGMT, /org/organization, BASE_ORGANIZATION_MANAGE, post
+USERMGMT, /org/organization, BASE_ORGANIZATION_MANAGE, put
+USERMGMT, /org/organization/{id}, BASE_ORGANIZATION_MANAGE, delete
+USERMGMT, /org/organization/{id}/users/add, BASE_ORGANIZATION_MANAGE, post
+
+//系统管理,  用户管理
+USERMGMT, /usermanagement/users/{userId}/roles, BASE_USER_MANAGE, get
+USERMGMT, /usermanagement/users/{userId}, BASE_USER_MANAGE, put
+USERMGMT, /usermanagement/users/{userId}/groups, BASE_USER_MANAGE, post
+USERMGMT, /usermanagement/users/restore, BASE_USER_MANAGE, put
+USERMGMT, /usermanagement/users/disable, BASE_USER_MANAGE, put
+USERMGMT, /usermanagement/users/, BASE_USER_MANAGE, post
+
+//系统管理,  角色管理
+USERMGMT, /role/all/api, BASE_ROLE_MANAGE, get
+USERMGMT, /role/all/tree, BASE_ROLE_MANAGE, get
+USERMGMT, /usermanagement/groups/ifDefaultGroup, BASE_ROLE_MANAGE, post
+USERMGMT, /usermanagement/groups/resetDefaultGroup, BASE_ROLE_MANAGE, post
+USERMGMT, /usermanagement/groups/{groupId}/onlyRole, BASE_ROLE_MANAGE, post
+USERMGMT, /usermanagement/groups/{groupId}/users, BASE_ROLE_MANAGE, put
+USERMGMT, /usermanagement/groups/{groupId}, BASE_ROLE_MANAGE, delete
+
+//系统管理,  用户组管理
+USERMGMT, /org/groups, USER_BASE_ROLE_MANAGE, post
+USERMGMT, /org/groups/{id}, USER_BASE_ROLE_MANAGE, get
+USERMGMT, /org/groups, USER_BASE_ROLE_MANAGE, put
+USERMGMT, /org/groups/{id}, USER_BASE_ROLE_MANAGE, delete
+USERMGMT, /org/groups/{groupId}/add, USER_BASE_ROLE_MANAGE, post

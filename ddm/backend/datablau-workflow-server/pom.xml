@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.datablau</groupId>
+        <artifactId>datablau-projects-parent</artifactId>
+        <version>${revision}</version>
+    </parent>
+
+    <artifactId>datablau-workflow-server</artifactId>
+    <name>Datablau Workflow Application</name>
+    <version>${revision}</version>
+
+    <properties>
+        <start-class>com.datablau.workflow.main.WorkflowOsApplication</start-class>
+        <maven.deploy.skip>true</maven.deploy.skip>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.datablau</groupId>
+            <artifactId>datablau-workflow-backend-lib</artifactId>
+            <version>${revision}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <dependencies>
+                <dependency>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                    <groupId>org.springframework.boot</groupId>
+                </dependency>
+                <!--升级tomcat版本到9.x的最新版本-->
+                <dependency>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
+                    <version>${datablau.tomcat.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.apache.tomcat</groupId>
+                            <artifactId>tomcat-annotations-api</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-el</artifactId>
+                    <version>${datablau.tomcat.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-websocket</artifactId>
+                    <version>${datablau.tomcat.version}</version>
+                    <exclusions>
+                        <exclusion>
+                            <groupId>org.apache.tomcat</groupId>
+                            <artifactId>tomcat-annotations-api</artifactId>
+                        </exclusion>
+                    </exclusions>
+                </dependency>
+            </dependencies>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <id>tom</id>
+        </profile>
+        <!--宝兰德 Tomcat 适配 -->
+        <profile>
+            <dependencies>
+                <dependency>
+                    <artifactId>bes-lite-spring-boot-2.x-starter</artifactId>
+                    <groupId>com.bes.appserv-web</groupId>
+                    <version>9.5.2.008</version>
+                </dependency>
+            </dependencies>
+            <id>bes</id>
+        </profile>
+        <!--适配tongweb-->
+        <profile>
+            <dependencies>
+                <dependency>
+                    <groupId>com.tongweb.springboot</groupId>
+                    <artifactId>tongweb-spring-boot-starter-2.x</artifactId>
+                    <version>7.0.E.5_P2</version>
+                </dependency>
+
+                <dependency>
+                    <groupId>com.tongweb</groupId>
+                    <artifactId>tongweb-embed</artifactId>
+                    <version>7.0.E.5_P2</version>
+                </dependency>
+            </dependencies>
+            <id>tongweb</id>
+        </profile>
+    </profiles>
+</project>

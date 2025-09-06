@@ -1,0 +1,15 @@
+DDS, API_DEVELOP_AUTH, 管理, null, 数据服务, API审核
+DDS, API_DEVELOP_VIEW, 查看, null, 数据服务, API市场
+DDS, API_DEVELOP_APPLYING, 申请API, null, 数据服务, API市场
+DDS, API_DEVELOP_ALL, 管理, null, 数据服务, API市场
+DDS, APP_MANAGE_VIEW, 查看, null, 数据服务, 应用列表
+DDS, APP_MANAGE_APPLYING, 申请应用, null, 数据服务, 应用列表
+DDS, APP_MANAGE_ALL, 管理, null, 数据服务, 应用列表
+DDS, APP_MANAGE_AUTH, 管理, null, 数据服务, 应用审核
+DDS, APP_MANAGE_CREATE, 管理, null, 数据服务, 我创建的应用
+DDS, API_DEVELOP_FOUND, 管理, null, 数据服务, 我开发的API
+DDS, API_DEVELOP_APPLY, 管理, null, 数据服务, 我申请的API
+DDS, APP_MANAGE_APPLY, 管理, null, 数据服务, 我申请的应用
+DDS, DDS_COCKPIT_VIEW, 查看, null, 数据服务, 服务总览
+DDS, API_DEVELOP_ADMIN, 管理, null, 数据服务, 管理API
+DDS, APP_MANAGE_ADMIN, 管理, null, 数据服务, 管理应用

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>未选中</title>
+    <g id="安全策略管理" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="安全策略管理-新建-第二步" transform="translate(-701.000000, -945.000000)" fill="#DDDDDD" fill-rule="nonzero">
+            <g id="编组-4" transform="translate(366.000000, 843.000000)">
+                <path d="M345,102 C350.522847,102 355,106.477153 355,112 C355,117.522847 350.522847,122 345,122 C339.477153,122 335,117.522847 335,112 C335,106.477153 339.477153,102 345,102 Z M345,103.4 C340.250351,103.4 336.4,107.250351 336.4,112 C336.4,116.749649 340.250351,120.6 345,120.6 C349.749649,120.6 353.6,116.749649 353.6,112 C353.6,107.250351 349.749649,103.4 345,103.4 Z" id="未选中"></path>
+            </g>
+        </g>
+    </g>
+</svg>

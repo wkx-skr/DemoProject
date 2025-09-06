@@ -1,0 +1,123 @@
+spring:
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+    command-config: disable
+  session:
+    store-type: redis
+  cloud:
+    config:
+      uri: ${datablau.config.url}
+      enabled: false
+  main:
+    allow-circular-references: true
+  activiti:
+    check-process-definitions: false
+    #oracle下放开
+  #    database-schema-update: true
+  #    database-schema: LQ_WORKFLOW_150
+
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    producer:
+      acks: 1
+      retries: 4
+      batch-size: 16384
+      properties:
+        linger:
+          ms: 100
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      compression-type: none
+    consumer:
+      group-id: metadata_datablau_workflow
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      listener:
+        concurrency: 6
+        ack-mode: MANUAL
+
+main:
+  banner-mode: console
+
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /workflow
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      springframework:
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t] [%C{1.}:%L] - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: dam_workflow
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  redis:
+    #redis的地址，在redisson.yaml中引用了该属性
+    address: ${common.redis.address}
+    command-config: disable
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 4100
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  web-instance:
+    name: datablau-workflow-web
+    enable: true
+  workflow:
+    activiti:
+      #表单值超过该长度，数据库超出varchar长度（mysql为4000，oracle为2000）则自动转成bytearray存储，建议oracle设置为1000因为中文字符占用更多字节。
+      maxLengthStringVariableType: 1000
+  kafka-topic:
+    #系统日志
+    audit-system-log: ${common.kafka.topic.audit.system-log}
+    audit-common-log: ${common.kafka.topic.audit.log}
+  kafka:
+    system-log:
+      enable: false #服务系统日志
+
+
+

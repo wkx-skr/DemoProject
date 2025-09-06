@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="off" monitorInterval="300">
+    <properties>
+        <property name="LOG_HOME">${sys:logging.file.path}</property>
+        <property name="SERVER_LOG_FILE_NAME">spring</property>
+        <property name="SQL_PERF_LOG_FILE_NAME">sql_perf</property>
+        <property name="REST_API_PERF_LOG_FILE_NAME">rest_perf</property>
+    </properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] %-5p [%t](%c:%L) - %m%n"/>
+        </Console>
+
+        <RollingFile name="ServerLog"
+            fileName="${LOG_HOME}/${SERVER_LOG_FILE_NAME}.log"
+            filePattern="${LOG_HOME}/${SERVER_LOG_FILE_NAME}.log.%d{yyyy-MM-dd}-%i.gz">
+            <PatternLayout charset="UTF-8" pattern="[%d{yy/MM/dd HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="SqlPerfLog"
+            fileName="${LOG_HOME}/${SQL_PERF_LOG_FILE_NAME}.log"
+            filePattern="${LOG_HOME}/${SQL_PERF_LOG_FILE_NAME}.log.%d{yyyy-MM-dd}-%i.gz">
+            <PatternLayout pattern="[%d{yy/MM/dd HH:mm:ss:sss z}] - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+
+        <RollingFile name="RestApiPerfLog"
+            fileName="${LOG_HOME}/${REST_API_PERF_LOG_FILE_NAME}.log"
+            filePattern="${LOG_HOME}/${REST_API_PERF_LOG_FILE_NAME}.log.%d{yyyy-MM-dd}-%i.gz">
+            <PatternLayout pattern="[%d{yy/MM/dd HH:mm:ss:sss z}] - %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="5"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <Logger name="performance.sql" level="info" additivity="false">
+            <AppenderRef ref="SqlPerfLog" level="info" />
+            <AppenderRef ref="Console" level="info" />
+        </Logger>
+
+        <Logger name="performance.restapi" level="info" additivity="false">
+            <AppenderRef ref="RestApiPerfLog" level="info" />
+            <AppenderRef ref="Console" level="info" />
+        </Logger>
+
+        <Logger name="com.datablau" level="debug" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="trace" />
+        </Logger>
+
+        <Logger name="com.andorj" level="debug" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="trace" />
+        </Logger>
+
+        <Logger name="org.apache.kafka" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+        </Logger>
+
+        <Logger name="org.springframework.kafka" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+        </Logger>
+
+        <!-- 3rdparty Loggers -->
+        <Logger name="org.springframework" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="info" />
+        </Logger>
+
+        <Logger name="org.teiid" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="error" />
+            <AppenderRef ref="Console" level="debug" />
+        </Logger>
+
+        <Logger name="org.neo4j" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="info" />
+            <AppenderRef ref="Console" level="debug" />
+        </Logger>
+
+        <Logger name="com.joestelmach" level="error" additivity="false">
+            <AppenderRef ref="ServerLog" level="error" />
+            <AppenderRef ref="Console" level="error" />
+        </Logger>
+
+        <Logger name="net.sf.ehcache" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="debug" />
+            <AppenderRef ref="Console" level="debug" />
+        </Logger>
+
+        <Logger name="org.hibernate.cache" level="info" additivity="false">
+            <AppenderRef ref="ServerLog" level="debug" />
+            <AppenderRef ref="Console" level="debug" />
+        </Logger>
+
+        <Logger name="org.redisson" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+            <AppenderRef ref="Console" level="info" />
+        </Logger>
+
+        <Logger name="com.netflix" level="warn" additivity="false">
+            <AppenderRef ref="ServerLog" level="warn" />
+            <AppenderRef ref="Console" level="warn" />
+        </Logger>
+
+        <Root level="info" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

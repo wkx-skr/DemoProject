@@ -1,0 +1,1 @@
+"writer":{"name":"clickhousewriter","parameter":{"column":[COLUMNNAMES],"connection":[{"jdbcUrl":JDBCURL,"table":[TABLEDATAX]}],"password":PASSWORDDATAX,"username":USERNAMEDATAX,"preSql":[PRESQLDATAX],"postSql":[POSTSQLDATAX],"batchSize":65536,"batchByteSize":134217728,"dryRun":false,"writeMode":"insert"}}}],"setting":{"speed":{"channel":3}}}}

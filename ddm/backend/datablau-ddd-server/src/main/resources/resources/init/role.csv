@@ -1,0 +1,29 @@
+DDD, DDD_DATAREPO_MODELEDIT, 模型管理, null, 数据仓库, 数据模型
+DDD, DDD_DATAREPO_STANDARDEDIT, 分层规范编辑, null, 数据仓库, 标准规范
+DDD, DDD_DATAREPO_STANDARDBROWSE, 分层规范浏览, null, 数据仓库, 标准规范
+DDD, DDD_DATAREPO_DATAMAP, 数据地图, null, 数据仓库, 数据管理
+DDD, DDD_DATAREPO_DATABASE, 数据库, null, 数据仓库, 数据管理
+DDD, DDD_DATAREPO_METADATA, 元数据, null, 数据仓库, 数据管理
+DDD, DDD_DATAREPO_GATHER, 采集管理, null, 数据仓库, 数据管理
+DDD, DDD_DATAREPO_APPSYSTEM, 应用系统, null, 数据仓库, 数据管理
+DDD, USER_VIEW_DDD, 用户管理, null, 系统管理, 用户管理
+DDD, ORGANIZATIONAL_VIEW_DDD, 机构管理, null, 系统管理, 用户管理
+DDD, GROUP_VIEW_DDD, 角色管理, null, 系统管理, 用户管理
+DDD, DDD_DATAREPO_TENANT, 租户管理, null, 系统管理, 用户管理
+DDD, DDD_DATAREPO_SCHEDULE, 调度环境配置, null, 系统管理, 发布管理
+DDD, DDD_DATAREPO_DATAMAPPING, 数据库映射, null, 系统管理, 发布管理
+DDD, DDD_DATAREPO_DRIVER, 驱动管理, null, 系统管理, 驱动管理
+DDD, DDD_DATAREPO_PROCENTRE, 流程中心, null, 系统管理, 流程管理
+DDD, DDD_DATAREPO_PROMONITOR, 流程监控, null, 系统管理, 流程管理
+DDD, DDD_DATAREPO_EXTENDPARAM, 文件扩展属性, null, 系统管理, 参数管理
+DDD, DDD_DATAREPO_MAPPINGRULE, 映射规则, null, 系统管理, 参数管理
+
+DDD, DDD_PROJECT_EDIT, 项目编辑, null, 项目管理, 项目管理
+
+DDD, DDD_DEMAND_VIEW, 需求浏览, null, 需求管理, 需求管理
+DDD, DDD_DEMAND_CREATE, 需求创建, null, 需求管理, 需求管理
+DDD, DDD_DEMAND_APPROVAL, 需求评审, null, 需求管理, 需求管理
+DDD, DDD_DEMAND_BUSINESS_EDIT, 业务编辑, null, 需求管理, 需求管理
+DDD, DDD_DEMAND_TECH_EDIT, 技术编辑, null, 需求管理, 需求管理
+
+DDD, DDD_MISSION_CENTRE, 任务中心, null, 任务中心, 任务中心

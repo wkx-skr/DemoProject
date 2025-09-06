@@ -1,0 +1,145 @@
+<File>
+  <Header RepositoryId="" ModelId="0" MetaVersion="1.0.1" Version="" VersionName="" PriorVersionName="" Storage="File" BirthUUID="" FilePath="model_template.ddm" StorePath="" />
+  <Model Seed="4" SeedMax="0" Type="Datablau.LDM.ModelSource">
+    <Property Id="90000001" Type="System.Int32" Value="80010001" />
+    <Property Id="90000002" Type="System.Int32" Value="2" />
+    <Property Id="90000003" Type="System.String" Value="Model_1" />
+    <Property Id="90000006" Type="System.Guid" Value="a94a5b9b-9837-4fa8-ada2-0a1e4112ec40" />
+    <Property Id="90000007" Type="System.Guid" Value="721ac3dc-dabe-4be2-ae47-cbd6b0a14d80" />
+    <Object Type="Datablau.LDM.NamingOption">
+      <Property Id="90000001" Type="System.Int32" Value="80500101" />
+      <Property Id="90000002" Type="System.Int32" Value="1" />
+      <Property Id="90000003" Type="System.String" Value="NamingOption_1" />
+      <Property Id="90000006" Type="System.Guid" Value="daf16a89-0566-4f07-baec-036ea5d3d8a3" />
+      <Property Id="80010176" Type="System.String" Value="idx_%owner%_%keyid%" />
+      <Property Id="80500112" Type="System.String" Value="_" />
+    </Object>
+    <Object Type="Datablau.ERD.Diagram">
+      <Property Id="90000001" Type="System.Int32" Value="80000006" />
+      <Property Id="90000002" Type="System.Int32" Value="3" />
+      <Property Id="90000003" Type="System.String" Value="Main" />
+      <Property Id="90000006" Type="System.Guid" Value="a729987d-49aa-4bc8-a466-019d6bcfe71b" />
+      <Property Id="80100000" Type="System.Boolean" Value="True" />
+    </Object>
+    <UDP>
+      <Header RepositoryId="" ModelId="0" MetaVersion="1.0.1" Version="" VersionName="" PriorVersionName="" Storage="File" BirthUUID="25dd157b-9185-4a22-afb6-3847876118e1" FilePath="model_template.ddm" StorePath="" />
+      <Model Seed="70000011" SeedMax="0" Type="Datablau.LDM.ModelM1">
+        <Property Id="90000001" Type="System.Int32" Value="90000000" />
+        <Property Id="90000002" Type="System.Int32" Value="80000000" />
+        <Property Id="90000003" Type="System.String" Value="ModelUDP" />
+        <Property Id="90000004" Type="System.String" Value="This is the virtual data UDP model m1 for common model." />
+        <Property Id="90000006" Type="System.Guid" Value="25dd157b-9185-4a22-afb6-3847876118e1" />
+        <Property Id="90000007" Type="System.Guid" Value="69c19e1e-a8ff-40f9-80f1-23db1c98fa93" />
+        <Property Id="80000002" Type="System.String" Value="VARCHAR()" />
+        <Property Id="80000020" Type="Datablau.LDM.DataStore_e" Value="Tabular" />
+        <Property Id="80000031" Type="System.String" Value="ModelUDP" />
+        <Property Id="80000033" Type="System.String" Value="Common Data Model" />
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80000004" />
+          <Property Id="90000003" Type="System.String" Value="Entity" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for Entity." />
+          <Property Id="90000006" Type="System.Guid" Value="fd734420-ba3e-4029-bf73-f293d2c45928" />
+          <Property Id="90000008" Type="System.String" Value="Entities" />
+          <Property Id="90000012" Type="System.Boolean" Value="True" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80000005" />
+          <Property Id="90000003" Type="System.String" Value="Attribute" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for Attribute." />
+          <Property Id="90000006" Type="System.Guid" Value="1d277ec4-faf2-48bb-b77e-377c0da4c9ec" />
+          <Property Id="90000008" Type="System.String" Value="Attributes" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80000006" />
+          <Property Id="90000003" Type="System.String" Value="Diagram" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for Diagram." />
+          <Property Id="90000006" Type="System.Guid" Value="4aac18c5-8ab9-4e50-80a9-1a13f4177669" />
+          <Property Id="90000008" Type="System.String" Value="Diagrams" />
+          <Property Id="90000012" Type="System.Boolean" Value="True" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80000007" />
+          <Property Id="90000003" Type="System.String" Value="Relationship" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for Relationship." />
+          <Property Id="90000006" Type="System.Guid" Value="2aad5268-894b-40df-b71f-78a547fcd89f" />
+          <Property Id="90000008" Type="System.String" Value="Relationships" />
+          <Property Id="90000012" Type="System.Boolean" Value="True" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80500008" />
+          <Property Id="90000003" Type="System.String" Value="View" />
+          <Property Id="90000006" Type="System.Guid" Value="ad27ceb7-9f74-427c-81a7-5bf496feaf56" />
+          <Property Id="90000008" Type="System.String" Value="Views" />
+          <Property Id="90000012" Type="System.Boolean" Value="True" />
+          <Property Id="90000014" Type="System.Boolean" Value="False" />
+          <Property Id="90000015" Type="System.String" Value="View" />
+          <Property Id="90000016" Type="System.Boolean" Value="False" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="80000010" />
+          <Property Id="90000003" Type="System.String" Value="ModelUDP_owns_Entity" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for ModelUDP_owns_Entity." />
+          <Property Id="90000006" Type="System.Guid" Value="311000cd-0d5d-47e0-b715-79d1d2e2f280" />
+          <Property Id="90000010" Type="System.Int32" Value="80000000" />
+          <Property Id="90000011" Type="System.Int32" Value="80000004" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="80000011" />
+          <Property Id="90000003" Type="System.String" Value="ModelUDP_owns_Diagram" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for ModelUDP_owns_Diagram." />
+          <Property Id="90000006" Type="System.Guid" Value="d23fff33-1f38-4352-a712-571576bfd2fb" />
+          <Property Id="90000010" Type="System.Int32" Value="80000000" />
+          <Property Id="90000011" Type="System.Int32" Value="80000006" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="80000012" />
+          <Property Id="90000003" Type="System.String" Value="Entity_owns_Attribute" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for Entity_owns_Attribute." />
+          <Property Id="90000006" Type="System.Guid" Value="fcec97e9-4267-49d6-afd0-405082ee8337" />
+          <Property Id="90000010" Type="System.Int32" Value="80000004" />
+          <Property Id="90000011" Type="System.Int32" Value="80000005" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="80000013" />
+          <Property Id="90000003" Type="System.String" Value="ModelUDP_owns_Relationship" />
+          <Property Id="90000004" Type="System.String" Value="This is the metadata object for ModelUDP_owns_Relationship." />
+          <Property Id="90000006" Type="System.Guid" Value="e1e57803-ebad-4ac4-975c-c6e3282200e1" />
+          <Property Id="90000010" Type="System.Int32" Value="80000000" />
+          <Property Id="90000011" Type="System.Int32" Value="80000007" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="80500010" />
+          <Property Id="90000003" Type="System.String" Value="ModelUDP_owns_View" />
+          <Property Id="90000006" Type="System.Guid" Value="6e665729-07b7-44e8-9b1f-364e72a9c87d" />
+          <Property Id="90000010" Type="System.Int32" Value="80010001" />
+          <Property Id="90000011" Type="System.Int32" Value="80500008" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002016" />
+          <Property Id="90000002" Type="System.Int32" Value="80100073" />
+          <Property Id="90000003" Type="System.String" Value="BusinessObject" />
+          <Property Id="90000006" Type="System.Guid" Value="eea1f3ab-6e5c-4ade-9c66-f9dd68f1b370" />
+          <Property Id="90000008" Type="System.String" Value="BusinessObjects" />
+        </Object>
+        <Object Type="Datablau.LDM.ObjectX">
+          <Property Id="90000001" Type="System.Int32" Value="90002024" />
+          <Property Id="90000002" Type="System.Int32" Value="70000011" />
+          <Property Id="90000003" Type="System.String" Value="ModelUDP_owns_BusinessObject" />
+          <Property Id="90000006" Type="System.Guid" Value="9a6158e0-b66c-445c-8236-c491b8f4c5a7" />
+          <Property Id="90000010" Type="System.Int32" Value="80000000" />
+          <Property Id="90000011" Type="System.Int32" Value="80100073" />
+        </Object>
+      </Model>
+    </UDP>
+  </Model>
+</File>

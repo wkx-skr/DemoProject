@@ -1,0 +1,74 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+$trackDark: #3C3F41;
+$thumbDark: #4C5052;
+.modalContainer{
+  width: 900px;
+}
+.container {
+  width: 900px;
+  background: #3C3F41!important;
+  .n-card.n-modal{
+    background: #3C3F41!important;;
+  }
+  ::-webkit-scrollbar {
+    width: 24px;
+    background-color: $trackDark;
+    height: 24px;
+  }
+  ::-webkit-scrollbar-thumb{
+    background-color:$thumbDark;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    border: 8px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:vertical:hover{
+    background-color: $thumbDark;
+  }
+  ::-webkit-scrollbar-thumb:vertical:active{
+    background-color: $thumbDark;
+  }
+  ::-webkit-scrollbar-button{
+    display: none;
+  }
+  ::-webkit-scrollbar-track{
+    background-color: $trackDark;
+    width: 24px;
+  }
+}
+.modal-card {
+  max-height: 100vh;
+}
+
+.header-icon {
+  padding-right: 5px;
+}
+.dag-dark {
+
+}
+.closeBtn{
+  color: #999999;
+  cursor: pointer;
+}
+.hardeCard{
+  border-bottom: 1px solid #333333;
+}
+.space{
+  padding-top: 15px;
+  border-top: 1px solid #333333;
+}

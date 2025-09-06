@@ -1,0 +1,1 @@
+"writer":{"name":"hdfswriter","parameter":{"defaultFS":DEFAULTFS,"fileType":"text","fileName":FILENAME,"path":"HIVEPATH/DTTABLE","column":[COLUMNS],"writeMode":"append","fieldDelimiter":"DELIMITER","encoding":"UTF-8","defaultValue":DEFAULTVALUEDATAX}}}],"setting":{"speed":{"channel":3}}}}

@@ -1,0 +1,1 @@
+"writer":{"name":"inceptorwriter","parameter":{"defaultFS":DEFAULTFS,"fileType":"text","fileName":FILENAME,"path":"/user/hive/warehouse/DTDATABASE.db/DTTABLE","column":[COLUMNS],"writeMode":"append","fieldDelimiter":"\t","encoding":"UTF-8"}}}],"setting":{"speed":{"channel":3}}}}

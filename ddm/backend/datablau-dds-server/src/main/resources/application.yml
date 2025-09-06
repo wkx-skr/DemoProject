@@ -1,0 +1,126 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  autoconfigure:
+    exclude: com.alibaba.boot.nacos.discovery.autoconfigure.NacosDiscoveryAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaClientAutoConfiguration, org.springframework.cloud.netflix.eureka.EurekaDiscoveryClientConfiguration, org.springframework.boot.actuate.autoconfigure.health.HealthContributorAutoConfiguration
+  cloud:
+    config:
+      enabled: false
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  redis:
+    redisson:
+      config: ${datablau.redisson.config.location}
+    session:
+      store-type: redis
+
+  kafka:
+    bootstrap-servers: ${common.kafka.bootstrap-servers}
+    consumer:
+      group-id: metadata_datablau_dds
+      enable-auto-commit: false
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: "com.datablau.job.api.mq.message"
+main:
+  banner-mode: console
+aop:
+  proxy-target-class: true
+
+server:
+  port: ${datablau.server.port}
+  address: 0.0.0.0
+  servlet:
+    context-path: /dds
+  error:
+    include-stacktrace: always
+
+logging:
+  file:
+    path: logs
+  level:
+    com.netflix: WARN
+    com.datablau: INFO
+    com.alibaba.nacos.client: ERROR
+    com.alibaba.nacos.common.remote.client: ERROR
+    org:
+      springframework:
+        boot:
+          autoconfigure:
+            security: WARN
+  pattern:
+    file: "[%d{dd/MM/yy HH:mm:ss:sss z}] %-5p [%t](%c{1.}:%L) - %m%n"
+
+datablau:
+  server:
+    port: ${spring.cloud.nacos.discovery.port} #读取bootstrap中设置的ip
+    address: ${spring.cloud.nacos.discovery.ip} #读取bootstrap中设置的port
+    build:
+      version: 7.0.1
+  db:
+    url: ${common.db.url}
+    driver-class-name: ${common.db.driver-class-name}
+    ip-address: ${common.db.ip-address}
+    port: ${common.db.port}
+    target: dds
+    parameters: ${common.db.parameters}
+    username: ${common.db.username}
+    password: ${common.db.password}
+    dialect: ${common.db.dialect}
+    hibernate:
+      hbm2ddl: update
+    max-total: 50
+    min-idle: 2
+    max-wait-millis: 30000
+  job:
+    version: 7.0.0
+  redis:
+    address: ${common.redis.address}
+  redisson:
+    config:
+      location: nacos-data-id:redisson.yaml
+  service:
+    port: ${spring.cloud.nacos.discovery.port}
+    call-port: 10100
+    dam:
+      address: localhost
+      port: 3099
+  ddc:
+    enable: ${common.ddc.enable}
+    ips: ${common.ddc.ips}
+    #是否启用basic authentication
+    basic_auth_enabled: ${common.ddc.basic_auth_enabled}
+    #ES的用户名
+    username: ${common.ddc.username}
+    #ES的密码
+    password: ${common.ddc.password}
+    synonyms:
+      path: ${common.ddc.synonyms.path}
+      interval: ${common.ddc.synonyms.interval}
+      enable: ${common.ddc.synonyms.enable}
+    indices:
+      api: ddc_api
+  api:
+    base-url: http://localhost/dds
+  message:
+    base: classpath:message
+  graph:
+    enable: false
+  transport:
+    #是否使用httpInvoker，如果为false或者不存在，则采用rmi
+    http: true
+  kafka:
+    enable: false
+  web-instance:
+    name: datablau-dds-web
+    enable: true
+  domain:
+    enable: true

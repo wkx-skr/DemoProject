@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+  <bean class="com.datablau.model.server.utils.GitlabConfigurations">
+
+  </bean>
+  <!-- DDM Floating License 管理平台 代理配置  -->
+  <bean class="com.datablau.model.server.proxy.LicServerProxy">
+    <property name="targetUri" value="${lic.server.url}"/>
+  </bean>
+
+  <bean id="messageService" class="com.andorj.model.common.api.impl.MessageServiceImpl"/>
+
+  <bean id="freemarker" class="com.datablau.model.fes.utils.FreeMarker">
+  </bean>
+
+  <bean id="jsonHttpMessageConvertObjectMapper" class="com.fasterxml.jackson.databind.ObjectMapper" primary="true">
+    <property name="serializationInclusion" value="NON_NULL" />
+  </bean>
+
+  <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+    <property name="targetObject" ref="jsonHttpMessageConvertObjectMapper" />
+    <property name="targetMethod" value="configure" />
+    <property name="arguments">
+      <list>
+        <value type="com.fasterxml.jackson.databind.DeserializationFeature">FAIL_ON_UNKNOWN_PROPERTIES</value>
+        <value>false</value>
+      </list>
+    </property>
+  </bean>
+
+</beans>

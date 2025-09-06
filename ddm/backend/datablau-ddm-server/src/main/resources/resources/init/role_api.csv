@@ -1,0 +1,48 @@
+//-------------------------系统管理-------------------------
+//系统管理, 机构管理
+USERMGMT, /org/organization/{id}, ROLE_ORGANIZATIONAL_MANAGE_DDM, get
+USERMGMT, /org/organization, ROLE_ORGANIZATIONAL_MANAGE_DDM, post
+USERMGMT, /org/organization, ROLE_ORGANIZATIONAL_MANAGE_DDM, put
+USERMGMT, /org/organization/{id}, ROLE_ORGANIZATIONAL_MANAGE_DDM, delete
+USERMGMT, /org/organization/{id}/users/add, ROLE_ORGANIZATIONAL_MANAGE_DDM, post
+
+
+//系统管理,  用户管理
+USERMGMT, /usermanagement/users/{userId}/roles, ROLE_USER_MANAGE_DDM, get
+USERMGMT, /usermanagement/users/{userId}, ROLE_USER_MANAGE_DDM, put
+USERMGMT, /usermanagement/users/{userId}/groups, ROLE_USER_MANAGE_DDM, post
+USERMGMT, /usermanagement/users/restore, ROLE_USER_MANAGE_DDM, put
+USERMGMT, /usermanagement/users/disable, ROLE_USER_MANAGE_DDM, put
+USERMGMT, /usermanagement/users/, ROLE_USER_MANAGE_DDM, post
+
+
+
+//系统管理,  角色管理
+USERMGMT, /role/all/api, ROLE_GROUP_MANAGE_DDM, get
+USERMGMT, /role/all/tree, ROLE_GROUP_MANAGE_DDM, get
+USERMGMT, /usermanagement/groups/ifDefaultGroup, ROLE_GROUP_MANAGE_DDM, post
+USERMGMT, /usermanagement/groups/resetDefaultGroup, ROLE_GROUP_MANAGE_DDM, post
+USERMGMT, /usermanagement/groups/{groupId}/onlyRole, ROLE_GROUP_MANAGE_DDM, post
+USERMGMT, /usermanagement/groups/{groupId}/users, ROLE_GROUP_MANAGE_DDM, put
+USERMGMT, /usermanagement/groups/{groupId}, ROLE_GROUP_MANAGE_DDM, delete
+
+
+//系统管理,  用户组管理
+USERMGMT, /org/groups, ROLE_GROUP_MANAGE_DDM, post
+USERMGMT, /org/groups/{id}, ROLE_GROUP_MANAGE_DDM, get
+USERMGMT, /org/groups, ROLE_GROUP_MANAGE_DDM, put
+USERMGMT, /org/groups/{id}, ROLE_GROUP_MANAGE_DDM, delete
+USERMGMT, /org/groups/{groupId}/add, ROLE_GROUP_MANAGE_DDM, post
+
+
+//-------------------------流程管理-------------------------
+//流程管理, 流程中心
+WORKFLOW, /workflow/process/page, ROLE_PROCENTRE_MANAGE_DDM, post
+WORKFLOW, /workflow/process/deploy/{id}, ROLE_PROMONITOR_MANAGE_DDM, get
+WORKFLOW, /workflow/process/, ROLE_PROCENTRE_MANAGE_DDM, post
+WORKFLOW, /workflow/process/{id}, ROLE_PROCENTRE_MANAGE_DDM, delete
+WORKFLOW, /model/{modelId}/json, ROLE_PROCENTRE_MANAGE_DDM, get
+//流程管理, 流程监控
+
+//流程管理, 监听器
+

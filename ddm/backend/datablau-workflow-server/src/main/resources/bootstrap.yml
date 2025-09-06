@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: datablau_workflow
+  cloud:
+    config:
+      override-system-properties: false
+    nacos:
+      discovery:
+        enabled: true
+        port: ${datablau.server.port} #18084
+        ip: ${datablau.server.address} #localhost #服务注册instance实例的ip  不再使用nacos的统一配置 删除nacos中配置的ip和port项 启动时需修改
+        group: DEFAULT_GROUP #服务注册的nacos组 启动时需要修改
+        namespace: ${spring.cloud.nacos.discovery.namespace} #服务注册的nacos命名空间 启动时需要修改
+        server-addr: ${spring.cloud.nacos.discovery.server-addr} #服务注册的nacos地址 启动时需要修改
+        metadata:
+          management:
+            context-path: ${server.servlet.context-path}
+      config:
+        enabled: true
+        file-extension: yaml
+        refresh-enabled: true
+        group: ${spring.cloud.nacos.config.group}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        shared-configs:
+          - data-id: datablau_common.yaml
+            group: ${spring.cloud.nacos.config.group}
+            refresh: true

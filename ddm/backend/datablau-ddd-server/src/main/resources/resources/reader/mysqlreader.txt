@@ -1,0 +1,1 @@
+"reader":{"name":"mysqlreader","parameter":{"connection":[{"jdbcUrl":[JDBCURL],"querySql":[QUERYSQL]}],"password":PASSWORDDATAX,"username":USERNAMEDATAX}},

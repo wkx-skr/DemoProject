@@ -1,0 +1,1 @@
+"reader":{"name":"rdbmsreader","parameter":{"connection":[{"jdbcUrl":[JDBCURL],"querySql":[QUERYSQL]}],"password":PASSWORDDATAX,"username":USERNAMEDATAX}},

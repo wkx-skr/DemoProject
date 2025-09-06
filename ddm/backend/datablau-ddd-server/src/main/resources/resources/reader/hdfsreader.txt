@@ -1,0 +1,1 @@
+"reader":{"name":"hdfsreader","parameter":{"path":"HIVEPATH/DSTABLE","defaultFS":"DEFAULTFS","column":[COLUMNS],"encoding":"UTF-8","nullFormat":"","fileType":"text","fieldDelimiter":"DELIMITER"}},

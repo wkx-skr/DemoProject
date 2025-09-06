@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="140px" height="70px" viewBox="0 0 140 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>椭圆形</title>
+    <defs>
+        <path d="M2,0 L138,0 C139.104569,-2.02906125e-16 140,0.8954305 140,2 L140,68 C140,69.1045695 139.104569,70 138,70 L2,70 C0.8954305,70 1.02344917e-15,69.1045695 0,68 L0,2 C-1.3527075e-16,0.8954305 0.8954305,1.09108455e-15 2,0 Z" id="path-1"></path>
+    </defs>
+    <g id="设计方案（6.4）" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="管理/资产目录管理备份" transform="translate(-420.000000, -384.000000)">
+            <g id="Content" transform="translate(420.000000, 50.000000)">
+                <g id="摘要信息" transform="translate(0.000000, 100.000000)">
+                    <g id="资产清单" transform="translate(0.000000, 129.000000)">
+                        <g id="椭圆形" transform="translate(0.000000, 105.000000)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <use id="蒙版" fill="#EDEEF9" xlink:href="#path-1"></use>
+                            <circle fill-opacity="0.06" fill="#4B5CC4" mask="url(#mask-2)" cx="148.5" cy="67.5" r="43.5"></circle>
+                            <circle id="椭圆形备份-7" fill-opacity="0.06" fill="#4B5CC4" mask="url(#mask-2)" cx="114" cy="-16" r="64"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
