@@ -23,13 +23,13 @@ module.exports = config => {
   if (process.env.NODE_ENV === 'production') {
     // 确保 webpack 模式为 production
     config.mode('production')
-
+    
     // 移除 console.log 等调试代码
     config.optimization.minimizer('terser').tap(args => {
       args[0].terserOptions = {
         ...args[0].terserOptions,
         compress: {
-          ...args[0].terserOptions.compress,
+          ...args[0].terserOptions?.compress,
           drop_console: true,
           drop_debugger: true
         }

@@ -20,6 +20,7 @@
       </div>
 
       <datablau-table
+        row-key="id"
         class="datablau-table-info"
         ref="detailTable"
         :data="tableData"
@@ -84,6 +85,7 @@
         />
         <el-table-column
           label="审核状态"
+          key="orderState"
           prop="orderState"
           show-overflow-tooltip
         >
@@ -92,6 +94,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          key="orderType"
           label="审核类型"
           prop="orderType"
           show-overflow-tooltip

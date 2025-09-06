@@ -92,12 +92,12 @@
           prop="applyName"
           show-overflow-tooltip
         />
-        <el-table-column
+                <el-table-column
           label="业务域"
           prop="innerName"
           show-overflow-tooltip
         />
-        <el-table-column
+                <el-table-column
           label="资产编码"
           prop="buCode"
           show-overflow-tooltip

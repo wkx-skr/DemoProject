@@ -90,6 +90,16 @@
           show-overflow-tooltip
         />
         <el-table-column
+          label="业务域"
+          prop="innerName"
+          show-overflow-tooltip
+        />
+                <el-table-column
+          label="资产编码"
+          prop="buCode"
+          show-overflow-tooltip
+        />
+        <el-table-column
           label="创建人"
           prop="applyCreator"
           show-overflow-tooltip

@@ -73,6 +73,7 @@ const directory = {
         },
         "$t('common.page.元数据')": {
           "$t('common.page.metaData')": [
+            'searchGlobal1',
             'dataCatalogDashboard',
             'map',
             'dataCatalog',
@@ -337,8 +338,8 @@ const directory = {
       label: '全局搜索',
       vueRouter: '/main/searchGlobal',
       appName: 'base-app',
-      licenseRequired: null,
-      accessRequired: null,
+      licenseRequired: ['FE_META'],
+      accessRequired: ['METADATA_SEARCH'],
       hideLeftNav: true,
       hideInMenu: true,
     },
@@ -531,6 +532,14 @@ const directory = {
       licenseRequired: ['FE_META'],
       accessRequired: ['MAIN_ASSET_SUMMARY'],
       openByWindow: false,
+    },
+    searchGlobal1: {
+      name: 'searchGlobal1',
+      label: '全局搜索',
+      vueRouter: '/main/searchGlobal1',
+      appName: 'base-app',  
+      licenseRequired: ['FE_META'],
+      accessRequired: ['METADATA_SEARCH'],
     },
     map: {
       name: 'map',

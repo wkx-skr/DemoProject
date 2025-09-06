@@ -3,7 +3,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
-import com.andorj.common.core.exception.IllegalOperationException;
 import com.andorj.common.core.model.LDMTypes;
 import com.andorj.common.data.PageResult;
 import com.andorj.model.common.utility.MultiConditionQueryUtils;
@@ -21,6 +20,7 @@ import com.datablau.data.asset.dto.DdmManualMappingExcelDto;
 import com.datablau.data.asset.dto.ManualMappingImportResultDto;
 import com.datablau.data.asset.dto.DdmMappingCatalogDto;
 import com.datablau.data.asset.dto.DdmMappingQueryParamDto;
+import com.datablau.data.asset.dto.MappingRespDto;
 import com.datablau.data.asset.enums.MappingCatalogTypeEnum;
 import com.datablau.data.asset.jpa.entity.DdmCollectElement;
 import com.datablau.data.asset.jpa.entity.DdmMappingCatalog;
@@ -32,16 +32,24 @@ import com.datablau.data.asset.jpa.repository.DdmMappingCatalogRepository;
 import com.datablau.data.asset.service.DdmMappingCatalogService;
 import com.datablau.data.asset.utils.DatablauUtil;
 import com.datablau.security.management.utils.AuthTools;
+import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -50,11 +58,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -82,6 +87,9 @@ public class DdmMappingCatalogServiceImpl implements DdmMappingCatalogService {
     protected RedissonClient redissonClient;
     @Autowired
     private MultiConditionQueryUtils queryUtils;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     protected AtomicInteger idGenerator = new AtomicInteger(0);
     protected ExecutorService es = Executors.newFixedThreadPool(10, (run) -> {
@@ -436,22 +444,25 @@ public class DdmMappingCatalogServiceImpl implements DdmMappingCatalogService {
         Long modelCategoryId = paramDto.getModelCategoryId();
         Long ddmModelId = paramDto.getDdmModelId();
         Long tableId = paramDto.getTableId();
+
+        int currentPage = paramDto.getCurrentPage();
+        int pageSize = paramDto.getPageSize();
+        Pageable pageable = PageRequest.of(currentPage-1, pageSize);
+
         //没有搜索条件时获取所有已启用的目录空间下的已发布的L5目录
         if (businessObjectId == null && logicDataEntityId == null && modelCategoryId == null && ddmModelId == null && tableId == null) {
-            MultiConditionQueryUtils.MultiConditionQuery<CommonCatalog> query = queryUtils.createQuery(CommonCatalog.class);
-            List<CommonCatalogStructure> structureList = catalogStructureRepository.findAllByStructureTypeAndOpenStatus(EnumStructureType.DATA_ASSETS, true);
-            List<Long> structureListIds = structureList.stream().map(CommonCatalogStructure::getId).toList();
-            query.andIsIn("structureId", structureListIds).andEqual("level", 5).andEqual("status", EnumAssetsCatalogStatus.PUBLISHED);
-            query.setPageInfo(paramDto.getCurrentPage(), paramDto.getPageSize());
-            PageResult<CommonCatalog> page = query.page();
-            List<CommonCatalog> commonCatalogs = page.getContent();
-            //查询L5是否有映射上的属性
-            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMapping(commonCatalogs);
             PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
+            //todo 按照手动映射、更新时间降序排序
+            Page<MappingRespDto> mappingRespDtos = queryDdmMappingCatalogDtoLeft(pageable, "");
+            List<MappingRespDto> content = mappingRespDtos.getContent();
+
+            List<DdmMappingCatalogDto> mappingCatalogDtos = buildDdmMapping(content);
+
+            long totalElements = mappingRespDtos.getTotalElements();
             dtoPageResult.setContentDirectly(mappingCatalogDtos);
-            dtoPageResult.setPageSize(paramDto.getPageSize());
-            dtoPageResult.setCurrentPage(paramDto.getCurrentPage());
-            dtoPageResult.setTotalItems(page.getTotalItems());
+            dtoPageResult.setPageSize(currentPage);
+            dtoPageResult.setCurrentPage(currentPage);
+            dtoPageResult.setTotalItems(totalElements);
             return dtoPageResult;
         }
 
@@ -472,19 +483,15 @@ public class DdmMappingCatalogServiceImpl implements DdmMappingCatalogService {
                 }
                 CommonCatalog catalog = commonCatalog.get();
                 String catalogPath = catalog.getCatalogPath()+catalog.getId()+"/";
-                MultiConditionQueryUtils.MultiConditionQuery<CommonCatalog> query = queryUtils.createQuery(CommonCatalog.class);
-                query.andLike("catalogPath", catalogPath+ "%").andEqual("status", EnumAssetsCatalogStatus.PUBLISHED)
-                        .andEqual("level", 5);
-                query.setPageInfo(paramDto.getCurrentPage(), paramDto.getPageSize());
-                PageResult<CommonCatalog> page = query.page();
-                List<CommonCatalog> commonCatalogs = page.getContent();
-                //查询L5是否有映射上的属性
-                List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMapping(commonCatalogs);
+                Page<MappingRespDto> catalogDtosLeft = queryDdmMappingCatalogDtoLeft(pageable, catalogPath);
+                List<MappingRespDto> content = catalogDtosLeft.getContent();
                 PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
+                List<DdmMappingCatalogDto> mappingCatalogDtos = buildDdmMapping(content);
+                long totalElements = catalogDtosLeft.getTotalElements();
                 dtoPageResult.setContentDirectly(mappingCatalogDtos);
-                dtoPageResult.setPageSize(paramDto.getPageSize());
-                dtoPageResult.setCurrentPage(paramDto.getCurrentPage());
-                dtoPageResult.setTotalItems(page.getTotalItems());
+                dtoPageResult.setPageSize(currentPage);
+                dtoPageResult.setCurrentPage(currentPage);
+                dtoPageResult.setTotalItems(totalElements);
                 return dtoPageResult;
             } else {
                 Optional<CommonCatalog> commonCatalog = catalogRepository.findById(logicDataEntityId);
@@ -493,66 +500,51 @@ public class DdmMappingCatalogServiceImpl implements DdmMappingCatalogService {
                 }
                 CommonCatalog catalog = commonCatalog.get();
                 String catalogPath = catalog.getCatalogPath()+catalog.getId()+"/";
-                MultiConditionQueryUtils.MultiConditionQuery<CommonCatalog> query = queryUtils.createQuery(CommonCatalog.class);
-                query.andLike("catalogPath", catalogPath+ "%").andEqual("status", EnumAssetsCatalogStatus.PUBLISHED)
-                        .andEqual("level", 5);
-                query.setPageInfo(paramDto.getCurrentPage(), paramDto.getPageSize());
-                PageResult<CommonCatalog> page = query.page();
-                List<CommonCatalog> commonCatalogs = page.getContent();
-                //查询L5是否有映射上的属性
-                List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMapping(commonCatalogs);
+                Page<MappingRespDto> catalogDtosLeft = queryDdmMappingCatalogDtoLeft(pageable, catalogPath);
+                List<MappingRespDto> content = catalogDtosLeft.getContent();
                 PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
+                List<DdmMappingCatalogDto> mappingCatalogDtos = buildDdmMapping(content);
+                long totalElements = catalogDtosLeft.getTotalElements();
                 dtoPageResult.setContentDirectly(mappingCatalogDtos);
-                dtoPageResult.setPageSize(paramDto.getPageSize());
-                dtoPageResult.setCurrentPage(paramDto.getCurrentPage());
-                dtoPageResult.setTotalItems(page.getTotalItems());
+                dtoPageResult.setPageSize(pageSize);
+                dtoPageResult.setCurrentPage(currentPage);
+                dtoPageResult.setTotalItems(totalElements);
                 return dtoPageResult;
             }
 
         }
         if (modelCategoryId != null && ddmModelId == null && tableId == null) {
-            MultiConditionQueryUtils.MultiConditionQuery<DdmCollectElement> query = queryUtils.createQuery(DdmCollectElement.class);
-            query.andEqual("modelCategoryId", modelCategoryId).andEqual("typeId", LDMTypes.oAttribute);
-            query.setPageInfo(paramDto.getCurrentPage(), paramDto.getPageSize());
-            PageResult<DdmCollectElement> page = query.page();
-            List<DdmCollectElement> ddmCollectElements = page.getContent();
+            Page<MappingRespDto> mappingRespDtos = queryDdmMappingCatalogDtoRight(pageable, modelCategoryId, null, null);
+            List<MappingRespDto> content = mappingRespDtos.getContent();
             //查询模型字段是否有映射
-            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMappingByDdm(ddmCollectElements);
+            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMappingByDdm(content);
             PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
             dtoPageResult.setContentDirectly(mappingCatalogDtos);
             dtoPageResult.setPageSize(paramDto.getPageSize());
             dtoPageResult.setCurrentPage(paramDto.getCurrentPage());
-            dtoPageResult.setTotalItems(page.getTotalItems());
+            dtoPageResult.setTotalItems(mappingRespDtos.getTotalElements());
             return dtoPageResult;
         } else if (modelCategoryId != null && ddmModelId != null && tableId == null) {
-            MultiConditionQueryUtils.MultiConditionQuery<DdmCollectElement> query = queryUtils.createQuery(DdmCollectElement.class);
-            query.andEqual("modelCategoryId", modelCategoryId).andEqual("ddmModelId", ddmModelId).andEqual("typeId", LDMTypes.oAttribute);
-            query.setPageInfo(paramDto.getCurrentPage(), paramDto.getPageSize());
-            PageResult<DdmCollectElement> page = query.page();
-            List<DdmCollectElement> ddmCollectElements = page.getContent();
+            Page<MappingRespDto> mappingRespDtos = queryDdmMappingCatalogDtoRight(pageable, modelCategoryId,ddmModelId, null);
+            List<MappingRespDto> content = mappingRespDtos.getContent();
             //查询模型字段是否有映射
-            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMappingByDdm(ddmCollectElements);
+            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMappingByDdm(content);
             PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
             dtoPageResult.setContentDirectly(mappingCatalogDtos);
             dtoPageResult.setPageSize(paramDto.getPageSize());
             dtoPageResult.setCurrentPage(paramDto.getCurrentPage());
-            dtoPageResult.setTotalItems(page.getTotalItems());
+            dtoPageResult.setTotalItems(mappingRespDtos.getTotalElements());
             return dtoPageResult;
         } else if (modelCategoryId != null && ddmModelId != null) {
-            MultiConditionQueryUtils.MultiConditionQuery<DdmCollectElement> query = queryUtils.createQuery(DdmCollectElement.class);
-            query.andEqual("modelCategoryId", modelCategoryId).andEqual("ddmModelId", ddmModelId)
-                    .andEqual("tableId", tableId)
-                    .andEqual("typeId", LDMTypes.oAttribute);
-            query.setPageInfo(paramDto.getCurrentPage(), paramDto.getPageSize());
-            PageResult<DdmCollectElement> page = query.page();
-            List<DdmCollectElement> ddmCollectElements = page.getContent();
+            Page<MappingRespDto> mappingRespDtos = queryDdmMappingCatalogDtoRight(pageable, modelCategoryId,ddmModelId, tableId);
+            List<MappingRespDto> content = mappingRespDtos.getContent();
             //查询模型字段是否有映射
-            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMappingByDdm(ddmCollectElements);
+            List<DdmMappingCatalogDto> mappingCatalogDtos = buildL5OfMappingByDdm(content);
             PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
             dtoPageResult.setContentDirectly(mappingCatalogDtos);
             dtoPageResult.setPageSize(paramDto.getPageSize());
             dtoPageResult.setCurrentPage(paramDto.getCurrentPage());
-            dtoPageResult.setTotalItems(page.getTotalItems());
+            dtoPageResult.setTotalItems(mappingRespDtos.getTotalElements());
             return dtoPageResult;
         }
         PageResult<DdmMappingCatalogDto> dtoPageResult = new PageResult<>();
@@ -563,6 +555,184 @@ public class DdmMappingCatalogServiceImpl implements DdmMappingCatalogService {
         return dtoPageResult;
     }
 
+
+    private Page<MappingRespDto> queryDdmMappingCatalogDtoLeft(Pageable pageable, String catalogPath) {
+
+        String baseSql = "SELECT catalog.id AS catalogId, " +
+                "     catalog.parent_id AS parentCatalogId, " +
+                "     catalog.catalog_name AS catalogName, " +
+                "     catalog.english_name AS catalogEnName, " +
+                "     dmc.object_id AS objectId, " +
+                "     dmc.object_name AS objectName, " +
+                "     dmc.alias AS objectAlias, "+
+                "     dmc.parent_object_id AS parentObjectId, " +
+                "     dmc.parent_object_name AS parentObjectName, " +
+                "     dmc.parent_object_alias AS parentObjectAlias, "+
+                "     dmc.ddm_model_id AS ddmModelId, " +
+                "     dmc.ddm_model_name AS ddmModelName, " +
+                "     dmc.mapping_type AS mappingType, " +
+                "     dmc.id AS mappingId, " +
+                "     dmc.update_time AS updateTime, " +
+                "     dmc.model_category_id AS modelCategoryId " +
+                " FROM db_common_catalog catalog " +
+                " INNER JOIN db_common_structure structure ON structure.id = catalog.structure_id AND structure.structure_type = 'DATA_ASSETS' " +
+                " LEFT JOIN ddm_mapping_catalog dmc ON dmc.catalog_id = catalog.id " +
+                " WHERE catalog.status = 'PUBLISHED' " +
+                "  AND catalog.catalog_level = 5 ";
+
+        String baseCountSql = "SELECT COUNT(*) " +
+                " FROM db_common_catalog catalog " +
+                " INNER JOIN db_common_structure structure ON structure.id = catalog.structure_id AND structure.structure_type = 'DATA_ASSETS' " +
+                " LEFT JOIN ddm_mapping_catalog dmc ON dmc.catalog_id = catalog.id " +
+                " WHERE catalog.status = 'PUBLISHED' " +
+                "   AND catalog.catalog_level = 5 ";
+
+        String condition = "";
+        if (!Strings.isNullOrEmpty(catalogPath)) {
+            condition += "   AND catalog.catalog_path LIKE CONCAT(:catalogPath, '%') ";
+        }
+        String orderSql = " ORDER BY " +
+                " CASE WHEN dmc.mapping_type IS NULL THEN 3 " +
+                " WHEN dmc.mapping_type = '手动映射' THEN 1 ELSE 2 " +
+                " END ASC, " +
+                " dmc.update_time DESC";
+        String sql = baseSql + condition + orderSql;
+        String countSql = baseCountSql + condition;
+        Query query = entityManager.createNativeQuery(sql);
+        Query countQuery = entityManager.createNativeQuery(countSql);
+
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(pageable.getPageSize());
+        // 设置命名参数
+        if (!Strings.isNullOrEmpty(catalogPath)) {
+            query.setParameter("catalogPath", catalogPath);
+            countQuery.setParameter("catalogPath", catalogPath);
+        }
+        List<Object[]> results = query.getResultList();
+        List<MappingRespDto> content = results.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+
+        Long total = ((Number) countQuery.getSingleResult()).longValue();
+        PageImpl<MappingRespDto> page = new PageImpl<>(content, pageable, total);
+        return page;
+    }
+
+    private Page<MappingRespDto> queryDdmMappingCatalogDtoRight(Pageable pageable, Long modelCategoryId, Long ddmModelId, Long tableId) {
+        String baseSql = "SELECT " +
+                " dce.object_id AS objectId, " +
+                " dce.alias AS objectAlias, " +
+                " dce.model_category_id AS modelCategoryId, " +
+                " dce.ddm_model_id AS ddmModelId, " +
+                " dce.ddm_model_name AS ddmModelName, " +
+                " dce.parent_id AS parentObjectId, " +
+                " dce.parent_name AS parentObjectName, " +
+                " dce.parent_alias AS parentObjectAlias," +
+                " dmc.business_object_id AS businessObjectId, " +
+                " dmc.business_object_name AS businessObjectName, " +
+                " dmc.parent_catalog_id AS parentCatalogId, " +
+                " dmc.catalog_id, " +
+                " dmc.catalog_name AS catalogName, " +
+                " dmc.catalog_en_name AS catalogEnName, " +
+                " dmc.id AS mappingId, " +
+                " dmc.mapping_type AS mappingType, " +
+                " dmc.update_time AS updateTime, " +
+                " dce.name AS objectName " +
+                "FROM " +
+                " ddm_collect_element dce " +
+                " LEFT JOIN ddm_mapping_catalog dmc ON dmc.object_id = dce.object_id  and dmc.ddm_model_id = dce.ddm_model_id " +
+                " WHERE dce.type_id = '80000005' ";
+
+        String baseCountSql = "SELECT COUNT(*) " +
+                " FROM ddm_collect_element dce " +
+                " LEFT JOIN ddm_mapping_catalog dmc ON dmc.object_id = dce.object_id  and dmc.ddm_model_id = dce.ddm_model_id " +
+                " WHERE dce.type_id = '80000005' ";
+
+        String orderSql = " ORDER BY " +
+                " CASE WHEN dmc.mapping_type IS NULL THEN 3 " +
+                " WHEN dmc.mapping_type = '手动映射' THEN 1 ELSE 2 " +
+                " END ASC, " +
+                " dmc.update_time DESC";
+
+        // 动态构建条件
+        String condition = "";
+        if (modelCategoryId != null) {
+            condition += " AND dce.model_category_id = :modelCategoryId";
+        }
+        if (ddmModelId != null) {
+            condition += " AND dce.ddm_model_id = :ddmModelId";
+        }
+        String sql = baseSql + condition + orderSql;
+        String countSql = baseCountSql + condition;
+
+        Query query = entityManager.createNativeQuery(sql);
+        Query countQuery = entityManager.createNativeQuery(countSql);
+
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(pageable.getPageSize());
+
+        // 设置参数
+        if (modelCategoryId != null) {
+            query.setParameter("modelCategoryId", modelCategoryId);
+            countQuery.setParameter("modelCategoryId", modelCategoryId);
+        }
+        if (ddmModelId != null) {
+            query.setParameter("ddmModelId", ddmModelId);
+            countQuery.setParameter("ddmModelId", ddmModelId);
+        }
+        List<Object[]> results = query.getResultList();
+        List<MappingRespDto> content = results.stream()
+                .map(this::mapToDtoByDdm)
+                .collect(Collectors.toList());
+
+        Long total = ((Number) countQuery.getSingleResult()).longValue();
+        PageImpl<MappingRespDto> page = new PageImpl<>(content, pageable, total);
+        return page;
+    }
+
+    private MappingRespDto mapToDto(Object[] row) {
+        MappingRespDto dto = new MappingRespDto();
+        dto.setCatalogId(row[0]!= null ? ((Number) row[0]).longValue() : null);
+        dto.setParentCatalogId(row[1] != null ? ((Number) row[1]).longValue() : null);
+        dto.setCatalogName((String) row[2]);
+        dto.setCatalogEnName((String) row[3]);
+        dto.setObjectId(row[4]!= null ? ((Number) row[4]).longValue(): null);
+        dto.setObjectName((String) row[5]);
+        dto.setObjectAlias((String) row[6]);
+        dto.setParentObjectId( row[7] != null ? ((Number) row[7]).longValue() : null);
+        dto.setParentObjectName((String) row[8]);
+        dto.setParentObjectAlias((String) row[9]);
+        dto.setDdmModelId(row[10] != null ? ((Number) row[10]).longValue() : null);
+        dto.setDdmModelName((String) row[11]);
+        dto.setMappingType((String) row[12]);
+        dto.setMappingId(row[13] != null ? ((Number) row[13]).longValue() : null);
+        dto.setUpdateTime(row[14] != null ? (java.util.Date) row[14] : null);
+        dto.setModelCategoryId(row[15] != null ? ((Number) row[15]).longValue() : null);
+        return dto;
+    }
+
+    private MappingRespDto mapToDtoByDdm(Object[] row) {
+        MappingRespDto dto = new MappingRespDto();
+        dto.setObjectId(row[0]!= null ? ((Number) row[0]).longValue() : null);
+        dto.setObjectAlias((String)row[1]);
+        dto.setModelCategoryId(row[2]!= null ? ((Number) row[2]).longValue(): null);
+        dto.setDdmModelId(row[3]!= null ? ((Number) row[3]).longValue(): null);
+        dto.setDdmModelName((String)row[4]);
+        dto.setParentObjectId( row[5] != null ? ((Number) row[5]).longValue() : null);
+        dto.setParentObjectName((String) row[6]);
+        dto.setParentObjectAlias((String) row[7]);
+        dto.setBusinessObjectId(row[8] != null ? ((Number) row[8]).longValue() : null);
+        dto.setBusinessObjectName((String) row[9]);
+        dto.setParentCatalogId(row[10] != null ? ((Number) row[10]).longValue() : null);
+        dto.setCatalogId(row[11] != null ? ((Number) row[11]).longValue() : null);
+        dto.setCatalogName((String) row[12]);
+        dto.setCatalogEnName((String) row[13]);
+        dto.setMappingId(row[14] != null ? ((Number) row[14]).longValue() : null);
+        dto.setMappingType((String) row[15]);
+        dto.setUpdateTime(row[16] != null ? (java.util.Date) row[16] : null);
+        dto.setObjectName((String) row[17]);
+        return dto;
+    }
     /**
      * 查看映射记录
      * @param mappingId
@@ -1039,88 +1209,134 @@ public class DdmMappingCatalogServiceImpl implements DdmMappingCatalogService {
 
     /**
      * 模型映射管理右侧查询
-     * @param ddmCollectElements
+     * @param mappingRespDtos
      * @return
      */
-    private List<DdmMappingCatalogDto> buildL5OfMappingByDdm(List<DdmCollectElement> ddmCollectElements) {
+    private List<DdmMappingCatalogDto> buildL5OfMappingByDdm(List<MappingRespDto> mappingRespDtos) {
         List<DdmMappingCatalogDto> mappingCatalogDtos = Lists.newArrayList();
         //获取业务系统
-        List<Long> modelCategoryIds = ddmCollectElements.stream().map(DdmCollectElement::getModelCategoryId).toList();
+        List<Long> modelCategoryIds = mappingRespDtos.stream().map(MappingRespDto::getModelCategoryId).toList();
         List<ModelCategoryDto> categoryDtos = modelCategoryService.getModelCategoriesByIds(modelCategoryIds);
         Map<Object, ModelCategoryDto> modelCategoryDtoMap = categoryDtos.stream().collect(Collectors.toMap(ModelCategoryDto::getCategoryId, Function.identity(), (x1, x2) -> x1));
-        //模型ID
-        List<Long> ddmModelIds = ddmCollectElements.stream().map(DdmCollectElement::getDdmModelId).toList();
-        //字段ID
-        List<Long> ddmColumnIds = ddmCollectElements.stream().map(DdmCollectElement::getObjectId).toList();
-        //查询是否存在映射
-        List<DdmMappingCatalog> ddmMappingCatalogs = ddmMappingCatalogRepository.queryDdmMappingCatalogsByObjectIds(modelCategoryIds, ddmModelIds, ddmColumnIds, "L5");
-        Map<String, DdmMappingCatalog> ddmMappingCatalogsMap = ddmMappingCatalogs.stream().collect(Collectors.toMap(x -> x.getModelCategoryId() + "-" + x.getDdmModelId() + "-" + x.getObjectId(), Function.identity(), (x1, x2) -> x1));
         //获取映射关系L4目录
-        List<Long> catalogIdsOfL4 = ddmMappingCatalogs.stream().map(DdmMappingCatalog::getParentCatalogId).toList();
+        List<Long> catalogIdsOfL4 = mappingRespDtos.stream().map(MappingRespDto::getParentCatalogId).toList();
         List<CommonCatalog> catalogsOfL4 = commonCatalogNewRepository.findCommonCatalogsByIdAndStatus(catalogIdsOfL4, EnumAssetsCatalogStatus.PUBLISHED);
         Map<Long, CommonCatalog> commonCatalogOfL4Map = catalogsOfL4.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity(), (x1, x2) -> x1));
         DdmMappingCatalogDto  mappingCatalogDto;
-        for (DdmCollectElement ddmCollectElement : ddmCollectElements) {
-            String key = ddmCollectElement.getModelCategoryId()+"-"+ddmCollectElement.getDdmModelId()+"-"+ddmCollectElement.getObjectId();
-            DdmMappingCatalog ddmMappingCatalog = ddmMappingCatalogsMap.get(key);
-            if (ddmMappingCatalog != null) {
-                //有映射记录
-                mappingCatalogDto = new DdmMappingCatalogDto();
-                mappingCatalogDto.setBusinessObjectId(ddmMappingCatalog.getBusinessObjectId());
-                mappingCatalogDto.setBusinessObjectName(ddmMappingCatalog.getBusinessObjectName());
-                mappingCatalogDto.setLogicDataEntityId(ddmMappingCatalog.getParentCatalogId());
-                mappingCatalogDto.setLogicDataEntityName(ddmMappingCatalog.getParentCatalogName());
-                CommonCatalog catalogOfL3 = commonCatalogOfL4Map.get(ddmMappingCatalog.getParentCatalogId());
-                if (catalogOfL3 != null) {
-                    mappingCatalogDto.setLogicDataEntityEnName(catalogOfL3.getEnglishName());
-                }
-                mappingCatalogDto.setColumnCatalogId(ddmMappingCatalog.getCatalogId());
-                mappingCatalogDto.setColumnCatalogName(ddmMappingCatalog.getCatalogEnName());
-                mappingCatalogDto.setColumnCatalogAlias(ddmMappingCatalog.getAlias());
-                mappingCatalogDto.setModelCategoryId(ddmMappingCatalog.getModelCategoryId());
-                ModelCategoryDto modelCategoryDto = modelCategoryDtoMap.get(ddmMappingCatalog.getModelCategoryId());
-                if (modelCategoryDto != null) {
-                    mappingCatalogDto.setModelCategoryName(modelCategoryDto.getCategoryName());
-                }
-                mappingCatalogDto.setDdmModelId(ddmMappingCatalog.getDdmModelId());
-                mappingCatalogDto.setDdmModelName(ddmMappingCatalog.getDdmModelName());
-                mappingCatalogDto.setTableId(ddmMappingCatalog.getParentObjectId());
-                mappingCatalogDto.setTableName(ddmMappingCatalog.getParentObjectName());
-                mappingCatalogDto.setTableAlias(ddmMappingCatalog.getParentObjectAlias());
-                mappingCatalogDto.setColumnId(ddmMappingCatalog.getObjectId());
-                mappingCatalogDto.setColumnName(ddmMappingCatalog.getObjectName());
-                mappingCatalogDto.setColumnAlias(ddmMappingCatalog.getAlias());
-                mappingCatalogDto.setMappingType(ddmMappingCatalog.getMappingType());
-                mappingCatalogDto.setMappingId(ddmMappingCatalog.getId());
-                mappingCatalogDto.setEnableClick(Boolean.TRUE);
-            } else {
-                mappingCatalogDto = new DdmMappingCatalogDto();
-                mappingCatalogDto.setBusinessObjectId(null);
-                mappingCatalogDto.setBusinessObjectName("");
-                mappingCatalogDto.setLogicDataEntityId(null);
-                mappingCatalogDto.setLogicDataEntityName("");
-                mappingCatalogDto.setColumnCatalogId(null);
-                mappingCatalogDto.setColumnCatalogName("");
-                mappingCatalogDto.setColumnCatalogAlias("");
-                mappingCatalogDto.setModelCategoryId(ddmCollectElement.getModelCategoryId());
-                ModelCategoryDto modelCategoryDto = modelCategoryDtoMap.get(ddmCollectElement.getModelCategoryId());
-                if (modelCategoryDto != null) {
-                    mappingCatalogDto.setModelCategoryName(modelCategoryDto.getCategoryName());
-                }
-                mappingCatalogDto.setDdmModelId(ddmCollectElement.getDdmModelId());
-                mappingCatalogDto.setDdmModelName(ddmCollectElement.getDdmModelName());
-                mappingCatalogDto.setTableId(ddmCollectElement.getParentId());
-                mappingCatalogDto.setTableName(ddmCollectElement.getParentName());
-                mappingCatalogDto.setTableAlias(ddmCollectElement.getParentAlias());
-                mappingCatalogDto.setColumnId(ddmCollectElement.getObjectId());
-                mappingCatalogDto.setColumnName(ddmCollectElement.getName());
-                mappingCatalogDto.setColumnAlias(ddmCollectElement.getAlias());
-                mappingCatalogDto.setMappingType("");
-                mappingCatalogDto.setEnableClick(Boolean.FALSE);
+        for (MappingRespDto mappingRespDto : mappingRespDtos) {
+            mappingCatalogDto = new DdmMappingCatalogDto();
+            mappingCatalogDto.setBusinessObjectId(mappingRespDto.getBusinessObjectId());
+            mappingCatalogDto.setBusinessObjectName(mappingRespDto.getBusinessObjectName());
+            mappingCatalogDto.setLogicDataEntityId(mappingRespDto.getParentCatalogId());
+            CommonCatalog commonCatalog = commonCatalogOfL4Map.get(mappingRespDto.getParentCatalogId());
+            if (commonCatalog != null) {
+                mappingCatalogDto.setLogicDataEntityName(commonCatalog.getName());
+                mappingCatalogDto.setLogicDataEntityEnName(commonCatalog.getEnglishName());
             }
+            mappingCatalogDto.setColumnCatalogId(mappingRespDto.getCatalogId());
+            mappingCatalogDto.setColumnCatalogName(mappingRespDto.getCatalogEnName());
+            mappingCatalogDto.setColumnCatalogAlias(mappingRespDto.getCatalogName());
+            mappingCatalogDto.setModelCategoryId(mappingRespDto.getModelCategoryId());
+            ModelCategoryDto modelCategoryDto = modelCategoryDtoMap.get(mappingRespDto.getModelCategoryId());
+            if (modelCategoryDto != null) {
+                mappingCatalogDto.setModelCategoryName(modelCategoryDto.getCategoryName());
+            }
+            mappingCatalogDto.setDdmModelId(mappingRespDto.getDdmModelId());
+            mappingCatalogDto.setDdmModelName(mappingRespDto.getDdmModelName());
+            mappingCatalogDto.setTableId(mappingRespDto.getParentObjectId());
+            mappingCatalogDto.setTableName(mappingRespDto.getParentObjectName());
+            mappingCatalogDto.setTableAlias(mappingRespDto.getParentObjectAlias());
+            mappingCatalogDto.setColumnId(mappingRespDto.getObjectId());
+            mappingCatalogDto.setColumnName(mappingRespDto.getObjectName());
+            mappingCatalogDto.setColumnAlias(mappingRespDto.getObjectAlias());
+            mappingCatalogDto.setMappingType(mappingRespDto.getMappingType());
+            mappingCatalogDto.setMappingId(mappingRespDto.getMappingId());
             mappingCatalogDtos.add(mappingCatalogDto);
         }
         return mappingCatalogDtos;
     }
 
+
+    private List<DdmMappingCatalogDto> buildDdmMapping(List<MappingRespDto> content) {
+        List<DdmMappingCatalogDto> mappingCatalogDtos = Lists.newArrayList();
+        DdmMappingCatalogDto ddmMappingCatalogDto;
+        List<Long> modelCategoryIds = content.stream().map(MappingRespDto::getModelCategoryId).toList();
+        List<ModelCategoryDto> categoryDtos = modelCategoryService.getModelCategoriesByIds(modelCategoryIds);
+        Map<Object, ModelCategoryDto> modelCategoryDtoMap = categoryDtos.stream().collect(Collectors.toMap(ModelCategoryDto::getCategoryId, Function.identity(), (x1, x2) -> x1));
+
+        //获取L4目录id
+        List<Long> L4CatalogIdList = content.stream().map(MappingRespDto::getParentCatalogId).distinct().toList();
+
+        List<CommonCatalog> catalogOfL4List = Lists.newArrayList();
+        for (List<Long> items : Lists.partition(L4CatalogIdList, 999)) {
+            List<CommonCatalog> catalogs = commonCatalogNewRepository.findCommonCatalogsByIdAndStatus(items, EnumAssetsCatalogStatus.PUBLISHED);
+            if (!CollectionUtils.isEmpty(catalogs)) {
+                catalogOfL4List.addAll(catalogs);
+            }
+        }
+        Map<Long, CommonCatalog> commonCatalogMapOfL4 = catalogOfL4List.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity(), (x1, x2) -> x1));
+        //获取L3目录Id
+        List<Long> L3CatalogIdList = catalogOfL4List.stream().map(CommonCatalog::getParentId).distinct().toList();
+        List<CommonCatalog> catalogOfL3List = Lists.newArrayList();
+        for (List<Long> items : Lists.partition(L3CatalogIdList, 999)) {
+            List<CommonCatalog> catalogs = commonCatalogNewRepository.findCommonCatalogsByIdAndStatus(items, EnumAssetsCatalogStatus.PUBLISHED);
+            if (!CollectionUtils.isEmpty(catalogs)) {
+                catalogOfL3List.addAll(catalogs);
+            }
+        }
+        Map<Long, CommonCatalog> commonCatalogMapOfL3 = catalogOfL3List.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity(), (x1, x2) -> x1));
+
+        for (MappingRespDto mappingRespDto : content) {
+            ddmMappingCatalogDto = new DdmMappingCatalogDto();
+            //L4目录id
+            Long L4CatalogId = mappingRespDto.getParentCatalogId();
+
+            CommonCatalog commonCatalogOfL4 = commonCatalogMapOfL4.get(L4CatalogId);
+            if (commonCatalogOfL4 != null) {
+                ddmMappingCatalogDto.setLogicDataEntityId(commonCatalogOfL4.getId());
+                ddmMappingCatalogDto.setLogicDataEntityName(commonCatalogOfL4.getName());
+                ddmMappingCatalogDto.setLogicDataEntityEnName(commonCatalogOfL4.getEnglishName());
+                Long parentId = commonCatalogOfL4.getParentId();
+                CommonCatalog commonCatalogOfL3 = commonCatalogMapOfL3.get(parentId);
+                if (commonCatalogOfL3 != null) {
+                    ddmMappingCatalogDto.setBusinessObjectId(commonCatalogOfL3.getId());
+                    ddmMappingCatalogDto.setBusinessObjectName(commonCatalogOfL3.getName());
+                }
+            }
+
+            ddmMappingCatalogDto.setColumnCatalogId(mappingRespDto.getCatalogId());
+            ddmMappingCatalogDto.setColumnCatalogName(mappingRespDto.getCatalogEnName());
+            ddmMappingCatalogDto.setColumnCatalogAlias(mappingRespDto.getCatalogName());
+            ddmMappingCatalogDto.setModelCategoryId(mappingRespDto.getModelCategoryId());
+            if (mappingRespDto.getModelCategoryId() != null) {
+                ModelCategoryDto modelCategoryDto = modelCategoryDtoMap.get(mappingRespDto.getModelCategoryId());
+                if (modelCategoryDto != null) {
+                    ddmMappingCatalogDto.setModelCategoryName(modelCategoryDto.getCategoryName());
+                }
+            }
+
+            ddmMappingCatalogDto.setDdmModelId(mappingRespDto.getDdmModelId());
+            ddmMappingCatalogDto.setDdmModelName(mappingRespDto.getDdmModelName());
+            ddmMappingCatalogDto.setTableId(mappingRespDto.getParentObjectId());
+            ddmMappingCatalogDto.setTableName(mappingRespDto.getParentObjectName());
+            ddmMappingCatalogDto.setTableAlias(mappingRespDto.getParentObjectAlias());
+            ddmMappingCatalogDto.setColumnId(mappingRespDto.getObjectId());
+            ddmMappingCatalogDto.setColumnName(mappingRespDto.getObjectName());
+            ddmMappingCatalogDto.setColumnAlias(mappingRespDto.getObjectAlias());
+            ddmMappingCatalogDto.setMappingType(mappingRespDto.getMappingType());
+            ddmMappingCatalogDto.setMappingId(mappingRespDto.getMappingId());
+            mappingCatalogDtos.add(ddmMappingCatalogDto);
+        }
+        return mappingCatalogDtos;
+    }
+
+
+    public static void main(String[] args) {
+        String s = "0/438/439/440/441/";
+        String[] split = s.split("/");
+        Long currentId = Long.parseLong(split[split.length - 1]); // 当前目录的上级目录 ID
+        System.out.println("currentId = " + currentId);
+        Long parentId = Long.parseLong(split[split.length - 2]); // 当前目录上级的上级目录 ID
+        System.out.println("parentId = " + parentId);
+    }
 }
