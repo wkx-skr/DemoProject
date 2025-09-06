@@ -40,7 +40,7 @@
           <span>{{ $timeFormatter(scope.row.updateTime || '-') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="240">
+      <el-table-column label="操作" width="280">
         <template slot-scope="scope">
           <datablau-button
             type="text"
@@ -56,6 +56,14 @@
             :disabled="!scope.row.modelCategoryName"
           >
             采集元数据
+          </datablau-button>
+          <datablau-button
+            type="text"
+            class="link-button"
+            :disabled="!scope.row.modelCategoryName"
+            @click="handlerImmediatelyCollect(scope.row.jobId)"
+          >
+            立即采集
           </datablau-button>
         </template>
       </el-table-column>
@@ -151,6 +159,12 @@ export default {
   },
 
   methods: {
+    // 处理 立即采集
+    handlerImmediatelyCollect(taskId) {
+      this.$http.post(`/job/main/canExecuteToday?jobId=58`).then(res => {
+        if (res.data) this.$message.success('采集成功')
+      })
+    },
     async handleLinkSystem(row) {
       this.currentRow = row
       this.dialogVisible = true
