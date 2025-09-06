@@ -55,6 +55,11 @@ public class DomainExt {
     @Comment("检查状态")
     private DomainCheckState checkState;
 
+    //单位，此字段只有数据类型是“数值型”是必填
+    @Column(name = "unit")
+    @Comment("单位")
+    private String unit;
+
     public DomainExt() {
     }
 
@@ -96,5 +101,13 @@ public class DomainExt {
 
     public void setCheckState(DomainCheckState checkState) {
         this.checkState = checkState;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

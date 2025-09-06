@@ -31,7 +31,7 @@ public class ExtDataAssetsDataFlowDto implements Serializable {
   // 逻辑实体完整层级路径
   private String l4FullPath;
 
-  @ExcelColumn(columnNames = "数据权限（系统-实体）")
+  @ExcelColumn(columnNames = "数据操作")
   private String dataFlowPermissions;
 
   @ExcelColumn(columnNames = "是否分发源头")

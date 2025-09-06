@@ -448,6 +448,7 @@ public class ExtDataAssetsDataFlowService {
     for (ExtDataAssetsDataFlowDto dto : loaded) {
       currentRow1++;
       String L4Code = dto.getL4Code();
+      String L3Code = dto.getL3Code();
 
       // 跳过已经通过权限转移处理的实体
       if (transferredEntities.contains(L4Code)) {
@@ -457,6 +458,7 @@ public class ExtDataAssetsDataFlowService {
       
       ExtDataAssetsDataFlow extDataAssetsDataFlow = new ExtDataAssetsDataFlow();
       extDataAssetsDataFlow.setL4Code(L4Code);
+      extDataAssetsDataFlow.setL3Code(L3Code);
       String modelCategoryName = dto.getModelCategoryName();
       ModelCategoryDto modelCategoryDto = modelCategoryDtoMap.get(modelCategoryName);
       if (modelCategoryDto != null) {
@@ -630,8 +632,8 @@ public class ExtDataAssetsDataFlowService {
         Integer permissionsInt = byL4Code.getDataFlowPermissions();
         String permissionsStr = ExtDataAssetsDataFlowPermissions.maskToCrud(permissionsInt);
         if (permissionsStr.contains("C") && !Objects.equals(byL4Code.getModelCategoryId(), extDataAssetsDataFlow.getModelCategoryId())) {
-          LOGGER.warn("同一个逻辑实体只能有一个C权限");
-          throw new RuntimeException("同一个逻辑实体只能有一个C权限");
+          ;
+          throw new RuntimeException("同一个实体只允许同时存在一个c或者分发源头u");
         }
       }
     }
@@ -655,14 +657,14 @@ public class ExtDataAssetsDataFlowService {
       
       // 检查1：如果当前要创建C或源U权限，不能与现有源U权限冲突
       if ((currentHasC || currentIsSourceU) && existingIsSourceU) {
-        LOGGER.warn("该实体已存在源U权限，不允许再定义C或源U权限");
-        throw new RuntimeException("该实体已存在源U权限，不允许再定义C或源U权限");
+        LOGGER.warn("同一个实体只允许同时存在一个c或者分发源头u");
+        throw new RuntimeException("同一个实体只允许同时存在一个c或者分发源头u");
       }
       
       // 检查2：如果当前要创建源U权限，不能与现有C权限冲突
       if (currentIsSourceU && existingHasC) {
-        LOGGER.warn("该实体已存在C权限，不允许再定义源U权限");
-        throw new RuntimeException("该实体已存在C权限，不允许再定义源U权限");
+        LOGGER.warn("同一个实体只允许同时存在一个c或者分发源头u");
+        throw new RuntimeException("同一个实体只允许同时存在一个c或者分发源头u");
       }
     }
     

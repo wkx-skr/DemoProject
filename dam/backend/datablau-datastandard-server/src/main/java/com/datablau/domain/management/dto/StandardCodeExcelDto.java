@@ -4,9 +4,11 @@ import com.andorj.model.common.annotation.ExcelColumn;
 import com.andorj.model.common.api.MessageService;
 import com.datablau.domain.management.data.DomainState;
 import com.datablau.domain.management.utils.StandardUtils;
+import com.datablau.project.util.CheckNameUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.util.CollectionUtils;
 
+import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -169,6 +171,7 @@ public class StandardCodeExcelDto {
 
     public static boolean addDtoToList(MessageService msgService, StandardCodeExcelDto excelDto, List<StandardCodeFolderDto> standardCodeDtos, String username, Long categoryId, boolean published) {
         Optional<StandardCodeFolderDto> standardCodeOpt = standardCodeDtos.stream().filter(v -> Objects.equals(v.getName(), excelDto.getName())).findFirst();
+        //这里是获取代码取值的
         if(standardCodeOpt.isPresent()) {
             StandardCodeValueDto value = excelDto.buildStandardCodeValueDto();
             if(value != null) {
@@ -177,7 +180,7 @@ public class StandardCodeExcelDto {
                 if(standardCodeDto.getValues() != null) {
                     Optional<StandardCodeValueDto> codeValueDtoOpt = standardCodeDto.getValues().stream().filter(v -> v.getValue().equals(excelDto.getCodeV())).findFirst();
                     if(codeValueDtoOpt.isPresent()) {
-                        excelDto.setErrorMsg(msgService.getMessage("standardCodeNumberExists", excelDto.getName(), codeValueDtoOpt.get().getName()));
+                        excelDto.setErrorMsg(StringUtils.isBlank(excelDto.getErrorMsg())?msgService.getMessage("standardCodeNumberExists", excelDto.getName(), codeValueDtoOpt.get().getName()): excelDto.getErrorMsg() + ";" + msgService.getMessage("standardCodeNumberExists", excelDto.getName(), codeValueDtoOpt.get().getName()));
                         return false;
                     }
                 }
@@ -185,7 +188,7 @@ public class StandardCodeExcelDto {
                 return true;
             } else {
                 // 如果没录入代码， 则是名称重复
-                excelDto.setErrorMsg(msgService.getMessage("standardCodeExists", excelDto.getName()));
+                excelDto.setErrorMsg(StringUtils.isBlank(excelDto.getErrorMsg())?msgService.getMessage("standardCodeExists", excelDto.getCode()): excelDto.getErrorMsg() + ";" + msgService.getMessage("standardCodeExists", excelDto.getCode()));
                 return false;
             }
         } else {
@@ -220,10 +223,23 @@ public class StandardCodeExcelDto {
     }
 
     public StandardCodeValueDto buildStandardCodeValueDto() {
+
+        //导入的话需要判断代码的值，都是必填的
+        if(StringUtils.isEmpty(codeV)) {
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())?"编码取值不能为空": this.getErrorMsg() + ";" + "编码取值不能为空");
+        }
+        if(StringUtils.isEmpty(codeName)) {
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())?"编码中文名称不能为空": this.getErrorMsg() + ";" + "编码中文名称不能为空");
+        }
+        if(StringUtils.isEmpty(order)) {
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())?"编码顺序不能为空": this.getErrorMsg() + ";" + "编码顺序不能为空");
+        }
+
         // 如果编码中文名称有值则代表有编码
         if(StringUtils.isEmpty(codeName)) {
             return null;
         }
+
         StandardCodeValueDto value = new StandardCodeValueDto();
         value.setName(codeName);
         value.setValue(codeV);
@@ -249,7 +265,7 @@ public class StandardCodeExcelDto {
         } else if (categoryId == 2L) {
             _paths.add(msgService.getMessage("domain.name.index"));
         }
-        _paths.addAll(path);
+        _paths.addAll(path==null?new ArrayList<>():path);
         domainExtDto.setPath(_paths);
         domainExtDto.setChineseName(name);
         domainExtDto.setDomainCode(code);
@@ -258,51 +274,78 @@ public class StandardCodeExcelDto {
 
     public boolean check(MessageService msgService) {
         if (StringUtils.isNotEmpty(this.getCode()) && this.getCode().contains("+")) {
-            this.setErrorMsg(msgService.getMessage("invalidChar"));
-            return false;
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("invalidChar") : this.getErrorMsg() + ";" + msgService.getMessage("invalidChar"));
+//            return false;
         }
         if(CollectionUtils.isEmpty(this.getPath())) {
-            this.setErrorMsg(msgService.getMessage("standardSubjectNotNull"));
-            return false;
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardSubjectNotNull") :  this.getErrorMsg() + ";" + msgService.getMessage("standardSubjectNotNull"));
+//            return false;
         }
         if(StringUtils.isBlank(this.getName())) {
-            this.setErrorMsg(msgService.getMessage("standardZhNameNotNull"));
-            return false;
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardZhNameNotNull") :  this.getErrorMsg() + ";" + msgService.getMessage("standardZhNameNotNull"));
+//            return false;
         }
+
+        //中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+        if (StringUtils.isNotEmpty(this.getName()) && !CheckNameUtil.checkChineseName(this.getName())) {
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("domainChNameRegexCheck") :  this.getErrorMsg() + ";" + msgService.getMessage("domainChNameRegexCheck"));
+//            throw new RuntimeException(msgService.getMessage("domainChNameRegexCheck"));
+        }
+         //中文名称长度不能超过15位
+        if (StringUtils.isNotEmpty(this.getName()) && CheckNameUtil.checkChineseNameLength(this.getName(), 15) ) {
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("domainChNameLengthCheck") :  this.getErrorMsg() + ";" + msgService.getMessage("domainChNameLengthCheck"));
+//            throw new RuntimeException(msgService.getMessage("domainChNameLengthCheck"));
+        }
+
         if(StringUtils.isBlank(this.geteName())) {
-            this.setErrorMsg(msgService.getMessage("standardEnNameNotNull"));
-            return false;
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardEnNameNotNull") :  this.getErrorMsg() + ";" + msgService.getMessage("standardEnNameNotNull"));
+
+//            this.setErrorMsg(msgService.getMessage("standardEnNameNotNull"));
+//            return false;
+        }
+
+        //英文名称只能是字母和空格，首字母还需要大写
+        if (StringUtils.isNotEmpty(this.geteName()) &&
+                StringUtils.isNotEmpty(CheckNameUtil.checkEnglishNameStyle(this.geteName()))) {
+            this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("domainEnNameRegexCheck") :  this.getErrorMsg() + ";" + msgService.getMessage("domainEnNameRegexCheck"));
+//            throw new RuntimeException(msgService.getMessage("domainEnNameRegexCheck"));
         }
         if(StringUtils.isNotEmpty(state)) {
             if(StandardUtils.convertStateEnum(state, msgService) == null) {
-                this.setErrorMsg(msgService.getMessage("standardStateNotNull", state));
-                return false;
+                this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardStateNotNull", state) :  this.getErrorMsg() + ";" + msgService.getMessage("standardStateNotNull", state));
+//                this.setErrorMsg(msgService.getMessage("standardStateNotNull", state));
+//                return false;
             }
         }
 
         // 如果编码取值有值则代表有编码
         if(StringUtils.isNotEmpty(this.getCodeV())) {
             if(StringUtils.isBlank(this.getCodeName())) {
-                this.setErrorMsg(msgService.getMessage("standardCodeNotNull"));
-                return false;
+                this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardCodeNotNull") :  this.getErrorMsg() + ";" + msgService.getMessage("standardCodeNotNull"));
+//                this.setErrorMsg(msgService.getMessage("standardCodeNotNull"));
+//                return false;
             }
             if(this.getCodeV().equals(this.getpCodeV())) {
-                this.setErrorMsg(msgService.getMessage(msgService.getMessage("codeCannotSameAsParent")));
-                return false;
+                this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("codeCannotSameAsParent") :  this.getErrorMsg() + ";" + msgService.getMessage("codeCannotSameAsParent"));
+//                this.setErrorMsg(msgService.getMessage(msgService.getMessage("codeCannotSameAsParent")));
+//                return false;
             }
             if(StringUtils.isBlank(this.getOrder())) {
-                this.setErrorMsg(msgService.getMessage("standardCodeOrderNotNull"));
-                return false;
+                this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardCodeOrderNotNull") :  this.getErrorMsg() + ";" + msgService.getMessage("standardCodeOrderNotNull"));
+//                this.setErrorMsg(msgService.getMessage("standardCodeOrderNotNull"));
+//                return false;
             }
             try {
                 Integer i = Integer.valueOf(this.getOrder());
                 if(i < 1) {
-                    this.setErrorMsg(msgService.getMessage("standardCodeOrderLessOne"));
-                    return false;
+                    this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardCodeOrderLessOne") :  this.getErrorMsg() + ";" + msgService.getMessage("standardCodeOrderLessOne"));
+//                    this.setErrorMsg(msgService.getMessage("standardCodeOrderLessOne"));
+//                    return false;
                 }
             } catch (Exception e) {
-                this.setErrorMsg(msgService.getMessage("standardCodeOrderNotValid"));
-                return false;
+                this.setErrorMsg(StringUtils.isBlank(this.getErrorMsg())? msgService.getMessage("standardCodeOrderNotValid") :  this.getErrorMsg() + ";" + msgService.getMessage("standardCodeOrderNotValid"));
+//                this.setErrorMsg(msgService.getMessage("standardCodeOrderNotValid"));
+//                return false;
             }
         }
         return true;

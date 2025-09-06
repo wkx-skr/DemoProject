@@ -163,6 +163,15 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
             }
         }
 
+        Map<Long, CommonCatalog> l4Map = new HashMap<>();
+        Map<Long, CommonCatalog> l3Map = new HashMap<>();
+        if (labelDropInspectionQueryParamDto.isaExportWord()){
+            List<CommonCatalog> allL4 = commonCatalogExtRepository.findByLevelAndStatus(4, EnumAssetsCatalogStatus.PUBLISHED);
+            List<CommonCatalog> allL3 = commonCatalogExtRepository.findByLevelAndStatus(3, EnumAssetsCatalogStatus.PUBLISHED);
+            l4Map = allL4.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity()));
+            l3Map = allL3.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity()));
+        }
+
         //总结果列表
         DesignLabelDropResultTotalDto designLabelDropResultTotalDto = new DesignLabelDropResultTotalDto();
         //统计列表
@@ -203,21 +212,30 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
 //                List<CustomDomainExtDto> domains = domainExtService.getDomainsById(domainIds);
                 Map<String, CustomDomainExtDto> domainExtDtoMap = domains.stream().collect(Collectors.toMap(CustomDomainExtDto::getDomainId, Function.identity()));*/
 
-                //根据L5id 查找注册资产
-                List<DataAssets> dataAssets = dataAssetsRepository.findByCatalogIdIn(L5catalogIds);
-                //根据注册资产分组得到注册L5数量
-                Map<Long, List<DataAssets>> catalogAssetsMap = dataAssets.stream().collect(Collectors.groupingBy(DataAssets::getCatalogId));
-                for (CommonCatalog l5catalog : L5catalogs) {
-                    DL5AttributeDto dl5AttributeDto = new DL5AttributeDto();
-                    if (catalogAssetsMap.containsKey(l5catalog.getId())){
-                        dl5AttributeDto.setdL5Status("是");
-                    }else {
-                        dl5AttributeDto.setdL5Status("否");
+
+                if (labelDropInspectionQueryParamDto.isaExportWord()) {
+                    //根据L5id 查找注册资产
+                    List<DataAssets> dataAssets = dataAssetsRepository.findByCatalogIdIn(L5catalogIds);
+                    //根据注册资产分组得到注册L5数量
+                    Map<Long, List<DataAssets>> catalogAssetsMap = dataAssets.stream().collect(Collectors.groupingBy(DataAssets::getCatalogId));
+                    for (CommonCatalog l5catalog : L5catalogs) {
+                        DL5AttributeDto dl5AttributeDto = new DL5AttributeDto();
+                        if (catalogAssetsMap.containsKey(l5catalog.getId())) {
+                            dl5AttributeDto.setdL5Status("是");
+                        } else {
+                            dl5AttributeDto.setdL5Status("否");
+                        }
+                        dl5AttributeDto.setdL5ChName(l5catalog.getName());
+                        dl5AttributeDto.setdL5EnName(l5catalog.getEnglishName());
+                        dl5AttributeDto.setdL5Code(l5catalog.getCode());
+                        if (l4Map.containsKey(l5catalog.getParentId())){
+                            dl5AttributeDto.setdL4ChName(l4Map.get(l5catalog.getParentId()).getName());
+                            if (l3Map.containsKey(l4Map.get(l5catalog.getParentId()).getParentId())){
+                                dl5AttributeDto.setdL3ChName(l3Map.get(l4Map.get(l5catalog.getParentId()).getParentId()).getName());
+                            }
+                        }
+                        dl5AttributeDtos.add(dl5AttributeDto);
                     }
-                    dl5AttributeDto.setdL5ChName(l5catalog.getName());
-                    dl5AttributeDto.setdL5EnName(l5catalog.getEnglishName());
-                    dl5AttributeDto.setdL5Code(l5catalog.getCode());
-                    dl5AttributeDtos.add(dl5AttributeDto);
                 }
                 //根据L5目录id查询已映射mapping信息
                 List<MetaDataMappingCatalog> ddmMappingCatalogs = metaDataMappingCatalogRepository.queryDdmMappingCatalogsByCatalogIdsAndMappingTypes(L5catalogIds, Lists.newArrayList(MappingCatalogTypeEnum.AUTOMATIC_MAPPING.getDesc(), MappingCatalogTypeEnum.MANUAL_MAPPING.getDesc()));
@@ -552,6 +570,14 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
                 }
             }
         }
+        Map<Long, CommonCatalog> l4Map = new HashMap<>();
+        Map<Long, CommonCatalog> l3Map = new HashMap<>();
+        if (labelDropInspectionQueryParamDto.isaExportWord()){
+            List<CommonCatalog> allL4 = commonCatalogExtRepository.findByLevelAndStatus(4, EnumAssetsCatalogStatus.PUBLISHED);
+            List<CommonCatalog> allL3 = commonCatalogExtRepository.findByLevelAndStatus(3, EnumAssetsCatalogStatus.PUBLISHED);
+            l4Map = allL4.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity()));
+            l3Map = allL3.stream().collect(Collectors.toMap(CommonCatalog::getId, Function.identity()));
+        }
         //总结果列表
         DesignLabelDropResultTotalDto designLabelDropResultTotalDto = new DesignLabelDropResultTotalDto();
         //统计列表
@@ -610,17 +636,25 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
 
                 Map<Long, List<DdmMappingCatalog>> mappingL5Map = ddmMappingCatalogs.stream().collect(Collectors.groupingBy(DdmMappingCatalog::getCatalogId));
 
-                for (CommonCatalog l5catalog : L5catalogs) {
-                    DL5AttributeDto dl5AttributeDto = new DL5AttributeDto();
-                    if (mappingL5Map.containsKey(l5catalog.getId())){
-                        dl5AttributeDto.setdL5Status("是");
-                    }else {
-                        dl5AttributeDto.setdL5Status("否");
+                if (labelDropInspectionQueryParamDto.isaExportWord()) {
+                    for (CommonCatalog l5catalog : L5catalogs) {
+                        DL5AttributeDto dl5AttributeDto = new DL5AttributeDto();
+                        if (mappingL5Map.containsKey(l5catalog.getId())) {
+                            dl5AttributeDto.setdL5Status("是");
+                        } else {
+                            dl5AttributeDto.setdL5Status("否");
+                        }
+                        dl5AttributeDto.setdL5ChName(l5catalog.getName());
+                        dl5AttributeDto.setdL5EnName(l5catalog.getEnglishName());
+                        dl5AttributeDto.setdL5Code(l5catalog.getCode());
+                        if (l4Map.containsKey(l5catalog.getParentId())){
+                            dl5AttributeDto.setdL4ChName(l4Map.get(l5catalog.getParentId()).getName());
+                            if (l3Map.containsKey(l4Map.get(l5catalog.getParentId()).getParentId())){
+                                dl5AttributeDto.setdL3ChName(l3Map.get(l4Map.get(l5catalog.getParentId()).getParentId()).getName());
+                            }
+                        }
+                        dl5AttributeDtos.add(dl5AttributeDto);
                     }
-                    dl5AttributeDto.setdL5ChName(l5catalog.getName());
-                    dl5AttributeDto.setdL5EnName(l5catalog.getEnglishName());
-                    dl5AttributeDto.setdL5Code(l5catalog.getCode());
-                    dl5AttributeDtos.add(dl5AttributeDto);
                 }
 
                 Map<String, List<DesignLabelDropResultDto>> oldMap = designLabelDropResultDtolist.stream().collect(Collectors.groupingBy(DesignLabelDropResultDto::getModelCategoryName));
@@ -967,12 +1001,14 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
 
         //dl5资产列表
         List<DL5AttributeDto> dl5AttributeDtos = deesignLabelDropResultTotalDto.getDl5AttributeDtos();
-        XWPFTable table3 = getXwpfTable(document, dl5AttributeDtos, 4);
+        XWPFTable table3 = getXwpfTable(document, dl5AttributeDtos, 6);
         XWPFTableRow headerRow3 = table3.getRow(0);
-        headerRow3.getCell(0).setText("DL5编码");
-        headerRow3.getCell(1).setText("DL5中文名称");
-        headerRow3.getCell(2).setText("DL5英文名称");
-        headerRow3.getCell(3).setText("是否被引用");
+        headerRow3.getCell(0).setText("DL3中文名称");
+        headerRow3.getCell(1).setText("DL4中文名称");
+        headerRow3.getCell(2).setText("DL5编码");
+        headerRow3.getCell(3).setText("DL5中文名称");
+        headerRow3.getCell(4).setText("DL5英文名称");
+        headerRow3.getCell(5).setText("是否被引用");
         fillData3(dl5AttributeDtos,table3);
 
 
@@ -1062,12 +1098,14 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
 
         //dl5资产列表
         List<DL5AttributeDto> dl5AttributeDtos = deesignLabelDropResultTotalDto.getDl5AttributeDtos();
-        XWPFTable table3 = getXwpfTable(document, dl5AttributeDtos, 4);
+        XWPFTable table3 = getXwpfTable(document, dl5AttributeDtos, 6);
         XWPFTableRow headerRow3 = table3.getRow(0);
-        headerRow3.getCell(0).setText("DL5编码");
-        headerRow3.getCell(1).setText("DL5中文名称");
-        headerRow3.getCell(2).setText("DL5英文名称");
-        headerRow3.getCell(3).setText("是否被引用");
+        headerRow3.getCell(0).setText("DL3中文名称");
+        headerRow3.getCell(1).setText("DL4中文名称");
+        headerRow3.getCell(2).setText("DL5编码");
+        headerRow3.getCell(3).setText("DL5中文名称");
+        headerRow3.getCell(4).setText("DL5英文名称");
+        headerRow3.getCell(5).setText("是否被引用");
         fillData3(dl5AttributeDtos,table3);
 
         addEmptyLine(document);
@@ -1117,17 +1155,23 @@ public class DataAssetLabelDropServiceImpl implements DataAssetLabelDropService 
         for (DL5AttributeDto dl5AttributeDto : dl5AttributeDtos) {
             XWPFTableRow row = table.getRow(k);
 
-            row.getCell(0).setText(dl5AttributeDto.getdL5Code());
-            row.getCell(0).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER); // 设置排名单元格内容居中对齐
+            row.getCell(0).setText(dl5AttributeDto.getdL3ChName());
+            row.getCell(0).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 
-            row.getCell(1).setText(String.valueOf(dl5AttributeDto.getdL5ChName()));
+            row.getCell(1).setText(dl5AttributeDto.getdL4ChName());
             row.getCell(1).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 
-            row.getCell(2).setText(String.valueOf(dl5AttributeDto.getdL5EnName()));
-            row.getCell(2).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
+            row.getCell(2).setText(dl5AttributeDto.getdL5Code());
+            row.getCell(2).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER); // 设置排名单元格内容居中对齐
 
-            row.getCell(3).setText(String.valueOf(dl5AttributeDto.getdL5Status()));
+            row.getCell(3).setText(String.valueOf(dl5AttributeDto.getdL5ChName()));
             row.getCell(3).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
+
+            row.getCell(4).setText(String.valueOf(dl5AttributeDto.getdL5EnName()));
+            row.getCell(4).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
+
+            row.getCell(5).setText(String.valueOf(dl5AttributeDto.getdL5Status()));
+            row.getCell(5).getParagraphs().get(0).setAlignment(ParagraphAlignment.CENTER);
 
             k++;
         }

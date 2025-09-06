@@ -37,6 +37,8 @@ public class DomainExtDto extends DomainDto {
 
     private String referenceTermName;
 
+    //单位，此字段只有数据类型是“数值型”是必填
+    private String unit;
 
     public Integer getMaxValue() {
         return maxValue;
@@ -86,6 +88,14 @@ public class DomainExtDto extends DomainDto {
         this.referenceTermName = referenceTermName;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
     public static DomainExtDto buildBy(DomainDto domainDto) {
         return  buildBy(domainDto, null, null, null, null);
     }
@@ -95,6 +105,7 @@ public class DomainExtDto extends DomainDto {
         object.setMaxValue(domainExt.getMaxValue());
         object.setMinValue(domainExt.getMinValue());
         object.setCheckState(domainExt.getCheckState());
+        object.setUnit(domainExt.getUnit());
         return object;
     }
     public static DomainExtDto buildBy(DomainDto domainDto, String referenceTerm, Integer maxValue, Integer minValue, DomainCheckState checkState) {
@@ -113,6 +124,7 @@ public class DomainExtDto extends DomainDto {
         domainExt.setMaxValue(this.maxValue);
         domainExt.setMinValue(this.minValue);
         domainExt.setCheckState(this.checkState == null ? DomainCheckState.UNCHECK : this.checkState);
+        domainExt.setUnit(this.unit);
         return domainExt;
     }
 

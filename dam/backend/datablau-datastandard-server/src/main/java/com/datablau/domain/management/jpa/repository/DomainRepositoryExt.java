@@ -23,4 +23,8 @@ public interface DomainRepositoryExt extends DomainRepository{
     List<Domain> findByFirstPublishBetween(Date firstPublishStart, Date firstPublishEnd);
 
     List<Domain> findByStateAndLastReviewBetween(DomainState state, Date lastReviewStart, Date lastReviewEnd);
+
+    List<Domain> findByUpdatingDomainIdIn(Collection<String> updatingDomainIds);
+
+
 }

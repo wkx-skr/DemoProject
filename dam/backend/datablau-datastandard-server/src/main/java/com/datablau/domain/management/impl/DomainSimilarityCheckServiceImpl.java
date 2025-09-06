@@ -5,10 +5,7 @@ import com.datablau.domain.management.api.DomainService;
 import com.datablau.domain.management.api.DomainSimilarityCheckService;
 import com.datablau.domain.management.constants.DomainCheckState;
 import com.datablau.domain.management.data.DomainState;
-import com.datablau.domain.management.dto.DomainSimilarityCheckResultDetailDto;
-import com.datablau.domain.management.dto.DomainTreeNodeDto;
-import com.datablau.domain.management.dto.DomainTreeNodeExtDto;
-import com.datablau.domain.management.dto.SkipReasonDto;
+import com.datablau.domain.management.dto.*;
 import com.datablau.domain.management.jpa.entity.*;
 import com.datablau.domain.management.jpa.repository.*;
 import com.datablau.domain.management.utils.JsonUtils;
@@ -165,6 +162,36 @@ public class DomainSimilarityCheckServiceImpl implements DomainSimilarityCheckSe
         return results;
     }
 
+    @Override
+    public List<DomainSimilarityCheckResult> getSimilarityGroupNew(DomainSimilarityCheckParamDto reqBody) {
+
+        String domainId = reqBody.getDomainId();
+        List<DomainSimilarityCheckResult> results = new ArrayList<>();
+        if(StringUtils.isNotEmpty(domainId)) {
+            List<DomainSimilarityCheckResultDetail> details = domainSimilarityCheckResultDetailRepo.findAllByDomainIdIn(Arrays.asList(domainId));
+            if(CollectionUtils.isEmpty(details)) {
+                return results;
+            }
+            Set<Long> clusterIdSet = details.stream().map(v -> v.getClusterId()).collect(Collectors.toSet());
+            domainSimilarityCheckResultRepo.findAllById(clusterIdSet).forEach(results::add);
+        }
+        if (StringUtils.isNotEmpty(reqBody.getChineseName())){
+            String name = "%" + reqBody.getChineseName() + "%";
+            List<DomainSimilarityCheckResultDetail> details = domainSimilarityCheckResultDetailRepo.findByChineseNameLike(name);
+            if(CollectionUtils.isEmpty(details)) {
+                return results;
+            }
+            Set<Long> clusterIdSet = details.stream().map(v -> v.getClusterId()).collect(Collectors.toSet());
+            domainSimilarityCheckResultRepo.findAllById(clusterIdSet).forEach(results::add);
+        }
+
+        if (StringUtils.isEmpty(domainId) && StringUtils.isEmpty(reqBody.getChineseName())){
+            domainSimilarityCheckResultRepo.findAll().forEach(results::add);
+        }
+
+        return results;
+    }
+
     /*
     * 根据clusterId获取相似度+Domain详情
     * */
@@ -194,7 +221,7 @@ public class DomainSimilarityCheckServiceImpl implements DomainSimilarityCheckSe
         List<DomainSimilarityCheckResultDetail> details = domainSimilarityCheckResultDetailRepo.findAllByClusterIdEquals(clusterIdLong);
         List<DomainSimilarityCheckResultDetailDto> detailDtos = details.stream()
                 .map(v -> JsonUtils.toObject(JsonUtils.toJSon(v), DomainSimilarityCheckResultDetailDto.class))
-                .toList();
+                .collect(Collectors.toList());
 
         // 获取机构code-名称map
         Set<String> depList = detailDtos.stream().map(v -> v.getDescriptionDepartment()).collect(Collectors.toSet());

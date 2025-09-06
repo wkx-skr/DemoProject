@@ -46,6 +46,10 @@ public class CatalogExt implements Serializable {
     @Comment("数据标准id")
     private String domainId;
 
+    @Column(name = "domain_ver")
+    @Comment("数据标准版本")
+    private Integer domainVer;
+
     @Column(name = "sPk")
     @Comment("是否是主键")
     private Boolean sPk;
@@ -140,5 +144,13 @@ public class CatalogExt implements Serializable {
 
     public void setApplyUsername(String applyUsername) {
         this.applyUsername = applyUsername;
+    }
+
+    public Integer getDomainVer() {
+        return domainVer;
+    }
+
+    public void setDomainVer(Integer domainVer) {
+        this.domainVer = domainVer;
     }
 }

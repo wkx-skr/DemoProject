@@ -122,6 +122,9 @@ public class ApplyController extends BaseController {
             }
         }
         LOGGER.info("current "+username);
+        if (ObjectUtils.isEmpty(username)){
+            return new ApplyMessageDto("SYS.200","用户解析异常",false);
+        }
         applyService.applyInfoWhitelist(flowBatchApplyDopInfoDto,username);
 
         return new ApplyMessageDto("SYS.200",null,true);
@@ -205,7 +208,9 @@ public class ApplyController extends BaseController {
             }
         }
         LOGGER.info("current "+username);
-
+        if (ObjectUtils.isEmpty(username)){
+            return new ApplyMessageDto("SYS.200","用户解析异常",false);
+        }
         try {
             applyService.applyBindBatch(batchApplyDopInfoDto,username);
         }catch (Exception e){
@@ -298,6 +303,9 @@ public class ApplyController extends BaseController {
             }
         }
         LOGGER.info("current "+username);
+        if (ObjectUtils.isEmpty(username)){
+            return new ApplyMessageDto("SYS.200","用户解析异常",false);
+        }
         applyService.applyInfo(batchApplyDopInfoDto,username);
 
         return new ApplyMessageDto("SYS.200",null,true);
@@ -418,6 +426,9 @@ public class ApplyController extends BaseController {
         }
         LOGGER.info("current "+username);
 
+        if (ObjectUtils.isEmpty(username)){
+            return new ApplyMessageDto("SYS.200","用户解析异常",false);
+        }
         try {
             applyService.applyBind(batchApplyDopInfoDto,username);
         }catch (Exception e){

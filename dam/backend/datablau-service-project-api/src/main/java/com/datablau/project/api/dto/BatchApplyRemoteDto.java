@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class BatchApplyRemoteDto implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     private String applyType;
@@ -23,6 +25,8 @@ public class BatchApplyRemoteDto implements Serializable {
     private Date applyCreateTime;
 
     private String applyOperation;
+
+    private String buCode;
 
     private List<BatchApplyDetailRemoteDto> details;
 
@@ -81,5 +85,14 @@ public class BatchApplyRemoteDto implements Serializable {
 
     public void setDetails(List<BatchApplyDetailRemoteDto> details) {
         this.details = details;
+    }
+
+
+    public String getBuCode() {
+        return buCode;
+    }
+
+    public void setBuCode(String buCode) {
+        this.buCode = buCode;
     }
 }

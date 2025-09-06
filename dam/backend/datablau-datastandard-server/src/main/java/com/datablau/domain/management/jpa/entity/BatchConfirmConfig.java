@@ -4,6 +4,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.id.enhanced.SequenceStyleGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
+
 /**
  * @author zhangziliang
  * @version 1.0
@@ -14,7 +16,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "batch_confirm_config")
-public class BatchConfirmConfig {
+public class BatchConfirmConfig implements Serializable {
 
     @Id
     @GeneratedValue(generator = "batch_confirm_config_generator")

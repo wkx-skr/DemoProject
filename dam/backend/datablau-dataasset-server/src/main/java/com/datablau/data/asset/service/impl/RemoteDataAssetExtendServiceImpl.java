@@ -41,6 +41,8 @@ import com.datablau.dataasset.dto.CatalogChangeRecordDto;
 import com.datablau.dataasset.dto.CatalogVersionRecord;
 import com.datablau.dataasset.dto.DataAssetsCatalogStructureDto;
 import com.datablau.dataasset.utils.IpUtil;
+import com.datablau.domain.management.api.DomainService;
+import com.datablau.domain.management.dto.DomainDto;
 import com.datablau.project.api.RemoteDataAssetExtendService;
 import com.datablau.project.api.dto.BatchApplyDetailRemoteDto;
 import com.datablau.project.api.dto.BatchApplyRemoteDto;
@@ -114,6 +116,9 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
     protected DataAssetsRepository assetsRepository;
     @Autowired
     private KafkaLogUtils kafkaLogUtils;
+
+    @Autowired
+    protected DomainService domainService;
 
     @Value("${datablau.dop.dopUrl}")
     private String dopUrl;
@@ -277,6 +282,16 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
+
+        ArrayList<String> domainIds = new ArrayList<>();
+        for (L4Dto l4Dto : l4DtoList) {
+            for (L5Dto l5Child : l4Dto.getL5Children()) {
+                domainIds.add(l5Child.getDomainId());
+            }
+        }
+        List<DomainDto> domains = domainService.getDomainsByDomainIds(domainIds);
+        Map<String, DomainDto> domainMap = domains.stream().collect(Collectors.toMap(DomainDto::getDomainId, a -> a));
+
         //处理删除逻辑
         this.offlineByL4delete(l3Id, l4DtoList, username);
 
@@ -290,7 +305,7 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
                 for (L5Dto l5Child : l4Dto.getL5Children()) {
                     CommonCatalog l5Catalog = this.getCatalogByL5(l5Child, l4Save);
                     CommonCatalog l5Save = this.saveCatalog(l5Catalog);
-                    this.saveL5CatalogExt(l5Save.getId(), l5Child);
+                    this.saveL5CatalogExt(l5Save.getId(), l5Child, domainMap);
                 }
             } else {
                 //修改
@@ -300,7 +315,7 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
                 this.updateL4CatalogExt(byCode.getId(), l4Dto);
                 this.updateCatalog(byCode);
                 for (L5Dto l5Child : l4Dto.getL5Children()) {
-                    this.dohandleL5(l5Child, byCode);
+                    this.dohandleL5(l5Child, byCode, domainMap);
                 }
             }
         }
@@ -611,7 +626,7 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
     private void callDopCatalogUpdateApi(DopDataSyncDto dopDataSyncDto) {
         // 从配置中获取DOP接口URL
         String dopUrl = getDopUrl();
-        String apiUrl = dopUrl + "/api/catalog/update"; // 根据实际接口路径调整
+        String apiUrl = dopUrl + "/api/data/openApi/syncDataArch"; // 根据实际接口路径调整
         
         // 设置请求头
         Map<String, String> headers = new HashMap<>();
@@ -619,10 +634,13 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
         
         try {
             // 使用HttpUtil进行POST请求，参考SynEtlJob的实现方式
-            if (dopSyncEnable){
-                LOGGER.info("同步流程未启动");
-                return;
-            }
+//            if (dopSyncEnable){
+//                LOGGER.info("同步流程未启动");
+//                return;
+//            }
+            LOGGER.info("开始调用 url"+ apiUrl);
+            String string = new ObjectMapper().writeValueAsString(dopDataSyncDto).toString();
+            LOGGER.info("请求内容:{}"+string);
             String responseStr = HttpUtil.createPost(apiUrl)
                     .addHeaders(headers)
                     .body(new ObjectMapper().writeValueAsString(dopDataSyncDto))
@@ -733,30 +751,35 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
                 username, dataAssetsCatalogStructure, EnumVersionType.PUBLISHED);
     }
 
-    private void dohandleL5(L5Dto l5Child, CommonCatalog byCode) {
+    private void dohandleL5(L5Dto l5Child, CommonCatalog byCode, Map<String, DomainDto> domainMap) {
         CommonCatalog l5ByCode = commonCatalogExtRepository.findByCode(l5Child.getCode());
         if (l5ByCode == null) {
             //字段不存在则新增
             CommonCatalog l5Catalog = this.getCatalogByL5(l5Child, byCode);
             CommonCatalog l5Save = this.saveCatalog(l5Catalog);
-            this.saveL5CatalogExt(l5Save.getId(), l5Child);
+            this.saveL5CatalogExt(l5Save.getId(), l5Child, domainMap);
         } else {
             //存在则修改
             l5ByCode.setName(l5Child.getName());
             l5ByCode.setEnglishName(l5Child.getEnglishName());
             l5ByCode.setModifyTime(DateFormatUtils.format(new Date(), "yyyy-MM-dd HH:mm:ss"));
             this.updateCatalog(l5ByCode);
-            this.updateL5CatalogExt(l5ByCode.getId(), l5Child);
+            this.updateL5CatalogExt(l5ByCode.getId(), l5Child, domainMap);
         }
     }
 
-    private void updateL5CatalogExt(Long catalogId, L5Dto l5Child) {
+    private void updateL5CatalogExt(Long catalogId, L5Dto l5Child, Map<String, DomainDto> domainMap) {
         CatalogExt catalogExt = catalogExtRepository.findByCatalogId(catalogId);
         catalogExt.setsNull(l5Child.getNull());
         catalogExt.setDomainId(l5Child.getDomainId());
         catalogExt.setsPk(l5Child.getPk());
         catalogExt.setDefaultValue(l5Child.getDefaultValue());
         catalogExt.setDataType(l5Child.getDataType());
+
+        DomainDto domainDto = domainMap.get(l5Child.getDomainId());
+        if(domainDto != null){
+            catalogExt.setDomainVer(domainDto.getVersion());
+        }
         catalogExtRepository.save(catalogExt);
     }
 
@@ -788,7 +811,7 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
         kafkaLogUtils.changeCatalog(save.getCreator(), dto, dataAssetsCatalogService.getFullPathByCatalogId(save.getId()), "", IpUtil.getUserIp(), IpUtil.getUrl());
     }
 
-    private void saveL5CatalogExt(Long catalogId, L5Dto l5Child) {
+    private void saveL5CatalogExt(Long catalogId, L5Dto l5Child, Map<String, DomainDto> domainMap) {
         CatalogExt catalogExt = new CatalogExt();
         catalogExt.setCatalogId(catalogId);
         catalogExt.setsNull(l5Child.getNull());
@@ -796,6 +819,11 @@ public class RemoteDataAssetExtendServiceImpl implements RemoteDataAssetExtendSe
         catalogExt.setsPk(l5Child.getPk());
         catalogExt.setDefaultValue(l5Child.getDefaultValue());
         catalogExt.setDataType(l5Child.getDataType());
+
+        DomainDto domainDto = domainMap.get(l5Child.getDomainId());
+        if(domainDto != null){
+            catalogExt.setDomainVer(domainDto.getVersion());
+        }
         catalogExtRepository.save(catalogExt);
     }
 

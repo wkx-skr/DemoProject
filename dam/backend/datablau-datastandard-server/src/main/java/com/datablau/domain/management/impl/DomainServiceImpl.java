@@ -3188,34 +3188,40 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
             code.setSubmitter(currentUser);
 //            checkCodeBasicInfo(code);
             if (Strings.isNullOrEmpty(code.getCode())) {
-                codeDto.setErrorMsg(msgService.getMessage("standardCodeNotNull"));
-                dto.getErrorDto().add(codeDto);
-                iterator.remove();
-                continue;
+                codeDto.setErrorMsg(StringUtils.isBlank(codeDto.getErrorMsg())?msgService.getMessage("standardCodeNotNull") : codeDto.getErrorMsg()+";"+msgService.getMessage("standardCodeNotNull"));
+//                dto.getErrorDto().add(codeDto);
+//                iterator.remove();
+//                continue;
             }
 
             if (Strings.isNullOrEmpty(code.getName())) {
-                codeDto.setErrorMsg(msgService.getMessage("standardZhNameNotNull"));
-                dto.getErrorDto().add(codeDto);
-                iterator.remove();
-                continue;
+                codeDto.setErrorMsg(StringUtils.isBlank(codeDto.getErrorMsg())?msgService.getMessage("standardZhNameNotNull") : codeDto.getErrorMsg()+";"+msgService.getMessage("standardZhNameNotNull"));
+//                dto.getErrorDto().add(codeDto);
+//                iterator.remove();
+//                continue;
             }
 
             if (Strings.isNullOrEmpty(code.getEnName())) {
-                codeDto.setErrorMsg(msgService.getMessage("standardEnNameNotNull"));
-                dto.getErrorDto().add(codeDto);
-                iterator.remove();
-                continue;
+                codeDto.setErrorMsg(StringUtils.isBlank(codeDto.getErrorMsg())?msgService.getMessage("standardEnNameNotNull") : codeDto.getErrorMsg()+";"+msgService.getMessage("standardEnNameNotNull"));
+//                dto.getErrorDto().add(codeDto);
+//                iterator.remove();
+//                continue;
             }
 
             if (code.getCategoryId() == null) {
-                codeDto.setErrorMsg(msgService.getMessage("standardCodeCategoryIdNull"));
-                dto.getErrorDto().add(codeDto);
-                iterator.remove();
-                continue;
+                codeDto.setErrorMsg(StringUtils.isBlank(codeDto.getErrorMsg())?msgService.getMessage("standardCodeCategoryIdNull") : codeDto.getErrorMsg()+";"+msgService.getMessage("standardCodeCategoryIdNull"));
+//                dto.getErrorDto().add(codeDto);
+//                iterator.remove();
+//                continue;
             }
             if (code.getCode().contains("+")) {
-                codeDto.setErrorMsg(msgService.getMessage("invalidChar"));
+                codeDto.setErrorMsg(StringUtils.isBlank(codeDto.getErrorMsg())?msgService.getMessage("invalidChar"):codeDto.getErrorMsg()+";"+msgService.getMessage("invalidChar"));
+//                dto.getErrorDto().add(codeDto);
+//                iterator.remove();
+//                continue;
+            }
+            //所有错误都添加进错误列表，检查后一起返回，
+            if(StringUtils.isNotBlank(codeDto.getErrorMsg())){
                 dto.getErrorDto().add(codeDto);
                 iterator.remove();
                 continue;
@@ -3225,31 +3231,36 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                 Set<String> codeValues = new HashSet<>();
                 for (StandardCodeValueDto value : codeDto.getValues()) {
                     if (Strings.isNullOrEmpty(value.getName())) {
-                        value.setErrorMsg(msgService
-                                .getMessage("standardCodeChNameNull", code.getName(), value.toString()));
-                        dto.getErrorDto().add(codeDto);
-                        iterator.remove();
-                        break;
+                        value.setErrorMsg(StringUtils.isBlank(value.getErrorMsg())?msgService
+                                .getMessage("standardCodeChNameNull", code.getName(), value.toString()) : value.getErrorMsg()+";"+msgService.getMessage("standardCodeChNameNull", code.getName(), value.toString()));
+//                        dto.getErrorDto().add(codeDto);
+//                        iterator.remove();
+//                        break;
                     }
 
                     if (value.getOrder() == null) {
-                        value.setErrorMsg(msgService.getMessage("standardCodeSeqNull", code.getName(), value.getName()));
-                        dto.getErrorDto().add(codeDto);
-                        iterator.remove();
-                        break;
+                        value.setErrorMsg(StringUtils.isBlank(value.getErrorMsg())?msgService.getMessage("standardCodeSeqNull", code.getName(), value.getName()): value.getErrorMsg()+";"+msgService.getMessage("standardCodeSeqNull", code.getName(), value.getName()));
+//                        dto.getErrorDto().add(codeDto);
+//                        iterator.remove();
+//                        break;
                     }
 
                     if (Strings.isNullOrEmpty(value.getValue())) {
-                        value.setErrorMsg(msgService
-                                .getMessage("standardCodeNumberNull", code.getName(), value.toString()));
-                        dto.getErrorDto().add(codeDto);
-                        iterator.remove();
-                        break;
+                        value.setErrorMsg(StringUtils.isBlank(value.getErrorMsg())?msgService
+                                .getMessage("standardCodeNumberNull", code.getName(), value.toString()): value.getErrorMsg()+";"+msgService.getMessage("standardCodeNumberNull", code.getName(), value.toString()));
+//                        dto.getErrorDto().add(codeDto);
+//                        iterator.remove();
+//                        break;
                     }
 
                     if (codeValues.contains(value.getValue())) {
-                        value.setErrorMsg(msgService
-                                .getMessage("standardCodeNumberExists", code.getName(), value.getName()));
+                        value.setErrorMsg(StringUtils.isBlank(value.getErrorMsg())?msgService
+                                .getMessage("standardCodeNumberExists", code.getName(), value.getName()): value.getErrorMsg()+";"+msgService.getMessage("standardCodeNumberExists", code.getName(), value.getName()));
+//                        dto.getErrorDto().add(codeDto);
+//                        iterator.remove();
+//                        break;
+                    }
+                    if (StringUtils.isNotBlank(value.getErrorMsg())) {
                         dto.getErrorDto().add(codeDto);
                         iterator.remove();
                         break;
@@ -3404,7 +3415,7 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                 if (code.getState().equals(DomainState.C)) {
                     importStandardCodeMap.remove(code.getCode());
                     if (allDto.containsKey(code.getCode())) {
-                        allDto.get(code.getCode()).setErrorMsg(msgService.getMessage("codeIsInAuditingState", code.getCode()));
+                        allDto.get(code.getCode()).setErrorMsg(StringUtils.isBlank(allDto.get(code.getCode()).getErrorMsg())?msgService.getMessage("codeIsInAuditingState", code.getCode()):allDto.get(code.getCode()).getErrorMsg()+";"+msgService.getMessage("codeIsInAuditingState", code.getCode()));
                         dto.getErrorDto().add(allDto.get(code.getCode()));
                         dto.getInsertDto().remove(allDto.get(code.getCode()));
                     }
@@ -3416,7 +3427,7 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                     if (updateCode != null && DomainState.C.equals(updateCode.getState())) {
                         importStandardCodeMap.remove(code.getCode());
                         if (allDto.containsKey(code.getCode())) {
-                            allDto.get(code.getCode()).setErrorMsg(msgService.getMessage("codeIsInAuditingState", code.getCode()));
+                            allDto.get(code.getCode()).setErrorMsg(StringUtils.isBlank(allDto.get(code.getCode()).getErrorMsg())?msgService.getMessage("codeIsInAuditingState", code.getCode()):allDto.get(code.getCode()).getErrorMsg()+";"+msgService.getMessage("codeIsInAuditingState", code.getCode()));
                             dto.getErrorDto().add(allDto.get(code.getCode()));
                             dto.getInsertDto().remove(allDto.get(code.getCode()));
                         }
@@ -4072,7 +4083,7 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                 if (!org.springframework.util.ObjectUtils.isEmpty(o.getRefDomainCode())){
                     refCode.add(o.getRefDomainCode());
                 }
-                self.updateDomainState(byDomainIdEquals, (String)null, currentUser);
+                self.updateDomainState(byDomainIdEquals, "标准数据元废弃", currentUser);
             });
             Map<String, List<String>> usernameByDomainIds = remoteDataAssetExtendService.getUsernameByDomainIds(domainIds);
             if (!CollectionUtils.isEmpty(usernameByDomainIds))  {
@@ -4151,8 +4162,8 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
         batchApplyDetailDto.setOldId(publicOldDomain.getDomainId());
         batchApplyDetailDto.setSubmitUser(currentUsername);
         batchApplyDetailDto.setOrderType("变更");
-        batchApplyDetailDto.setDomainCode(toBeUpdate.getRefDomainCode());
-        if (!org.springframework.util.ObjectUtils.isEmpty(toBeUpdate.getRefDomainCode()) && !org.springframework.util.ObjectUtils.isEmpty(dto)){
+        batchApplyDetailDto.setDomainCode(toBeUpdate.getReferenceCode());
+        if (!org.springframework.util.ObjectUtils.isEmpty(toBeUpdate.getReferenceCode()) && !org.springframework.util.ObjectUtils.isEmpty(dto)){
             // 由于是变更这里可以不动
             StandardCodeSourceDto codeSource =getCodeSource(dto.getCode());
             if (codeSource != null) {
@@ -9224,7 +9235,7 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                 hasError = true;
                 for(DomainDto o: result){
                     if(ObjectUtils.equals(o.getDomainCode(),domain.getDomainCode())){
-                        o.setErrorMsg(msgService.getMessage("codeOfCataIsInAuditingState", categoryName, domain.getDomainCode(), categoryName));
+                        o.setErrorMsg(StringUtils.isBlank(o.getErrorMsg())? msgService.getMessage("codeOfCataIsInAuditingState", categoryName, domain.getDomainCode(), categoryName) : o.getErrorMsg() + ";" + msgService.getMessage("codeOfCataIsInAuditingState", categoryName, domain.getDomainCode(), categoryName));
                         break;
                     }
                 }
@@ -9256,7 +9267,7 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                 if(importDomainCodeKeyMap.containsKey(domain.getDomainCode())) {
                     for(DomainDto o: result){
                         if(ObjectUtils.equals(o.getDomainCode(),domain.getDomainCode())){
-                            o.setErrorMsg(msgService.getMessage("nameAlreadyExistByThis", domain.getChineseName(), categoryName));
+                            o.setErrorMsg(StringUtils.isBlank(o.getErrorMsg())? msgService.getMessage("nameAlreadyExistByThis", domain.getChineseName(), categoryName) : o.getErrorMsg() + ";"+ msgService.getMessage("nameAlreadyExistByThis", domain.getChineseName(), categoryName));
                             needToRemove.add(o.getDomainCode());
                             break;
                         }
@@ -9264,7 +9275,7 @@ public class DomainServiceImpl implements DomainService, DomainTagService, Domai
                 } else {
                     for (DomainDto o : result) {
                         if (ObjectUtils.equals(o.getChineseName(), domain.getChineseName())) {
-                            o.setErrorMsg(msgService.getMessage("nameAlreadyExistByThis", domain.getChineseName(), categoryName));
+                            o.setErrorMsg(StringUtils.isBlank(o.getErrorMsg())? msgService.getMessage("nameAlreadyExistByThis", domain.getChineseName(), categoryName) : o.getErrorMsg() + ";"+ msgService.getMessage("nameAlreadyExistByThis", domain.getChineseName(), categoryName));
                             needToRemove.add(o.getDomainCode());
                             break;
                         }

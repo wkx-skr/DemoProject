@@ -51,6 +51,12 @@ public class BatchApplyDetailDto implements Serializable {
 
     private String domainCode;
 
+    private String applyCreator;
+
+    // ************** 一下属性只用于展示使用 也就是只有detial 的接口有使用
+    private String  skipReason;
+
+    private String anotherDomainNames;
 
 
     public BatchApplyDetailDto() {
@@ -199,5 +205,29 @@ public class BatchApplyDetailDto implements Serializable {
 
     public void setDomainCode(String domainCode) {
         this.domainCode = domainCode;
+    }
+
+    public String getApplyCreator() {
+        return applyCreator;
+    }
+
+    public void setApplyCreator(String applyCreator) {
+        this.applyCreator = applyCreator;
+    }
+
+    public String getSkipReason() {
+        return skipReason;
+    }
+
+    public void setSkipReason(String skipReason) {
+        this.skipReason = skipReason;
+    }
+
+    public String getAnotherDomainNames() {
+        return anotherDomainNames;
+    }
+
+    public void setAnotherDomainNames(String anotherDomainNames) {
+        this.anotherDomainNames = anotherDomainNames;
     }
 }

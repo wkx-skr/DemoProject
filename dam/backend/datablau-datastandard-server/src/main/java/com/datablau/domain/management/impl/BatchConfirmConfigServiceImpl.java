@@ -6,6 +6,8 @@ import com.andorj.common.data.PageResult;
 import com.datablau.domain.management.dto.BatchConfirmConfigPageQueryDto;
 import com.datablau.domain.management.jpa.entity.BatchConfirmConfig;
 import com.datablau.domain.management.jpa.repository.BatchConfirmConfigRepository;
+import com.datablau.domain.management.utility.RemoteServiceGetter;
+import com.datablau.security.management.dto.UserDto;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -16,6 +18,7 @@ import org.springframework.util.ObjectUtils;
 import javax.persistence.criteria.Predicate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author zhangziliang
@@ -31,14 +34,51 @@ public class BatchConfirmConfigServiceImpl implements BatchConfirmConfigService 
 
     @Override
     public BatchConfirmConfig save(BatchConfirmConfig config) {
-        // 进行check  第一 重复的业务域名不能重复添加
+        // 进行check  第一 重复的业务域名不能重复添加  由于更新也用的这个方法 所以这里要多一点check
         String msg = new String();
-        if (repository.countByDomainName(config.getDomainName().trim())>0) {
-            msg += "已存在相同业务业务域的配置，请勿重复添加! ";
+        // 如果存在id  那么有两种情况
+        // 第一种 业务域名改了名字，那么需要去check 有没有重复的名字，
+        // 第二种 如果没改名字  那么这里就不需要check了
+        Boolean updateSign = false;
+        Boolean hasId = false;
+        if (!ObjectUtils.isEmpty(config.getId())){
+            Optional<BatchConfirmConfig> byId = repository.findById(config.getId());
+            if (byId.isPresent()) {
+                // 判断名字是否变化
+                BatchConfirmConfig batchConfirmConfig = byId.get();
+                if (batchConfirmConfig.getDomainName().equals(config.getDomainName())) {
+                    updateSign = true;
+                }
+            }
+            hasId = true;
+        }
+        // 如果名字相等说明id 存在 名字也没更新  那么就不需要进行check
+        if (updateSign) {
+          // 如果是更新那么就不需要进行check了
+        } else if (!updateSign && hasId){
+            // 如果名字不相等 但是id 存在 需要check
+            if (repository.countByDomainName(config.getDomainName().trim())>0) {
+                msg += "已存在相同业务业务域的配置，请勿重复添加! ";
+            }
+        } else if (!hasId) {
+          // 如果没有id 那么也同样需要check
+            if (repository.countByDomainName(config.getDomainName().trim())>0) {
+                msg += "已存在相同业务业务域的配置，请勿重复添加! ";
+            }
         }
         if (config.getConfirmUser1().trim().equals(config.getConfirmUser2().trim())){
-            msg += "确认人不能相同";
+            msg += "确认人不能相同 ";
         }
+        // check 用户名称是否存在
+        UserDto user1 = RemoteServiceGetter.getUserService().getUser(config.getConfirmUser1().trim());
+        UserDto user2 = RemoteServiceGetter.getUserService().getUser(config.getConfirmUser2().trim());
+        if (ObjectUtils.isEmpty(user1)){
+            msg += config.getConfirmUser1().trim() +" 确认人不存在";
+        }
+        if (ObjectUtils.isEmpty(user2)){
+            msg += config.getConfirmUser2().trim() +" 确认人不存在";
+        }
+
         if (!ObjectUtils.isEmpty(msg)){
             throw new IllegalArgumentException(msg);
         }

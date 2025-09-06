@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/mm/saveDimension").permitAll()
                 .antMatchers("/mm/saveTimeSeries").permitAll()
                 .antMatchers("/entities/object/{modelId}/index").permitAll()
+                .antMatchers("/models/fromre0").permitAll()
 //                .antMatchers("/models/createModel0").permitAll()
                 .anyRequest().authenticated()
                 .and()

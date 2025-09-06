@@ -66,6 +66,10 @@ public class DomainExcelDto implements Serializable {
             columnNames = {"DomainExcelDto.dataType"}
     )
     private String dataType;
+
+    @ExcelColumn(columnNames = "单位")
+    private String unit;
+
     @ExcelColumn(
             columnNames = {"DomainExcelDto.dataScale"}
     )
@@ -442,5 +446,13 @@ public class DomainExcelDto implements Serializable {
 
     public void setMinValue(Integer minValue) {
         this.minValue = minValue;
+    }
+
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 }

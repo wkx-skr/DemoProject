@@ -72,6 +72,7 @@ public class DataAssetLabelDropController {
     @PostMapping("/exportDesignLabelDropResultByWord")
     @Operation(summary = "设计落标检查导出word")
     public ResponseEntity<Resource> exportDesignLabelDropResultByWord(@RequestBody LabelDropInspectionQueryParamDto labelDropInspectionQueryParamDto) throws Exception {
+        labelDropInspectionQueryParamDto.setaExportWord(true);
         ByteArrayOutputStream resourse = dataAssetLabelDropService.exportDesignLabelDropResultByWord(labelDropInspectionQueryParamDto);
 
         // 构造HTTP响应
@@ -125,6 +126,7 @@ public class DataAssetLabelDropController {
     @PostMapping("/exportTechLabelDropResultByWord")
     @Operation(summary = "技术落标检查导出word")
     public ResponseEntity<Resource> exportTechLabelDropResultByWord(@RequestBody LabelDropInspectionQueryParamDto labelDropInspectionQueryParamDto) throws Exception {
+        labelDropInspectionQueryParamDto.setaExportWord(true);
         ByteArrayOutputStream resourse = dataAssetLabelDropService.exportTechLabelDropResultByWord(labelDropInspectionQueryParamDto);
 
         // 构造HTTP响应

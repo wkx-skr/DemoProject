@@ -25,6 +25,16 @@ public class LabelDropInspectionQueryParamDto implements Serializable {
 
     private Long parentModelId;
 
+    private boolean aExportWord;
+
+    public boolean isaExportWord() {
+        return aExportWord;
+    }
+
+    public void setaExportWord(boolean aExportWord) {
+        this.aExportWord = aExportWord;
+    }
+
     public Long getParentModelId() {
         return parentModelId;
     }

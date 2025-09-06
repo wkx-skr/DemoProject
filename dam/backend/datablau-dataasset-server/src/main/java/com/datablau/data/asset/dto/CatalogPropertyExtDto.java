@@ -8,6 +8,7 @@ public class CatalogPropertyExtDto extends CatalogPropertyDto{
     private String domainId;
     private String isNull;
     private String sourceSystemId;
+    private Integer domainVer;
 
     public String getSourceSystemId() {
         return sourceSystemId;
@@ -31,5 +32,13 @@ public class CatalogPropertyExtDto extends CatalogPropertyDto{
 
     public void setIsNull(String isNull) {
         this.isNull = isNull;
+    }
+
+    public Integer getDomainVer() {
+        return domainVer;
+    }
+
+    public void setDomainVer(Integer domainVer) {
+        this.domainVer = domainVer;
     }
 }

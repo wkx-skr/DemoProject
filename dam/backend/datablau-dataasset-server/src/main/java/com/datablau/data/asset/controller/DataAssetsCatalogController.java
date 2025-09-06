@@ -45,6 +45,7 @@ import com.datablau.domain.management.api.DomainService;
 import com.datablau.domain.management.dto.DomainDto;
 import com.datablau.security.management.api.OrganizationService;
 import com.datablau.security.management.api.RoleService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -492,8 +493,8 @@ public class DataAssetsCatalogController extends BaseController {
                                                                @Override
                                                                public InstantJobResult call() {
                                                                    SecurityContextHolder.setContext(context);
-                                                                   DDCCatalogImportResultDto importResult = new DDCCatalogImportResultDto();
-                                                                   importResult = dataAssetsCatalogArchyService.uploadCatalog0(sheets, importResult, structureId, currentUser, status);
+                                                                   DDCCatalogImportResultExtDto importResult = new DDCCatalogImportResultExtDto();
+                                                                   importResult = dataAssetsCatalogArchyService.uploadCatalog0(multipartFile, sheets, importResult, structureId, currentUser, status);
 //                                                                   if (sheetName.size() == 0) {
 //                                                                       for (String key : collect) {
 //                                                                           if (sheets.containsKey(key)) {
@@ -508,6 +509,7 @@ public class DataAssetsCatalogController extends BaseController {
 //                                                                   }
                                                                    FileGenerateInstantJobResult result = new FileGenerateInstantJobResult();
                                                                    result.setErrorMessage(JsonUtils.toJSon(importResult));
+                                                                   result.setFileId(importResult.getFileId());
                                                                    result.setJobStatus(InstantJobStage.FINISHED);
                                                                    return result;
                                                                }
@@ -641,5 +643,15 @@ public class DataAssetsCatalogController extends BaseController {
         }
     }
 
+    //获取资产目录L123的树结构
+    @GetMapping(value = "/manageTree/{structureId}")
+    public Collection<DataAssetsCatalogDto> manageTree(@PathVariable("structureId") Long structureId) throws Exception {
+        return dataAssetsCatalogArchyService.manageTree(structureId, 0L);
+    }
 
+    //根据123的id查出来对应的l4
+    @GetMapping(value = "/findL4ByParentId")
+    public Collection<DataAssetsCatalogDto> findL4ByParentId(@RequestParam("parentId") Long parentId) throws Exception {
+        return List.of();
+    }
 }

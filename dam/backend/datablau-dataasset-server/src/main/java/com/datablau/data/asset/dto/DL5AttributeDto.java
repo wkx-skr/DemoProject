@@ -25,6 +25,32 @@ public class DL5AttributeDto implements Serializable {
      */
     private String dL5Status;
 
+    /**
+     * dl3中文名
+     */
+    private String dL3ChName;
+
+    /**
+     * dl4中文名
+     */
+    private String dL4ChName;
+
+    public String getdL3ChName() {
+        return dL3ChName;
+    }
+
+    public void setdL3ChName(String dL3ChName) {
+        this.dL3ChName = dL3ChName;
+    }
+
+    public String getdL4ChName() {
+        return dL4ChName;
+    }
+
+    public void setdL4ChName(String dL4ChName) {
+        this.dL4ChName = dL4ChName;
+    }
+
     public String getdL5Code() {
         return dL5Code;
     }

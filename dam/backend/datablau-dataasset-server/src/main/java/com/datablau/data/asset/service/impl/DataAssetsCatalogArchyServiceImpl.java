@@ -2,8 +2,10 @@ package com.datablau.data.asset.service.impl;
 
 import cn.hutool.poi.excel.ExcelWriter;
 import com.andorj.common.core.exception.IllegalOperationException;
+import com.andorj.common.core.exception.InvalidArgumentException;
 import com.andorj.common.core.exception.ItemNotFoundException;
 import com.andorj.model.common.utility.FileUtility;
+import com.datablau.catalog.dto.CommonCatalogDto;
 import com.datablau.catalog.enums.EnumAssetsCatalogStatus;
 import com.datablau.catalog.enums.EnumCatalogPublicType;
 import com.datablau.catalog.enums.EnumCatalogUdpDataType;
@@ -33,7 +35,9 @@ import com.datablau.data.asset.upload.EnumDDCCatalogImportErrorMessage;
 import com.datablau.data.asset.upload.FirstCatalogImport;
 import com.datablau.data.asset.upload.SecondCatalogImport;
 import com.datablau.data.asset.upload.ThirdCatalogImport;
+import com.datablau.data.asset.util.DatablauFileUtil;
 import com.datablau.data.asset.utils.PageUtils;
+import com.datablau.data.common.data.FileDescriptor;
 import com.datablau.data.common.util.JsonUtils;
 import com.datablau.dataasset.dto.CatalogChangeRecordDto;
 import com.datablau.dataasset.dto.CatalogVersionRecord;
@@ -43,9 +47,16 @@ import com.datablau.project.util.CheckNameUtil;
 import com.datablau.security.management.dto.OrganizationDto;
 import com.datablau.security.management.dto.SimpleUserDto;
 import com.datablau.security.management.utils.AuthTools;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Lists;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.elasticsearch.common.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,22 +69,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 import java.util.function.Function;
@@ -82,6 +80,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.datablau.catalog.dto.SubCountDto;
+import org.springframework.web.multipart.MultipartFile;
 
 import static com.datablau.data.asset.constants.CatalogExcelConstants.*;
 
@@ -94,20 +93,36 @@ import static com.datablau.data.asset.constants.CatalogExcelConstants.*;
 @Primary
 public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceImpl implements DataAssetsCatalogArchyService {
 
-    @Autowired
-    CommonCatalogExtRepository commonCatalogExtRepository;
-    @Autowired
-    RemoteArchyExtendService remoteArchyExtendService;
-    @Autowired
-    DataCatalogExcelService catalogExcelService;
-    @Autowired
-    CatalogExtRepository catalogExtRepository;
+    private CommonCatalogExtRepository commonCatalogExtRepository;
+    private RemoteArchyExtendService remoteArchyExtendService;
+    private DataCatalogExcelService catalogExcelService;
+    private CatalogExtRepository catalogExtRepository;
+    private DatablauFileUtil datablauFileUtil;
 
-
-    public void test() {
-        remoteArchyExtendService.getArchyCatalogTree();
+    @Autowired
+    public void setCommonCatalogExtRepository(CommonCatalogExtRepository commonCatalogExtRepository) {
+        this.commonCatalogExtRepository = commonCatalogExtRepository;
     }
 
+    @Autowired
+    public void setRemoteArchyExtendService(RemoteArchyExtendService remoteArchyExtendService) {
+        this.remoteArchyExtendService = remoteArchyExtendService;
+    }
+
+    @Autowired
+    public void setDataCatalogExcelService(DataCatalogExcelService catalogExcelService) {
+        this.catalogExcelService = catalogExcelService;
+    }
+
+    @Autowired
+    public void setCatalogExtRepository(CatalogExtRepository catalogExtRepository) {
+        this.catalogExtRepository = catalogExtRepository;
+    }
+
+    @Autowired
+    public void setDatablauFileUtil(DatablauFileUtil datablauFileUtil) {
+        this.datablauFileUtil = datablauFileUtil;
+    }
     @Override
     @Transactional
     public synchronized CommonCatalog save(DataAssetsCatalogDto dto, String username) {
@@ -991,8 +1006,8 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
     }
 
     @Override
-    public DDCCatalogImportResultDto uploadCatalog0(Map<String, List<Object>> sheets, DDCCatalogImportResultDto result,
-                                                    Long structureId, String username, EnumAssetsCatalogStatus status) {
+    public DDCCatalogImportResultExtDto uploadCatalog0(MultipartFile multipartFile, Map<String, List<Object>> sheets, DDCCatalogImportResultExtDto result,
+                                                       Long structureId, String username, EnumAssetsCatalogStatus status) {
         String businessDomain = "业务域", subjectDomain = "主题域", businessObject = "业务对象";
         //业务域sheet页
         List<Object> businessDomainSheet = sheets.get(businessDomain);
@@ -1007,12 +1022,31 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
                 List.of(BusDomain_ChineseName, SubDomain_ChineseName, BusObject_ChineseName, BusObject_EnglishName,
                         BusObject_Definition, DataMaster, DataSteward));
 
-        //判断同一个excel中中文名和英文名唯一
-        this.checkChineseAndEnglishName(businessDomainSheet, businessDomain, BusDomain_ChineseName, BusDomain_EnglishName, result, BusDomain_Code);
-        this.checkChineseAndEnglishName(subjectDomainSheet, subjectDomain, SubDomain_ChineseName, SubDomain_EnglishName, result, SubDomain_Code);
-        this.checkChineseAndEnglishName(businessObjectSheet, businessObject, BusObject_ChineseName, BusObject_EnglishName, result, BusObject_Code);
+        //判断同一个excel中中文名和英文名唯一、判断数据库里中文名重复、判断数据库里英文名重复
+        //业务域判断审批人是否存在、导入主题域名称对应父级业务域名称不存在、导入业务对象名称对应父级主题域名称不存在
+        this.checkChineseAndEnglishName(businessDomainSheet, businessDomain, BusDomain_ChineseName, BusDomain_EnglishName, result, BusDomain_Code, username, new HashSet<>());
+        Set<String> parentBusChineseNames = businessDomainSheet.stream()
+                .map(data -> (HashMap<String, String>) data)
+                .map(map -> map.get(BusDomain_ChineseName))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        this.checkChineseAndEnglishName(subjectDomainSheet, subjectDomain, SubDomain_ChineseName, SubDomain_EnglishName, result, SubDomain_Code, "", parentBusChineseNames);
+        Set<String> parentSubChineseNames = businessDomainSheet.stream()
+                .map(data -> (HashMap<String, String>) data)
+                .map(map -> map.get(SubDomain_ChineseName))
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        this.checkChineseAndEnglishName(businessObjectSheet, businessObject, BusObject_ChineseName, BusObject_EnglishName, result, BusObject_Code, "", parentSubChineseNames);
 
-        if (!CollectionUtils.isEmpty(result.getErrorMsg())) {
+        if (result.getDdcCatalogErrorMap() != null && !result.getDdcCatalogErrorMap().isEmpty()) {
+            //保存检查出的错误文件
+            try {
+                result.setSuccess(0L);
+                result.setFailed((long) result.getDdcCatalogErrorMap().size());
+                result.setFileId(getProblemFile(multipartFile, result.getDdcCatalogErrorMap(), username));
+            } catch (Exception e) {
+                throw new RuntimeException("保存错误文件失败，", e);
+            }
             return result;
         }
 
@@ -1025,6 +1059,87 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
         }
 
         return result;
+    }
+
+    public String getProblemFile(MultipartFile multipartFile, Map<String, DDCCatalogErrorDto> ddcCatalogErrorMap, String userName) throws Exception {
+        if (ddcCatalogErrorMap == null || ddcCatalogErrorMap.isEmpty()) {
+            return null;
+        }
+
+        String res = "";
+        // 使用独立的输入流，避免影响原始multipartFile
+        try (InputStream inputStream = multipartFile.getInputStream()) {
+            File originFile = DatablauFileUtil.uploadFile(inputStream, multipartFile.getOriginalFilename());
+
+            Map<Integer, String> busErrorMap = new HashMap<>();
+            Map<Integer, String> subErrorMap = new HashMap<>();
+            Map<Integer, String> objErrorMap = new HashMap<>();
+
+            for (String key : ddcCatalogErrorMap.keySet()) {
+                if (key.startsWith("业务域")) {
+                    busErrorMap.put(Integer.parseInt(key.split("-")[1]), ddcCatalogErrorMap.get(key).getErrorMsg());
+                } else if (key.startsWith("主题域")) {
+                    subErrorMap.put(Integer.parseInt(key.split("-")[1]), ddcCatalogErrorMap.get(key).getErrorMsg());
+                } else if (key.startsWith("业务对象")) {
+                    objErrorMap.put(Integer.parseInt(key.split("-")[1]), ddcCatalogErrorMap.get(key).getErrorMsg());
+                }
+            }
+
+            String filename = "资产目录导入错误数据清单.xlsx";
+            File outputFile = new File(filename);
+
+            try (FileInputStream fileInputStream = new FileInputStream(originFile);
+                 XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream)) {
+
+                //业务域sheet页
+                if (busErrorMap.size() > 0) {
+                    Sheet sheet = workbook.getSheetAt(0);
+                    if (sheet == null) {
+                        throw new InvalidArgumentException("模板不正确: 业务域sheet页不存在");
+                    }
+                    com.datablau.data.common.util.ExcelUtil.fillingImportError(workbook, 0, busErrorMap, false);
+                }
+                //主题域sheet页
+                if (subErrorMap.size() > 0) {
+                    Sheet sheet = workbook.getSheetAt(1);
+                    if (sheet == null) {
+                        throw new InvalidArgumentException("模板不正确: 主题域sheet页不存在");
+                    }
+                    com.datablau.data.common.util.ExcelUtil.fillingImportError(workbook, 1, subErrorMap, false);
+                }
+                //业务对象sheet页
+                if (objErrorMap.size() > 0) {
+                    Sheet sheet = workbook.getSheetAt(2);
+                    if (sheet == null) {
+                        throw new InvalidArgumentException("模板不正确: 业务对象sheet页不存在");
+                    }
+                    com.datablau.data.common.util.ExcelUtil.fillingImportError(workbook, 2, objErrorMap, false);
+                }
+
+                try (FileOutputStream fos = new FileOutputStream(outputFile)) {
+                    workbook.write(fos);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                FileDescriptor fileDescriptor = datablauFileUtil.uploadFileToRemote(outputFile,
+                        filename, userName, false);
+
+                res = fileDescriptor.getFileId();
+
+            } catch (Exception e) {
+                throw new InvalidArgumentException(e.getMessage());
+            } finally {
+                // 清理临时文件
+                if (originFile != null && originFile.exists()) {
+                    originFile.delete();
+                }
+                if (outputFile != null && outputFile.exists()) {
+                    outputFile.delete();
+                }
+            }
+        }
+        return res;
     }
 
     private void uploadBusinessObjectCatalog(List<Object> businessObjectSheet, DDCCatalogImportResultDto result, Long structureId, String username, EnumAssetsCatalogStatus status) throws Exception{
@@ -1057,7 +1172,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
 
         ArrayList<DataAssetsCatalogDto> dataAssetsCatalogs = new ArrayList<>();
         for (CatalogExcelDto excelDto : catalogExcelDtos) {
-            ArrayList<String> errorMsgs = new ArrayList<>();
             List<DataAssetsCatalogUdpDto> udpDtoList = getDataAssetsCatalogUdpDtoList(udpDtoMap, structure, 3);
             for (DataAssetsCatalogUdpDto udpDto : udpDtoList) {
                 if (udpDto.getPropName().equals(DataMaster)) {
@@ -1080,21 +1194,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
                 Optional<CommonCatalog> L1 = catalogRepository.findById(L1Id);
                 catalogDto.setApprover(L1.get().getApprover());
             }else {
-                //判断数据库里中文名重复
-                CommonCatalog byName = commonCatalogExtRepository.findByName(excelDto.getChineseName());
-                if (byName != null) {
-                    errorMsgs.add("导入业务对象第：" + excelDto.getRowNum() + "行，业务对象中文名【" + byName.getName() + "】系统中已存在");
-                }
-                //判断数据库里英文名重复
-                CommonCatalog byEnglishName = commonCatalogExtRepository.findByEnglishName(excelDto.getEnglishName());
-                if (byEnglishName != null) {
-                    errorMsgs.add("导入业务对象第：" + excelDto.getRowNum() + "行，业务对象英文名【" + byEnglishName.getEnglishName() + "】系统中已存在");
-                }
-
-                if (!CollectionUtils.isEmpty(errorMsgs)) {
-                    result.getErrorMsg().addAll(errorMsgs);
-                    continue;
-                }
                 CommonCatalog parentL2Catalog = commonCatalogExtRepository.findByNameAndLevel(excelDto.getSubChineseName(), 2);
                 if(parentL2Catalog != null){
                     catalogDto.setCatalogTypeId(structureTypeMap.get(structure.getId()));
@@ -1115,9 +1214,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
 
                     //审批人
                     catalogDto.setApprover(parentL2Catalog.getApprover());
-                }else {
-                    result.getErrorMsg().add("导入业务对象【" + catalogDto.getName() + "】对应父级主题域【" + excelDto.getSubChineseName() + "】不存在");
-                    continue;
                 }
             }
 //            result.getErrorMsg().addAll(errorMsgs);
@@ -1158,7 +1254,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
 
         ArrayList<DataAssetsCatalogDto> dataAssetsCatalogs = new ArrayList<>();
         for (CatalogExcelDto excelDto : catalogExcelDtos) {
-            ArrayList<String> errorMsgs = new ArrayList<>();
 
             List<DataAssetsCatalogUdpDto> udpDtoList = getDataAssetsCatalogUdpDtoList(udpDtoMap, structure, 2);
             for (DataAssetsCatalogUdpDto udpDto : udpDtoList) {
@@ -1182,21 +1277,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
                 Optional<CommonCatalog> L1 = catalogRepository.findById(L1Id);
                 catalogDto.setApprover(L1.get().getApprover());
             }else {
-                //判断数据库里中文名重复
-                CommonCatalog byName = commonCatalogExtRepository.findByName(excelDto.getChineseName());
-                if (byName != null) {
-                    errorMsgs.add("导入主题域第：" + excelDto.getRowNum() + "行，主题域中文名【" + byName.getName() + "】系统中已存在");
-                }
-                //判断数据库里英文名重复
-                CommonCatalog byEnglishName = commonCatalogExtRepository.findByEnglishName(excelDto.getEnglishName());
-                if (byEnglishName != null) {
-                    errorMsgs.add("导入主题域第：" + excelDto.getRowNum() + "行，主题域英文名【" + byEnglishName.getEnglishName() + "】系统中已存在");
-                }
-
-                if (!CollectionUtils.isEmpty(errorMsgs)) {
-                    result.getErrorMsg().addAll(errorMsgs);
-                    continue;
-                }
 
                 CommonCatalog parentL1Catalog = commonCatalogExtRepository.findByNameAndLevel(excelDto.getBusChineseName(), 1);
                 if(parentL1Catalog != null){
@@ -1218,9 +1298,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
 
                     //审批人
                     catalogDto.setApprover(parentL1Catalog.getApprover());
-                }else {
-                    result.getErrorMsg().add("导入主题域【" + catalogDto.getName() + "】对应父级业务域【" + excelDto.getBusChineseName() + "】不存在");
-                    continue;
                 }
             }
 //            result.getErrorMsg().addAll(errorMsgs);
@@ -1261,13 +1338,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
 
         ArrayList<DataAssetsCatalogDto> dataAssetsCatalogs = new ArrayList<>();
         for (CatalogExcelDto excelDto : catalogExcelDtos) {
-            ArrayList<String> errorMsgs = new ArrayList<>();
-            //判断审批人是否存在
-            String approver = excelDto.getApprover();
-            List<SimpleUserDto> users = userService.getUsersByUsernames(List.of(approver));
-            if (CollectionUtils.isEmpty(users)) {
-                errorMsgs.add("导入业务域第：" + excelDto.getRowNum() + "行，审批人【" + approver + "】不存在");
-            }
 
             //设置目录路径
             String catalogPath = "0/";
@@ -1288,22 +1358,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
                 catalogDto.setApprover(excelDto.getApprover());
                 catalogDto.setUdpDtos(udpDtoList);
             } else {
-                //判断数据库里中文名重复
-                CommonCatalog byName = commonCatalogExtRepository.findByName(excelDto.getChineseName());
-                if (byName != null) {
-                    errorMsgs.add("导入业务域第：" + excelDto.getRowNum() + "行，业务域中文名【" + byName.getName() + "】系统中已存在");
-                }
-                //判断数据库里英文名重复
-                CommonCatalog byEnglishName = commonCatalogExtRepository.findByEnglishName(excelDto.getEnglishName());
-                if (byEnglishName != null) {
-                    errorMsgs.add("导入业务域第：" + excelDto.getRowNum() + "行，业务域英文名【" + byEnglishName.getEnglishName() + "】系统中已存在");
-                }
-
-                if (!CollectionUtils.isEmpty(errorMsgs)) {
-                    result.getErrorMsg().addAll(errorMsgs);
-                    continue;
-                }
-
                 catalogDto.setCatalogTypeId(structureTypeMap.get(structure.getId()));
                 catalogDto.setName(excelDto.getChineseName());
                 catalogDto.setEnglishName(excelDto.getEnglishName());
@@ -1329,61 +1383,137 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
     }
 
     private void checkChineseAndEnglishName(List<Object> datas, String sheet,
-                                            String chineseNameKey, String englishNameKey, DDCCatalogImportResultDto result, String codeKey) {
+                                            String chineseNameKey, String englishNameKey, DDCCatalogImportResultExtDto result, String codeKey,
+                                            String username, Set<String> parentChineseNames) {
         HashSet<String> chineseNameSet = new HashSet<>();
         HashSet<String> englishNameSet = new HashSet<>();
+        //数据库中所有的code
+        Set<String> dbCodeSet = new HashSet<>();
+        //数据库中所有的中文名称
+        Set<String> dbChineseNameSet = new HashSet<>();
+        //数据库中所有的英文名称
+        Set<String> dbEnglishNameSet = new HashSet<>();
+        //数据库中所有的业务域的中文名称
+        Set<String> dbBusChineseNameSet = new HashSet<>();
+        //数据库中所有的主题域的中文名称
+        Set<String> dbSubChineseNameSet = new HashSet<>();
+
+        List<CommonCatalog> commonCatalogList = commonCatalogExtRepository.findAll();
+        for (CommonCatalog commonCatalog : commonCatalogList) {
+            dbCodeSet.add(commonCatalog.getCode());
+            dbChineseNameSet.add(commonCatalog.getName());
+            dbEnglishNameSet.add(commonCatalog.getEnglishName());
+            if (commonCatalog.getLevel() == 1) {
+                dbBusChineseNameSet.add(commonCatalog.getName());
+            } else if (commonCatalog.getLevel() == 2) {
+                dbSubChineseNameSet.add(commonCatalog.getName());
+            }
+        }
+        boolean isExistApprover = true;
+        if ("业务域".equals(sheet) && !Strings.isNullOrEmpty(username)) {
+            //判断审批人是否存在
+            List<SimpleUserDto> users = userService.getUsersByUsernames(List.of(username));
+            if (CollectionUtils.isEmpty(users)) {
+                isExistApprover = false;
+            }
+        }
         for (Object data : datas) {
             HashMap<String, String> d = (HashMap<String, String>) data;
+            String rowNum = String.valueOf((Integer.valueOf(String.valueOf(d.get("rowNum")))-1));
             String code = d.get(codeKey);
             if(!Strings.isNullOrEmpty(code)){
-                CommonCatalog byCode = commonCatalogExtRepository.findByCode(code);
-                if(byCode != null){
+                if(dbCodeSet.contains(code)){
                     //传的编码库里存在，走更新逻辑不校验
                     continue;
+                } else {
+                    //判断数据库里中文名重复
+                    if (dbChineseNameSet.contains(d.get(chineseNameKey))) {
+                        DDCCatalogErrorDto ddcCatalogErrorDto
+                                = new DDCCatalogErrorDto(sheet, rowNum, "中文名【" + d.get(chineseNameKey) + "】系统中已存在", data);
+                        result.addDdcCatalogError(ddcCatalogErrorDto);
+                    }
+                    //判断数据库里英文名重复
+                    if (dbEnglishNameSet.contains(d.get(englishNameKey))) {
+                        DDCCatalogErrorDto ddcCatalogErrorDto
+                                = new DDCCatalogErrorDto(sheet, rowNum, "英文名【" + d.get(englishNameKey) + "】系统中已存在", data);
+                        result.addDdcCatalogError(ddcCatalogErrorDto);
+                    }
                 }
             }
 
             String chineseName = d.get(chineseNameKey);
             if (chineseNameSet.contains(chineseName)) {
-                result.getErrorMsg().add("sheet页" + sheet + "中第" +
-                        String.valueOf(d.get("rowNum")) + "行，" + chineseNameKey + "有重复，重复值为" + chineseName);
+                DDCCatalogErrorDto ddcCatalogErrorDto
+                        = new DDCCatalogErrorDto(sheet, rowNum, chineseNameKey + "有重复，重复值为" + chineseName, data);
+                result.addDdcCatalogError(ddcCatalogErrorDto);
             } else {
                 chineseNameSet.add(chineseName);
             }
 
             //中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
             if (!CheckNameUtil.checkChineseName(chineseName)) {
-                result.getErrorMsg().add("sheet页" + sheet + "中第" + d.get("rowNum") + "行，" + chineseNameKey + " 格式错误原因：【" + msgService.getMessage("catalogChNameRegexCheck") + "】");
+                DDCCatalogErrorDto ddcCatalogErrorDto
+                        = new DDCCatalogErrorDto(sheet, rowNum,  chineseNameKey + " 格式错误原因：【" + msgService.getMessage("catalogChNameRegexCheck") + "】", data);
+                result.addDdcCatalogError(ddcCatalogErrorDto);
             }
 
 
             //中文名称长度不能超过15位
             if (CheckNameUtil.checkChineseNameLength(chineseName, 15)) {
-                result.getErrorMsg().add("sheet页" + sheet + "中第" + d.get("rowNum") + "行，" + chineseNameKey + " 格式错误原因：【" + msgService.getMessage("catalogChNameLengthCheck") + "】");
+                DDCCatalogErrorDto ddcCatalogErrorDto
+                        = new DDCCatalogErrorDto(sheet, rowNum,  chineseNameKey + " 格式错误原因：【" + msgService.getMessage("catalogChNameLengthCheck") + "】", data);
+                result.addDdcCatalogError(ddcCatalogErrorDto);
             }
             String englishName = d.get(englishNameKey);
             if (englishNameSet.contains(englishName)) {
-                result.getErrorMsg().add("sheet页" + sheet + "中第" +
-                        String.valueOf(d.get("rowNum")) + "行，" + englishNameKey + "有重复，重复值为" + englishName);
+                DDCCatalogErrorDto ddcCatalogErrorDto
+                        = new DDCCatalogErrorDto(sheet, rowNum,  englishNameKey + "有重复，重复值为" + englishName, data);
+                result.addDdcCatalogError(ddcCatalogErrorDto);
             } else {
                 String englishNameStyle = CheckNameUtil.checkEnglishNameStyle(englishName);
                 if(!Strings.isNullOrEmpty(englishNameStyle)){
-                    result.getErrorMsg().add("sheet页" + sheet + "中第" +
-                            String.valueOf(d.get("rowNum")) + "行，" + englishNameKey + " 格式错误原因：【" + englishNameStyle + "】");
+                    DDCCatalogErrorDto ddcCatalogErrorDto
+                            = new DDCCatalogErrorDto(sheet, rowNum,  englishNameKey + " 格式错误原因：【" + englishNameStyle + "】", data);
+                    result.addDdcCatalogError(ddcCatalogErrorDto);
                 }
                 englishNameSet.add(englishName);
+            }
+            //判断审批人是否存在
+            if ("业务域".equals(sheet) && !isExistApprover) {
+                DDCCatalogErrorDto ddcCatalogErrorDto
+                        = new DDCCatalogErrorDto(sheet, rowNum,  "审批人【" + username + "】不存在", data);
+                result.addDdcCatalogError(ddcCatalogErrorDto);
+            }
+
+            //导入主题域名称对应父级业务域名称不存在。需添加在本次导入中是否存在的逻辑
+            if ("主题域".equals(sheet)) {
+                if (!dbBusChineseNameSet.contains(d.get(BusDomain_ChineseName)) && !parentChineseNames.contains(d.get(BusDomain_ChineseName))) {
+                    DDCCatalogErrorDto ddcCatalogErrorDto
+                            = new DDCCatalogErrorDto(sheet, rowNum,  "导入主题域【" + chineseName + "】对应父级业务域【" + d.get(BusDomain_ChineseName) + "】不存在", data);
+                    result.addDdcCatalogError(ddcCatalogErrorDto);
+                }
+            }
+
+            //导入业务对象名称对应父级主题域名称不存在。需添加在本次导入中是否存在的逻辑
+            if ("业务对象".equals(sheet)) {
+                if (!dbSubChineseNameSet.contains(d.get(SubDomain_ChineseName)) && !parentChineseNames.contains(d.get(SubDomain_ChineseName))) {
+                    DDCCatalogErrorDto ddcCatalogErrorDto
+                            = new DDCCatalogErrorDto(sheet, rowNum,  "导入业务对象【" + chineseName + "】对应父级主题域【" + d.get(SubDomain_ChineseName) + "】不存在", data);
+                    result.addDdcCatalogError(ddcCatalogErrorDto);
+                }
             }
         }
     }
 
-    private void checkNull(List<Object> datas, String sheet, DDCCatalogImportResultDto importResult, List<String> headers) {
+    private void checkNull(List<Object> datas, String sheet, DDCCatalogImportResultExtDto importResult, List<String> headers) {
         for (Object data : datas) {
             HashMap<String, String> d = (HashMap<String, String>) data;
             for (String header : headers) {
                 String value = d.get(header);
                 if (Strings.isNullOrEmpty(value)) {
-                    importResult.getErrorMsg().add("sheet页" + sheet + "中第" +
-                            String.valueOf(d.get("rowNum")) + "行，【" + header + "】为空");
+                    DDCCatalogErrorDto ddcCatalogErrorDto
+                            = new DDCCatalogErrorDto(sheet, String.valueOf((Integer.valueOf(String.valueOf(d.get("rowNum")))-1)), "【" + header + "】为空", data);
+                    importResult.addDdcCatalogError(ddcCatalogErrorDto);
                 }
             }
         }
@@ -1415,6 +1545,7 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
                 }
             }
             result.setSourceSystemId(catalogExt.getSourceSystem());
+            result.setDomainVer(catalogExt.getDomainVer());
         }
         return result;
     }
@@ -2810,8 +2941,6 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
         return "";
     }
 
-
-
     protected List<DataAssetsCatalogDto> queryVoList(Collection<Long> ids, Long structureId, Long parentId, String catalogName, EnumAssetsCatalogStatus status) {
         StringBuilder hql = new StringBuilder();
         hql.append("select new com.datablau.data.asset.dto.DataAssetsCatalogDto(")
@@ -3091,11 +3220,115 @@ public class DataAssetsCatalogArchyServiceImpl extends DataAssetsCatalogServiceI
         return null;
     }
 
-    public static void main(String[] args) {
-        String regex = "^[A-Z][a-zA-Z\\s]*$";
-        boolean matches = Pattern.matches(regex, "ABC aa");
-        System.out.println(matches);
+    @Override
+    public Collection<DataAssetsCatalogDto> manageTree(Long structureId, Long catalogId) throws Exception {
+        CommonCatalogStructure structure = structureRepository.findById(structureId).orElseThrow(() -> new ItemNotFoundException(msgService.getMessage("structureNotFound")));
+        ObjectMapper mapper = new ObjectMapper();
+
+        List<DataAssetsCatalogDto> l1Catalogs = queryVoListByStructureIdAndLevel(structureId, 1);
+        List<DataAssetsCatalogDto> l2Catalogs = queryVoListByStructureIdAndLevel(structureId, 2);
+        List<DataAssetsCatalogDto> l3Catalogs = queryVoListByStructureIdAndLevel(structureId, 3);
+
+        LOGGER.info("l1Catalogs::{}", mapper.writeValueAsString(l1Catalogs));
+        LOGGER.info("l2Catalogs::{}", mapper.writeValueAsString(l2Catalogs));
+        LOGGER.info("l3Catalogs::{}", mapper.writeValueAsString(l3Catalogs));
+
+        // 合并所有节点并创建ID到节点的映射
+        Map<Long, DataAssetsCatalogDto> nodeMap = new HashMap<>();
+        // 处理l1节点（根节点）
+        for (DataAssetsCatalogDto node  : l1Catalogs) {
+            node.setChildren(new ArrayList<>());
+            nodeMap.put(node.getId(), node);
+        }
+
+        // 处理l2节点（第二层）
+        for (DataAssetsCatalogDto node  : l2Catalogs) {
+            DataAssetsCatalogDto parent = nodeMap.get(node.getParentId());
+            if (parent != null) {
+                if (parent.getChildren() == null) {
+                    parent.setChildren(new ArrayList<>());
+                }
+                parent.getChildren().add(node);
+                node.setChildren(new ArrayList<>()); // 初始化children列表
+                nodeMap.put(node.getId(), node);
+            }
+        }
+
+        // 处理l3节点（第三层）
+        for (DataAssetsCatalogDto node : l3Catalogs) {
+            DataAssetsCatalogDto parent = nodeMap.get(node.getParentId());
+            if (parent != null) {
+                if (parent.getChildren() == null) {
+                    parent.setChildren(new ArrayList<>());
+                }
+                parent.getChildren().add(node);
+                // L3节点没有子节点，无需初始化children
+            }
+        }
+        return l1Catalogs;
     }
+
+    protected List<DataAssetsCatalogDto> queryVoListByStructureIdAndLevel(Long structureId, Integer level) {
+        StringBuilder hql = new StringBuilder();
+        hql.append("select new com.datablau.data.asset.dto.DataAssetsCatalogDto(")
+                .append("c.id,")
+                .append("c.parentId,")
+                .append("c.name,")
+                .append("c.order,")
+                .append("c.englishName,")
+                .append("c.comment,")
+                .append("t.name,")
+                .append("c.keyword,")
+                .append("c.approver,")
+                .append("c.status,")
+                .append("c.creator,")
+                .append("c.createTime,")
+                .append("c.publishTime,")
+                .append("c.bm,")
+                .append("c.catalogPath,")
+                .append("t.assetsType,")
+                .append("c.level,")
+                .append("c.structureId,")
+                .append("c.catalogTypeId,")
+                .append("c.code,")
+                .append("c.publicType,")
+                .append("c.visible,")
+                .append("c.butler)")
+                .append(" from CommonCatalog c, CommonCatalogType t, CommonCatalogStructure s ")
+                .append(" where c.catalogTypeId = t.id and c.structureId = s.id and s.structureType = '").append(EnumStructureType.DATA_ASSETS.name()).append("'")
+                .append(" and s.openStatus = true");
+
+        if (structureId != null) {
+            hql.append(" and s.id = ").append(structureId);
+        }
+        if (level != null) {
+            hql.append(" and c.level = ").append(level);
+        }
+
+        EntityManager em = managerFactory.createEntityManager();
+        Query query = em.createQuery(hql.toString());
+        List<DataAssetsCatalogDto> resultList = query.getResultList();
+        em.close();
+
+        List<String> canAddToAssetConfigM1Type = this.findCanAddAssetsCatalogMetaDataTyeps();
+
+        for (DataAssetsCatalogDto catalogDto : resultList) {
+            if (Strings.isNullOrEmpty(catalogDto.getAssetsType())) {
+                continue;
+            }
+
+            String filterAssetTypes = filterMetaDataType(catalogDto.getAssetsType(), canAddToAssetConfigM1Type);
+            catalogDto.setAssetsType(filterAssetTypes);
+        }
+
+        return resultList;
+    }
+
+//    public static void main(String[] args) {
+//        String regex = "^[A-Z][a-zA-Z\\s]*$";
+//        boolean matches = Pattern.matches(regex, "ABC aa");
+//        System.out.println(matches);
+//    }
 }
 
 

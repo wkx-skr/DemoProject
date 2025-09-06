@@ -3,12 +3,14 @@ package com.datablau.domain.management.impl;
 
 import com.datablau.domain.management.data.DomainState;
 import com.datablau.domain.management.dto.DomainCountDto;
+import com.datablau.domain.management.dto.DomainDto;
 import com.datablau.domain.management.dto.StatisticsDtoExt;
 import com.datablau.domain.management.jpa.entity.BusinessTerm;
 import com.datablau.domain.management.jpa.entity.Domain;
 import com.datablau.domain.management.jpa.entity.DomainFolder;
 import com.datablau.domain.management.jpa.entity.DomainVersion;
 import com.datablau.domain.management.jpa.repository.BusinessTermRepository;
+import com.datablau.domain.management.jpa.repository.DomainExtRepository;
 import com.datablau.domain.management.jpa.repository.DomainFolderRepositoryExt;
 import com.datablau.domain.management.jpa.repository.DomainRepositoryExt;
 import com.datablau.domain.management.jpa.repository.DomainVersionRepositoryExt;
@@ -42,6 +44,8 @@ public class DomainServiceExtImpl extends DomainServiceImpl implements DomainSer
 
     @Autowired
     private BusinessTermRepository businessTermRepository;
+    @Autowired
+    private DomainExtRepository domainExtRepository;
 
     public DomainServiceExtImpl() {
         super();
@@ -101,6 +105,18 @@ public class DomainServiceExtImpl extends DomainServiceImpl implements DomainSer
         statisticsDtoExt.setDevelopingBusinessTerm(unpublished);
 
         return statisticsDtoExt;
+    }
+
+    /**
+     * 查询业务术语关联的数据标准
+     * @param referenceTerm
+     * @return
+     */
+    @Override
+    public List<DomainDto> queryDomainDtoByReferenceTerm(String referenceTerm) {
+        List<String> domainIds = domainExtRepository.findDomainIdsByReferenceTerm(referenceTerm);
+        List<DomainDto> domainDtos = this.self.getDomainsByDomainIds(domainIds);
+        return domainDtos;
     }
 
 

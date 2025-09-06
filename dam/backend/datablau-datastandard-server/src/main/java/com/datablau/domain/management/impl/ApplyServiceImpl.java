@@ -2,6 +2,7 @@ package com.datablau.domain.management.impl;
 
 import com.andorj.common.core.exception.InvalidArgumentException;
 import com.andorj.common.data.PageResult;
+import com.andorj.file.exception.ArgumentMissingException;
 import com.datablau.data.common.util.ExcelUtil;
 import com.datablau.domain.management.api.ApplyService;
 import com.datablau.domain.management.api.BusinessTermService;
@@ -10,9 +11,11 @@ import com.datablau.domain.management.dto.*;
 import com.datablau.domain.management.jpa.entity.BatchApply;
 import com.datablau.domain.management.jpa.entity.BatchApplyDetail;
 import com.datablau.domain.management.jpa.entity.BatchConfirmConfig;
+import com.datablau.domain.management.jpa.entity.SkipReason;
 import com.datablau.domain.management.jpa.repository.BatchApplyDetailRepository;
 import com.datablau.domain.management.jpa.repository.BatchApplyRepository;
 import com.datablau.domain.management.jpa.repository.BatchConfirmConfigRepository;
+import com.datablau.domain.management.jpa.repository.SkipReasonRepository;
 import com.datablau.domain.management.jpa.type.ConfirmState;
 import com.datablau.project.api.RemoteArchyExtendService;
 import com.datablau.project.api.RemoteDataAssetExtendService;
@@ -78,6 +81,9 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Autowired
     private BatchConfirmConfigRepository batchConfirmConfigRepository;
+
+    @Autowired
+    private SkipReasonRepository skipReasonRepository;
 //
 //    @Autowired
 //    private UserSer
@@ -95,6 +101,7 @@ public class ApplyServiceImpl implements ApplyService {
         //apply.set
         apply.setApplyOperation(batchApplyDto.getApplyOperation());
         apply.setApplyInnerName(batchApplyDto.getApplyName());
+        apply.setApplyBuCode(batchApplyDto.getBuCode());
         apply.setInnerState(ConfirmState.UNCONFIRMED);
         apply = batchApplyRepository.save(apply); // 保存后返回带 ID 的对象
         // 保存子表
@@ -111,6 +118,7 @@ public class ApplyServiceImpl implements ApplyService {
               //  detail.setOrderState(detailDto.getOrderState());
                 detail.setOrderType(detailDto.getOrderType());
                 detail.setSubmitUser(detailDto.getSubmitUser());
+                detail.setDomainCode(detailDto.getDomainCode());
                 detail.setBatchId(apply.getId());
                 if (!ObjectUtils.isEmpty(detailDto.getOldData())){
                     detail.setOldData(detailDto.getOldData());
@@ -134,6 +142,7 @@ public class ApplyServiceImpl implements ApplyService {
             apply.setApplyCreateTime(batchApplyDto.getApplyCreateTime()); // 直接使用 DTO 中的数据
             apply.setApplyOperation(batchApplyDto.getApplyOperation());
             apply.setApplyInnerName(batchApplyDto.getApplyName());
+            apply.setApplyBuCode(batchApplyDto.getBuCode());
             apply.setInnerState(ConfirmState.UNCONFIRMED);
             apply = batchApplyRepository.save(apply);
 
@@ -149,6 +158,7 @@ public class ApplyServiceImpl implements ApplyService {
                     detail.setDataType(convertApplyType(detailDto.getDataType()));
                     detail.setOrderType(detailDto.getOrderType());
                     detail.setSubmitUser(detailDto.getSubmitUser());
+                    detail.setDomainCode(detailDto.getDomainCode());
                     detail.setBatchId(apply.getId());
                     batchApplyDetailRepository.save(detail);
                 }
@@ -189,11 +199,6 @@ public class ApplyServiceImpl implements ApplyService {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.by(Sort.Direction.DESC, "applyCreateTime"));
         DateTimeFormatter formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
 
-        if (CollectionUtils.isEmpty(queryDto.getInnerBuName())){
-            //todo 需要在下方拼接in 的sql 也就是业务域的名称 即BatchApply 对象的 applyInnerName属性
-
-        }
-
 
         Specification<BatchApply> spec = (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
@@ -202,6 +207,20 @@ public class ApplyServiceImpl implements ApplyService {
             Predicate isUserConfirmScope = domainNames.isEmpty()
                     ? cb.disjunction()
                     : root.get("applyInnerName").in(domainNames);
+
+
+            if (!CollectionUtils.isEmpty(queryDto.getInnerName())){
+                    // 如果不为空 那就重置参数 下面两个参数取交集
+                List<String> innerName = queryDto.getInnerName();
+                Set<String> innerNameSet = new HashSet<>(innerName);
+
+                Set<String> collect = domainNames.stream()
+                        .filter(innerNameSet::contains)
+                        .collect(Collectors.toSet());
+                isUserConfirmScope = collect.isEmpty()
+                        ? cb.disjunction()
+                        : root.get("applyInnerName").in(collect);
+            }
 
             // ✅ 公共状态（默认可展示）
             CriteriaBuilder.In<ConfirmState> publicStates = cb.in(root.get("innerState"));
@@ -272,6 +291,8 @@ public class ApplyServiceImpl implements ApplyService {
             dto.setApplyCreateTime(entity.getApplyCreateTime());
             dto.setApplyOperation(entity.getApplyOperation());
             dto.setInnerState(entity.getInnerState());
+            dto.setInnerName(entity.getApplyInnerName());
+            dto.setBuCode(entity.getApplyBuCode());
             String confirmUser     = entity.getConfirmUser();
             String confirmUserTwo  = entity.getConfirmUserTow();
 
@@ -338,7 +359,6 @@ public class ApplyServiceImpl implements ApplyService {
         List<String> batchIds  = new ArrayList<>();
         Optional<BatchApply> batchApply = batchApplyRepository.findById(batchApplyDopInfoDto.getBatchId());
         batchApply.ifPresent(o->{
-
             switch (o.getApplyType()) {
                 case "标准":
                     LOGGER.info("调用标准");
@@ -458,6 +478,7 @@ public class ApplyServiceImpl implements ApplyService {
         if (!ObjectUtils.isEmpty(batchApply)){
             batchApply.setApplyBindUser(username);
             batchApply.setApprovalId(batchApply.getApprovalId());
+            batchApply.setInnerState(ConfirmState.BIND);
             batchApplyRepository.save(batchApply);
         }else {
             LOGGER.info("未查询到批次id"+batchApplyDopInfoDto.getBatchId());
@@ -480,6 +501,7 @@ public class ApplyServiceImpl implements ApplyService {
         if (!CollectionUtils.isEmpty(allById)){
             for (BatchApply batchApply : allById) {
                 batchApply.setApprovalId(batchApplyDopInfoDto.getApprovalId());
+                batchApply.setInnerState(ConfirmState.BIND);
             }
             batchApplyRepository.saveAll(allById);
         }else {
@@ -509,13 +531,53 @@ public class ApplyServiceImpl implements ApplyService {
 
     @Override
     public List<BatchApplyDetailDto> getDetailDtoByBatchId(Long batchId) {
+        LOGGER.info("测试代码。。。。。日志");
         List<BatchApplyDetail> detailList = batchApplyDetailRepository.findByBatchId(batchId);
         Optional<BatchApply> byId = batchApplyRepository.findById(batchId);
+        Boolean domainType = false;
+        List<String> domainIds  = new ArrayList<>();
+        if (byId.isPresent()) {
+            // 判断是否是标准类型的
+            BatchApply batchApply = byId.get();
+            // 判断标准是为了兼容之前的数据
+            if (batchApply.getApplyType().equals("标准数据元") || batchApply.getApplyType().equals("标准")  ) {
+                domainType = true ;
+            }
+            // 如果是标准的类型那么就去查找标准数据的 跳过原因去
+            if (domainType){
+                for (BatchApplyDetail batchApplyDetail : detailList) {
+                    if (batchApplyDetail.getOrderType().equals("变更")){
+                        domainIds.add(batchApplyDetail.getOldId());
+                    }else {
+                        domainIds.add(batchApplyDetail.getNeId());
+                    }
+                }
+            }
+        }
+        LOGGER.info("查询到的domainids"+domainIds.toString());
+        Map<String, SkipReason> skipReasonMap = new HashMap<>();
+        if (!CollectionUtils.isEmpty(domainIds)){
+            List<SkipReason> byDomainIdIn = skipReasonRepository.findByDomainIdIn(domainIds);
+            if (!CollectionUtils.isEmpty(byDomainIdIn)){
+                // 或者转换为 Map<String, List<SkipReason>>，按 domainId 分组
+                Map<String, SkipReason> collect = byDomainIdIn.stream()
+                        .filter(skipReason -> skipReason.getDomainId() != null)
+                        .collect(Collectors.toMap(
+                                SkipReason::getDomainId,
+                                skipReason -> skipReason,
+                                (existing, replacement) -> existing  // 遇到重复时保留先出现的
+                        ));
+                skipReasonMap.putAll(collect);
+            }
+        }
+
         if (detailList == null || detailList.isEmpty()) {
             return Collections.emptyList();
         }
 
-        return detailList.stream().map(entity -> {
+        List<BatchApplyDetailDto> resultList = new ArrayList<>();
+
+        for (BatchApplyDetail entity : detailList) { // 请将 EntityType 替换为实际的实体类型
             BatchApplyDetailDto dto = new BatchApplyDetailDto();
             dto.setId(entity.getId());
             dto.setSubmitUser(entity.getSubmitUser());
@@ -524,7 +586,7 @@ public class ApplyServiceImpl implements ApplyService {
             dto.setCnName(entity.getCnName());
             dto.setEnName(entity.getEnName());
             // 设置属性
-            dto.setOrderState(mapConfirmStateToChinese( byId.get().getInnerState()));
+            dto.setOrderState(mapConfirmStateToChinese(byId.get().getInnerState()));
             dto.setOrderType(entity.getOrderType());
             dto.setBatchId(entity.getBatchId());
             dto.setOldId(entity.getOldId());
@@ -532,16 +594,37 @@ public class ApplyServiceImpl implements ApplyService {
             dto.setOldData(entity.getOldData());
             dto.setNeData(entity.getNeData());
             dto.setCreateTime(byId.get().getApplyCreateTime());
-            return dto;
-        }).collect(Collectors.toList());
+            dto.setApplyCreator(byId.get().getApplyCreator());
+            dto.setDomainCode(entity.getDomainCode());
+
+            if (entity.getOrderType().equals("变更")) {
+                if (skipReasonMap.containsKey(entity.getOldId())) {
+                    LOGGER.info("查询的domainId"+entity.getOldId());
+                    SkipReason skipReason = skipReasonMap.get(entity.getOldId());
+                    LOGGER.info("查询到的数据"+skipReason.getAnotherDomainNames() + "   "+skipReason.getReason());
+                    dto.setAnotherDomainNames(skipReason.getAnotherDomainNames());
+                    dto.setSkipReason(skipReason.getReason());
+                }
+            } else {
+                if (skipReasonMap.containsKey(entity.getNeId())) {
+                    LOGGER.info("查询的domainId"+entity.getNeId());
+                    SkipReason skipReason = skipReasonMap.get(entity.getNeId());
+                    LOGGER.info("查询到的数据"+skipReason.getAnotherDomainNames() + "   "+skipReason.getReason());
+                    dto.setAnotherDomainNames(skipReason.getAnotherDomainNames());
+                    dto.setSkipReason(skipReason.getReason());
+                }
+            }
+
+            resultList.add(dto);
+        }
+
+        return resultList;
     }
 
     @Override
     @Transactional
     public void confirmBatch(List<Long> batchIds, String currentUser) {
         List<BatchApply> applies = (List<BatchApply>)batchApplyRepository.findAllById(batchIds);
-
-
         for (BatchApply apply : applies) {
 
             // 已完全确认的批次直接拒绝
@@ -671,6 +754,16 @@ public class ApplyServiceImpl implements ApplyService {
         // 如果是资产的类型 那么后面进行数据的同步
         Map<Long,String> categoryIdsMap= new HashMap<>();
         List<String> batchIds  = new ArrayList<>();
+        // 在这里做一下check
+
+        if (CollectionUtils.isEmpty(flowBatchApplyDopInfoDto.getApplyData())){
+            throw  new ArgumentMissingException("batch is must not null");
+        }
+        List<Long> collect = flowBatchApplyDopInfoDto.getApplyData().stream().map(SingleApplyInfo::getBatchId).collect(Collectors.toList());
+        List<BatchApply> allById = (List<BatchApply>)batchApplyRepository.findAllById(collect);
+        if (CollectionUtils.isEmpty(allById)){
+            throw  new ArgumentMissingException("not found batch ids ");
+        }
         for (SingleApplyInfo applyDatum : flowBatchApplyDopInfoDto.getApplyData()) {
             Optional<BatchApply> batchApply = batchApplyRepository.findById(applyDatum.getBatchId());
             batchApply.ifPresent(o->{
@@ -887,6 +980,9 @@ public class ApplyServiceImpl implements ApplyService {
         List<BatchApplyDetail> details = batchApplyDetailRepository.findByBatchId(id);
         // 我们只记录通过 或者未通过两种情况
         Set<String> collect = details.stream().map(BatchApplyDetail::getOldId).collect(Collectors.toSet());
+        if ("废弃".equals(o.getApplyOperation())){
+            collect = details.stream().map(BatchApplyDetail::getNeId).collect(Collectors.toSet());
+        }
         List<DomainDto> domainsByDomainIds = domainService.getDomainsByDomainIds(collect);
         domainService.updateDomainStateBatch(domainsByDomainIds,"",username,o.getApplyOperation(),approvalStatus ,details,o);
     }

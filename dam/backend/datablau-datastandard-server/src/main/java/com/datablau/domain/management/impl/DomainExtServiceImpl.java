@@ -169,6 +169,29 @@ public class DomainExtServiceImpl implements DomainExtService {
         if(!Strings.isNullOrEmpty(domainExtDto.getErrorMsg())){
             throw new RuntimeException(domainExtDto.getErrorMsg());
         }
+        //数据类型是“数值型”是必填
+        if("数值".equals(domainExtDto.getDataType())){
+            if(Strings.isNullOrEmpty(domainExtDto.getUnit())){
+                throw new RuntimeException("数据类型是“数值型”时，单位必填");
+            }
+        }
+
+        //校验1、英文名称只能是字母和空格，首字母还需要大写
+        if (StringUtils.isNotEmpty(domainExtDto.getEnglishName()) &&
+                StringUtils.isNotEmpty(CheckNameUtil.checkEnglishNameStyle(domainExtDto.getEnglishName()))) {
+            throw new RuntimeException(msgService.getMessage("domainEnNameRegexCheck"));
+        }
+        //校验2、中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+        if (StringUtils.isNotEmpty(domainExtDto.getChineseName()) &&
+                !CheckNameUtil.checkChineseName(domainExtDto.getChineseName())) {
+            throw new RuntimeException(msgService.getMessage("domainChNameRegexCheck"));
+        }
+        //校验4、中文名称长度不能超过15位
+        if (StringUtils.isNotEmpty(domainExtDto.getChineseName()) &&
+                CheckNameUtil.checkChineseNameLength(domainExtDto.getChineseName(), 15) ) {
+            throw new RuntimeException(msgService.getMessage("domainChNameLengthCheck"));
+        }
+
 
         String bm = userService.getUserDetails(currentUser).getBm();
         // 保存扩展信息
@@ -203,6 +226,29 @@ public class DomainExtServiceImpl implements DomainExtService {
         this.checkAnyTwoCannotEqual(domainDto);
         if(!Strings.isNullOrEmpty(domainDto.getErrorMsg())){
             throw new RuntimeException(domainDto.getErrorMsg());
+        }
+
+        //数据类型是“数值型”是必填
+        if("数值".equals(domainDto.getDataType())){
+            if(Strings.isNullOrEmpty(domainDto.getUnit())){
+                throw new RuntimeException("数据类型是“数值型”时，单位必填");
+            }
+        }
+
+        //校验1、英文名称只能是字母和空格，首字母还需要大写
+        if (StringUtils.isNotEmpty(domainDto.getEnglishName()) &&
+                StringUtils.isNotEmpty(CheckNameUtil.checkEnglishNameStyle(domainDto.getEnglishName()))) {
+            throw new RuntimeException(msgService.getMessage("domainEnNameRegexCheck"));
+        }
+        //校验2、中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+        if (StringUtils.isNotEmpty(domainDto.getChineseName()) &&
+                !CheckNameUtil.checkChineseName(domainDto.getChineseName())) {
+            throw new RuntimeException(msgService.getMessage("domainChNameRegexCheck"));
+        }
+        //校验4、中文名称长度不能超过15位
+        if (StringUtils.isNotEmpty(domainDto.getChineseName()) &&
+                CheckNameUtil.checkChineseNameLength(domainDto.getChineseName(), 15) ) {
+            throw new RuntimeException(msgService.getMessage("domainChNameLengthCheck"));
         }
 
         // 保存扩展信息
@@ -368,7 +414,9 @@ public class DomainExtServiceImpl implements DomainExtService {
                     // 模板修改后，是否非空列已经删除，默认为否
                     domainExcelDto.setNotNullStr(msgService.getMessage("keyword.NO"));
                     DomainDto domainDto = domainService.convertToDomainDto(domainExcelDto, categoryId);
-                    domainDtos.add(DomainExtDto.buildBy(domainDto, domainExcelDto.getReferenceTerm(), domainExcelDto.getMaxValue(), domainExcelDto.getMinValue(), null));
+                    DomainExtDto domainExtDto = DomainExtDto.buildBy(domainDto, domainExcelDto.getReferenceTerm(), domainExcelDto.getMaxValue(), domainExcelDto.getMinValue(), null);
+                    domainExtDto.setUnit(domainExcelDto.getUnit());
+                    domainDtos.add(domainExtDto);
                 } catch (Exception var17) {
                     logger.warn(var17.getMessage(), var17);
                     throw new InvalidArgumentException(var17.getMessage());
@@ -378,15 +426,17 @@ public class DomainExtServiceImpl implements DomainExtService {
             var14 = domainDtos.iterator();
 
             while(var14.hasNext()) {
-                DomainDto domainDto = (DomainDto)var14.next();
+                DomainDto domainDto = (DomainDto) var14.next();
                 if (Strings.isNullOrEmpty(domainDto.getEnglishName())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("enNameCannotBeNull"));
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("enNameCannotBeNull"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("enNameCannotBeNull"));
                 } /*else if (Strings.isNullOrEmpty(domainDto.getAbbreviation())) {
                     domainDto.setErrorMsg(this.msgService.getMessage("enAbbrNameCannotBeNull"));
-                } */else if (Strings.isNullOrEmpty(domainDto.getDescription())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("busDefCannotBeNull"));
-                } else if (Strings.isNullOrEmpty(domainDto.getDataType())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("domainDataTypeMissing", new Object[]{domainDto.getChineseName()}));
+                } */
+                if (Strings.isNullOrEmpty(domainDto.getDescription())) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("busDefCannotBeNull"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("busDefCannotBeNull"));
+                }
+                if (Strings.isNullOrEmpty(domainDto.getDataType())) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainDataTypeMissing", new Object[]{domainDto.getChineseName()}): domainDto.getErrorMsg() + ";" + this.msgService.getMessage("domainDataTypeMissing", new Object[]{domainDto.getChineseName()}));
                 }
             }
 
@@ -455,17 +505,17 @@ public class DomainExtServiceImpl implements DomainExtService {
             domainDto = (DomainDto)var18.next();
 
             if (!autoGenCode && Strings.isNullOrEmpty(domainDto.getDomainCode().trim())) {
-                domainDto.setErrorMsg(this.msgService.getMessage("modifierTypeCodeCannotBeNull"));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("modifierTypeCodeCannotBeNull"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("modifierTypeCodeCannotBeNull"));
                 result.add(domainDto);
             } else if (!StringUtils.isEmpty(domainDto.getDomainCode()) && this.domainRepo.existsByDomainCodeAndCategoryIdNot(domainDto.getDomainCode(), categoryId)) {
-                domainDto.setErrorMsg(this.msgService.getMessage("codeExists", new Object[]{domainDto.getDomainCode()}));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("codeExists", new Object[]{domainDto.getDomainCode()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("codeExists", new Object[]{domainDto.getDomainCode()}));
                 result.add(domainDto);
             } else if (StringUtils.isNotEmpty(domainDto.getDomainCode()) && domainCodeSet.contains(domainDto.getDomainCode().trim())) {
-                domainDto.setErrorMsg(this.msgService.getMessage("domainCodeConflicts", new Object[]{domainDto.getDomainCode()}));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainCodeConflicts", new Object[]{domainDto.getDomainCode()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainCodeConflicts", new Object[]{domainDto.getDomainCode()}));
                 result.add(domainDto);
                 duplicateDomainCodes.add(domainDto.getDomainCode().trim());
             } else if (StringUtils.isNotEmpty(domainDto.getReferenceCode()) && referenceCodeSet.contains(domainDto.getReferenceCode().trim())) {
-                domainDto.setErrorMsg(this.msgService.getMessage("referenceCodeConflicts", new Object[]{domainDto.getReferenceCode()}));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("referenceCodeConflicts", new Object[]{domainDto.getReferenceCode()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("referenceCodeConflicts", new Object[]{domainDto.getReferenceCode()}));
                 result.add(domainDto);
                 duplicateReferenceCodeSet.add(domainDto.getReferenceCode().trim());
             } else {
@@ -473,40 +523,47 @@ public class DomainExtServiceImpl implements DomainExtService {
                 referenceCodeSet.add(domainDto.getReferenceCode());
 
                 if (Strings.isNullOrEmpty(domainDto.getChineseName())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("domainChNameMissing"));
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainChNameMissing"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainChNameMissing"));
                     result.add(domainDto);
-                } else if (Strings.isNullOrEmpty(domainDto.getEnglishName()) && !this.isMetrics(categoryId)) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("enNameCannotBeNull"));
+                }
+                if (Strings.isNullOrEmpty(domainDto.getEnglishName()) && !this.isMetrics(categoryId)) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("enNameCannotBeNull"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("enNameCannotBeNull"));
                     result.add(domainDto);
                 } /*else if (Strings.isNullOrEmpty(domainDto.getAbbreviation()) && !this.isMetrics(categoryId)) {
                     domainDto.setErrorMsg(this.msgService.getMessage("enAbbrNameCannotBeNull"));
                     result.add(domainDto);
-                } */else if (Strings.isNullOrEmpty(domainDto.getDescription()) && !this.isMetrics(categoryId)) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("busDefCannotBeNull"));
+                } */
+                if (Strings.isNullOrEmpty(domainDto.getDescription()) && !this.isMetrics(categoryId)) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("busDefCannotBeNull"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("busDefCannotBeNull"));
                     result.add(domainDto);
-                } else if (Strings.isNullOrEmpty(domainDto.getDataType()) && !this.isMetrics(categoryId)) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("domainDataTypeMissing", new Object[]{domainDto.getChineseName()}));
+                }
+                if (Strings.isNullOrEmpty(domainDto.getDataType()) && !this.isMetrics(categoryId)) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainDataTypeMissing", new Object[]{domainDto.getChineseName()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainDataTypeMissing", new Object[]{domainDto.getChineseName()}));
                     result.add(domainDto);
-                } else if (Strings.isNullOrEmpty(domainDto.getDescriptionDepartment())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage(this.msgService.getMessage("busDefDepCannotBeNull")));
+                }
+                if (Strings.isNullOrEmpty(domainDto.getDescriptionDepartment())) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage(this.msgService.getMessage("busDefDepCannotBeNull")): domainDto.getErrorMsg() + ";" +this.msgService.getMessage(this.msgService.getMessage("busDefDepCannotBeNull")));
                     result.add(domainDto);
-                } else if (!Strings.isNullOrEmpty(domainDto.getDescriptionDepartment()) && !orgMapByBms.keySet().contains(domainDto.getDescriptionDepartment())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("busDefDepWithCodeNotExist", new Object[]{domainDto.getDescriptionDepartment()}));
+                }
+                if (!Strings.isNullOrEmpty(domainDto.getDescriptionDepartment()) && !orgMapByBms.keySet().contains(domainDto.getDescriptionDepartment())) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("busDefDepWithCodeNotExist", new Object[]{domainDto.getDescriptionDepartment()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("busDefDepWithCodeNotExist", new Object[]{domainDto.getDescriptionDepartment()}));
                     result.add(domainDto);
-                } else if (!StringUtils.isEmpty(domainDto.getOwnerOrg()) && !orgMapByBms.keySet().contains(domainDto.getOwnerOrg())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("techDepWithCodeNotExist", new Object[]{domainDto.getOwnerOrg()}));
+                }
+                if (!StringUtils.isEmpty(domainDto.getOwnerOrg()) && !orgMapByBms.keySet().contains(domainDto.getOwnerOrg())) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("techDepWithCodeNotExist", new Object[]{domainDto.getOwnerOrg()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("techDepWithCodeNotExist", new Object[]{domainDto.getOwnerOrg()}));
                     result.add(domainDto);
-                } else if (chineseNameMap.contains(domainDto.getChineseName())) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("domainChineseNameConflicts", new Object[]{domainDto.getChineseName()}));
+                }
+                if (chineseNameMap.contains(domainDto.getChineseName())) {
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainChineseNameConflicts", new Object[]{domainDto.getChineseName()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainChineseNameConflicts", new Object[]{domainDto.getChineseName()}));
                     result.add(domainDto);
                     duplicateChineseNames.add(domainDto.getChineseName());
                 } else {
                     chineseNameMap.add(domainDto.getChineseName());
                     if (!StringUtils.isEmpty(domainDto.getReferenceCode()) && !standardCodeList.contains(domainDto.getReferenceCode())) {
-                        domainDto.setErrorMsg(this.msgService.getMessage("publishedWithCodeNotFind", new Object[]{domainDto.getReferenceCode()}));
+                        domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("publishedWithCodeNotFind", new Object[]{domainDto.getReferenceCode()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("publishedWithCodeNotFind", new Object[]{domainDto.getReferenceCode()}));
                         result.add(domainDto);
                     } else if ((Objects.equals(domainDto.getMetricType(), MetricType.DERIVE) || Objects.equals(domainDto.getMetricType(), MetricType.FORK)) && CollectionUtils.isEmpty(domainDto.getRelationDomain())) {
-                        domainDto.setErrorMsg(this.msgService.getMessage("refAndGenCodeCannotBeNUll"));
+                        domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("refAndGenCodeCannotBeNUll"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("refAndGenCodeCannotBeNUll"));
                         result.add(domainDto);
                     } else {
                         if (!CollectionUtils.isEmpty(domainDto.getRelationDomain())) {
@@ -531,17 +588,17 @@ public class DomainExtServiceImpl implements DomainExtService {
                             }
 
                             if (hasError) {
-                                domainDto.setErrorMsg(errorMsg);
+                                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? errorMsg: domainDto.getErrorMsg() + ";" +errorMsg);
                                 result.add(domainDto);
                                 continue;
                             }
                         }
 
                         if (!Strings.isNullOrEmpty(domainDto.getAbbreviation()) && domainDto.getAbbreviation().length() > 100) {
-                            domainDto.setErrorMsg(this.msgService.getMessage("englishAbbrIsOverLimit"));
+                            domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("englishAbbrIsOverLimit"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("englishAbbrIsOverLimit"));
                             result.add(domainDto);
                         } else if (!Strings.isNullOrEmpty(domainDto.getMeasureUnit()) && domainDto.getMeasureUnit().length() > 100) {
-                            domainDto.setErrorMsg(this.msgService.getMessage("qualityUnitOverLimit"));
+                            domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("qualityUnitOverLimit"): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("qualityUnitOverLimit"));
                             result.add(domainDto);
                         } else {
                             domainDto.setCategoryId(categoryId);
@@ -575,26 +632,26 @@ public class DomainExtServiceImpl implements DomainExtService {
         while(var18.hasNext()) {
             domainDto = (DomainDto)var18.next();
             if (Strings.isNullOrEmpty(domainDto.getErrorMsg()) && duplicateDomainCodes.contains(domainDto.getDomainCode())) {
-                domainDto.setErrorMsg(this.msgService.getMessage("domainCodeConflicts", new Object[]{domainDto.getDomainCode()}));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainCodeConflicts", new Object[]{domainDto.getDomainCode()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainCodeConflicts", new Object[]{domainDto.getDomainCode()}));
             }
             if (Strings.isNullOrEmpty(domainDto.getErrorMsg()) && duplicateChineseNames.contains(domainDto.getChineseName())) {
-                domainDto.setErrorMsg(this.msgService.getMessage("domainChineseNameConflicts", new Object[]{domainDto.getChineseName()}));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainChineseNameConflicts", new Object[]{domainDto.getChineseName()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainChineseNameConflicts", new Object[]{domainDto.getChineseName()}));
             }
             if (Strings.isNullOrEmpty(domainDto.getErrorMsg()) && StringUtils.isNotEmpty(domainDto.getReferenceCode()) && duplicateReferenceCodeSet.contains(domainDto.getReferenceCode().trim())) {
-                domainDto.setErrorMsg(this.msgService.getMessage("referenceCodeConflicts", new Object[]{domainDto.getReferenceCode()}));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("referenceCodeConflicts", new Object[]{domainDto.getReferenceCode()}): domainDto.getErrorMsg() + ";" +this.msgService.getMessage("referenceCodeConflicts", new Object[]{domainDto.getReferenceCode()}));
             }
             if (Strings.isNullOrEmpty(domainDto.getErrorMsg()) && StringUtils.isNotEmpty(domainDto.getReferenceCode())) {
-                domainDto.setErrorMsg(checkReferenceCodeIsRelatedFromCache(domainDto, result));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? checkReferenceCodeIsRelatedFromCache(domainDto, result): domainDto.getErrorMsg() + ";" +checkReferenceCodeIsRelatedFromCache(domainDto, result));
             }
             //英文名称只能是字母和空格，首字母还需要大写
             if (StringUtils.isNotEmpty(domainDto.getEnglishName()) &&
                     StringUtils.isNotEmpty(CheckNameUtil.checkEnglishNameStyle(domainDto.getEnglishName()))) {
-                domainDto.setErrorMsg(msgService.getMessage("domainEnNameRegexCheck"));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainEnNameRegexCheck"): domainDto.getErrorMsg() + ";" +msgService.getMessage("domainEnNameRegexCheck"));
             }
             //中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
             if (StringUtils.isNotEmpty(domainDto.getChineseName()) &&
             !CheckNameUtil.checkChineseName(domainDto.getChineseName())) {
-                domainDto.setErrorMsg(msgService.getMessage("domainChNameRegexCheck"));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainChNameRegexCheck"): domainDto.getErrorMsg() + ";" +msgService.getMessage("domainChNameRegexCheck"));
             }
 
             //数据标准导入时业务规则+中文名称+业务定义任意两个不能相等。--新加功能
@@ -611,23 +668,31 @@ public class DomainExtServiceImpl implements DomainExtService {
             //中文名称长度不能超过15位
             if (StringUtils.isNotEmpty(domainDto.getChineseName()) &&
             CheckNameUtil.checkChineseNameLength(domainDto.getChineseName(), 15) ) {
-                domainDto.setErrorMsg(msgService.getMessage("domainChNameLengthCheck"));
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainChNameLengthCheck"): domainDto.getErrorMsg() + ";" +msgService.getMessage("domainChNameLengthCheck"));
             }
             //检查数据类型是否为字符型、数值型、年、年月、日期型、日期时间型、时间型（time）、时间间隔型、布尔型、二进制型
             if (StringUtils.isNotEmpty(domainDto.getDataType())) {
                 if (!Arrays.asList(dataTypes.split(",")).contains(domainDto.getDataType())) {
-                    domainDto.setErrorMsg(msgService.getMessage("domainDataTypeCheck"));
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainDataTypeCheck"): domainDto.getErrorMsg() + ";" +msgService.getMessage("domainDataTypeCheck"));
                 }
                 //数值型的长度和计量单位为必填
                 if ("数值型".equals(domainDto.getDataType())) {
                     if (Objects.isNull(domainDto.getDataScale())) {
-                        domainDto.setErrorMsg(msgService.getMessage("domainDataScaleNotNull"));
+                        domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainDataScaleNotNull"): domainDto.getErrorMsg() + ";" +msgService.getMessage("domainDataScaleNotNull"));
                     }
                     //TODO 计量单位为必填
+
+                    //数据类型是“数值型”时，单位必填
+                    if(domainDto instanceof DomainExtDto extDto){
+                        if(Strings.isNullOrEmpty(extDto.getUnit())){
+                            domainDto.setErrorMsg("数据类型是“数值型”时，单位必填");
+//                            result.add(domainDto);
+                        }
+                    }
                 }
                 //字符型长度为必填
                 if ("字符型".equals(domainDto.getDataType()) && Objects.isNull(domainDto.getDataScale())) {
-                    domainDto.setErrorMsg(msgService.getMessage("domainDataScaleNotNull"));
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainDataScaleNotNull"): domainDto.getErrorMsg() + ";" +msgService.getMessage("domainDataScaleNotNull"));
                 }
             }
         }
@@ -674,15 +739,15 @@ public class DomainExtServiceImpl implements DomainExtService {
 
                         Map<Long, String> bizCodeMap = domainFolderExtService.getBizCodeMap();
                         for (DomainDto dto : result) {
-                            if(Strings.isNullOrEmpty(dto.getErrorMsg())) {
-                                if (ignoreError || tempErrorList.isEmpty()) {
+//                            if(Strings.isNullOrEmpty(dto.getErrorMsg())) {
+//                                if (ignoreError || tempErrorList.isEmpty()) {
                                     this.setDomainPath((DomainExtDto) dto, categoryId, domainTreeNodeDto, username);
                                     if (Strings.isNullOrEmpty(dto.getErrorMsg())) {
                                         dto.setDomainCode(StringUtils.replace(dto.getDomainCode(), "$$$", bizCodeMap.get(dto.getFolderId())));
                                         importDomainCodeKeyMap.put(dto.getDomainCode(), domainService.convertToDomain(dto));
                                     }
-                                }
-                            }
+//                                }
+//                            }
                             importDomainDtoCodeKeyMap.put(dto.getDomainCode(), dto);
                         }
 //                        DomainDto o;
@@ -763,17 +828,37 @@ public class DomainExtServiceImpl implements DomainExtService {
         String chineseName = domainDto.getChineseName();//中文名称
         String description = domainDto.getDescription();//业务定义
 
-        if(Objects.equals(businessRule, chineseName)){
-            domainDto.setErrorMsg("业务规则、中文名称不能相等");
+        Set<String> fieldSet = new HashSet<>();
+        fieldSet.add(businessRule);
+        fieldSet.add(chineseName);
+        fieldSet.add(description);
+        // 如果去重后字段数小于3，说明存在相等字段
+        if (fieldSet.size() < 3) {
+            String errorMsg = "业务规则+中文名称+业务定义不能相同";
+            domainDto.setErrorMsg(
+                    StringUtils.isBlank(domainDto.getErrorMsg())
+                            ? errorMsg
+                            : domainDto.getErrorMsg() + ";" + errorMsg
+            );
         }
 
-        if(Objects.equals(businessRule, description)){
-            domainDto.setErrorMsg("业务规则、业务定义不能相等");
-        }
-
-        if(Objects.equals(chineseName, description)){
-            domainDto.setErrorMsg("中文名称、业务定义不能相等");
-        }
+//        if(Objects.equals(businessRule, chineseName)){
+////            domainDto.setErrorMsg("业务规则、中文名称不能相等");
+//            domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? "业务规则+中文名称+业务定义不能相同": domainDto.getErrorMsg() + ";" +"业务规则+中文名称+业务定义不能相同");
+//            return;
+//        }
+//
+//        if(Objects.equals(businessRule, description)){
+////            domainDto.setErrorMsg("业务规则、业务定义不能相等");
+//            domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? "业务规则+中文名称+业务定义不能相同": domainDto.getErrorMsg() + ";" +"业务规则+中文名称+业务定义不能相同");
+//            return;
+//        }
+//
+//        if(Objects.equals(chineseName, description)){
+////            domainDto.setErrorMsg("中文名称、业务定义不能相等");
+//            domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? "业务规则+中文名称+业务定义不能相同": domainDto.getErrorMsg() + ";" +"业务规则+中文名称+业务定义不能相同");
+//            return;
+//        }
     }
 
     public  boolean areNotAllSame(Object... objects) {
@@ -817,15 +902,16 @@ public class DomainExtServiceImpl implements DomainExtService {
         }
 
         if (domainDto.getPath() == null || domainDto.getPath().isEmpty()) {
-            domainDto.setErrorMsg(categoryName + this.msgService.getMessage("hasNoExistPathToImport", new Object[]{domainDto.getChineseName()}));
+            String errorMsg = StringUtils.isBlank(domainDto.getErrorMsg())? categoryName + this.msgService.getMessage("hasNoExistPathToImport", new Object[]{domainDto.getChineseName()}) : domainDto.getErrorMsg() + ";" + categoryName + this.msgService.getMessage("hasNoExistPathToImport", new Object[]{domainDto.getChineseName()});
+            domainDto.setErrorMsg(errorMsg);
         }
 
         LinkedList<String> currentPath = new LinkedList();
         currentPath.add(domainTreeNodeDto.getName());
         this.domainService.getFolderIdByPath(domainTreeNodeDto, currentPath, domainDto.getPathStr(), domainDto);
-        if (!Strings.isNullOrEmpty(domainDto.getErrorMsg())) {
-            domainDto.setErrorMsg(domainDto.getErrorMsg());
-        } else {
+//        if (!Strings.isNullOrEmpty(domainDto.getErrorMsg())) {
+//            domainDto.setErrorMsg(domainDto.getErrorMsg());
+//        } else {
             List<String> targetPaths = new ArrayList(domainDto.getPath());
             if (domainDto.getCategoryId() > 4L) {
                 targetPaths.add(0, domainTreeNodeDto.getName());
@@ -834,15 +920,15 @@ public class DomainExtServiceImpl implements DomainExtService {
             List<Long> folderIds = new ArrayList();
             this.domainService.getFolderIdByPath(Lists.newArrayList(new DomainTreeNodeDto[]{domainTreeNodeDto}), targetPaths, folderIds);
             if (targetPaths.size() > 0) {
-                domainDto.setErrorMsg("当前目录不存在");
+                domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? "当前目录不存在" :  domainDto.getErrorMsg() + ";" + "当前目录不存在");
             } else {
                 domainDto.setFolderId((Long)folderIds.get(folderIds.size() - 1));
                 if (domainDto.getFolderId() == 1L || domainDto.getFolderId() == 2L) {
-                    domainDto.setErrorMsg(this.msgService.getMessage("domainRootFolderCannotAdd"));
+                    domainDto.setErrorMsg(StringUtils.isBlank(domainDto.getErrorMsg())? this.msgService.getMessage("domainRootFolderCannotAdd") : domainDto.getErrorMsg() + ";" +this.msgService.getMessage("domainRootFolderCannotAdd"));
                 }
             }
 
-        }
+//        }
     }
 
     private String getUUID() {
@@ -970,6 +1056,7 @@ public class DomainExtServiceImpl implements DomainExtService {
         batchApplyDto.setApplyCreator(batchApplyRemoteDto.getApplyCreator());
         batchApplyDto.setApplyCreateTime(batchApplyRemoteDto.getApplyCreateTime());
         batchApplyDto.setApplyOperation(batchApplyRemoteDto.getApplyOperation());
+        batchApplyDto.setBuCode(batchApplyDto.getBuCode());
         // 明细字段转换
         List<BatchApplyDetailDto> detailDtoList = new ArrayList<>();
         if (batchApplyRemoteDto.getDetails() != null) {

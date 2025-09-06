@@ -19,4 +19,6 @@ public interface DomainSimilarityCheckResultDetailRepository extends CrudReposit
     List<DomainSimilarityCheckResultDetail> findAllByDomainIdIn(Collection<String> domainIds);
 
     List<DomainSimilarityCheckResultDetail> findAllByClusterIdEquals(Long clusterId);
+
+    List<DomainSimilarityCheckResultDetail> findByChineseNameLike(String chineseName);
 }

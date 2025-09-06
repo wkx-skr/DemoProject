@@ -88,6 +88,12 @@ public class DomainSimilarityCheckController extends BaseController {
         return domainSimilarityCheckService.getSimilarityGroup(reqBody);
     }
 
+    @PostMapping(value = "/getSimilarityGroupNew")
+    @Operation(summary = "获取相似标准组")
+    public List<DomainSimilarityCheckResult> getSimilarityGroupNew(@RequestBody DomainSimilarityCheckParamDto dto) throws Exception {
+        return domainSimilarityCheckService.getSimilarityGroupNew(dto);
+    }
+
     @PostMapping(value = "/getSimilarityDetail")
     @Operation(summary = "获取相似标准组明细")
     public List<DomainSimilarityCheckResultDetailDto> getSimilarityDetail(@RequestBody Map<String, Object> reqBody) throws Exception {

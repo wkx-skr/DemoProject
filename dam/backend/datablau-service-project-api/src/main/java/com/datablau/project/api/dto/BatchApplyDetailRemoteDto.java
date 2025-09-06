@@ -10,6 +10,8 @@ import java.io.Serializable;
  */
 public class BatchApplyDetailRemoteDto implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     private Long id;
 
     // private String dopId; // 你暂时注释掉了 dopId 字段，如果需要请取消注释

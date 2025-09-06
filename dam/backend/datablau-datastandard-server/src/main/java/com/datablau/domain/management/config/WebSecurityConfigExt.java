@@ -20,6 +20,7 @@ public class WebSecurityConfigExt extends WebSecurityConfigurerAdapter {
 
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/**").permitAll()
+                .antMatchers("/dop/flow/notice/bulk").permitAll()
                 .antMatchers("/apply/batch/flow/bind/bulk").permitAll()
                 .antMatchers("/apply/batch/validate/bulk").permitAll()
                 .antMatchers("/apply/batch/flow/notice/bulk").permitAll()
@@ -27,8 +28,10 @@ public class WebSecurityConfigExt extends WebSecurityConfigurerAdapter {
                 .antMatchers("/apply/batch/validate/{batchId}").permitAll()
                 .antMatchers("/apply/batch/flow/notice").permitAll();
 
-
-        ((HttpSecurity)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)http.authorizeRequests().antMatchers(new String[]{"/hello"})).permitAll().antMatchers(new String[]{"/login"})).permitAll().anyRequest()).authenticated().and()).csrf().disable();
+        ((HttpSecurity)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)((ExpressionUrlAuthorizationConfigurer.AuthorizedUrl)http.authorizeRequests()
+                .antMatchers(new String[]{"/hello"})).permitAll().antMatchers(new String[]{"/login"})).permitAll().anyRequest()).authenticated().and())
+                .anonymous().and()
+                .csrf().disable();
     }
 
     public void configure(WebSecurity web) throws Exception {

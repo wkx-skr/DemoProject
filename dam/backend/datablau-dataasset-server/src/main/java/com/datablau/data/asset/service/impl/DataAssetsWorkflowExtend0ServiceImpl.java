@@ -236,6 +236,7 @@ public class DataAssetsWorkflowExtend0ServiceImpl implements DataAssetsWorkflowE
         batchApplyRemoteDto.setApplyCreateTime(new Date());
         batchApplyRemoteDto.setApplyCreator(username);
         batchApplyRemoteDto.setApplyOperation(operation);
+        // 设置一级目录的编码
         List<BatchApplyDetailRemoteDto> batchApplyDetailRemoteDtos = new ArrayList<>();
         for (Long hasAuthCatalogId : hasAuthCatalogIds) {
             List<WorkflowFormDto> workflowFormDtos = Lists.newArrayList();
@@ -301,17 +302,26 @@ public class DataAssetsWorkflowExtend0ServiceImpl implements DataAssetsWorkflowE
                 // 获取当前的一级目录
                 if (catalog.getLevel() ==1 ) {
                     batchApplyRemoteDto.setApplyName( catalog.getName());
+                    logger.info("设置code。。。。"+catalog.getCode());
+                    batchApplyRemoteDto.setBuCode(catalog.getCode());
                 }else {
                     String[] split = catalog.getCatalogPath().split("/");
                     CommonCatalog tmpCatalog = catalogIdToObject.get(split[1]);
                     String applyName = null;
                     if (!ObjectUtils.isEmpty(tmpCatalog)){
+                        logger.info("bucode...."+tmpCatalog.getCode() + " 查询的id "+ tmpCatalog.getId());
                         applyName = tmpCatalog.getName();
+                        batchApplyRemoteDto.setBuCode(tmpCatalog.getCode());
                     }else {
                         Optional<CommonCatalog> byId = dataAssetsCatalogRepository.findById(Long.valueOf(split[1]));
                         applyName =byId.get().getName();
+                        logger.info("bucode...."+byId.get().getCode() +" 查询的id"+byId.get().getId());
+                        batchApplyRemoteDto.setBuCode(byId.get().getCode());
                     }
                     batchApplyRemoteDto.setApplyName( applyName);
+
+                    // 设置code
+
                 }
             }
 
@@ -323,6 +333,7 @@ public class DataAssetsWorkflowExtend0ServiceImpl implements DataAssetsWorkflowE
             batchApplyDetailRemoteDto.setNeId(String.valueOf(catalog.getId()));
             batchApplyDetailRemoteDto.setOrderState(operation);
             batchApplyDetailRemoteDto.setCode(String.valueOf(catalog.getId()));
+            batchApplyDetailRemoteDto.setOrderType(operation);
             batchApplyDetailRemoteDtos.add(batchApplyDetailRemoteDto);
             //发送kafka 消息
        //     kafkaLogUtils.changeVisible(hasAuthCatalogId, EnumAssetsCatalogStatus.UNDER_REVIEW);
@@ -330,6 +341,8 @@ public class DataAssetsWorkflowExtend0ServiceImpl implements DataAssetsWorkflowE
         }
         batchApplyRemoteDto.setDetails(batchApplyDetailRemoteDtos);
         domainExtService.remoteCreateUpdateApple(batchApplyRemoteDto,"asset_pub");
+        // 接口发送成功之后再进行状态的更新
+        this.updateCatalogStatus(hasAuthCatalogIds, EnumAssetsCatalogStatus.UNDER_REVIEW, "");
     }
 
     protected void updateCatalogStatus(Set<Long> hasAuthCatalogIds, EnumAssetsCatalogStatus status, String publishTime) {
@@ -343,7 +356,7 @@ public class DataAssetsWorkflowExtend0ServiceImpl implements DataAssetsWorkflowE
     protected void updateCatalogStatusAndWriteRecord(CommonCatalog commonCatalog, WorkflowApplyQueryDto workflowApplyQueryDto, EnumAssetsCatalogStatus toStatus) {
 
         //开始记录版本
-        String processInstanceId = workflowService.applyProcess(workflowApplyQueryDto);
+   //     String processInstanceId = workflowService.applyProcess(workflowApplyQueryDto);
 
         //记录原始状态
         WorkflowApplyRecordDto workflowApplyRecordDto = new WorkflowApplyRecordDto();
@@ -352,11 +365,11 @@ public class DataAssetsWorkflowExtend0ServiceImpl implements DataAssetsWorkflowE
         workflowApplyRecordDto.setToStatus(toStatus);
         workflowApplyRecordDto.setDataType(RecordDataType.CATALOG);
         workflowApplyRecordDto.setCreateTime(LocalDateTime.now());
-        workflowApplyRecordDto.setProcessInstanceId(processInstanceId);
+    //    workflowApplyRecordDto.setProcessInstanceId(processInstanceId);
         dataAssetsCatalogApplyRecordService.save(workflowApplyRecordDto);
 
         //更新目录的状态
-        this.updateCatalogStatus(Sets.newHashSet(commonCatalog.getId()), EnumAssetsCatalogStatus.UNDER_REVIEW, "");
+     //   this.updateCatalogStatus(Sets.newHashSet(commonCatalog.getId()), EnumAssetsCatalogStatus.UNDER_REVIEW, "");
     }
 
     protected String getCatalogApproval(CommonCatalog catalog, DataAssetsCatalogStructureDto catalogStructure) {

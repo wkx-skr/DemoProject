@@ -17,4 +17,5 @@ import java.util.List;
 public interface SkipReasonRepository  extends JpaRepository<SkipReason, Long> {
 
 
+    List<SkipReason> findByDomainIdIn(Collection<String> domainIds);
 }

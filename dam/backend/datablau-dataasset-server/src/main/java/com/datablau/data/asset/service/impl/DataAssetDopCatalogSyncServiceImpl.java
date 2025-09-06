@@ -160,10 +160,10 @@ public class DataAssetDopCatalogSyncServiceImpl implements DataAssetDopCatalogSy
             // 使用HttpUtil进行POST请求，参考SynEtlJob的实现方式
             String body= new ObjectMapper().writeValueAsString(dopDataSyncDto);
             LOGGER.info("请求体内容:{}", body);
-            if (dopSyncEnable){
-                LOGGER.info("同步流程未启动，不调用接口");
-                return;
-            }
+//            if (dopSyncEnable){
+//                LOGGER.info("同步流程未启动，不调用接口");
+//                return;
+//            }
             String responseStr = HttpUtil.createPost(apiUrl)
                     .addHeaders(headers)
                     .body(body)

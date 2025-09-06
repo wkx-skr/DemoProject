@@ -77,6 +77,12 @@ public class BatchApply implements Serializable {
     private String applyBindUser;
 
 
+
+
+    @Column(name = "apply_bu_code")
+    private String applyBuCode;
+
+
     public Long getId() {
         return id;
     }
@@ -172,5 +178,13 @@ public class BatchApply implements Serializable {
 
     public void setApplyBindUser(String applyBindUser) {
         this.applyBindUser = applyBindUser;
+    }
+
+    public String getApplyBuCode() {
+        return applyBuCode;
+    }
+
+    public void setApplyBuCode(String applyBuCode) {
+        this.applyBuCode = applyBuCode;
     }
 }

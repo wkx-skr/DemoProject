@@ -42,6 +42,7 @@ import com.datablau.domain.management.jpa.entity.DataRule;
 import com.datablau.domain.management.jpa.entity.DomainFolder;
 import com.datablau.domain.management.mq.message.DeleteDataStandardMessage;
 import com.datablau.domain.management.service.DomainServiceExt;
+import com.datablau.domain.management.service.StandardServiceNew;
 import com.datablau.domain.management.type.PermissionLevel;
 import com.datablau.domain.management.type.PermissionType;
 import com.datablau.domain.management.utility.DataUtility;
@@ -135,6 +136,8 @@ public class DomainController extends BaseController {
 
     @Autowired
     private DomainServiceExt domainServiceExt;
+    @Autowired
+    private StandardServiceNew standardServiceNew;
 
 
     private RMap<String, Set<SelectOptionResDto>> selectRMap = null;
@@ -1509,4 +1512,19 @@ public class DomainController extends BaseController {
         return domainServiceExt.getDomainCountByMonth();
     }
 
+
+    @GetMapping("/queryDomainByReferenceTerm")
+    @Operation(summary = "根据业务术语查询关联的数据标准")
+    public Collection<DomainDto> queryDomainByReferenceTerm(@RequestParam String referenceTerm) {
+        return domainServiceExt.queryDomainDtoByReferenceTerm(referenceTerm);
+    }
+
+
+    @PostMapping("/code/getPageNew")
+    @Operation(summary = "分页获取所有的标准代码加无状态查询")
+    public StandardCodePageDto getCodesPageNew(@RequestBody StandardCodeQueryNewDto reqDto,
+                                            HttpServletRequest request) {
+        reqDto.setSubmitter(getCurrentUser(request));
+        return standardServiceNew.findCodesPage(reqDto);
+    }
 }

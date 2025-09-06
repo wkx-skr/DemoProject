@@ -3,23 +3,32 @@ package com.datablau.domain.management.impl;
 
 import com.andorj.common.core.exception.AndorjRuntimeException;
 import com.andorj.common.core.exception.InvalidArgumentException;
+import com.datablau.data.common.util.JsonUtils;
 import com.datablau.domain.management.api.ApplyService;
 import com.datablau.domain.management.api.DomainService;
 import com.datablau.domain.management.data.DomainState;
 import com.datablau.domain.management.dto.*;
+import com.datablau.domain.management.jpa.entity.Domain;
 import com.datablau.domain.management.jpa.entity.DomainProcessRecord;
 import com.datablau.domain.management.jpa.entity.StandardCode;
+import com.datablau.domain.management.jpa.entity.StandardCodeSource;
+import com.datablau.domain.management.jpa.repository.DomainRepository;
+import com.datablau.domain.management.jpa.repository.DomainRepositoryExt;
 import com.datablau.domain.management.jpa.repository.StandardCodeRepository;
+import com.datablau.domain.management.jpa.repository.StandardCodeSourceRepository;
 import com.datablau.security.management.utils.AuthTools;
 import com.datablau.workflow.common.entity.dto.WorkflowEventResult;
 import com.datablau.workflow.common.entity.dto.WorkflowFormDto;
 import com.datablau.workflow.common.entity.dto.query.WorkflowApplyQueryDto;
 import com.datablau.workflow.common.entity.type.ProcessResultType;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.lang.StringUtils;
 import org.elasticsearch.common.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +36,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service("domainProcessServiceExt")
@@ -43,6 +53,13 @@ public class DomainProcessServiceExt extends DomainProcessServiceImpl {
     private ApplyService applyService;
     @Autowired
     private StandardCodeRepository standardCodeRepo;
+    @Autowired
+    private DomainRepository domainRepo;
+    @Autowired
+    private DomainRepositoryExt domainRepositoryExt;
+
+    @Autowired
+    private StandardCodeSourceRepository standardCodeSourceRepo;
 
     public DomainDto getProcessDomainDetail(String domainId, String processInstanceId) throws JsonProcessingException {
         if (Strings.isNullOrEmpty(processInstanceId)) {
@@ -371,12 +388,64 @@ public class DomainProcessServiceExt extends DomainProcessServiceImpl {
     public void applyDomainPublishBatch(List<String> domainId ,String username) {
         List<DomainDto> domainsByIds = domainService.getDomainsByIds(domainId);
         // 获取对应的refencoCode 并设置为审核中
+        Map<String , DomainDto> neDomainMap = new HashMap<>();
         for (DomainDto domainsById : domainsByIds) {
             domainsById.setStateOriginal(domainsById.getState());
+            neDomainMap.put(domainsById.getDomainId(),domainsById);
         }
         this.domainPublishVerifyBatch(domainsByIds);
-        List<BatchApplyDto> datas = generalDomainBatch(domainsByIds, "发布",username);
-        applyService.createBatch(datas);
+        // 由于发布的时候会出现导入的数据 所以这里要进行分开处理
+        List<Domain> byUpdatingDomainIdIn = domainRepositoryExt.findByUpdatingDomainIdIn(neDomainMap.keySet());
+        List<DomainDto> pubData = new ArrayList<>();
+        Map<String,Domain> updateData = new HashMap<>();
+        if (!CollectionUtils.isEmpty(byUpdatingDomainIdIn)){
+            // 如果不为空那么说明有一部分需要走变更逻辑
+            Map<String, Domain> updateDomainMap = byUpdatingDomainIdIn.stream()
+                    .collect(Collectors.toMap(
+                            Domain::getUpdatingDomainId,
+                            Function.identity(),
+                            (existing, replacement) -> existing // 选择保留已存在的值
+                    ));
+            for (DomainDto domainsById : domainsByIds) {
+                if (updateDomainMap.containsKey(domainsById.getDomainId())){
+                    // 变更
+                    updateData.put(domainsById.getDomainId(), updateDomainMap.get(domainsById.getDomainId()));
+                }else {
+                    pubData.add(domainsById);
+                }
+            }
+        }else {
+            pubData.addAll(domainsByIds);
+        }
+        if (!CollectionUtils.isEmpty(pubData)) {
+            List<BatchApplyDto> datas = generalDomainBatch(pubData, "发布", username);
+            applyService.createBatch(datas);
+        }
+        if (!CollectionUtils.isEmpty(updateData)){
+            // 变更逻辑 这里看情况考虑下要不要进行业务域的区分
+            List<BatchApplyDto> updateBatchDtos = new ArrayList<>();
+            updateData.forEach((k,v)->{
+                BatchApplyDto batchApplyDto = generateUpdateApplyDto(updateData.get(k), neDomainMap.get(k), null);
+                updateBatchDtos.add(batchApplyDto);
+            });
+            // 按照业务域分组 然后创建
+            Map<String, List<BatchApplyDto>> collect = updateBatchDtos.stream().collect(Collectors.groupingBy(BatchApplyDto::getApplyName));
+            collect.forEach((k,v)->{
+                // 说明这个同一个业务域下面的数据
+                BatchApplyDto bt = new BatchApplyDto();
+                List<BatchApplyDetailDto> details = new ArrayList<>();
+                for (BatchApplyDto batchApplyDto : v) {
+                    BeanUtils.copyProperties(batchApplyDto,bt);
+                    details.addAll(batchApplyDto.getDetails());
+                }
+                bt.setDetails(new ArrayList<>());
+                bt.setDetails(details);
+                applyService.create(bt);
+                    }
+            );
+        }
+
+
         // 避免影响其他流程 todo
 
 //        if (domain.getCategoryId() == 1L) {
@@ -398,7 +467,7 @@ public class DomainProcessServiceExt extends DomainProcessServiceImpl {
         Map<String, List<DomainDto>> collect = domainsByIds.stream()
                 .filter(dto -> dto.getPath() != null && dto.getPath().size() > 1)
                 .collect(Collectors.groupingBy(dto -> dto.getPath().get(1)));
-        Set<String> standCodes = domainsByIds.stream().filter(da->ObjectUtils.isEmpty(da.getRefDomainCode())).map(DomainDto::getRefDomainCode).collect(Collectors.toSet());
+        Set<String> standCodes = domainsByIds.stream().filter(da->ObjectUtils.isEmpty(da.getRefDomainCode())).map(DomainDto::getReferenceCode).collect(Collectors.toSet());
         // 将标准代码设置为审核中
 
         collect.forEach((k,v)->{
@@ -420,7 +489,7 @@ public class DomainProcessServiceExt extends DomainProcessServiceImpl {
               //  detailDto.setOldId(String.valueOf());
                 detailDto.setSubmitUser(currentUsername);
                 detailDto.setOrderType(type);
-                detailDto.setDomainCode(businessTermDto.getRefDomainCode());
+                detailDto.setDomainCode(businessTermDto.getReferenceCode());
                 ds.add(detailDto);
             }
             batchApplyDto.setDetails(ds);
@@ -474,7 +543,12 @@ public class DomainProcessServiceExt extends DomainProcessServiceImpl {
         for (DomainDto domainsByDomainId : domainsByDomainIds) {
             this.domainAbolishVerify(domainsByDomainId);
         }
-
+        // 如果没有问题 将对应标准修改为审核中
+        List<Domain> allByDomainIdIn = domainRepo.findAllByDomainIdIn(domainId);
+        for (Domain domain : allByDomainIdIn) {
+            domain.setState(DomainState.C);
+        }
+        domainRepo.saveAll(allByDomainIdIn);
         List<BatchApplyDto> datas = generalDomainBatch(domainsByDomainIds, "废弃",username);
         applyService.createBatch(datas);
 
@@ -486,6 +560,120 @@ public class DomainProcessServiceExt extends DomainProcessServiceImpl {
 //        } else {
 //            this.applyProcess(oldDomainAfterUpdate, domain, this.msgService.getMessage("process.abandon.domain"), "TERRITORY_DOMAIN_ABOLISH_SYSTEM_INIT");
 //        }
+
+    }
+
+
+
+    private BatchApplyDto generateUpdateApplyDto(Domain publicOldDomain, DomainDto toBeUpdate, StandardCodeDto dto) {
+        String batchName = toBeUpdate.getPath().get(1);
+        BatchApplyDto batchApplyDto = new BatchApplyDto();
+        batchApplyDto.setApplyName(batchName);
+        String currentUsername = AuthTools.currentUsername();
+        batchApplyDto.setApplyCreator(currentUsername);
+        batchApplyDto.setApplyOperation("变更");
+        batchApplyDto.setApplyType("标准数据元");
+        batchApplyDto.setApplyCreateTime(new Date());
+        List<BatchApplyDetailDto> dtos = new ArrayList<>();
+        BatchApplyDetailDto batchApplyDetailDto = new BatchApplyDetailDto();
+        batchApplyDetailDto.setCode(toBeUpdate.getDomainCode());
+        batchApplyDetailDto.setApplyType("标准数据元");
+        batchApplyDetailDto.setCnName(toBeUpdate.getChineseName());
+        batchApplyDetailDto.setEnName(toBeUpdate.getEnglishName());
+        batchApplyDetailDto.setNeId(toBeUpdate.getDomainId());
+        batchApplyDetailDto.setOldId(publicOldDomain.getDomainId());
+        batchApplyDetailDto.setSubmitUser(currentUsername);
+        batchApplyDetailDto.setOrderType("变更");
+        batchApplyDetailDto.setDomainCode(toBeUpdate.getRefDomainCode());
+        if (!org.springframework.util.ObjectUtils.isEmpty(toBeUpdate.getRefDomainCode()) && !org.springframework.util.ObjectUtils.isEmpty(dto)){
+            // 由于是变更这里可以不动 感觉这里不对劲 todo。虽然是抄的代码
+            StandardCodeSourceDto codeSource =convertCodeSource(standardCodeSourceRepo.findById(toBeUpdate.getRefDomainCode()));
+            if (codeSource != null) {
+                if (dto.getJobId() == null) {
+                    dto.setJobId(codeSource.getJobId());
+                }
+
+                if (!StringUtils.isEmpty(dto.getJobName())) {
+                }
+
+                if (StringUtils.isEmpty(dto.getJobName())) {
+                    dto.setBusinessId(codeSource.getCategoryId());
+                    dto.setBusinessName(codeSource.getCategoryName());
+                    dto.setCode(codeSource.getCode());
+                    dto.setModelId(codeSource.getModelId());
+                    dto.setModelName(codeSource.getModelName());
+                    dto.setSchema(codeSource.getSchema());
+                    dto.setObjectId(codeSource.getObjectId());
+                    dto.setObjectName(codeSource.getObjectName());
+                    dto.setCodeFieldId(codeSource.getCodeFieldId());
+                    dto.setCodeField(codeSource.getCodeField());
+                    dto.setCodeChineseFieldId(codeSource.getCodeChineseFieldId());
+                    dto.setCodeChineseField(codeSource.getCodeChineseField());
+                    dto.setParentValueId(codeSource.getParentValueId());
+                    dto.setParentValue(codeSource.getParentValue());
+                    dto.setSql(codeSource.getSql());
+                    dto.setJobId(codeSource.getJobId());
+                    dto.setSchedule(codeSource.getSchedule());
+                    dto.setConditionList(codeSource.getConditionList());
+                    dto.setAuthDimensionId(codeSource.getAuthDimensionId());
+                    dto.setAuthDimension(codeSource.getAuthDimension());
+                    dto.setDbType(codeSource.getDbType());
+                    dto.setDatasourceId(codeSource.getDatasourceId());
+                    dto.setJobName(codeSource.getJobName());
+                    dto.setSchedule(codeSource.getSchedule());
+                    dto.setTypeName(codeSource.getTypeName());
+                    dto.setColMap(codeSource.getColMap());
+                }
+            }
+            ObjectMapper objectMapper = new ObjectMapper();
+            try {
+                batchApplyDetailDto.setNeData(objectMapper.writeValueAsString(dto));
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+
+        dtos.add(batchApplyDetailDto);
+        batchApplyDto.setDetails(dtos);
+
+        return batchApplyDto;
+    }
+
+
+
+    private StandardCodeSourceDto convertCodeSource(Optional<StandardCodeSource> standardCodeSource) {
+        StandardCodeSourceDto dto = new StandardCodeSourceDto();
+        if (standardCodeSource.isPresent()) {
+            StandardCodeSource codeSource = standardCodeSource.get();
+            dto.setBusinessId(codeSource.getCategoryId());
+            dto.setBusinessName(codeSource.getCategoryName());
+            dto.setCode(codeSource.getCode());
+            dto.setModelId(codeSource.getModelId());
+            dto.setModelName(codeSource.getModelName());
+            dto.setSchema(codeSource.getSchema());
+            dto.setObjectId(codeSource.getObjectId());
+            dto.setObjectName(codeSource.getObjectName());
+            dto.setCodeFieldId(codeSource.getCodeFieldId());
+            dto.setCodeField(codeSource.getCodeField());
+            dto.setCodeChineseFieldId(codeSource.getCodeChineseFieldId());
+            dto.setCodeChineseField(codeSource.getCodeChineseField());
+            dto.setParentValueId(codeSource.getParentValueId());
+            dto.setParentValue(codeSource.getParentValue());
+            dto.setSql(codeSource.getSqlContext());
+            dto.setJobId(codeSource.getJobId());
+            dto.setSchedule(codeSource.getSchedule());
+            dto.setConditionList(JsonUtils.toObjectList(codeSource.getConditionList(), SqlConditionDto.class));
+            dto.setAuthDimensionId(codeSource.getAuthDimensionId());
+            dto.setAuthDimension(codeSource.getAuthDimension());
+            dto.setDbType(codeSource.getDbType());
+            dto.setDatasourceId(codeSource.getDatasourceId());
+            dto.setJobName(codeSource.getJobName());
+            dto.setSchedule(codeSource.getSchedule());
+            dto.setTypeName(codeSource.getTypeName());
+            dto.setColMap(JsonUtils.toObject(codeSource.getColMap(), new TypeReference<Map>() {}));
+        }
+        return dto;
 
     }
 

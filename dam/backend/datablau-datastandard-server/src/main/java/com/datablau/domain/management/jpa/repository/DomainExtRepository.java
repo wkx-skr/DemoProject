@@ -50,4 +50,7 @@ public interface DomainExtRepository extends CrudRepository<DomainExt, Long> {
     @Query("update DomainExt set checkState = ?2 WHERE dId in (?1) and checkState != 'PASS'")
     @Transactional
     int updateCheckState(List<String> domainIds, DomainCheckState domainCheckState);
+
+    @Query("SELECT df.dId FROM DomainExt df WHERE CONCAT(',', df.referenceTerm, ',') LIKE CONCAT('%', ?1, ',%')")
+    List<String> findDomainIdsByReferenceTerm(String ReferenceTerm);
 }

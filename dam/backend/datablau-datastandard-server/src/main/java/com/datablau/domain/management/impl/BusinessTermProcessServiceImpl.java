@@ -453,6 +453,11 @@ public class BusinessTermProcessServiceImpl implements BusinessTermProcessServic
         List<Long> tmIds= new ArrayList<>();
         tmIds.addAll(nsIds);
         List<BusinessTermDto> businessTermDtos = businessTermService.queryBusinessTermById(tmIds);
+        List<BusinessTerm> businessTerms = busTermRepo.findAllByIdIn(nsIds);
+        for (BusinessTerm businessTerm : businessTerms) {
+            businessTerm.setState(DomainState.C);
+        }
+        busTermRepo.saveAll(businessTerms);
         businessTermAbolishVerifyBatch(businessTermDtos);
         List<BatchApplyDto> pubDatas = generateBusinessUpdateApplyDto(null, businessTermDtos, "废弃",username);
         applyService.createBatch(pubDatas);

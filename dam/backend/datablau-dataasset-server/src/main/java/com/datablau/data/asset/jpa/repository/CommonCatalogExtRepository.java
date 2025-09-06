@@ -50,5 +50,5 @@ public interface CommonCatalogExtRepository extends CommonCatalogRepository {
     @Query("select c from CommonCatalog c where c.status = ?1 and c.level in ?2")
     List<CommonCatalog> findByStatusAndLevelIn(EnumAssetsCatalogStatus status, Collection<Integer> levels);
 
-
+    List<CommonCatalog> findByLevelAndStatus(Integer level, EnumAssetsCatalogStatus status);
 }

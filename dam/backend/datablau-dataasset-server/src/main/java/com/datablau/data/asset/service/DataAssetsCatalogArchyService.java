@@ -3,10 +3,13 @@ package com.datablau.data.asset.service;
 import com.datablau.catalog.enums.EnumAssetsCatalogStatus;
 import com.datablau.catalog.jpa.entity.CommonCatalog;
 import com.datablau.data.asset.api.DataAssetsCatalogService;
+import com.datablau.data.asset.dto.DDCCatalogImportResultExtDto;
 import com.datablau.data.asset.dto.DataAssetsCatalogDto;
 import com.datablau.data.asset.dto.CommonCatalogDopExtDto;
 import com.datablau.data.asset.jpa.entity.CatalogExt;
 import com.datablau.data.asset.upload.DDCCatalogImportResultDto;
+import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -41,4 +44,6 @@ public interface DataAssetsCatalogArchyService extends DataAssetsCatalogService 
     Map<String, List<List<Object>>> exportCatalogWithId(List<Long> catalogIds);
     
     CommonCatalogDopExtDto getCommonCatalogDopExtDtoById(Long id);
+
+    Collection<DataAssetsCatalogDto> manageTree(Long structureId, Long catalogId) throws Exception;
 }

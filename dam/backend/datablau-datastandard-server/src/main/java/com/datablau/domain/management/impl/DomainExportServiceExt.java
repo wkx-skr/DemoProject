@@ -149,11 +149,11 @@ public class DomainExportServiceExt extends DomainExportServiceImpl {
         int expressSize = expressInfo.size() +  expressUdpSize;
         int addiSize = additionInfo.size() +  addiUdpSize;
         //表头处理
-        sheet.addMergedRegion(new CellRangeAddress(0,0, 0, symbolSize-1));
-        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize, symbolSize+defineSize-1));
-        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize, symbolSize+defineSize+relaSize-1));
-        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize+relaSize, symbolSize+defineSize+relaSize+expressSize-1));
-        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize+relaSize+expressSize, symbolSize+defineSize+relaSize+expressSize+newManageSize-1));
+        sheet.addMergedRegion(new CellRangeAddress(0,0, 0, symbolSize-1));//0-1-2-3
+        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize, symbolSize+defineSize-1));//4-5
+        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize, symbolSize+defineSize+relaSize-1));//6-7
+        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize+relaSize, symbolSize+defineSize+relaSize+expressSize-1));//8-15
+        sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize+relaSize+expressSize, symbolSize+defineSize+relaSize+expressSize+newManageSize-1));//16
         sheet.addMergedRegion(new CellRangeAddress(0,0, symbolSize+defineSize+relaSize+expressSize+newManageSize, symbolSize+defineSize+relaSize+expressSize+newManageSize+addiSize-1));
         //title行
         XSSFRow row = sheet.createRow(0);
@@ -252,14 +252,23 @@ public class DomainExportServiceExt extends DomainExportServiceImpl {
         _rowIdx = appendTitle.apply(new Object[]{newManageInfo, udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.newManageProp"), Arrays.asList()), _rowIdx, sheet, row1, pathInfo});
         _rowIdx = appendTitle.apply(new Object[]{additionInfo, udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.additionProp"), Arrays.asList()), _rowIdx, sheet, row1});
 
+        if(queryDto == null){
+            //如果是导出模板，则这块加样例数据。他妈的傻逼
+            List<DomainExtDto> sampleDatas = this.generateDomainTemplateSampleData();
+            //写到导出模板
+            this.writeTemplateExcel(sampleDatas, sheet, udpMap, pathInfo);
+        }
+
         //填充数据
         if(queryDto != null){
             List<String> symbolProp = Arrays.asList("domainCode", "chineseName", "englishName", "synonym");
             List<String> defineProp = Arrays.asList("description", "businessRule");
             List<String> relaProp = Arrays.asList("referenceTerm", "relationDomain");
-            List<String> expressProp = Arrays.asList("dataType", "dataScale", "dataPrecision", "referenceCode", "dataFormat", "minValue", "maxValue");
-            List<String> newManageProp = Arrays.asList("authCategoryName");
-            List<String> additionProp = Arrays.asList("abbreviation", "source", "firstPublish", "state");
+            List<String> expressProp = Arrays.asList("dataType", "unit", "dataScale", "dataPrecision", "referenceCode", "dataFormat", "minValue", "maxValue");
+//            List<String> newManageProp = Arrays.asList("authCategoryName");
+//            List<String> additionProp = Arrays.asList("abbreviation", "source", "firstPublish", "state");
+            List<String> newManageProp = Arrays.asList("source");
+            List<String> additionProp = Arrays.asList("firstPublish", "state");
 
             Map<String, String> businessTermCacheMap = new HashMap<>();
             Map<String, String> domainCacheMap = new HashMap<>();
@@ -462,6 +471,152 @@ public class DomainExportServiceExt extends DomainExportServiceImpl {
             }
         }
         return new DomainExportResult(file1, toExportDomains == null ? 0 : toExportDomains.size());
+    }
+
+    private void writeTemplateExcel(List<DomainExtDto> sampleDatas, XSSFSheet sheet, Map<String, List<String>> udpMap, List<String> pathInfo) {
+        List<String> symbolProp = Arrays.asList("domainCode", "chineseName", "englishName", "synonym");
+        List<String> defineProp = Arrays.asList("description", "businessRule");
+        List<String> relaProp = Arrays.asList("referenceTerm", "relationDomain");
+        List<String> expressProp = Arrays.asList("dataType", "unit", "dataScale", "dataPrecision", "referenceCode", "dataFormat", "minValue", "maxValue");
+//            List<String> newManageProp = Arrays.asList("authCategoryName");
+//            List<String> additionProp = Arrays.asList("abbreviation", "source", "firstPublish", "state");
+        List<String> newManageProp = Arrays.asList("source");
+        List<String> additionProp = Arrays.asList("firstPublish", "state");
+
+        Function<Object[], Integer> appendRowData = (args) -> {
+            List<String> props = (List<String>) args[0];
+            List<String> udpProps = (List<String>) args[1];
+            Integer _dataRowIdx = (Integer) args[2];
+            DomainDto domainDto = (DomainDto) args[3];
+            Map<Long, String> udpValue = Optional.ofNullable(domainDto.getAdditionalProperties()).orElse(new HashMap<>());
+            XSSFRow _row = (XSSFRow) args[4];
+
+            Cell _cell;
+            if(args.length > 5 && args[5] != null) {
+                List<String> _pathInfo = (List<String>) args[5];
+                List<String> _paths = domainDto.getPath();
+                for (int i = 0; i < _pathInfo.size(); i++) {
+                    _cell = _row.createCell(_dataRowIdx);
+                    if(!CollectionUtils.isEmpty(_paths) && _paths.size() > i + 1) {
+                        _cell.setCellValue(_paths.get(i + 1));
+                    }
+                    _dataRowIdx++;
+                }
+            }
+            for(int i = 0; i < props.size(); i++){
+                _cell = _row.createCell(_dataRowIdx);
+
+                String prop = props.get(i);
+                Field field = getDeclaredFieldWithSuper(DomainExtDto.class, prop);
+                field.setAccessible(true);
+                Object oval; // 要填充的属性值！！
+                try {
+                    oval = field.get(domainDto);
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException(e);
+                }
+                oval = Optional.ofNullable(oval).orElse("");
+                if(oval != null){
+                    if(oval instanceof Collection){
+                        Collection<String> val = (Collection)oval;
+                        _cell.setCellValue(StringUtils.join(val.toArray(), "/"));
+                    } else if(oval instanceof Date){
+                        Date val = (Date) oval;
+                        _cell.setCellValue(new SimpleDateFormat("yyyy-MM-dd").format(val));
+                    } else if(oval instanceof DomainState){
+                        DomainState val = (DomainState) oval;
+                        if (val.equals(DomainState.D)) {
+                            _cell.setCellValue(msgService.getMessage("BasicDomain.state.audit"));
+                        } else if (val.equals(DomainState.C)) {
+                            _cell.setCellValue(msgService.getMessage("BasicDomain.state.inAudit"));
+                        } else if (val.equals(DomainState.A)) {
+                            _cell.setCellValue(msgService.getMessage("BasicDomain.state.published"));
+                        } else {
+                            _cell.setCellValue(msgService.getMessage("BasicDomain.state.abandon"));
+                        }
+                    } else {
+                        _cell.setCellValue(oval instanceof String? (String) oval: oval + "");
+                    }
+                }
+
+                _dataRowIdx++;
+            }
+
+            return _dataRowIdx;
+        };
+
+        int rowIdx = 0;
+        // 将domain的属性写入excel
+        int rowIndex = 2;
+        XSSFRow dataRow = null;
+        for (DomainDto domainDto : sampleDatas) {
+            dataRow = sheet.createRow(rowIndex++);
+            rowIdx = 0;
+            rowIdx = appendRowData.apply(new Object[]{
+                    symbolProp,
+                    udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.symbolProp"), Arrays.asList()),
+                    rowIdx,
+                    domainDto,
+                    dataRow
+            });
+            rowIdx = appendRowData.apply(new Object[]{
+                    defineProp,
+                    udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.defineProp"), Arrays.asList()),
+                    rowIdx,
+                    domainDto,
+                    dataRow
+            });
+            rowIdx = appendRowData.apply(new Object[]{
+                    relaProp,
+                    udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.relaProp"), Arrays.asList()),
+                    rowIdx,
+                    domainDto,
+                    dataRow
+            });
+            rowIdx = appendRowData.apply(new Object[]{
+                    expressProp,
+                    udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.expressProp"), Arrays.asList()),
+                    rowIdx,
+                    domainDto,
+                    dataRow
+            });
+            rowIdx = appendRowData.apply(new Object[]{
+                    newManageProp,
+                    udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.newManageProp"), Arrays.asList()),
+                    rowIdx,
+                    domainDto,
+                    dataRow,
+                    pathInfo
+            });
+            rowIdx = appendRowData.apply(new Object[]{
+                    additionProp,
+                    udpMap.getOrDefault(msgService.getMessage("BasicDomain.udp.additionProp"), Arrays.asList()),
+                    rowIdx,
+                    domainDto,
+                    dataRow
+            });
+        }
+    }
+
+    private List<DomainExtDto> generateDomainTemplateSampleData() {
+        List<DomainExtDto> sampleDataDomains = new ArrayList<>();
+        sampleDataDomains.add(sampleDataDomain("DS-01-501010", "可研批复文件", "May Study The Approval Document", "", "可研批复文件", "字符型", 500));
+        sampleDataDomains.add(sampleDataDomain("DS-01-501016", "建立时间", "Setup Time", "", "建立时间", "字符型", 20));
+        sampleDataDomains.add(sampleDataDomain("DS-01-501017", "有效标记", "Valid Marking", "", "有效标记", "字符型", 1));
+        return sampleDataDomains;
+    }
+
+    private DomainExtDto sampleDataDomain(String code, String chName, String enName, String synonym, String description,
+                                       String dataType, Integer datascale){
+        DomainExtDto dto = new DomainExtDto();
+        dto.setDomainCode(code);
+        dto.setChineseName(chName);
+        dto.setEnglishName(enName);
+        dto.setSynonym(synonym);
+        dto.setDescription(description);
+        dto.setDataType(dataType);
+        dto.setDataScale(datascale);
+        return dto;
     }
 
     private Field getDeclaredFieldWithSuper(Class<?> aClass, String fieldName) {

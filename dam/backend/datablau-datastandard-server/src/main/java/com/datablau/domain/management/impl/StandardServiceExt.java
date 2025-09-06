@@ -1,6 +1,7 @@
 package com.datablau.domain.management.impl;
 
 import com.andorj.common.core.exception.AndorjRuntimeException;
+import com.andorj.common.core.exception.IllegalOperationException;
 import com.andorj.common.core.exception.InvalidArgumentException;
 import com.andorj.common.core.exception.ItemNotFoundException;
 import com.andorj.common.core.model.LDMTypes;
@@ -21,7 +22,11 @@ import com.datablau.domain.management.jpa.entity.StandardCodeFolderRela;
 import com.datablau.domain.management.jpa.repository.DomainFolderRepository;
 import com.datablau.domain.management.jpa.repository.StandardCodeFolderRelaRepository;
 import com.datablau.domain.management.jpa.type.DatablauDomainType;
+import com.datablau.domain.management.jpa.type.DomainStateExt;
+import com.datablau.domain.management.service.StandardServiceNew;
+import com.datablau.domain.management.type.PermissionLevel;
 import com.datablau.domain.management.utility.FileUtility;
+import com.datablau.project.util.CheckNameUtil;
 import com.datablau.security.management.utils.AuthTools;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
@@ -50,7 +55,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service("standardServiceExt")
-public class StandardServiceExt extends StandardServiceImpl {
+public class StandardServiceExt extends StandardServiceImpl implements StandardServiceNew {
     private static final Logger logger = LoggerFactory.getLogger(StandardServiceExt.class);
 
     @Autowired
@@ -295,31 +300,36 @@ public class StandardServiceExt extends StandardServiceImpl {
         DomainTreeNodeDto domainTreeNodeDto = domainFolderExtService.loadDomainTree((DomainState)null, categoryId, null, true);
         for (int i = 0; i < excelDatas.size(); i++) {
             StandardCodeExcelDto standardCodeExcelDto = excelDatas.get(i);
-            if(StringUtils.isBlank(standardCodeExcelDto.getErrorMsg())) {
+//            if(StringUtils.isBlank(standardCodeExcelDto.getErrorMsg())) {
                 DomainExtDto domainDto = standardCodeExcelDto.buildDomainDto(categoryId, msgService);
                 // 设置folderId并完善Code
                 domainExtService.setDomainPath(domainDto, categoryId, domainTreeNodeDto, user);
-                standardCodeExcelDto.setErrorMsg(domainDto.getErrorMsg());
+                if(StringUtils.isEmpty(domainDto.getErrorMsg())){
+                    standardCodeExcelDto.setErrorMsg(StringUtils.isBlank(standardCodeExcelDto.getErrorMsg()) ? domainDto.getErrorMsg() : standardCodeExcelDto.getErrorMsg());
+                }else {
+                    standardCodeExcelDto.setErrorMsg(StringUtils.isBlank(standardCodeExcelDto.getErrorMsg()) ? domainDto.getErrorMsg() : standardCodeExcelDto.getErrorMsg() + ";" + domainDto.getErrorMsg());
+                }
                 standardCodeExcelDto.setFolderId(domainDto.getFolderId());
-            }
+//            }
         }
 
         List<StandardCodeDto> codeDtos = new ArrayList<>();
         Map<String, String> errorMaps = new HashMap<>();
         for (StandardCodeExcelDto standardCodeExcelDto : excelDatas) {
-            if(StringUtils.isEmpty(standardCodeExcelDto.getErrorMsg())) {
+//            if(StringUtils.isEmpty(standardCodeExcelDto.getErrorMsg())) {
                 boolean res = StandardCodeExcelDto.addDtoToList(msgService, standardCodeExcelDto, (List) codeDtos, user, categoryId, published);
-                if(!res) {
+                //因为错误是累加的，所以res可能返回true，但是错误信息不为空，所以要判断错误信息
+                if(!res || !StringUtils.isEmpty(standardCodeExcelDto.getErrorMsg())) {
                     errorMaps.put(standardCodeExcelDto.getName(), standardCodeExcelDto.getErrorMsg());
                 }
 
-            }
+//            }
         }
         // 处理名字重复错误
         if(!errorMaps.isEmpty()) {
             for (StandardCodeExcelDto excelData : excelDatas) {
                 if(StringUtils.isEmpty(excelData.getErrorMsg()) && errorMaps.containsKey(excelData.getName())) {
-                    excelData.setErrorMsg(errorMaps.get(excelData.getName()));
+                    excelData.setErrorMsg(StringUtils.isBlank(excelData.getErrorMsg())? errorMaps.get(excelData.getName()) : excelData.getErrorMsg() + ";" +errorMaps.get(excelData.getName()));
                 }
             }
             codeDtos.removeIf(v -> errorMaps.containsKey(v.getName()));
@@ -745,6 +755,22 @@ public class StandardServiceExt extends StandardServiceImpl {
         if(code.getFolderId() == null || !domainFolderRepo.existsById(code.getFolderId())) {
             throw new InvalidArgumentException(msgService.getMessage("standardCode.keyword.folderId"));
         }
+
+        //校验1、英文名称只能是字母和空格，首字母还需要大写
+        if (StringUtils.isNotEmpty(code.getEnglishName()) &&
+                StringUtils.isNotEmpty(CheckNameUtil.checkEnglishNameStyle(code.getEnglishName()))) {
+            throw new RuntimeException(msgService.getMessage("domainEnNameRegexCheck"));
+        }
+        //校验2、中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+        if (StringUtils.isNotEmpty(code.getName()) &&
+                !CheckNameUtil.checkChineseName(code.getName())) {
+            throw new RuntimeException(msgService.getMessage("domainChNameRegexCheck"));
+        }
+        //校验4、中文名称长度不能超过15位
+        if (StringUtils.isNotEmpty(code.getName()) &&
+                CheckNameUtil.checkChineseNameLength(code.getName(), 15) ) {
+            throw new RuntimeException(msgService.getMessage("domainChNameLengthCheck"));
+        }
         StandardCodeFolderRela standardCodeFolderRela = new StandardCodeFolderRela(codeId, code.getFolderId());
         standardCodeFolderRelaRepo.save(standardCodeFolderRela);
         StandardCodeDto result = domainService.updateCode(code, currentUser);
@@ -757,6 +783,23 @@ public class StandardServiceExt extends StandardServiceImpl {
         if (folderId == null || domainFolderRepo.findById(folderId).orElse(null) == null) {
             throw new InvalidArgumentException("所属目录不能为空");
         }
+
+        //校验1、英文名称只能是字母和空格，首字母还需要大写
+        if (StringUtils.isNotEmpty(standardCodeDto.getEnglishName()) &&
+                StringUtils.isNotEmpty(CheckNameUtil.checkEnglishNameStyle(standardCodeDto.getEnglishName()))) {
+            throw new RuntimeException(msgService.getMessage("domainEnNameRegexCheck"));
+        }
+        //校验2、中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+        if (StringUtils.isNotEmpty(standardCodeDto.getName()) &&
+                !CheckNameUtil.checkChineseName(standardCodeDto.getName())) {
+            throw new RuntimeException(msgService.getMessage("domainChNameRegexCheck"));
+        }
+        //校验4、中文名称长度不能超过15位
+        if (StringUtils.isNotEmpty(standardCodeDto.getName()) &&
+                CheckNameUtil.checkChineseNameLength(standardCodeDto.getName(), 15) ) {
+            throw new RuntimeException(msgService.getMessage("domainChNameLengthCheck"));
+        }
+
         // 获取目录对应的bizCode，用于生成标准代码
         Long categoryId = standardCodeDto.getCategoryId();
         DomainTreeNodeDto domainTreeNodeDto = domainFolderExtService.loadDomainTree(null, categoryId, currentUser, true);
@@ -798,5 +841,182 @@ public class StandardServiceExt extends StandardServiceImpl {
         standardCodeFolderRela.setfId(folderId);
         standardCodeFolderRelaRepo.save(standardCodeFolderRela);
         return domainService.convertToStandCodeDto(standardCode);
+    }
+
+    @Override
+    public StandardCodePageDto findCodesPage(StandardCodeQueryNewDto reqDto) {
+        if (!Strings.isNullOrEmpty(reqDto.getSubmitter()) && reqDto.getCategoryId() != null && !this.domainCategoryPermissionService.hasPermissionToFolder(reqDto.getSubmitter(), reqDto.getCategoryId(), PermissionLevel.READ)) {
+            throw new IllegalOperationException(this.msgService.getMessage("noPermissionToThisOperation"));
+        } else {
+            PageResult<StandardCodeDto> result = this.generateStandardQueryNew(reqDto, true);
+            StandardCodePageDto standardCodePageDto = new StandardCodePageDto();
+            standardCodePageDto.setPageSize(reqDto.getPageSize());
+            standardCodePageDto.setCurrentPage(reqDto.getCurrentPage());
+            standardCodePageDto.setData(result.getContent());
+            standardCodePageDto.setTotal(result.getTotalItems());
+            return standardCodePageDto;
+        }
+    }
+
+    private PageResult<StandardCodeDto> generateStandardQueryNew(StandardCodeQueryNewDto reqDto, boolean isPage) {
+        DomainStateExt scrap = null;
+        if (!AuthTools.hasAnyRole("STANDARD_CODE_SCRAP_VIEW", "ROLE_SUPERUSER")) {
+            scrap = DomainStateExt.X;
+        }
+
+        String baseSelect = " select c ";
+        if (isPage) {
+            baseSelect = "select new StandardCode(c.code, c.name, c.enName, c.datasetName, c.state, c.firstPublish, c.lastModification, c.comment, c.categoryId, c.submitter) ";
+
+        }
+        String rela_sql = " from StandardCode c " +
+                "inner join StandardCodeFolderRela rela on c.code = rela.code " +
+                "inner join DomainFolder f on rela.fId = f.id " +
+                "left join Domain d on c.code = d.referenceCode and d.copyDomain = false"
+                ;
+
+        String data_sql = baseSelect + rela_sql;
+        String count_sql = "select count(*)" + rela_sql;
+
+        int idx = 1;
+        Map<Integer, Object> parameters = new HashMap<>();
+
+        String whereStmt = " where 1 = 1 ";
+        //参考数据搜索，支持（中文名称、英文名称、描述）支持模糊搜索
+        if (!Strings.isNullOrEmpty(reqDto.getName())) {
+            String like = "%" + reqDto.getName() + "%";
+            String key = reqDto.getName();
+//            whereStmt += " and (c.code like ?" + idx + " or c.name like ?" + idx + " or c.enName like ?" + idx + ")";
+            whereStmt += " and (c.code like ?" + idx;
+            parameters.put(idx++, like);
+            whereStmt += " or c.name = ?" + idx;
+            parameters.put(idx++, key);
+            whereStmt += " or c.name like ?" + idx;
+            parameters.put(idx++, like);
+            whereStmt += " or c.enName = ?" + idx;
+            parameters.put(idx++, key);
+            whereStmt += " or c.enName like ?" + idx;
+            parameters.put(idx++, like);
+            whereStmt += " or c.comment = ?" + idx;
+            parameters.put(idx++, key);
+            whereStmt += " or c.comment like ?" + idx + ")";
+            parameters.put(idx++, like);
+        }
+        if (!Strings.isNullOrEmpty(reqDto.getDatasetName())) {
+            whereStmt += " and c.datasetName = ?" + idx;
+            parameters.put(idx++, reqDto.getDatasetName());
+        }
+        //审核中的标准和待审核的只有创建人可以看
+        if ((DomainStateExt.C.equals(reqDto.getState())
+                || DomainStateExt.D.equals(reqDto.getState()))
+                && !viewAllStandard()) {
+            whereStmt += " and c.submitter = ?" + idx;
+            parameters.put(idx++, reqDto.getSubmitter());
+        }
+        //已发布和已废弃的标准所有人都可以看，审核中和待审核的标准只有创建人可以看
+        if (reqDto.getState() == null) {
+            if (!viewAllStandard()) {
+                whereStmt += " and ((d.state = 'A' or d.state = 'X') or ((d.state = 'C' or d.state = 'D' or d.state is null) and c.submitter = ?" + idx + ")) ";
+                parameters.put(idx++, reqDto.getSubmitter());
+            }
+        } else if (Objects.equals("N", reqDto.getState().name())) {
+            //没有关联数据标准的就是无状态
+            whereStmt += " and d.domainId is null ";
+        }else {
+            whereStmt += " and d.state = ?" + idx;
+            parameters.put(idx++, reqDto.getState());
+        }
+        if (scrap != null) {
+            whereStmt += " and d.state != ?" + idx;
+            parameters.put(idx++, scrap);
+        }
+        if(reqDto.getRelaDomain() == null) {
+            // donothing
+        } else if (reqDto.getRelaDomain()) {
+            whereStmt += " and d.domainId is not null ";
+        } else {
+            whereStmt += " and d.domainId is null ";
+        }
+
+        if (CollectionUtils.isEmpty(reqDto.getCategoryIds())) {
+            whereStmt += " and c.categoryId = ?" + idx;
+            parameters.put(idx++, reqDto.getCategoryId());
+        } else {
+            whereStmt += " and c.categoryId in ?" + idx;
+            parameters.put(idx++, reqDto.getCategoryIds());
+        }
+        if (reqDto.getFolderId() != null && domainFolderRepo.existsById(reqDto.getFolderId())) {
+            DomainFolder domainFolder = domainFolderRepo.findById(reqDto.getFolderId()).get();
+            whereStmt += " and f.path like ?" + idx;
+            parameters.put(idx++, domainFolder.getPath() + "%");
+        }
+        // 增加标签筛选条件,标签功能依赖于DAM
+        Set<String> pkIds = null;
+        if (reqDto.getTagIds() != null && reqDto.getTagIds().size() > 0) {
+            pkIds = tagService.getItemIdsByTypeIdsAndTagIds(Collections.singletonList(LDMTypes.oDataStandardCode), reqDto.getTagIds());
+            if (pkIds.size() == 0) {
+                pkIds.add("  ");
+            }
+            whereStmt += " and c.code in ?" + idx;
+            parameters.put(idx++, pkIds);
+        }
+        //参考数据搜索结果排序，精确匹配和模糊匹配体现。
+        String order = " order by c.createTime desc ";
+        if (!Strings.isNullOrEmpty(reqDto.getName())) {
+            String name = "%" + reqDto.getName().trim() + "%";
+            String keyName = reqDto.getName().trim();
+            order = " order by";
+            order += " case when c.name = '" + keyName + "' then 1";
+            order += " when c.enName = '" + keyName + "' then 1";
+            order += " when c.comment = '" + keyName + "' then 1";
+            order += " when c.name like '" + name + "' then 2";
+            order += " when c.enName like '" + name + "' then 2";
+            order += " when c.comment like '" + name + "' then 2";
+            order += " else 3 end, c.name, c.enName, c.comment";
+        }
+        //数量sql，不加排序
+        String totalSql = count_sql + whereStmt;
+        String querySql = data_sql + whereStmt + order;
+
+        Long totalCnt = 0L;
+        List<StandardCode> resultList;
+        EntityManager em = entityManagerFactory.createEntityManager();
+        try {
+            Query q = em.createQuery(querySql);
+            for (int key : parameters.keySet()) {
+                q.setParameter(key, parameters.get(key));
+            }
+            if (isPage) {
+                q.setFirstResult((reqDto.getCurrentPage() - 1) * reqDto.getPageSize());
+                q.setMaxResults(reqDto.getPageSize());
+                resultList = q.getResultList();
+                q = em.createQuery(totalSql);
+                for (int key : parameters.keySet()) {
+                    q.setParameter(key, parameters.get(key));
+                }
+                totalCnt = (Long) q.getSingleResult();
+            } else {
+                resultList = q.getResultList();
+            }
+            for (StandardCode standardCode : resultList) {
+                em.detach(standardCode);
+            }
+        } catch (Exception e) {
+            throw new AndorjRuntimeException(e.getMessage(), e);
+        } finally {
+            em.close();
+        }
+
+        PageResult<StandardCodeDto> result = new PageResult<>();
+        result.setCurrentPage(reqDto.getCurrentPage());
+        result.setPageSize(reqDto.getPageSize());
+        result.setTotalItems(totalCnt);
+        List<StandardCodeDto> standardCodeDtos = convertToListStandardCodeDto(resultList);
+
+        // 添加Domain属性
+        if(!CollectionUtils.isEmpty(standardCodeDtos)) {
+            result.setContentDirectly((List) this.convertStandardCodeFolderDto(standardCodeDtos, true));
+        }
+        return result;
     }
 }

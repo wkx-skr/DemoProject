@@ -45,6 +45,7 @@ public class TypeListDomainSimilarityCheckConvert extends BaseUserType {
                 List<DomainSimilarityCheckResultDetailDto> result = (List)objectMapper.readValue(dbData.toString(), new TypeReference<List<DomainSimilarityCheckResultDetailDto>>() {});
                 return (Serializable)result;
             } catch (Exception var3) {
+                logger.error("Failed to serialize value: {}", dbData.toString(), var3);
                 throw new AndorjRuntimeException("convert value from db to pojo failed");
             }
         }

@@ -66,6 +66,7 @@ import com.datablau.metadata.main.dao.metadata.DataObjectRepository;
 import com.datablau.metadata.main.dao.model.ModelMappingRepository;
 import com.datablau.metadata.main.dao.model.ModelRepository;
 import com.datablau.metadata.main.dto.MetaDataIncrementDto;
+import com.datablau.metadata.main.dto.Models0ResultDto;
 import com.datablau.metadata.main.dto.UdpObjectIdMsgDto;
 import com.datablau.metadata.main.dto.metadata.BaseDataObject;
 import com.datablau.metadata.main.dto.metadata.DataObjectExportDto;
@@ -318,6 +319,32 @@ public class ModelController extends BaseController {
         });
 
         return convertToModelDtos(models, false);
+    }
+
+    @Autowired
+    protected ModelRepository dataModelRepo;
+
+    @RequestMapping("/fromre0")
+    public ArrayList<Models0ResultDto> getUserModels0() {
+        List<Model> models = dataModelRepo.findModels();
+        List<ModelDto> modelDtos = convertToModelDtos(models, false);
+
+        ArrayList<Models0ResultDto> result = new ArrayList<>();
+        for (ModelDto modelDto : modelDtos) {
+            Models0ResultDto res = new Models0ResultDto();
+            res.setId(modelDto.getModelId());
+            res.setSourceName(modelDto.getDefinition());
+            res.setType(modelDto.getType());
+            res.setCategoryName(modelDto.getCategoryName());
+            res.setCategoryId(modelDto.getCategoryId());
+            res.setOwner(modelDto.getCreateUser());
+            res.setCreateTime(modelDto.getCreationTime());
+            res.setParentId(modelDto.getParentId());
+//            res.setLastModification(modelDto.getCreationTime());
+//            res.setDescription();
+            result.add(res);
+        }
+        return result;
     }
 
     @Operation(summary = "获取所有RE出来的数据源")

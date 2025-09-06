@@ -298,7 +298,7 @@ public class AccessGatewayFilter implements GlobalFilter, Ordered{
                     logger.info("进入 batchManager 页面，用户：{}", username);
                 }else if (path.startsWith("/domain/apply/batchHomeOut")) {
                     String batchId = exchange.getRequest().getQueryParams().getFirst("batchId");
-                    redirectUrl = baseUrl + "/ddc-app/#/dop/batchDetail?id=" + batchId;
+                    redirectUrl = baseUrl + "/ddc-app/#/dop/batchDetail?id=" + batchId+"&hideBack=true";
                     logger.info("跳转地址:{}",redirectUrl);
                     logger.info("进入外部审批页面，用户：{}", username);
                 } else if (path.startsWith("/domain/apply/digitalOperationPlatform/asset")) {

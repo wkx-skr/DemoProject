@@ -10,7 +10,9 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "db_skip_reason")
+@Table(name = "db_skip_reason", indexes = {
+        @Index(name = "idx_skipreason_domain_id", columnList = "domain_id")
+})
 public class SkipReason implements Serializable {
 
     @Id

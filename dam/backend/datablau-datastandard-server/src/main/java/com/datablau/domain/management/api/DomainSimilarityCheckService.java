@@ -1,6 +1,7 @@
 package com.datablau.domain.management.api;
 
 import com.datablau.domain.management.data.DomainState;
+import com.datablau.domain.management.dto.DomainSimilarityCheckParamDto;
 import com.datablau.domain.management.dto.DomainSimilarityCheckResultDetailDto;
 import com.datablau.domain.management.dto.SkipReasonDto;
 import com.datablau.domain.management.jpa.entity.Domain;
@@ -23,6 +24,8 @@ public interface DomainSimilarityCheckService {
     List<Domain> getDomainsByStates(Set<DomainState> domainStates);
 
     List<DomainSimilarityCheckResult> getSimilarityGroup(Map<String, Object> reqBody);
+
+    List<DomainSimilarityCheckResult> getSimilarityGroupNew(DomainSimilarityCheckParamDto reqBody);
 
     /*
     * 根据clusterId获取相似度+Domain详情

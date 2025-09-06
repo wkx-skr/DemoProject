@@ -190,7 +190,7 @@ public class BusinessTermExportFile {
         //定义
         row.createCell(colIdx++).setCellValue(code.getExplanationTerms());
         //责任主体
-        row.createCell(colIdx++).setCellValue(code.getManagementDepartment());
+//        row.createCell(colIdx++).setCellValue(code.getManagementDepartment());
         //缩写
         row.createCell(colIdx++).setCellValue(code.getAbbr());
         //参考来源

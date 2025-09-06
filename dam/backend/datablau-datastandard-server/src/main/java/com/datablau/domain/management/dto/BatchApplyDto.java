@@ -33,6 +33,10 @@ public class BatchApplyDto  implements Serializable {
 
     private String confirmUserTow;
 
+    private String buCode;
+
+    private String innerName;
+
 
     private List<BatchApplyDetailDto> details;
 
@@ -116,5 +120,23 @@ public class BatchApplyDto  implements Serializable {
 
     public void setConfirmUserTow(String confirmUserTow) {
         this.confirmUserTow = confirmUserTow;
+    }
+
+
+    public String getBuCode() {
+        return buCode;
+    }
+
+    public void setBuCode(String buCode) {
+        this.buCode = buCode;
+    }
+
+
+    public String getInnerName() {
+        return innerName;
+    }
+
+    public void setInnerName(String innerName) {
+        this.innerName = innerName;
     }
 }

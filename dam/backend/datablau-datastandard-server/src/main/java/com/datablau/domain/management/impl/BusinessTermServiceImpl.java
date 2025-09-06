@@ -24,6 +24,7 @@ import com.datablau.domain.management.jpa.entity.EditHistoryEntity;
 import com.datablau.domain.management.jpa.repository.*;
 import com.datablau.domain.management.jpa.type.DatablauDomainType;
 import com.datablau.domain.management.utility.FileUtility;
+import com.datablau.project.util.CheckNameUtil;
 import com.datablau.security.management.api.OrganizationService;
 import com.datablau.security.management.dto.OrganizationDto;
 import com.datablau.security.management.utils.AuthTools;
@@ -465,37 +466,56 @@ public class BusinessTermServiceImpl implements BusinessTermService {
 
             for (BusinessTermExcelDto businessTermDto : domainExcelDtoList) {
                 if (Strings.isNullOrEmpty(businessTermDto.getChName())) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notnull.chName"));
-                    continue;
-                }
-                if (Strings.isNullOrEmpty(businessTermDto.getExplanationTerms())) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notnull.explanationTerms"));
-                    continue;
-                }
-                if (Strings.isNullOrEmpty(businessTermDto.getEnName())) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notnull.enName"));
-                    continue;
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())? msgService.getMessage("BusinessTerm.notnull.chName"): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("BusinessTerm.notnull.chName"));
+//                    continue;
+                }else {
+                    //校验2、中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+                    if (!CheckNameUtil.checkChineseName(businessTermDto.getChName())) {
+                        businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("domainChNameRegexCheck"): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("domainChNameRegexCheck"));
+//                        continue;
+                    }
+                    //校验4、中文名称长度不能超过15位
+                    if (CheckNameUtil.checkChineseNameLength(businessTermDto.getChName(), 15) ) {
+                        businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("domainChNameLengthCheck"): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("domainChNameLengthCheck"));
+//                        continue;
+                    }
                 }
 
-                if (Strings.isNullOrEmpty(businessTermDto.getManagementDepartment())) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notnull.managementDepartment"));
-                    continue;
-                } else if (!orgCodeAndOrgInfo.containsKey(businessTermDto.getManagementDepartment())) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notexist.managementDepartment"));
-                    continue;
+                if (Strings.isNullOrEmpty(businessTermDto.getExplanationTerms())) {
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("BusinessTerm.notnull.explanationTerms"): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("BusinessTerm.notnull.explanationTerms"));
+//                    continue;
                 }
+
+                if (Strings.isNullOrEmpty(businessTermDto.getEnName())) {
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("BusinessTerm.notnull.enName"): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("BusinessTerm.notnull.enName"));
+//                    continue;
+                }else {
+                    //校验1、英文名称只能是字母和空格，首字母还需要大写
+                    if (!StringUtils.isEmpty(CheckNameUtil.checkEnglishNameStyle(businessTermDto.getEnName()))) {
+                        businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("domainEnNameRegexCheck"):  businessTermDto.getErrorMsg() + ";" + msgService.getMessage("domainEnNameRegexCheck"));
+//                        continue;
+                    }
+                }
+
+//                if (Strings.isNullOrEmpty(businessTermDto.getManagementDepartment())) {
+//                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notnull.managementDepartment"));
+//                    continue;
+//                } else if (!orgCodeAndOrgInfo.containsKey(businessTermDto.getManagementDepartment())) {
+//                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.notexist.managementDepartment"));
+//                    continue;
+//                }
                 if(!autoGenCode && Strings.isNullOrEmpty(businessTermDto.getDomainCode())) {
-                    businessTermDto.setErrorMsg(this.msgService.getMessage("BusinessTerm.notnull.domainCode"));
-                    continue;
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?this.msgService.getMessage("BusinessTerm.notnull.domainCode"):  businessTermDto.getErrorMsg() + ";" + this.msgService.getMessage("BusinessTerm.notnull.domainCode"));
+//                    continue;
                 }
                 // 目录不存在无法导入
                 if (businessTermDto.getPaths() == null || businessTermDto.getPaths().isEmpty()) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("hasNoExistPathToImport", businessTermDto.getChName()));
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("hasNoExistPathToImport", businessTermDto.getChName()): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("hasNoExistPathToImport", businessTermDto.getChName()));
                 }
 
                 //数据标准导入时业务规则+中文名称+业务定义任意两个不能相等。--新加功能
                 if(Objects.equals(businessTermDto.getChName(), businessTermDto.getExplanationTerms())){
-                    businessTermDto.setErrorMsg("中文名称、业务定义不能相等");
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?"中文名称、业务定义不能相等": businessTermDto.getErrorMsg() + ";" + "中文名称、业务定义不能相等");
                 }
             }
 
@@ -506,13 +526,14 @@ public class BusinessTermServiceImpl implements BusinessTermService {
             Set<String> duplicateCodes = new HashSet<>();
 //            List<String> allChineseNameList = busTermRepo.findAllChineseName();
             for (BusinessTermExcelDto businessTermDto : domainExcelDtoList) {
-                if(StringUtils.isNotEmpty(businessTermDto.getErrorMsg())) continue;
+                //有错误也要检查其他属性是否正常
+//                if(StringUtils.isNotEmpty(businessTermDto.getErrorMsg())) continue;
                 boolean notExist = chineseNameMap.add(businessTermDto.getChName());
                 //如果是发布审批，不能有重复的中文名
                 if (!notExist) {
-                    businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.exist.chName", businessTermDto.getChName()));
+                    businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("BusinessTerm.exist.chName", businessTermDto.getChName()):  businessTermDto.getErrorMsg() + ";" + msgService.getMessage("BusinessTerm.exist.chName", businessTermDto.getChName()));
                     duplicateChineseNames.add(businessTermDto.getChName());
-                    continue;
+//                    continue;
                 }
                 /*if (allChineseNameList.contains(businessTermDto.getChName())) {
                     businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.exist.chName", businessTermDto.getChName()));
@@ -521,7 +542,7 @@ public class BusinessTermServiceImpl implements BusinessTermService {
                 if(!Strings.isNullOrEmpty(businessTermDto.getDomainCode())) {
                     notExist = domainCodeMap.add(businessTermDto.getDomainCode());
                     if(!notExist) {
-                        businessTermDto.setErrorMsg(msgService.getMessage("BusinessTerm.exist.domainCode", businessTermDto.getDomainCode()));
+                        businessTermDto.setErrorMsg(StringUtils.isBlank(businessTermDto.getErrorMsg())?msgService.getMessage("BusinessTerm.exist.domainCode", businessTermDto.getDomainCode()): businessTermDto.getErrorMsg() + ";" + msgService.getMessage("BusinessTerm.exist.domainCode", businessTermDto.getDomainCode()));
                         duplicateCodes.add(businessTermDto.getDomainCode());
                     }
                 }
@@ -530,14 +551,14 @@ public class BusinessTermServiceImpl implements BusinessTermService {
             // 此处 将表格中重复的 标准和中文名称 都算作问题数据;
             for (BusinessTermExcelDto o : domainExcelDtoList) {
                 if (Strings.isNullOrEmpty(o.getErrorMsg()) && duplicateChineseNames.contains(o.getChName())) {
-                    o.setErrorMsg(msgService.getMessage("BusinessTerm.exist.chName", o.getChName()));
+                    o.setErrorMsg(StringUtils.isBlank(o.getErrorMsg())?msgService.getMessage("BusinessTerm.exist.chName", o.getChName()): o.getErrorMsg() + msgService.getMessage("BusinessTerm.exist.chName", o.getChName()));
                 }
             }
 
             // 此处 将表格中重复的 标准编码 都算作问题数据;
             for (BusinessTermExcelDto o : domainExcelDtoList) {
                 if (Strings.isNullOrEmpty(o.getErrorMsg()) && duplicateCodes.contains(o.getDomainCode())) {
-                    o.setErrorMsg(msgService.getMessage("BusinessTerm.exist.domainCode", o.getDomainCode()));
+                    o.setErrorMsg(StringUtils.isBlank(o.getErrorMsg())?msgService.getMessage("BusinessTerm.exist.domainCode", o.getDomainCode()): o.getErrorMsg() +msgService.getMessage("BusinessTerm.exist.domainCode", o.getDomainCode()));
                 }
             }
             res = generalAddImportDomains(autoGenCode, published, username, new ArrayList<>(domainExcelDtoList), ignoreError, categoryId, publishUpload);
@@ -698,21 +719,27 @@ public class BusinessTermServiceImpl implements BusinessTermService {
         boolean updatingBusinessTermMapFlag = false;
         //全部校验完成后，再创建目录
         for (BusinessTermExcelDto excelDto : domainExcelDtos) {
-            // 校验没有问题的数据才会执行
-            if (StringUtils.isNotEmpty(excelDto.getErrorMsg())) {
-                continue;
-            }
+            // 校验没有问题的数据才会执行,20250905--有问题也要往后检查
+//            if (StringUtils.isNotEmpty(excelDto.getErrorMsg())) {
+//                continue;
+//            }
             //设置domain的目录
-            if (ignoreError || tempErrorList.isEmpty()) {
+//            if (ignoreError || tempErrorList.isEmpty()) {
                 DomainExtDto domainDto = excelDto.buildDomainDto(categoryId, msgService);
                 // 设置folderId并完善Code
                 domainExtService.setDomainPath(domainDto, categoryId, domainTreeNodeDto, username);
-                excelDto.setErrorMsg(domainDto.getErrorMsg());
-                excelDto.setFolderId(domainDto.getFolderId());
-                if(StringUtils.isNotEmpty(excelDto.getErrorMsg())) {
-                    continue;
-                }
+            if(StringUtils.isBlank(domainDto.getErrorMsg())){
+                excelDto.setErrorMsg(StringUtils.isBlank(excelDto.getErrorMsg())? domainDto.getErrorMsg() : excelDto.getErrorMsg());
+            }else{
+                excelDto.setErrorMsg(StringUtils.isBlank(excelDto.getErrorMsg())? domainDto.getErrorMsg() : excelDto.getErrorMsg() +";"+ domainDto.getErrorMsg());
             }
+
+                excelDto.setFolderId(domainDto.getFolderId());
+                //有问题也要往后检查
+//                if(StringUtils.isNotEmpty(excelDto.getErrorMsg())) {
+//                    continue;
+//                }
+//            }
             // 关联术语
             if(StringUtils.isNotEmpty(excelDto.getRelaTerm())) {
                 if (CollectionUtils.isEmpty(businessTermDomainCodeMap.get(excelDto.getRelaTerm()))) {
@@ -722,8 +749,8 @@ public class BusinessTermServiceImpl implements BusinessTermService {
                             .orElse(businessTermDomainCodeMap.get(excelDto.getRelaTerm()).get(0));
                     excelDto.setRelaId(relaBusinessTerm.getId());
                 } else {
-                    excelDto.setErrorMsg(msgService.getMessage("relaTermNotExist", excelDto.getRelaTerm()));
-                    continue;
+                    excelDto.setErrorMsg(StringUtils.isBlank(excelDto.getErrorMsg())?msgService.getMessage("relaTermNotExist", excelDto.getRelaTerm()): excelDto.getErrorMsg() + ";" + msgService.getMessage("relaTermNotExist", excelDto.getRelaTerm()));
+//                    continue;
                 }
             }
             BusinessTerm o = excelDto.buildBusinessTerm();
@@ -747,8 +774,8 @@ public class BusinessTermServiceImpl implements BusinessTermService {
                         dbBus = businessTermOptional.get();
                     } else {
                         // 同一个domainCode不会存在多条已经发布的数据
-                        excelDto.setErrorMsg(msgService.getMessage("BusinessTerm.importChName.auditDataIsExist", o.getChName()));
-                        continue;
+                        excelDto.setErrorMsg(StringUtils.isBlank(excelDto.getErrorMsg())?msgService.getMessage("BusinessTerm.importChName.auditDataIsExist", o.getChName()): excelDto.getErrorMsg() + ";" + msgService.getMessage("BusinessTerm.importChName.auditDataIsExist", o.getChName()));
+//                        continue;
                     }
                 } else {
                     // A：已发布  C：审核中  D：待审核   X：已废弃
@@ -922,11 +949,11 @@ public class BusinessTermServiceImpl implements BusinessTermService {
                         msgService.getMessage("importBusinessTermExcelHeaderError", index, msgService.getMessage("BusinessTermExcelDto.explanationTerms"), col5));
             }
 
-            String col6 = getCellStringValue(headerRow.getCell(index++));
-            if (!msgService.getMessage("BusinessTermExcelDto.managementDepartment").equals(col6)) {
-                throw new InvalidArgumentException(
-                        msgService.getMessage("importBusinessTermExcelHeaderError", index, msgService.getMessage("BusinessTermExcelDto.managementDepartment"), col6));
-            }
+//            String col6 = getCellStringValue(headerRow.getCell(index++));
+//            if (!msgService.getMessage("BusinessTermExcelDto.managementDepartment").equals(col6)) {
+//                throw new InvalidArgumentException(
+//                        msgService.getMessage("importBusinessTermExcelHeaderError", index, msgService.getMessage("BusinessTermExcelDto.managementDepartment"), col6));
+//            }
 
             String col7 = getCellStringValue(headerRow.getCell(index++));
             if (!msgService.getMessage("BusinessTermExcelDto.abbr").equals(col7)) {
@@ -1001,6 +1028,15 @@ public class BusinessTermServiceImpl implements BusinessTermService {
         if (StringUtils.isEmpty(businessTermDto.getChName())) {
             throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.chName"));
         } else {
+            //校验2、中文名称不能有特殊字符（中文+字母+数字以外的都不可以）
+            if (!CheckNameUtil.checkChineseName(businessTermDto.getChName())) {
+                throw new RuntimeException(msgService.getMessage("domainChNameRegexCheck"));
+            }
+            //校验4、中文名称长度不能超过15位
+            if (CheckNameUtil.checkChineseNameLength(businessTermDto.getChName(), 15) ) {
+                throw new RuntimeException(msgService.getMessage("domainChNameLengthCheck"));
+            }
+
             if (Objects.isNull(businessTermDto.getId())) {
                 if (busTermRepo.existsAllByChName(businessTermDto.getChName())) {
                     throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.exist.chName", businessTermDto.getChName()));
@@ -1014,7 +1050,13 @@ public class BusinessTermServiceImpl implements BusinessTermService {
         }
         if (StringUtils.isEmpty(businessTermDto.getEnName())) {
             throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.enName"));
+        }else {
+            //校验1、英文名称只能是字母和空格，首字母还需要大写
+            if (!StringUtils.isEmpty(CheckNameUtil.checkEnglishNameStyle(businessTermDto.getEnName()))) {
+                throw new RuntimeException(msgService.getMessage("domainEnNameRegexCheck"));
+            }
         }
+
         if (StringUtils.isEmpty(businessTermDto.getExplanationTerms())) {
             throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.explanationTerms"));
         }
@@ -1027,13 +1069,13 @@ public class BusinessTermServiceImpl implements BusinessTermService {
             }
         }
 
-        if (StringUtils.isEmpty(businessTermDto.getManagementDepartment())) {
-            throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.managementDepartment"));
-        } else {
-            if (Objects.isNull(organizationService.getOrganizationsByBmNull(businessTermDto.getManagementDepartment()))) {
-                throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.managementDepartment.exist"));
-            }
-        }
+//        if (StringUtils.isEmpty(businessTermDto.getManagementDepartment())) {
+//            throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.managementDepartment"));
+//        } else {
+//            if (Objects.isNull(organizationService.getOrganizationsByBmNull(businessTermDto.getManagementDepartment()))) {
+//                throw new IllegalArgumentException(msgService.getMessage("BusinessTerm.managementDepartment.exist"));
+//            }
+//        }
     }
 
     public EditHistoryEntity buildHistory(BusinessTerm oldBus, BusinessTerm newBus, String currentUser) {

@@ -23,6 +23,7 @@ public class BatchApplyPageQueryDto implements Serializable {
     private String innerState;
     private List<String> innerBuName;         // 内部业务域名城 用于对接用户选择添加目录时的过滤
     private String innerApplyName;
+    private List<String> innerName;
 
     public BatchApplyPageQueryDto() {
     }
@@ -111,6 +112,15 @@ public class BatchApplyPageQueryDto implements Serializable {
 
     public void setApplyType(List<String> applyType) {
         this.applyType = applyType;
+    }
+
+
+    public List<String> getInnerName() {
+        return innerName;
+    }
+
+    public void setInnerName(List<String> innerName) {
+        this.innerName = innerName;
     }
 }
 
