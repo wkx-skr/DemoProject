@@ -162,6 +162,45 @@
           :imgSrc="keyword"
           :attrValue="attrInfo.generalSetting.keyword"
         ></attr-item>
+        <div class="attr-item" v-if="currentNode.level === 4">
+          <span class="item-key">
+            <span style="display: inline-block; width: 30px"></span>
+            <span style="display: inline-block; width: 90px" v-if="isOpen">
+              应用系统
+            </span>
+          </span>
+          <span
+            style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
+          >
+            {{  }}
+          </span>
+        </div>
+        <div class="attr-item" v-if="currentNode.level === 4">
+          <span class="item-key">
+            <span style="display: inline-block; width: 30px"></span>
+            <span style="display: inline-block; width: 90px" v-if="isOpen">
+              数据分类
+            </span>
+          </span>
+          <span
+            style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
+          >
+            {{  }}
+          </span>
+        </div>
+        <div class="attr-item" v-if="currentNode.level === 4">
+          <span class="item-key">
+            <span style="display: inline-block; width: 30px"></span>
+            <span style="display: inline-block; width: 90px" v-if="isOpen">
+              数据管家
+            </span>
+          </span>
+          <span
+            style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
+          >
+            {{  }}
+          </span>
+        </div>
         <div class="attr-item" v-if="currentNode.level === 5">
           <span class="item-key">
             <img
@@ -189,7 +228,7 @@
         </div>
         <div class="attr-item" v-if="currentNode.level === 5">
           <span class="item-key">
-            <span style="display:inline-block; width: 30px"></span>
+            <span style="display: inline-block; width: 30px"></span>
             <span style="display: inline-block; width: 90px" v-if="isOpen">
               是否为空
             </span>
@@ -198,6 +237,19 @@
             style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
           >
             {{ isNull }}
+          </span>
+        </div>
+        <div class="attr-item" v-if="currentNode.level === 5">
+          <span class="item-key">
+            <span style="display: inline-block; width: 30px"></span>
+            <span style="display: inline-block; width: 90px" v-if="isOpen">
+              业务定义
+            </span>
+          </span>
+          <span
+            style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
+          >
+            {{  }}
           </span>
         </div>
       </template>
