@@ -480,6 +480,9 @@ export default {
     }
   },
   mounted() {
+    if (this.$route.query.jumpType === 'ZCMLGL') {
+      this.hideNav();
+    }
     // console.log(this.typeIds);
     // this.getDomainCodes();
     if (this.$route.query.domain || this.$route.query.domainId) {
@@ -510,6 +513,15 @@ export default {
     this.$bus.$off('gotDims')
   },
   methods: {
+    // 隐藏导航栏
+    hideNav() {
+      setTimeout(()=>{
+        document.getElementsByClassName('db-heading')[0].style.display = 'none';
+        document.getElementById('nav').style.display = 'none';
+        document.getElementById('db-main').style.top = 0
+        document.getElementById('db-main').style.left = 0
+      },10)
+    },
     toMove() {
       const nodes = this.$refs.folderTreeForMove.getCheckedNodes()
       if (nodes.length === 1) {
@@ -1747,6 +1759,10 @@ export default {
   },
   inject: ['headerProduction'],
   computed: {
+    // 是否显示
+    isShow() {
+      return this.$route.query.jumpType !== 'ZCMLGL'
+    },
     showAssignBtn() {
       return this.state === 'D'
     },

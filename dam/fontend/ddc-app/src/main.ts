@@ -1440,7 +1440,7 @@ This.$skip2 = ({ name, query }, target = 'ddc') => {
 }
 
 // 当数据标准仅有id时, 需要获取标准详情, 判断是否是 基础标准
-This.$skip2Domain = (domainId, isAssets = false, index) => {
+This.$skip2Domain = (domainId, isAssets = false, index, jumpType) => {
   // console.log(domainId, 'domainId')
   HTTP.getDomainDetailByIdService({ domainId, index })
     .then(res => {
@@ -1452,7 +1452,7 @@ This.$skip2Domain = (domainId, isAssets = false, index) => {
             name: 'dataStandard',
             query: isAssets
               ? { domainId, isAssets: true, blank: true }
-              : { domainId },
+              : { domainId, jumpType },
           })
         } else {
           This.$skip2Ddm({

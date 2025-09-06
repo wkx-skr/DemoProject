@@ -223,6 +223,7 @@
             <datablau-link
               :data-type="80010066"
               :data-object="{ domainId: domainId }"
+              jumpType="ZCMLGL"
             ></datablau-link>
           </span>
         </div>

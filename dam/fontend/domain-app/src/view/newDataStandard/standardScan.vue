@@ -110,7 +110,7 @@
         >
           {{ $t('common.button.edit') }}
         </datablau-button>
-        <div class="sub-button">
+        <div class="sub-button" v-if="isShow">
           <datablau-subscribe
             v-if="
               details.state === 'A' &&
@@ -139,6 +139,7 @@
             'min-width': $versionFeature['domain_Comments'] ? '150px' : '80px',
           }"
           v-if="useDam || useWorkflow"
+          v-show="isShow"
         >
           <div class="status-box" v-if="useWorkflow">
             <div class="title">{{ $t('domain.common.publishStatus') }}</div>
@@ -575,6 +576,7 @@
               (typeIds === 1 || typeIds === 2) &&
               headerProduction.toUpperCase() === 'DAM'
             "
+            v-show="isShow"
           >
             <div class="descriptionMessage-title">
               <p class="message-title">
@@ -688,7 +690,7 @@
           ></knowledgeGraph>
           <!-- :summary="{ properties: { Id: data.domainId, TypeId: '80010066' } }" -->
         </el-tab-pane>
-        <el-tab-pane :label="$t('domain.domain.changeHistory')" name="fourth">
+        <el-tab-pane v-if="isShow" :label="$t('domain.domain.changeHistory')" name="fourth">
           <div style="padding-top: 0" class="prop-line alg-line">
             <!--<div class="title">{{ $version.domain.propertyType.version }}</div>-->
             <!-- <div class="line"></div> -->

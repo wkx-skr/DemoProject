@@ -628,6 +628,10 @@ export default {
     },
   }, // End of methods,
   computed: {
+    // 是否显示
+    isShow() {
+      return this.$route.query.jumpType !== 'ZCMLGL'
+    },
     $appName() {
       return HTTP.$appName
     },

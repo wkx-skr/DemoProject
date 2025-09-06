@@ -42,6 +42,10 @@ import HTTP from '@/http/main'
 export default {
   name: 'DatablauLink',
   props: {
+    jumpType: {
+      type: String,
+      default: '',
+    },
     testName: String,
     dataType: {
       type: Number,
@@ -117,13 +121,13 @@ export default {
         }
         this.$skip2(query)
       } else if (this.dataType === LDMTypes.Domain) {
-        this.jumpToDomains(this.dataObject)
+        this.jumpToDomains(this.dataObject, this.jumpType)
       } else {
         throw new Error('unhandled type' + LDMTypes[this.dataType])
       }
     },
-    jumpToDomains(obj) {
-      this.$skip2Domain(obj.domainId)
+    jumpToDomains(obj, jumpType) {
+      this.$skip2Domain(obj.domainId, false, undefined, jumpType)
     },
     async getCategoryAuth(categoryId) {
       let bool = false

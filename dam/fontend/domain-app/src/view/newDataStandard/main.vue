@@ -838,7 +838,7 @@
         contentStatus === 'add'
       "
     >
-      <div class="top-back-line">
+      <div class="top-back-line" v-if="isShow">
         <datablau-breadcrumb
           style="height: auto; line-height: initial; display: inline-block"
           :node-data="nodeData"
@@ -846,7 +846,7 @@
           @nodeClick="nodeClick"
         ></datablau-breadcrumb>
       </div>
-      <div class="content-box" style="left: 0; top: 44px">
+      <div class="content-box" :style="{left: 0, top: isShow ? '44px' : 0}">
         <scan
           v-if="contentStatus === 'scan' && nowDomain"
           :domainHasComment="domainHasComment"
