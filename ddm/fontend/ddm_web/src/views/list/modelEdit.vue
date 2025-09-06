@@ -378,9 +378,9 @@
           ref="archyObjectRef"
           v-show="isShowModelList === 'archy'"></archy-object>
        <el-radio-group @change="changeLeftPane" v-model="isShowModelList">
-        <el-radio-button label="dataModel">数据模型</el-radio-button>
+        <el-radio-button label="dataModel">企业级逻辑模型</el-radio-button>
         <el-radio-button label="dataStandard">数据标准</el-radio-button>
-         <el-radio-button label="archy">信息架构</el-radio-button>
+         <el-radio-button label="archy">数据资产目录</el-radio-button>
       </el-radio-group>
       </div>
       <!-- <div class="resize-column-middle" style="top: 50px;cursor:unset !important"></div> -->
