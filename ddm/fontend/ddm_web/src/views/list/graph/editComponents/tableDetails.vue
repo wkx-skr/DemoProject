@@ -219,7 +219,7 @@
                       style="width:280px"
                       @focusout.native="handleTableCNNameTab(requestBody.cnName, true)"
                       :style="typeDataWareHouse?'width: 210px': $route.path==='/main/modeledit'? 'width:160px' : 'width:280px'"></datablau-input>
-                      <div class="translate-wrapper" :style="typeDataWareHouse?'margin-left: 72px': ''" @click="handleTableCNNameTab(requestBody.cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
+                    <!--  <div class="translate-wrapper" :style="typeDataWareHouse?'margin-left: 72px': ''" @click="handleTableCNNameTab(requestBody.cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
                       <span>翻译</span>
                       <img :src="translateActive ? translateActiveImg : translateImg" alt="" />
                     </div>

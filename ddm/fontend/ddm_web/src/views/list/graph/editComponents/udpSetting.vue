@@ -101,7 +101,7 @@
               @selectAll="selectAll(...arguments, k)"
               :value="dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple ? (requestBody.allUdps[k] && (requestBody.allUdps[k].split(',').map(item => item.trim()).filter((key => JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).map(p =>p.i).includes(key))))) : JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).map(p =>p.i).includes(requestBody.allUdps[k]) ? requestBody.allUdps[k] : ''"
               :optionsData="{
-                data: !JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).length ? [] : dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple ? JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct) : [{i: undefined, n: '----'},...JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct)],
+                data: !JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).length ? [] : dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple ? JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct) : [{i: undefined, n: ''},...JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct)],
                 key: 'i',
                 value: 'i',
                 label: 'n',
@@ -122,7 +122,7 @@
               @visible-change="handleVisibleChange(requestBody.allUdps[k], k)"
               :value="dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple ? (requestBody.allUdps[k] && (requestBody.allUdps[k].split(',').map(item => item.trim()).filter((key => JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k)).map(p =>p.i).includes(key))))) : JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k)).map(p => p.i).includes(requestBody.allUdps[k]) ? requestBody.allUdps[k]: ''"
               :optionsData="{
-                data: !JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k)).length ? [] : dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple ? JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k)) : [{i: undefined, n: '----'},...JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k))],
+                data: !JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k)).length ? [] : dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple ? JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k)) : [{i: undefined, n: ''},...JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).filter(i => filterUdpOption(i, k))],
                 key: 'i',
                 value: 'i',
                 label: 'n',
@@ -193,7 +193,7 @@
             </datablau-select>
           </template>
           <udp-validater-input
-            v-else
+            v-else-if="(dataByType.udp.get(Number.parseInt(k)).FriendlyName || dataByType.udp.get(Number.parseInt(k)).Name) !== '数据分类'"
             :key="k"
             :hideLabel="hideLabel"
             :value="requestBody.allUdps[k]"

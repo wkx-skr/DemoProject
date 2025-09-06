@@ -41,10 +41,10 @@
                 </template>
               </el-autocomplete>
             </el-form-item>
-            <div class="translate-wrapper" @click="handleColumnNameTab(allCols[0].cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
+<!--            <div class="translate-wrapper" @click="handleColumnNameTab(allCols[0].cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
               <span>翻译</span>
               <img :src="translateActive ? translateActiveImg : translateImg" alt="" />
-            </div>
+            </div>-->
               <el-form-item :required="true" :label="isDesignModel ? '属性英文名' : '字段名'">
                   <datablau-input
                     @focusout.native="formatColumnName(allCols[0])"
@@ -197,6 +197,7 @@
                         :value="allCols[0].dataStandardCode"
                         clearable
                         @clear="clearCode(allCols[0])"
+                        disabled-grey
                       ></datablau-input>
                      </el-form-item>
                     <el-form-item label="代码名称">
@@ -206,6 +207,7 @@
                         :value="$globalData.domainCodes && $globalData.domainCodes.map.get(allCols[0].dataStandardCode)"
                         clearable
                         @clear="clearCode(allCols[0])"
+                        disabled-grey
                       ></datablau-input>
                      </el-form-item>
                      <el-button v-if="false" type="text" size="mini" @click="clearCode" style="position: absolute;top: 0;right: 0;">清除代码</el-button>
