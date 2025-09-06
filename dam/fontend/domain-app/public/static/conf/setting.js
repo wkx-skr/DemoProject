@@ -99,7 +99,7 @@
 
   setting.gatewayEnable = true
 
-
+  
 
   function formatterProduct(product) {
     product.webPath = product.webPath || location.pathname

@@ -3354,7 +3354,6 @@ export default {
   right: 0;
   bottom: 0;
 }
-
 .tab-page.edit-code-node {
   position: absolute;
   top: 0;
@@ -3365,21 +3364,17 @@ export default {
 
   .content-outer {
     @include absPos();
-
     .el-collapse-item__header {
       height: 40px;
       line-height: 40px;
     }
-
     .collapse-title {
       padding-left: 10px;
-
       h4 {
         position: relative;
         display: inline-block;
         font-size: 14px;
         font-weight: bold;
-
         &::after {
           content: '';
           display: block;
@@ -3394,12 +3389,10 @@ export default {
       }
     }
   }
-
   .message-form-item {
     // width: 490px;
     display: inline-block;
     vertical-align: top;
-
     &:nth-of-type(odd) {
       //margin-right: 20px;
     }
@@ -3428,7 +3421,6 @@ export default {
       bottom: 0;
       cursor: pointer;
     }
-
     .thin {
       .el-table__body .el-table__row {
         .el-input__inner,
@@ -3460,7 +3452,6 @@ export default {
   .el-form-item {
     margin-right: 4px;
   }
-
   .udp-form-item .el-form-item__error {
     left: 190px;
     display: block;

@@ -26,7 +26,7 @@
       </div>
     </div>
     <datablau-dialog title="关系详情列表" :visible.sync="flag" :modal="false" :close-on-click-modal="false" width="60vw"
-                     append-to-body>
+      append-to-body>
       <div class="details-table" v-loading="loadingDetails">
         <datablau-table :data="lineDetailsData" height="100%" style="width: 100%">
           <el-table-column prop="modelCategoryNameLeft" label="上游系统" show-overflow-tooltip></el-table-column>
@@ -34,7 +34,7 @@
             <template #default="{ row }">
               <span v-if="row.permissionsCrudLeft">
                 <el-tag v-for="tag in getPermissionTags(row.permissionsCrudLeft)" :key="tag.char" :type="tag.type"
-                        size="mini" effect="light" style="margin-right: 4px">
+                  size="mini" effect="light" style="margin-right: 4px">
                   {{ tag.char }}
                 </el-tag>
               </span>
@@ -42,13 +42,13 @@
             </template>
           </el-table-column>
           <el-table-column label="业务对象名称" prop="l3Name" width="200" show-overflow-tooltip
-                           align="center"></el-table-column>
+            align="center"></el-table-column>
           <el-table-column prop="l4Name" label="逻辑实体名称" width="200" show-overflow-tooltip></el-table-column>
           <el-table-column label="下游操作" width="120">
             <template #default="{ row }">
               <span v-if="row.permissionsCrudRight">
                 <el-tag v-for="tag in getPermissionTags(row.permissionsCrudRight)" :key="tag.char" :type="tag.type"
-                        size="mini" effect="light" style="margin-right: 4px">
+                  size="mini" effect="light" style="margin-right: 4px">
                   {{ tag.char }}
                 </el-tag>
               </span>
@@ -394,7 +394,7 @@ export default {
               cursor: 'pointer',
             },
           },
-          // type: 'rect',
+         // type: 'rect',
         },
         defaultEdge: {
           // type: 'polyline',

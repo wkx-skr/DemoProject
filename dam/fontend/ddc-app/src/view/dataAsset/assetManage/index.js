@@ -1969,6 +1969,8 @@ export default {
             }
            await this.$refs.assetsUpload.$refs.upload.submit()
 
+            let url = this.$asstes_url + `/catalog/export/template/${this.curStructureId}`
+
             window.location.reload();
           } else {
             this.$message.warning(this.$t('assets.common.uploadTip'))

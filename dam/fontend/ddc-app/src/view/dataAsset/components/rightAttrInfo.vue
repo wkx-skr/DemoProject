@@ -228,7 +228,7 @@
         </div>
         <div class="attr-item" v-if="currentNode.level === 5">
           <span class="item-key">
-            <span style="display: inline-block; width: 30px"></span>
+            <span style="display:inline-block; width: 30px"></span>
             <span style="display: inline-block; width: 90px" v-if="isOpen">
               是否为空
             </span>
@@ -430,7 +430,7 @@
               </el-form-item>
               <el-form-item
                 label-width="100px"
-                :label="$t('assets.summaryInfo.increment') + '1233131'"
+                :label="$t('assets.summaryInfo.increment')"
                 prop="incStepSize"
               >
                 <datablau-input

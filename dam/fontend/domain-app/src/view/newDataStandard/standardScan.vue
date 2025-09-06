@@ -110,7 +110,7 @@
         >
           {{ $t('common.button.edit') }}
         </datablau-button>
-        <!--<div class="sub-button">
+        <div class="sub-button">
           <datablau-subscribe
             v-if="
               details.state === 'A' &&
@@ -125,7 +125,7 @@
             :object-id="details.domainId"
             :domainFolderId="details.categoryId"
           ></datablau-subscribe>
-        </div>-->
+        </div>
         <white-list
           style="float: right; margin-right: 10px"
           :isSecurity="isAnquan"
@@ -133,7 +133,7 @@
           :itemId="data.domainId"
           :itemType="80010066"
         ></white-list>
-        <!--<div
+        <div
           class="right-button-box"
           :style="{
             'min-width': $versionFeature['domain_Comments'] ? '150px' : '80px',
@@ -162,7 +162,7 @@
             <div class="title change">{{ $t('domain.domain.visitCount') }}</div>
             <p>{{ this.visit }}</p>
           </div>
-        </div>-->
+        </div>
         <div
           class="sup-name"
           v-if="
@@ -569,7 +569,7 @@
           </div>
           <!-- 附加类属性 end -->
 
-          <!--<div
+          <div
             class="prop-line alg-line"
             v-if="
               (typeIds === 1 || typeIds === 2) &&
@@ -619,7 +619,7 @@
                 </span>
               </div>
             </div>
-          </div>-->
+          </div>
         </el-tab-pane>
         <!--        <el-tab-pane :label="$t('domain.domain.quoteInfo')" name="second">
           <div style="padding: 0" class="prop-line alg-line">
@@ -688,10 +688,10 @@
           ></knowledgeGraph>
           <!-- :summary="{ properties: { Id: data.domainId, TypeId: '80010066' } }" -->
         </el-tab-pane>
-        <!--<el-tab-pane :label="$t('domain.domain.changeHistory')" name="fourth">
+        <el-tab-pane :label="$t('domain.domain.changeHistory')" name="fourth">
           <div style="padding-top: 0" class="prop-line alg-line">
-            &lt;!&ndash;<div class="title">{{ $version.domain.propertyType.version }}</div>&ndash;&gt;
-            &lt;!&ndash; <div class="line"></div> &ndash;&gt;
+            <!--<div class="title">{{ $version.domain.propertyType.version }}</div>-->
+            <!-- <div class="line"></div> -->
             <version
               v-if="activeName === 'fourth'"
               :typeIds="typeIds"
@@ -700,7 +700,7 @@
               :udps="udps"
             ></version>
           </div>
-        </el-tab-pane>-->
+        </el-tab-pane>
         <el-tab-pane
           :label="$t('domain.domain.questionAndAnswer')"
           name="fifth"

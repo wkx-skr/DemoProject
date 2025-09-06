@@ -218,10 +218,10 @@
               <el-radio :label="true">是</el-radio>
               <el-radio :label="false">否</el-radio>
             </el-radio-group>
-            <div class="dialog-note">
-              <!-- 注：如果勾选分发源头，则所有R来源于该U，而非来源于C。 -->
-              注：此选项针对U操作，如果勾选，在生成的数据流图中，逻辑实体的方向为U->R，适用于MDM中备案数据分发等情况。
-            </div>
+             <div class="dialog-note">
+                <!-- 注：如果勾选分发源头，则所有R来源于该U，而非来源于C。 -->
+                 注：此选项针对U操作，如果勾选，在生成的数据流图中，逻辑实体的方向为U->R，适用于MDM中备案数据分发等情况。
+             </div>
           </div>
         </el-form-item>
       </el-form>
@@ -239,17 +239,17 @@
       append-to-body
     >
       <el-form :model="createForm" ref="createForm" label-width="120px" size="mini">
-        <el-form-item label="逻辑实体编码" prop="l4Code">
-          <datablau-input v-model="createForm.l4Code" placeholder="请输入逻辑实体编码"></datablau-input>
-        </el-form-item>
-        <el-form-item label="数据操作">
-          <div class="permission-checkbox-group" style="margin-top: 5px;">
-            <el-checkbox v-model="newPermissions.C">C</el-checkbox>
-            <el-checkbox v-model="newPermissions.R">R</el-checkbox>
-            <el-checkbox v-model="newPermissions.U">U</el-checkbox>
-            <el-checkbox v-model="newPermissions.D">D</el-checkbox>
-          </div>
-        </el-form-item>
+         <el-form-item label="逻辑实体编码" prop="l4Code">
+            <datablau-input v-model="createForm.l4Code" placeholder="请输入逻辑实体编码"></datablau-input>
+         </el-form-item>
+         <el-form-item label="数据操作">
+           <div class="permission-checkbox-group" style="margin-top: 5px;">
+              <el-checkbox v-model="newPermissions.C">C</el-checkbox>
+              <el-checkbox v-model="newPermissions.R">R</el-checkbox>
+              <el-checkbox v-model="newPermissions.U">U</el-checkbox>
+              <el-checkbox v-model="newPermissions.D">D</el-checkbox>
+           </div>
+         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <datablau-button @click="createDialogVisible = false">取消</datablau-button>
@@ -386,7 +386,7 @@ export default {
         }
         // Explicitly set isLeaf if nodes is now undefined (helps cascader)
         if (processedNode.nodes === undefined) {
-          processedNode.isLeaf = true;
+            processedNode.isLeaf = true;
         }
         return processedNode;
       });
@@ -881,8 +881,8 @@ export default {
     },
     //导出数据
     handleDataflowExport() {
-      let { l3Name, l4Name , modelCategoryName } = this.searchForm
-      this.$datablauDownload('/assets/dataflow/export',  { l3Name, l4Name , modelCategoryName }, 'CRUD矩阵数据')
+       let { l3Name, l4Name , modelCategoryName } = this.searchForm
+       this.$datablauDownload('/assets/dataflow/export',  { l3Name, l4Name , modelCategoryName }, 'CRUD矩阵数据')
     },
 
     // 分页大小变更
@@ -912,17 +912,17 @@ export default {
         .then(() => {
           // Prepare payload as List<Object { modelCategoryId, l4Code }>
           const deletePayload = this.selectedRows.map(row => ({
-            // --- IMPORTANT: Assumes row.modelCategoryId exists! ---
-            // --- Backend /dataflow/page endpoint MUST return modelCategoryId ---
-            modelCategoryId: row.modelCategoryId,
-            l4Code: row.l4Code
+              // --- IMPORTANT: Assumes row.modelCategoryId exists! ---
+              // --- Backend /dataflow/page endpoint MUST return modelCategoryId ---
+              modelCategoryId: row.modelCategoryId,
+              l4Code: row.l4Code
           }));
 
           // Check if any essential data is missing (basic check)
           if (deletePayload.some(item => item.modelCategoryId === undefined || item.l4Code === undefined)) {
-            this.$message.error('选中的数据缺少必要的ID信息，无法删除');
-            console.error('Delete payload missing data:', deletePayload);
-            return;
+              this.$message.error('选中的数据缺少必要的ID信息，无法删除');
+              console.error('Delete payload missing data:', deletePayload);
+              return;
           }
 
           const loading = this.$loading({ lock: true, text: '正在删除...' });
@@ -954,24 +954,24 @@ export default {
   watch: {
     // Watch for changes in the U permission
     'crudForm.permissions.U'(newValue) {
-      if (newValue) {
-        // 当U权限被勾选时，如果distributionSource为null，设置默认值为false
-        if (this.crudForm.distributionSource === null) {
-          this.crudForm.distributionSource = false;
-        }
-      } else {
-        // If U is unchecked, Distribution Source must also be null (which unchecks both Yes/No)
-        if (this.crudForm.distributionSource !== null) {
-          this.crudForm.distributionSource = null;
-        }
-      }
+       if (newValue) {
+         // 当U权限被勾选时，如果distributionSource为null，设置默认值为false
+         if (this.crudForm.distributionSource === null) {
+           this.crudForm.distributionSource = false;
+         }
+       } else {
+         // If U is unchecked, Distribution Source must also be null (which unchecks both Yes/No)
+         if (this.crudForm.distributionSource !== null) {
+           this.crudForm.distributionSource = null;
+         }
+       }
     },
     // Watch for changes in the Distribution Source - Now watch the main value
     'crudForm.distributionSource'(newValue) {
-      // If Distribution Source becomes true (Yes is checked), U must also be checked
-      if (newValue === true && !this.crudForm.permissions.U) {
-        this.crudForm.permissions.U = true;
-      }
+       // If Distribution Source becomes true (Yes is checked), U must also be checked
+       if (newValue === true && !this.crudForm.permissions.U) {
+            this.crudForm.permissions.U = true;
+       }
     }
   }
 }
@@ -1002,8 +1002,8 @@ export default {
     }
 
     /deep/ .el-form-item {
-      margin-bottom: 0;
-      margin-right: 15px;
+        margin-bottom: 0;
+        margin-right: 15px;
     }
   }
 
@@ -1054,7 +1054,7 @@ export default {
     white-space: nowrap;
 
     .datablau-button {
-      padding: 7px 10px;
+       padding: 7px 10px;
     }
   }
 
@@ -1120,19 +1120,19 @@ export default {
       margin-right: 25px;
       margin-bottom: 15px;
       &:last-child {
-        margin-right: 0;
+         margin-right: 0;
       }
     }
   }
 
   // Add spacing for form items within the dialog
   /deep/ .crud-form .el-form-item {
-    margin-bottom: 18px; // Increase bottom margin for spacing
+      margin-bottom: 18px; // Increase bottom margin for spacing
   }
 
   // Ensure permission item itself doesn't add extra bottom margin if others have it
   /deep/ .permission-form-item {
-    margin-bottom: 18px;
+      margin-bottom: 18px;
   }
 
   .distribution-note-layout {

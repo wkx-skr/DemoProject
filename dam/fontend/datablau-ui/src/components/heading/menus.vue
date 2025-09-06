@@ -65,7 +65,7 @@ export default {
         const indexPageName = $directory.products[currentProduct].index
         const NewPage = this.pagesMap.get(indexPageName)
         if (!NewPage) {
-          this.$emit('openUserModal')
+          this.$emit('openUserModal','searchGlobal')
           return
         }
         this.currentItem = NewPage.path[0]

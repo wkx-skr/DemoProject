@@ -37,6 +37,6 @@ module.exports = {
         compress: true,
         disableHostCheck: true
     },
-  transpileDependencies: [/[/\\]node_modules[/\\](.+?)?element-ui(.*)[/\\]src/, 'fast-png','iobuffer'],
+  transpileDependencies: [/[/\\]node_modules[/\\](.+?)?element-ui(.*)[/\\]src/],
   chainWebpack: chainConfig
 }

@@ -3,15 +3,15 @@
     <div class="search-part">
       <div class="search-input">
         <el-autocomplete style="width: 540px" v-model="keyword" clearable v-if="showGlobalSearch"
-                         ref="showGlobalSearchDom" :fetch-suggestions="queryHistoryRecord" placeholder="请输入内容" @select="goSearch()"
-                         class="datablau-input seachInput" @keydown.enter.native="goSearch()">
+          ref="showGlobalSearchDom" :fetch-suggestions="queryHistoryRecord" placeholder="请输入内容" @select="goSearch()"
+          class="datablau-input seachInput" @keydown.enter.native="goSearch()">
           <div slot-scope="{ item, index }">
             {{ item.label }}
             <i class="el-icon-close" @click.stop="removeHistoryRecord(item)" style="float: right; margin-top: 10px"></i>
           </div>
           <el-cascader style="width: 120px" @change="selectedItemTypeChangeEvent" :props="defaultProps"
-                       :options="itemTypeOptions" :show-all-levels="false" v-model="selectedItemType" slot="append"
-                       placeholder="请选择"></el-cascader>
+            :options="itemTypeOptions" :show-all-levels="false" v-model="selectedItemType" slot="append"
+            placeholder="请选择"></el-cascader>
         </el-autocomplete>
       </div>
       <div class="search-button" @click="goSearch()">
@@ -20,37 +20,37 @@
       </div>
     </div>
     <div style="
-        height: calc(100vh - 155px);
+        height: calc(100vh - 135px);
         display: flex;
-        padding-left: 80px;
-        padding-right: 80px;
+        padding-left: 20px;
+        padding-right: 20px;
         position: relative;
       ">
       <Panel>
         <el-table :key="tableKey" :data="resultData" row-key="id" height="100%" :show-header="true" style="width: 100%" v-if="resultData.length > 0"
-                  @row-click="goTodetail">
+          @row-click="goTodetail">
           <el-table-column :label="tableHeaderLabel" min-width="100">
             <template v-slot="{ row, $index }">
               <div class="result-table-li-left">
                 <template v-if="!isMetadata">
                   <datablau-icon class="iconForIe" :data-type="row.logical ? 'logicaltable' : 'table'"
-                                 :key="row.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
-                                 v-if="row.data.itemType === 80000004"></datablau-icon>
+                    :key="row.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
+                    v-if="row.data.itemType === 80000004"></datablau-icon>
                   <datablau-icon class="iconForIe" :data-type="row.logical ? 'logicalcolumn' : 'column'"
-                                 :key="row.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
-                                 v-else-if="row.data.itemType === 80000005"></datablau-icon>
+                    :key="row.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
+                    v-else-if="row.data.itemType === 80000005"></datablau-icon>
                   <datablau-icon class="iconForIe" :data-type="String(row.data.itemType)" :key="row.data.itemId"
-                                 :size="32" style="position: relative; margin-left: 5px; top: 3px" v-else-if="
+                    :size="32" style="position: relative; margin-left: 5px; top: 3px" v-else-if="
                       row.data.itemType === 80010001 ||
                       row.data.itemType === 82800012
                     "></datablau-icon>
                   <img v-else-if="row.data.itemType === 80010076" :src="imgPath(row.data)" width="32" height="32"
-                       alt="" />
+                    alt="" />
                   <datablau-icon class="iconForIe" :data-type="row.data.itemType === 82800008
                       ? fileTypeFormatter(row.data.type)
                       : typeList[row.data.itemType]
                     " :key="row.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
-                                 v-else></datablau-icon>
+                    v-else></datablau-icon>
                 </template>
                 <img v-else :src="metaModelIconMap[row.data.itemType]" width="32" height="32" alt="" />
                 <div class="cont" :class="{ contQRule: row.data.itemType === 82800016 }">
@@ -62,7 +62,7 @@
                   ">
                     <is-show-tooltip :content="row.data.chineseName">
                       <datablau-high-light style="font-weight: bold" :content="row.data.chineseName" :keyword="keyword"
-                                           :show-overflow-tooltip="false"></datablau-high-light>
+                        :show-overflow-tooltip="false"></datablau-high-light>
                     </is-show-tooltip>
                   </p>
                   <p class="name" v-else-if="
@@ -76,11 +76,11 @@
                         : '')
                       ">
                       <datablau-high-light style="font-weight: bold" :content="row.data.chineseName" :keyword="keyword"
-                                           :show-overflow-tooltip="false"></datablau-high-light>
+                        :show-overflow-tooltip="false"></datablau-high-light>
                       <span v-if="row.data.englishName">
                         (
                         <datablau-high-light style="font-weight: bold" :content="row.data.englishName"
-                                             :keyword="keyword" :show-overflow-tooltip="false"></datablau-high-light>
+                          :keyword="keyword" :show-overflow-tooltip="false"></datablau-high-light>
                         )
                       </span>
                       <span class="domain-code">
@@ -95,11 +95,11 @@
                         : '')
                       ">
                       <datablau-high-light style="font-weight: bold" :content="row.data.englishName" :keyword="keyword"
-                                           :show-overflow-tooltip="false"></datablau-high-light>
+                        :show-overflow-tooltip="false"></datablau-high-light>
                       <span v-if="row.data.chineseName">
                        {{row.data.itemType === 80010001 ?'':'('}}
                         <datablau-high-light style="font-weight: bold" :content="row.data.chineseName"
-                                             :keyword="keyword" :show-overflow-tooltip="false"></datablau-high-light>
+                          :keyword="keyword" :show-overflow-tooltip="false"></datablau-high-light>
                        {{row.data.itemType === 80010001 ?'':')'}}
                       </span>
                       <span v-if="
@@ -112,8 +112,8 @@
                   </p>
                   <div v-if="row.data.itemType !== 82800016">
                     <datablau-high-light style="font-size:12px;color:#909399" v-if="row.data.description"
-                                         :content="row.data.description" :keyword="keyword"
-                                         :show-overflow-tooltip="false"></datablau-high-light>
+                      :content="row.data.description" :keyword="keyword"
+                      :show-overflow-tooltip="false"></datablau-high-light>
                     <p v-else class="nodescription">暂无信息</p>
                   </div>
                   <div class="children-column" v-if="row.data.children.length > 0">
@@ -133,7 +133,7 @@
                       index < 5
                       ">
                       <datablau-high-light style="font-weight: bold" v-if="column.name" :content="column.name"
-                                           :keyword="keyword" :widthStyle="true" :show-overflow-tooltip="true"></datablau-high-light>
+                        :keyword="keyword" :widthStyle="true" :show-overflow-tooltip="true"></datablau-high-light>
                     </p>
                     <span v-if="row.data.children.length > 5">&nbsp;等</span>
                     <!-- <p
@@ -150,13 +150,13 @@
           </el-table-column>
           <!--  增加资产目录  资产目录类型列-->
           <el-table-column label="资产目录类型" width="170" show-overflow-tooltip prop="catalogType"
-                           v-if="selectedItemType.includes('sjzcml')">
+            v-if="selectedItemType.includes('sjzcml')">
             <template v-slot="{ row }">
               <datablau-status
-                :type="catalogTypeMap[row.data.catalogType]"
-                :desc="row.data.catalogType"
-                business-type
-              ></datablau-status>
+        :type="catalogTypeMap[row.data.catalogType]"
+        :desc="row.data.catalogType"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <!-- 数据表/字段/标准数据元/接口采集数据/参考数据 路径列-->
@@ -190,84 +190,84 @@
           ">
             <template v-slot="{ row }">
               <datablau-status v-if="row.data.creator"
-                               type="7"
-                               :desc="row.data.creator"
-                               business-type
-              ></datablau-status>
+        type="7"
+        :desc="row.data.creator"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <!-- 数据资产目录  创建时间列 -->
           <el-table-column label="创建时间" width="170" show-overflow-tooltip prop="createTime"
-                           v-if="selectedItemType.includes('sjzcml')">
+            v-if="selectedItemType.includes('sjzcml')">
             <template v-slot="{ row }">
               {{ row.data.createTime }}
             </template>
           </el-table-column>
           <!-- 参考数据 关联的数据标准名称列 TODO确认字段 -->
           <el-table-column label="关联标准数据元" show-overflow-tooltip prop="domainName" width="170"
-                           v-if="selectedItemType.includes('cksj')">
+            v-if="selectedItemType.includes('cksj')">
             <template v-slot="{ row }">
               <span style="color: #3e9aff">{{ row.data.domainName }}</span>
             </template>
           </el-table-column>
           <!-- 数据库  采集类型列 TODO确认字段--->
           <el-table-column label="采集类型" min-width="50" prop="type" show-overflow-tooltip
-                           v-if="selectedItemType.includes('sjk')">
+            v-if="selectedItemType.includes('sjk')">
             <template v-slot="{ row }">
               <!-- {{ row.data.type }} -->
               <datablau-status v-if="row.data.type"
-                               type="6"
-                               :desc="row.data.type"
-                               business-type
-              ></datablau-status>
+        type="6"
+        :desc="row.data.type"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <!-- 数据库  所属系统列 TODO确认字段-->
           <el-table-column label="所属系统" show-overflow-tooltip min-width="50" prop="modelCategoryName"
-                           v-if="selectedItemType.includes('sjk')">
+            v-if="selectedItemType.includes('sjk')">
             <template v-slot="{ row }">
               <!-- {{ row.data.modelCategoryName }} -->
               <datablau-status v-if="row.data.modelCategoryName"
-                               type="2"
-                               :desc="row.data.modelCategoryName"
-                               business-type
-              ></datablau-status>
+        type="2"
+        :desc="row.data.modelCategoryName"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <!-- 数据表  业务域、业务描述、使用描述、负责人、数据库类型列(字段)-->
           <el-table-column label="业务域" width="130" show-overflow-tooltip prop="businessDomain"
-                           v-if="selectedItemType.includes('sjb')">
+            v-if="selectedItemType.includes('sjb')">
             <template v-slot="{ row }">
               <!-- {{ row.data.businessDomain }} -->
               <datablau-status v-if="row.data.businessDomain"
-                               type="2"
-                               :desc="row.data.businessDomain"
-                               business-type
-              ></datablau-status>
+        type="2"
+        :desc="row.data.businessDomain"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <el-table-column label="业务描述" width="150" show-overflow-tooltip prop="businessDescription"
-                           v-if="selectedItemType.includes('sjb')">
+            v-if="selectedItemType.includes('sjb')">
             <template v-slot="{ row }">
               <!-- {{ row.data.businessDescription }} -->
               <span style="color:#909399"> {{ row.data.businessDescription }}</span>
             </template>
           </el-table-column>
           <el-table-column label="使用描述" width="150" show-overflow-tooltip prop="useDescription"
-                           v-if="selectedItemType.includes('sjb')">
+            v-if="selectedItemType.includes('sjb')">
             <template v-slot="{ row }">
-              <span style="color:#909399"> {{ row.data.useDescription }}</span>
+             <span style="color:#909399"> {{ row.data.useDescription }}</span>
             </template>
           </el-table-column>
           <el-table-column label="负责人" width="130" show-overflow-tooltip prop="owner"
-                           v-if="selectedItemType.includes('sjb')">
+            v-if="selectedItemType.includes('sjb')">
             <template v-slot="{ row }">
               <!-- {{ row.data.owner }} -->
               <datablau-status v-if="row.data.owner"
-                               type="7"
-                               :desc="row.data.owner"
-                               business-type
-              ></datablau-status>
+        type="7"
+        :desc="row.data.owner"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <el-table-column label="数据库类型" width="130" key="modelType1" show-overflow-tooltip prop="modelType" v-if="
@@ -275,21 +275,21 @@
             <template v-slot="{ row }">
               <!-- {{ row.data.modelType }} -->
               <datablau-status v-if="row.data.modelType"
-                               type="3"
-                               :desc="row.data.modelType"
-                               business-type
-              ></datablau-status>
+        type="3"
+        :desc="row.data.modelType"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <el-table-column label="数据库类型" width="130" key="modelType2" show-overflow-tooltip prop="modelType"
-                           v-if="selectedItemType.includes('zd')">
+            v-if="selectedItemType.includes('zd')">
             <template v-slot="{ row }">
               <!-- {{ row.data.modelType }} -->
               <datablau-status v-if="row.data.modelType"
-                               type="3"
-                               :desc="row.data.modelType"
-                               business-type
-              ></datablau-status>
+        type="3"
+        :desc="row.data.modelType"
+        business-type
+      ></datablau-status>
             </template>
           </el-table-column>
           <!-- 字段  类型列,数据库类型 -->
@@ -524,8 +524,8 @@
               共 {{ totalShow > 10000 ? '10000+' : totalShow }} 条
             </span>
             <datablau-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                                 :current-page="currentPage" :page-sizes="[20, 50, 100]" :page-size="pageSize" :total="totalShow"
-                                 layout="prev, pager, next" type="ES" prev-text="上一页" next-text="下一页"></datablau-pagination>
+              :current-page="currentPage" :page-sizes="[20, 50, 100]" :page-size="pageSize" :total="totalShow"
+              layout="prev, pager, next" type="ES" prev-text="上一页" next-text="下一页"></datablau-pagination>
           </div>
         </template>
       </Panel>
@@ -538,23 +538,23 @@
           <div class="result-table-li-left">
             <template v-if="!isMetadata">
               <datablau-icon class="iconForIe" :data-type="result.logical ? 'logicaltable' : 'table'"
-                             :key="result.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
-                             v-if="result.data.itemType === 80000004"></datablau-icon>
+                :key="result.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
+                v-if="result.data.itemType === 80000004"></datablau-icon>
               <datablau-icon class="iconForIe" :data-type="result.logical ? 'logicalcolumn' : 'column'"
-                             :key="result.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
-                             v-else-if="result.data.itemType === 80000005"></datablau-icon>
+                :key="result.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
+                v-else-if="result.data.itemType === 80000005"></datablau-icon>
               <datablau-icon class="iconForIe" :data-type="String(result.data.itemType)" :key="result.data.itemId"
-                             :size="32" style="position: relative; margin-left: 5px; top: 3px" v-else-if="
+                :size="32" style="position: relative; margin-left: 5px; top: 3px" v-else-if="
                   result.data.itemType === 80010001 ||
                   result.data.itemType === 82800012
                 "></datablau-icon>
               <img v-else-if="result.data.itemType === 80010076" :src="imgPath(result.data)" width="32" height="32"
-                   alt="" />
+                alt="" />
               <datablau-icon class="iconForIe" :data-type="result.data.itemType === 82800008
                   ? fileTypeFormatter(result.data.type)
                   : typeList[result.data.itemType]
                 " :key="result.data.itemId" :size="32" style="position: relative; margin-left: 5px; top: 3px"
-                             v-else></datablau-icon>
+                v-else></datablau-icon>
             </template>
             <img v-else :src="metaModelIconMap[result.data.itemType]" width="32" height="32" alt="" />
             <div class="cont" :class="{ contQRule: result.data.itemType === 82800016 }">
@@ -566,7 +566,7 @@
               ">
                 <is-show-tooltip :content="result.data.chineseName">
                   <datablau-high-light :content="result.data.chineseName" :keyword="keyword"
-                                       :show-overflow-tooltip="false"></datablau-high-light>
+                    :show-overflow-tooltip="false"></datablau-high-light>
                 </is-show-tooltip>
               </p>
               <p class="name" v-else-if="
@@ -580,11 +580,11 @@
                     : '')
                   ">
                   <datablau-high-light :content="result.data.chineseName" :keyword="keyword"
-                                       :show-overflow-tooltip="false"></datablau-high-light>
+                    :show-overflow-tooltip="false"></datablau-high-light>
                   <span v-if="result.data.englishName">
                     (
                     <datablau-high-light :content="result.data.englishName" :keyword="keyword"
-                                         :show-overflow-tooltip="false"></datablau-high-light>
+                      :show-overflow-tooltip="false"></datablau-high-light>
                     )
                   </span>
                   <span class="domain-code">
@@ -599,11 +599,11 @@
                     : '')
                   ">
                   <datablau-high-light :content="result.data.englishName" :keyword="keyword"
-                                       :show-overflow-tooltip="false"></datablau-high-light>
+                    :show-overflow-tooltip="false"></datablau-high-light>
                   <span v-if="result.data.chineseName">
                     (
                     <datablau-high-light :content="result.data.chineseName" :keyword="keyword"
-                                         :show-overflow-tooltip="false"></datablau-high-light>
+                      :show-overflow-tooltip="false"></datablau-high-light>
                     )
                   </span>
                   <span v-if="
@@ -616,7 +616,7 @@
               </p>
               <div v-if="result.data.itemType !== 82800016">
                 <datablau-high-light v-if="result.data.description" :content="result.data.description"
-                                     :keyword="keyword" :show-overflow-tooltip="false"></datablau-high-light>
+                  :keyword="keyword" :show-overflow-tooltip="false"></datablau-high-light>
                 <p v-else class="nodescription">暂无信息</p>
               </div>
               <div class="children-column" v-if="result.data.children.length > 0">
@@ -636,7 +636,7 @@
                   index < 5
                   ">
                   <datablau-high-light v-if="column.name" :content="column.name" :keyword="keyword" :widthStyle="true"
-                                       :show-overflow-tooltip="true"></datablau-high-light>
+                    :show-overflow-tooltip="true"></datablau-high-light>
                 </p>
                 <span v-if="result.data.children.length > 5">&nbsp;等</span>
                 <!-- <p
@@ -968,8 +968,8 @@
           共 {{ totalShow > 10000 ? '10000+' : totalShow }} 条
         </span>
         <datablau-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                             :current-page="currentPage" :page-sizes="[20, 50, 100]" :page-size="pageSize" :total="totalShow"
-                             layout="prev, pager, next" type="ES" prev-text="上一页" next-text="下一页"></datablau-pagination>
+          :current-page="currentPage" :page-sizes="[20, 50, 100]" :page-size="pageSize" :total="totalShow"
+          layout="prev, pager, next" type="ES" prev-text="上一页" next-text="下一页"></datablau-pagination>
       </div>
       <div class="nothing" v-if="resultData.length === 0">
         <img src="./nothing.svg" alt="" />
