@@ -8,7 +8,7 @@ let port = 8073
  * proxy和port使用public-app提供的
  */
 try {
-  proxy = require('./test').proxy
+  proxy = require('../base-app/test').proxy
 } catch (e) {
 }
 module.exports = {

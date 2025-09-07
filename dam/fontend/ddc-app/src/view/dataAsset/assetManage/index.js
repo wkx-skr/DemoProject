@@ -1967,7 +1967,7 @@ export default {
                 ? 'UNPUBLISHED'
                 : 'PUBLISHED'
             }
-           await this.$refs.assetsUpload.$refs.upload.submit()
+            await this.$refs.assetsUpload.$refs.upload.submit()
 
             let url = this.$asstes_url + `/catalog/export/template/${this.curStructureId}`
 

@@ -41,7 +41,7 @@
                 </template>
               </el-autocomplete>
             </el-form-item>
-<!--            <div class="translate-wrapper" @click="handleColumnNameTab(allCols[0].cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
+            <!--<div class="translate-wrapper" @click="handleColumnNameTab(allCols[0].cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
               <span>翻译</span>
               <img :src="translateActive ? translateActiveImg : translateImg" alt="" />
             </div>-->

@@ -24,7 +24,6 @@
       size="mini"
       placeholder="请输入"
       :themeBlack="themeBlack"
-      class="333333333333333"
   >
   </datablau-input>
   <datablau-input
