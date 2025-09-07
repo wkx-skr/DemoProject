@@ -222,7 +222,7 @@
                     <!--  <div class="translate-wrapper" :style="typeDataWareHouse?'margin-left: 72px': ''" @click="handleTableCNNameTab(requestBody.cnName)" @mouseenter="translateActive=true" @mouseleave="translateActive=false">
                       <span>翻译</span>
                       <img :src="translateActive ? translateActiveImg : translateImg" alt="" />
-                    </div>
+                    </div>-->
                   </div>
                 </el-form-item>
 
