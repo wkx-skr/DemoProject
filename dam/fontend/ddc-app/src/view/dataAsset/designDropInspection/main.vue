@@ -11,8 +11,9 @@
       >
         <div class="filter-content">
           <!-- 左侧筛选 -->
-          <div class="left-filter">
-            <el-form-item label="业务域">
+          <div class="left-filter" style="line-height: 90px">
+            <asset-catalog-dialog @confirm="onAssetConfirm" :disabled="isRightSideSelected" />
+            <!--<el-form-item label="业务域">
               <datablau-select
                 v-model="searchForm.businessDomain"
                 placeholder="请选择"
@@ -63,7 +64,7 @@
                   :value="item.id"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
           </div>
 
           <!-- 分隔线 -->
@@ -299,8 +300,10 @@
 
 <script>
 import LDMTypes from '@constant/LDMTypes'
+import AssetCatalogDialog from '@/components/AssetCatalogDialog.vue'
 export default {
   name: 'DesignDropInspection',
+  components: { AssetCatalogDialog },
   data() {
     return {
       searchForm: {
@@ -310,6 +313,7 @@ export default {
         appSystem: null,
         modelType: null,
       },
+      selectedAssets: [],
       businessDomainOptions: [],
       themeDomainOptions: [],
       businessObjectsList: [],
@@ -362,6 +366,11 @@ export default {
     this.fetchInitialData()
   },
   methods: {
+    // 处理资产选择确认
+    onAssetConfirm(assets) {
+      this.selectedAssets = assets;
+      this.isLeftSideSelected = true;
+    },
     // 导出所有Word报告
     async exportAllWordReport() {
       if (!this.resultTableData.length) {
@@ -541,6 +550,14 @@ export default {
       this.labelDropNumTotal = 0
       this.registerAssetRateTotal = '0%'
       this.labelDropRateTotal = '0%'
+      this.isLeftSideSelected = false;
+
+      // 清空本地缓存
+      localStorage.removeItem('selectedAssets');
+      this.selectedAssets = [];
+
+      // 清空选中资产
+      this.selectedAssets = [];
     },
 
     // 获取落标结果数据

@@ -1126,6 +1126,7 @@ Vue.prototype.$showFailureWithoutVue = function () {
 window.$http = This.$http
 window.$isAuthenticating = false
 window.$ssoLogin = function (isLogout) {
+  return window.location.href = '../base-app/datablau.html'
   // 使用标志位控制鉴权接口的调用频率
   // 如果当前没有正在进行的鉴权请求
   if (!window.$isAuthenticating) {

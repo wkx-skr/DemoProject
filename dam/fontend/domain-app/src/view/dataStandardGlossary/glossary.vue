@@ -1,5 +1,5 @@
 <template>
-  <div class="glossary-page" :class="{ showHome }">
+  <div class="glossary-page" :class="{ showHome }" style="height: 100%;">
     <history-tab :glossary="currentGlossary" ref="historyTab"></history-tab>
     <template v-if="showHome">
       <div class="tree-area">
@@ -10,7 +10,7 @@
       </div>
       <div class="tree-area-margin-right"></div>
     </template>
-    <div class="content-area">
+    <div class="content-area" style="height: 100%;">
       <div class="breadcrumb-line top-back-line" style="margin: 0">
         <datablau-breadcrumb
           v-if="!showHome"
@@ -19,7 +19,7 @@
           @back="backClick"
         ></datablau-breadcrumb>
       </div>
-      <div class="glossary-tabs" style="background: #fff">
+      <div class="glossary-tabs" style="background: #fff;height: 100%;">
         <glossary-tab
           @editGlossary="
             (data, isChangeFlow) =>

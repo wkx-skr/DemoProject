@@ -164,6 +164,11 @@ export default {
     },
   },
   methods: {
+    queryMainData(){
+      // this.currentTag = [];
+      // this.handleCurrentChange(1);
+      this.$info('暂无主数据');
+    },
     viewSimilarityList(row) {
       this.similarityRow = row
       this.similarityListDialogVis = true

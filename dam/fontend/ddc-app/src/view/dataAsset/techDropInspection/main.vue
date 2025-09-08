@@ -11,8 +11,13 @@
       >
         <div class="filter-content">
           <!-- 左侧筛选：业务域、主题域、业务对象 -->
-          <div class="left-filter">
-            <el-form-item label="业务域">
+          <div class="left-filter" style="line-height: 90px">
+            <asset-catalog-dialog
+              @confirm="onAssetConfirm"
+              storageKey="selectedAssets1"
+              :disabled="isRightSideSelected"
+            />
+            <!--<el-form-item label="业务域">
               <datablau-select
                 v-model="searchForm.businessDomain"
                 placeholder="请选择"
@@ -63,7 +68,7 @@
                   :value="item.id"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
           </div>
 
           <!-- 分隔线 -->
@@ -305,7 +310,7 @@
           width="300"
           show-overflow-tooltip
         />
-         <el-table-column
+        <el-table-column
           show-overflow-tooltip
           prop="domainValue"
           label="标准值"
@@ -329,8 +334,10 @@
 
 <script>
 import LDMTypes from '@constant/LDMTypes'
+import AssetCatalogDialog from '@/components/AssetCatalogDialog.vue'
 export default {
   name: 'TechDropInspection',
+  components: { AssetCatalogDialog },
   data() {
     return {
       // 搜索表单数据
@@ -342,6 +349,7 @@ export default {
         modelType: undefined, // 数据源
         schemaId: undefined, // 数据库
       },
+      selectedAssets: [],
       // 左侧筛选选项
       businessDomainOptions: [], // 业务域选项
       themeDomainOptions: [], // 主题域选项
@@ -406,6 +414,11 @@ export default {
     this.initModelTree()
   },
   methods: {
+    // 处理资产选择确认
+    onAssetConfirm(assets) {
+      this.selectedAssets = assets;
+      this.isLeftSideSelected = true
+    },
     /**
      * 初始化数据
      */
@@ -424,7 +437,7 @@ export default {
         // 提取所有type为MODEL_CATEGORY的节点作为应用系统选项
         this.appSystemOptions = this.findModelCategories(this.modelTreeData)
       } catch (error) {
-       this.$showFailure(error)
+        this.$showFailure(error)
       }
     },
 
@@ -665,6 +678,15 @@ export default {
       this.businessObjectsList = []
       this.modelTypeOptions = []
       this.schemaOptions = []
+
+      this.isLeftSideSelected = false;
+
+      // 清空本地缓存
+      localStorage.removeItem('selectedAssets1');
+      this.selectedAssets = [];
+
+      // 清空选中资产
+      this.selectedAssets = [];
     },
 
     /**
@@ -702,7 +724,6 @@ export default {
         this.loading.resultTable = false
       }
     },
-
 
     // 导出所有Word报告
     async exportAllWordReport() {

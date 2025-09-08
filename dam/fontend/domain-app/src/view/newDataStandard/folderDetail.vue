@@ -227,7 +227,7 @@
           <datablau-button size="mini" type="secondary" @click="resetQuery()">
             {{ $t('domain.common.reset') }}
           </datablau-button>
-          <datablau-button size="mini" type="normal">查询</datablau-button>
+          <datablau-button size="mini" type="normal" @click="queryMainData">查询主数据</datablau-button>
           <datablau-button
             size="mini"
             type="primary"

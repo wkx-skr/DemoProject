@@ -1,24 +1,20 @@
 <template>
   <div class="model-mapping-manage">
     <!-- 搜索条件区域 -->
-    <div class="mapping-search">
+    <div class="mapping-search" style="width: 100%">
       <el-form
         :model="searchForm"
         ref="searchForm"
         :inline="true"
         size="mini"
-        style="width: 72%"
       >
         <div style="display: flex">
-          <div
-            style="
-              width: 50%;
-              border-right: 1px solid #ccc;
-              display: flex;
-              align-items: center;
-            "
-          >
-            <el-form-item
+          <div style="line-height: 90px">
+            <asset-catalog-dialog
+              @confirm="onAssetConfirm"
+              storageKey="selectedAssets1"
+            />
+            <!--<el-form-item
               label="业务对象"
               label-width="100px"
               style="margin: 0"
@@ -60,10 +56,10 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
           </div>
-          <div style="width: 50%; padding-left: 20px; padding-top: 10px">
-            <el-form-item label="应用系统" label-width="60px">
+          <div style="display: flex; align-items: center; margin-left: 30px">
+            <el-form-item style="margin-bottom: 0" label="应用系统" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.modelCategoryId"
@@ -82,7 +78,7 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item label="数据源" label-width="60px">
+            <el-form-item style="margin-bottom: 0" label="数据源" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.modelId"
@@ -101,7 +97,7 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item label="数据库" label-width="60px">
+            <el-form-item style="margin-bottom: 0" label="数据库" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.databaseId"
@@ -111,6 +107,7 @@
                 :loading="loading.databases"
                 @change="handleDatabaseChange"
                 @clear="handleDatabaseClear"
+                multiple
               >
                 <el-option
                   v-for="item in schemaEntityOptions"
@@ -120,7 +117,14 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item label="物理表" label-width="60px">
+            <el-form-item
+              label="操作人"
+              label-width="60px"
+              style="margin-bottom: 0"
+            >
+              <el-input v-model="searchForm.operator" placeholder="请输入操作人"/>
+            </el-form-item>
+            <!--<el-form-item label="物理表" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.tableId"
@@ -140,12 +144,14 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
+            <el-checkbox v-model="onlyUnmapped">只查看未关联属性</el-checkbox>
           </div>
         </div>
       </el-form>
       <div class="right-button">
         <div style="margin-right: 20px">
+          <datablau-button type="primary" @click="handleAutoMatch">执行自动匹配</datablau-button>
           <datablau-button type="normal" size="mini" @click="handleSearch">
             查询
           </datablau-button>
@@ -206,22 +212,10 @@
             prop="modelCategoryName"
             label="应用系统"
           ></el-table-column>
-          <el-table-column
-            prop="modelName"
-            label="数据源"
-          ></el-table-column>
-          <el-table-column
-            prop="databaseName"
-            label="数据库"
-          ></el-table-column>
-          <el-table-column
-            prop="tableName"
-            label="表英文名"
-          ></el-table-column>
-          <el-table-column
-            prop="tableAlias"
-            label="表中文名"
-          ></el-table-column>
+          <el-table-column prop="modelName" label="数据源"></el-table-column>
+          <el-table-column prop="databaseName" label="数据库"></el-table-column>
+          <el-table-column prop="tableName" label="表英文名"></el-table-column>
+          <el-table-column prop="tableAlias" label="表中文名"></el-table-column>
           <el-table-column
             prop="columnAlias"
             label="字段中文名"
@@ -322,10 +316,14 @@
 </template>
 
 <script>
+import AssetCatalogDialog from '@/components/AssetCatalogDialog.vue'
+
 export default {
   name: 'ModelMappingManage',
+  components: { AssetCatalogDialog },
   data() {
     return {
+      onlyUnmapped: false,
       searchForm: {
         businessObjectId: '',
         logicDataEntityId: '',
@@ -333,7 +331,9 @@ export default {
         modelId: '',
         databaseId: '',
         tableId: '',
+        operator: '',
       },
+      selectedAssets: [],
       businessObjectOptions: [],
       logicalDataEntityOptions: [],
       appSystemOptions: [],
@@ -387,6 +387,50 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 处理自动匹配点击事件
+    handleAutoMatch() {
+      if (!this.selectedAssets.length) {
+        this.$message.warning('请先选择数据资产目录');
+        return;
+      }
+      if (!this.searchForm.modelCategoryId) {
+        this.$message.warning('请选择应用系统');
+        return;
+      }
+      if (!this.searchForm.ddmModelId) {
+        this.$message.warning('请选择数据模型');
+        return;
+      } if (!this.searchForm.databaseId) {
+        this.$message.warning('请选择数据库');
+        return;
+      }
+
+      // 构建请求参数
+      const params = {
+        businessObjects: this.selectedAssets.map(item => ({
+          id: item.id,
+          structureId: item.structureId,
+          catalogPath: item.catalogPath,
+          name: item.name,
+        })),
+        modelCategoryId: parseInt(this.searchForm.modelCategoryId),
+        modelId: parseInt(this.searchForm.ddmModelId),
+        databaseId: this.searchForm.databaseId,
+      }
+
+      this.$http
+        .post('/assets/meta/mapping/createAutoMapping', params)
+        .then(res => {
+          this.$message.success('自动匹配任务已创建成功，请稍后查看结果')
+        })
+        .catch(err => {
+          this.$message.error('自动匹配任务创建失败')
+        })
+    },
+    // 处理资产选择确认
+    onAssetConfirm(assets) {
+      this.selectedAssets = assets;
+    },
     // 处理数据库变化
     handleDatabaseChange(value) {
       this.searchForm.tableId = ''
@@ -675,6 +719,7 @@ export default {
           : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
+        operator: this.searchForm.operator || null,
       }
 
       this.loading.table = true
@@ -715,6 +760,13 @@ export default {
       this.modelOptions = []
       this.schemaEntityOptions = []
       this.tableOptions = []
+
+      // 清空本地缓存
+      localStorage.removeItem('selectedAssets1');
+      this.selectedAssets = [];
+
+      // 清空选中资产
+      this.selectedAssets = [];
 
       // 重置分页
       this.pagination.currentPage = 1

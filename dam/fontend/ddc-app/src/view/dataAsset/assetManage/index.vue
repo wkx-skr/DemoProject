@@ -623,6 +623,7 @@
           :authTooltip="authTooltip"
           :pageId="0"
           :isNull="baseInfo.isNull"
+          :baseInfo="baseInfo.baseInfo"
         ></summary-info>
         <assets-list
           v-if="activeName === 'second'"

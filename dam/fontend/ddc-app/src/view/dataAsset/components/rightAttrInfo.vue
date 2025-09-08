@@ -172,7 +172,7 @@
           <span
             style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
           >
-            {{  }}
+            {{ applySystemName }}
           </span>
         </div>
         <div class="attr-item" v-if="currentNode.level === 4">
@@ -185,7 +185,7 @@
           <span
             style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
           >
-            {{  }}
+            {{ baseInfo.dataClassification }}
           </span>
         </div>
         <div class="attr-item" v-if="currentNode.level === 4">
@@ -198,7 +198,7 @@
           <span
             style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
           >
-            {{  }}
+            {{ baseInfo.dataSteward }}
           </span>
         </div>
         <div class="attr-item" v-if="currentNode.level === 5">
@@ -508,6 +508,10 @@ export default {
   name: 'rightAttrInfo',
   components: { ExtendProps, AttrItem, isShowTooltip },
   props: {
+    baseInfo: {
+      type: Object,
+      default: () => {}
+    },
     attrs: {
       type: Object,
       default() {
@@ -594,6 +598,15 @@ export default {
       keyword,
       dataOwnership,
       dataStewardship,
+    }
+  },
+  computed: {
+    applySystemName(){
+      let systemName = ''
+      if (this.baseInfo.sourceSystemId) {
+        systemName = this.$modelCategories.find(item => item.categoryId == this.baseInfo.sourceSystemId)?.categoryName
+      }
+      return systemName
     }
   },
   methods: {

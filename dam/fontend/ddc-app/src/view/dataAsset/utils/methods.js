@@ -589,7 +589,12 @@ export const handleAttrInfo = (attrInfo, _this, isOverview = false) => {
     favoriteCount: baseSetting.collectedCount || 0,
     quote: baseSetting.citations || 0,
     isNull: attrInfo.isNull,
+    baseInfo: attrInfo
   }
+  console.log('------ attrInfo ------');
+  console.log('------ attrInfo ------');
+  console.log('------ attrInfo ------');
+  console.log(JSON.parse(JSON.stringify(attrInfo)));
 }
 
 export const getAssetTypeMap = _this => {

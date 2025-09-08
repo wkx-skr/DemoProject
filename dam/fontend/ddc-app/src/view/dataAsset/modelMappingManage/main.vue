@@ -1,7 +1,7 @@
 <template>
   <div class="model-mapping-manage">
     <!-- 搜索条件区域 -->
-    <div class="mapping-search">
+    <div class="mapping-search" style="width: 100%">
       <el-form
         :model="searchForm"
         ref="searchForm"
@@ -10,15 +10,11 @@
         style="width: 72%"
       >
         <div style="display: flex">
-          <div
-            style="
-              width: 50%;
-              border-right: 1px solid #ccc;
-              display: flex;
-              align-items: center;
-            "
-          >
-            <el-form-item
+          <div style="line-height: 90px">
+            <asset-catalog-dialog
+              @confirm="onAssetConfirm"
+            />
+            <!--<el-form-item
               label="业务对象"
               label-width="100px"
               style="margin: 0"
@@ -60,10 +56,14 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
           </div>
-          <div style="width: 50%; padding-left: 20px; padding-top: 10px">
-            <el-form-item label="应用系统" label-width="60px">
+          <div style="display: flex; align-items: center; margin-left: 50px">
+            <el-form-item
+              label="应用系统"
+              label-width="60px"
+              style="margin-bottom: 0"
+            >
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.modelCategoryId"
@@ -81,7 +81,11 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item label="模型" label-width="60px">
+            <el-form-item
+              label="数据模型"
+              label-width="60px"
+              style="margin-bottom: 0"
+            >
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.ddmModelId"
@@ -90,6 +94,7 @@
                 :disabled="!searchForm.modelCategoryId || isLeftSideSelected"
                 @change="handleModelChange"
                 @clear="handleModelClear"
+                multiple
               >
                 <el-option
                   v-for="item in modelOptions"
@@ -99,7 +104,14 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item label="表/实体" label-width="60px">
+            <el-form-item
+              label="操作人"
+              label-width="60px"
+              style="margin-bottom: 0"
+            >
+              <el-input v-model="searchForm.operator" placeholder="请输入操作人"/>
+            </el-form-item>
+            <!--<el-form-item label="表/实体" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.tableId"
@@ -114,12 +126,14 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
+            <el-checkbox v-model="onlyUnmapped">只查看未关联属性</el-checkbox>
           </div>
         </div>
       </el-form>
       <div class="right-button">
         <div style="margin-right: 20px">
+          <datablau-button type="primary" @click="handleAutoMatch">执行自动匹配</datablau-button>
           <datablau-button type="normal" size="mini" @click="handleSearch">
             查询
           </datablau-button>
@@ -175,10 +189,7 @@
             prop="modelCategoryName"
             label="应用系统"
           ></el-table-column>
-          <el-table-column
-            prop="ddmModelName"
-            label="模型"
-          ></el-table-column>
+          <el-table-column prop="ddmModelName" label="模型"></el-table-column>
           <el-table-column
             prop="tableAlias"
             label="表/实体名称"
@@ -287,17 +298,23 @@
 </template>
 
 <script>
+import AssetCatalogDialog from "@/components/AssetCatalogDialog.vue";
+
 export default {
   name: 'ModelMappingManage',
+  components: {AssetCatalogDialog},
   data() {
     return {
+      onlyUnmapped: false,
       searchForm: {
         businessObjectId: '',
         logicDataEntityId: '',
         modelCategoryId: '',
         ddmModelId: '',
         tableId: '',
+        operator:'',
       },
+      selectedAssets: [],
       businessObjectOptions: [],
       logicalDataEntityOptions: [],
       appSystemOptions: [],
@@ -344,6 +361,47 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 处理资产选择确认
+    onAssetConfirm(assets) {
+      this.selectedAssets = assets;
+    },
+    handleAutoMatch() {
+      if (!this.selectedAssets.length) {
+        this.$message.warning('请先选择数据资产目录');
+        return;
+      }
+      if (!this.searchForm.modelCategoryId) {
+        this.$message.warning('请选择应用系统');
+        return;
+      }
+      if (!this.searchForm.ddmModelId) {
+        this.$message.warning('请选择模型');
+        return;
+      }
+      const params = {
+        businessObjects: this.selectedAssets.map(item => ({
+          id: item.id,
+          structureId: item.structureId,
+          catalogPath: item.catalogPath,
+          name: item.name,
+        })),
+        modelCategoryId: Number(this.searchForm.modelCategoryId),
+        ddmModelId: Number(this.searchForm.ddmModelId),
+      };
+      this.loading.table = true;
+      this.$http
+        .post('/assets/ddm/mapping/createAutoMapping', params)
+        .then(() => {
+          this.$message.success('自动匹配任务已创建成功，请稍后查看结果');
+          this.fetchData();
+        })
+        .catch(() => {
+          this.$message.error('自动匹配任务创建失败');
+        })
+        .finally(() => {
+          this.loading.table = false;
+        });
+    },
     // 业务对象清除事件处理
     handleBusinessObjectClear() {
       this.searchForm.logicDataEntityId = ''
@@ -554,6 +612,7 @@ export default {
           : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
+        operator: this.searchForm.operator || null,
       }
 
       this.loading.table = true
@@ -589,6 +648,13 @@ export default {
       this.logicalDataEntityOptions = []
       this.modelOptions = []
       this.tableEntityOptions = []
+
+      // 清空本地缓存
+      localStorage.removeItem('selectedAssets');
+      this.selectedAssets = [];
+
+      // 清空选中资产
+      this.selectedAssets = [];
 
       // 重置分页
       this.pagination.currentPage = 1

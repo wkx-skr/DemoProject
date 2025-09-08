@@ -1,128 +1,131 @@
 <template>
-  <div class="addDataSource tab-page">
+  <div class="addDataSource tab-page" style="height: 100%;">
     <div class="container">
-      <datablau-form-submit>
-        <div class="collapse-title">
-          <h2>{{ '业务术语' }}</h2>
-        </div>
-        <el-form
-          class="page-form"
-          label-position="right"
-          label-width="180px"
-          size="small"
-          :model="glossary"
-          :rules="glossaryFormRules"
-          :max-height="tableHeight"
-          ref="glossaryFormDom"
-        >
-          <el-form-item
-            class="message-form-item"
-            :label="$t('domain.glossary.standardTheme')"
-            prop="folderId"
-          >
-            <el-cascader
-              size="mini"
-              expand-trigger="click"
-              :disabled="formDisabled"
-              :options="treeData && treeData.length ? treeData[0].nodes : []"
-              :props="defaultProps2"
-              :change-on-select="true"
-              v-model="selectedFolderIds"
-              :placeholder="$t('domain.glossary.themePlaceholder')"
-              ref="pathSelector"
-            ></el-cascader>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.domainCode')">
-            <datablau-input
-              size="mini"
-              disabled
-              v-model="glossary.domainCode"
-              :placeholder="$t('domain.glossary.domainCodePlaceholder')"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.cName')" prop="chName">
-            <datablau-input
-              size="mini"
-              v-model="glossary.chName"
-              :placeholder="$t('domain.glossary.namePlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.enName')" prop="enName">
-            <datablau-input
-              size="mini"
-              v-model="glossary.enName"
-              :placeholder="$t('domain.glossary.enNamePlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-            <!-- type="textarea" :autosize="{minRows: 3, maxRows: 18}" class="text-area" -->
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.abbr')" prop="abbr">
-            <datablau-input
-              size="mini"
-              v-model="glossary.abbr"
-              :placeholder="$t('domain.glossary.abbrPlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item
-            :label="$t('domain.glossary.explanationTerms')"
-            prop="explanationTerms"
-          >
-            <datablau-input
-              size="mini"
-              v-model="glossary.explanationTerms"
-              type="textarea"
-              :placeholder="$t('domain.glossary.explanationTermsPlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.scene')">
-            <datablau-input
-              size="mini"
-              v-model="glossary.scene"
-              type="textarea"
-              :placeholder="$t('domain.glossary.scenePlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.example')">
-            <datablau-input
-              size="mini"
-              v-model="glossary.example"
-              type="textarea"
-              :placeholder="$t('domain.glossary.examplePlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.businessTermAliases')">
-            <datablau-input
-              size="mini"
-              v-model="glossary.businessTermAliases"
-              type="textarea"
-              :placeholder="
-                $t('domain.glossary.businessTermAliasesPlaceholder')
-              "
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-          <el-form-item :label="$t('domain.glossary.relaId')">
-            <datablau-select
-              size="mini"
-              v-model="glossary.relaId"
-              :placeholder="$t('domain.glossary.relaIdPlaceholder')"
-              :disabled="formDisabled"
+      <el-tabs v-model="activeTab" style="height: 100%;padding-top: 20px;">
+        <!-- 第一个Tab页 - 业务术语表单 -->
+        <el-tab-pane label="业务术语详情" name="form" style="height: 100%;">
+          <datablau-form-submit no-position>
+            <div class="collapse-title">
+              <h2>{{ '业务术语' }}</h2>
+            </div>
+            <el-form
+              class="page-form"
+              label-position="right"
+              label-width="180px"
+              size="small"
+              :model="glossary"
+              :rules="glossaryFormRules"
+              :max-height="tableHeight"
+              ref="glossaryFormDom"
             >
-              <el-option
-                v-for="item in relaItemList"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-                :disabled="item.disabled"
-              />
-            </datablau-select>
-          </el-form-item>
-<!--          <el-form-item
+              <el-form-item
+                class="message-form-item"
+                :label="$t('domain.glossary.standardTheme')"
+                prop="folderId"
+              >
+                <el-cascader
+                  size="mini"
+                  expand-trigger="click"
+                  :disabled="formDisabled"
+                  :options="treeData && treeData.length ? treeData[0].nodes : []"
+                  :props="defaultProps2"
+                  :change-on-select="true"
+                  v-model="selectedFolderIds"
+                  :placeholder="$t('domain.glossary.themePlaceholder')"
+                  ref="pathSelector"
+                ></el-cascader>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.domainCode')">
+                <datablau-input
+                  size="mini"
+                  disabled
+                  v-model="glossary.domainCode"
+                  :placeholder="$t('domain.glossary.domainCodePlaceholder')"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.cName')" prop="chName">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.chName"
+                  :placeholder="$t('domain.glossary.namePlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.enName')" prop="enName">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.enName"
+                  :placeholder="$t('domain.glossary.enNamePlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+                <!-- type="textarea" :autosize="{minRows: 3, maxRows: 18}" class="text-area" -->
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.abbr')" prop="abbr">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.abbr"
+                  :placeholder="$t('domain.glossary.abbrPlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item
+                :label="$t('domain.glossary.explanationTerms')"
+                prop="explanationTerms"
+              >
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.explanationTerms"
+                  type="textarea"
+                  :placeholder="$t('domain.glossary.explanationTermsPlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.scene')">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.scene"
+                  type="textarea"
+                  :placeholder="$t('domain.glossary.scenePlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.example')">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.example"
+                  type="textarea"
+                  :placeholder="$t('domain.glossary.examplePlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.businessTermAliases')">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.businessTermAliases"
+                  type="textarea"
+                  :placeholder="
+                    $t('domain.glossary.businessTermAliasesPlaceholder')
+                  "
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+              <el-form-item :label="$t('domain.glossary.relaId')">
+                <datablau-select
+                  size="mini"
+                  v-model="glossary.relaId"
+                  :placeholder="$t('domain.glossary.relaIdPlaceholder')"
+                  :disabled="formDisabled"
+                >
+                  <el-option
+                    v-for="item in relaItemList"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                    :disabled="item.disabled"
+                  />
+                </datablau-select>
+              </el-form-item>
+              <!--          <el-form-item
             :label="$t('domain.glossary.managementDepartment')"
             prop="managementDepartment"
             + 123>
@@ -165,39 +168,69 @@
               />
             </datablau-select>&ndash;&gt;
           </el-form-item>-->
-          <el-form-item :label="$t('domain.glossary.source')">
-            <datablau-input
-              size="mini"
-              v-model="glossary.source"
-              :placeholder="$t('domain.glossary.sourcePlaceholder')"
-              :disabled="formDisabled"
-            ></datablau-input>
-          </el-form-item>
-        </el-form>
-        <template slot="buttons">
-          <datablau-button
-            size="small"
-            type="important"
-            @click="addGlossary"
-            :disabled="editLoading"
-            v-if="
-              !formDisabled &&
-              ((isAdd && ($auth['BUSI_TERM_ADD'] || $auth['DICTIONARY_ADD'])) ||
-                (isEdit && ($auth['BUSI_TERM_EDIT'] || $auth['DICTIONARY_EDIT'])))
-            "
-          >
-            {{ $t('common.button.ok') }}
-          </datablau-button>
-          <datablau-button
-            size="small"
-            type="secondary"
-            :disabled="editLoading"
-            @click="removetab"
-          >
-            {{ $t('common.button.cancel') }}
-          </datablau-button>
-        </template>
-      </datablau-form-submit>
+              <el-form-item :label="$t('domain.glossary.source')">
+                <datablau-input
+                  size="mini"
+                  v-model="glossary.source"
+                  :placeholder="$t('domain.glossary.sourcePlaceholder')"
+                  :disabled="formDisabled"
+                ></datablau-input>
+              </el-form-item>
+            </el-form>
+          </datablau-form-submit>
+
+          <!-- 按钮区域移到第一个tab内部 -->
+          <div class="button-container">
+            <datablau-button
+              size="small"
+              type="important"
+              @click="addGlossary"
+              :disabled="editLoading"
+              v-if="
+                !formDisabled &&
+                ((isAdd && ($auth['BUSI_TERM_ADD'] || $auth['DICTIONARY_ADD'])) ||
+                  (isEdit && ($auth['BUSI_TERM_EDIT'] || $auth['DICTIONARY_EDIT'])))">
+              {{ $t('common.button.ok') }}
+            </datablau-button>
+            <datablau-button
+              size="small"
+              type="secondary"
+              :disabled="editLoading"
+              @click="removetab">
+              {{ $t('common.button.cancel') }}
+            </datablau-button>
+          </div>
+        </el-tab-pane>
+
+        <!-- 第二个Tab页 - 表格 -->
+        <el-tab-pane label="相关数据列表" name="table">
+          <div class="table-container">
+            <el-table
+              v-loading="tableLoading"
+              :data="tableData"
+              style="width: 100%"
+              size="small"
+            >
+              <el-table-column prop="chineseName" label="中文名称" width="180"></el-table-column>
+              <el-table-column prop="domainCode" label="标准编码" width="220"></el-table-column>
+              <el-table-column prop="englishName" label="英文名称" width="150"></el-table-column>
+              <el-table-column prop="abbreviation" label="英文缩写" width="100"></el-table-column>
+              <el-table-column prop="description" label="描述" min-width="250"></el-table-column>
+              <el-table-column prop="pathStr" label="路径" min-width="200"></el-table-column>
+              <el-table-column prop="submitter" label="提交人" width="120"></el-table-column>
+            </el-table>
+            <div class="pagination-container">
+              <el-pagination
+                background
+                layout="total"
+                :total="tableTotal"
+              />
+            </div>
+          </div>
+        </el-tab-pane>
+      </el-tabs>
+
+      <!-- 按钮区域已移到第一个tab内部 -->
     </div>
   </div>
 </template>
@@ -221,6 +254,10 @@ export default {
   data() {
     const glossaryUrl = this.$url + '/service/ns/'
     return {
+      // Tab相关变量
+      activeTab: 'form',
+
+      // 原有表单相关变量
       allOrganizations: [],
       glossaryUrl: glossaryUrl,
       glossary: {},
@@ -315,11 +352,11 @@ export default {
         label: 'name',
       },
       editLoading: false,
-      // *********************************
-      // userModelCategory: [],
-      // dbConnected: false,
-      // lastLoadTimeStamp: 0,
-      // interval: {},
+
+      // 表格相关变量
+      tableData: [],
+      tableLoading: false,
+      tableTotal: 0,
     }
   },
 
@@ -359,7 +396,9 @@ export default {
   },
   mounted() {
     this.initOrgs()
-    // this.tableHeight = $(".table-row")[0].offsetHeight;
+    // 初始加载表格数据
+    this.loadTableData()
+    // this.tableHeight = $("table-row")[0].offsetHeight;
     // $(window).resize(this.resizeTable);
   },
   beforeDestroy() {
@@ -461,6 +500,29 @@ export default {
           this.$showFailure(e)
         })
     },
+
+    // 表格相关方法
+    loadTableData() {
+      this.tableLoading = true
+      try {
+        // 使用实际的API调用获取表格数据
+        this.$http.get(this.$domain_url + `/domains/queryDomainByReferenceTerm?referenceTerm=${this.glossary.domainCode}`)
+          .then(res => {
+            this.tableData = res.data || []
+            this.tableTotal = this.tableData.length
+          })
+          .catch(e => {
+            // API调用失败时使用mock数据
+            this.tableTotal = this.tableData.length
+          })
+          .finally(() => {
+            this.tableLoading = false
+          })
+      } catch (error) {
+        this.tableLoading = false
+        this.$showFailure(error)
+      }
+    }
   },
 }
 </script>
@@ -468,6 +530,10 @@ export default {
 .tab-page {
   .container {
     overflow: auto;
+    padding: 20px;
+    .el-tabs {
+      margin-bottom: 20px;
+    }
     /deep/.form-submit {
       top: 70px;
       left: 20px;
@@ -514,5 +580,23 @@ export default {
     }
   }
   padding-left: 10px;
+}
+
+.table-container {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  .el-table {
+    margin-bottom: 20px;
+  }
+  .pagination-container {
+    text-align: right;
+  }
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
 }
 </style>

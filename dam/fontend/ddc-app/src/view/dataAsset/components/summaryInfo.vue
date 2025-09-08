@@ -21,6 +21,7 @@
           v-bind="$attrs"
           :attrs="summaryInfo.attrInfo"
           :isNull="isNull"
+          :baseInfo="baseInfo"
         ></right-attr-info>
       </div>
     </div>
@@ -33,6 +34,12 @@ import RightAttrInfo from '../components/rightAttrInfo'
 export default {
   name: 'SummaryInfo',
   props: {
+    baseInfo: {
+      type: Object,
+      default() {
+        return {}
+      },
+    },
     summaryInfo: {
       type: Object,
       default() {

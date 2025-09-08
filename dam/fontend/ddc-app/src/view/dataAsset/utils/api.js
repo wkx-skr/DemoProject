@@ -37,6 +37,9 @@ const api = {
       return $http.get($assetsUrl + `/catalog/mine/${structureId}/${catalogId}`)
     }
   },
+  getManageTree(structureId){
+    return $http.get(`${$assetsUrl}/catalog/manageTree/${structureId}`)
+  },
   // 搜索目录树
   getCatalogsByKeyword(type, structureId, keyword = '') {
     if (type === 0)

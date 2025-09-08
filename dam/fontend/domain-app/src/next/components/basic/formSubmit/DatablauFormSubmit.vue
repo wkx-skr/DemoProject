@@ -1,7 +1,7 @@
 <template>
-  <div class="form-submit">
+  <div :class="['form-submit', { 'no-position': noPosition }]">
     <div
-      :class="{ 'row-content': true, 'no-buttons': !$slots.buttons }"
+      :class="{ 'row-content': true, 'no-position': noPosition, 'no-buttons': !$slots.buttons }"
       ref="content"
     >
       <div ref="content-inner">
@@ -20,6 +20,12 @@
 <script>
 export default {
   name: 'DatablauFormSubmit',
+  props: {
+    noPosition: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       hasShadow: false,
@@ -114,6 +120,9 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
+  &.no-position {
+    position: static;
+  }
 }
 .row-content {
   overflow: auto;
@@ -124,6 +133,9 @@ export default {
   bottom: 50px;
   &.no-buttons {
     bottom: 0;
+  }
+  &.no-position {
+    position: static;
   }
 }
 .row-buttons {
