@@ -1,7 +1,7 @@
 <template>
-  <div class="model-mapping-manage">
+  <div class="model-mapping-manage" style="width: 100%">
     <!-- 搜索条件区域 -->
-    <div class="mapping-search" style="width: 100%">
+    <div class="mapping-search">
       <el-form
         :model="searchForm"
         ref="searchForm"
@@ -14,7 +14,7 @@
             <asset-catalog-dialog
               @confirm="onAssetConfirm"
             />
-            <!--<el-form-item
+            <!-- <el-form-item
               label="业务对象"
               label-width="100px"
               style="margin: 0"
@@ -56,14 +56,10 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>-->
+            </el-form-item> -->
           </div>
           <div style="display: flex; align-items: center; margin-left: 50px">
-            <el-form-item
-              label="应用系统"
-              label-width="60px"
-              style="margin-bottom: 0"
-            >
+            <el-form-item label="应用系统" label-width="60px" style="margin-bottom: 0">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.modelCategoryId"
@@ -81,11 +77,7 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item
-              label="数据模型"
-              label-width="60px"
-              style="margin-bottom: 0"
-            >
+            <el-form-item label="数据模型" label-width="60px" style="margin-bottom: 0">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.ddmModelId"
@@ -111,7 +103,7 @@
             >
               <el-input v-model="searchForm.operator" placeholder="请输入操作人"/>
             </el-form-item>
-            <!--<el-form-item label="表/实体" label-width="60px">
+            <!-- <el-form-item label="表/实体" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.tableId"
@@ -126,7 +118,7 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>-->
+            </el-form-item> -->
             <el-checkbox v-model="onlyUnmapped">只查看未关联属性</el-checkbox>
           </div>
         </div>
@@ -189,7 +181,10 @@
             prop="modelCategoryName"
             label="应用系统"
           ></el-table-column>
-          <el-table-column prop="ddmModelName" label="模型"></el-table-column>
+          <el-table-column
+            prop="ddmModelName"
+            label="模型"
+          ></el-table-column>
           <el-table-column
             prop="tableAlias"
             label="表/实体名称"

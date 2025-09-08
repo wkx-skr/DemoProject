@@ -13,7 +13,8 @@
           <!-- 左侧筛选 -->
           <div class="left-filter" style="line-height: 90px">
             <asset-catalog-dialog @confirm="onAssetConfirm" :disabled="isRightSideSelected" />
-            <!--<el-form-item label="业务域">
+            <!--
+            <el-form-item label="业务域">
               <datablau-select
                 v-model="searchForm.businessDomain"
                 placeholder="请选择"

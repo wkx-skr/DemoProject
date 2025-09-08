@@ -14,7 +14,7 @@
               @confirm="onAssetConfirm"
               storageKey="selectedAssets1"
             />
-            <!--<el-form-item
+            <!-- <el-form-item
               label="业务对象"
               label-width="100px"
               style="margin: 0"
@@ -56,7 +56,7 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>-->
+            </el-form-item> -->
           </div>
           <div style="display: flex; align-items: center; margin-left: 30px">
             <el-form-item style="margin-bottom: 0" label="应用系统" label-width="60px">
@@ -124,7 +124,7 @@
             >
               <el-input v-model="searchForm.operator" placeholder="请输入操作人"/>
             </el-form-item>
-            <!--<el-form-item label="物理表" label-width="60px">
+            <!-- <el-form-item label="物理表" label-width="60px">
               <datablau-select
                 style="width: 8vw"
                 v-model="searchForm.tableId"
@@ -144,7 +144,7 @@
                   :value="item.value"
                 ></el-option>
               </datablau-select>
-            </el-form-item>-->
+            </el-form-item> -->
             <el-checkbox v-model="onlyUnmapped">只查看未关联属性</el-checkbox>
           </div>
         </div>
@@ -212,10 +212,22 @@
             prop="modelCategoryName"
             label="应用系统"
           ></el-table-column>
-          <el-table-column prop="modelName" label="数据源"></el-table-column>
-          <el-table-column prop="databaseName" label="数据库"></el-table-column>
-          <el-table-column prop="tableName" label="表英文名"></el-table-column>
-          <el-table-column prop="tableAlias" label="表中文名"></el-table-column>
+          <el-table-column
+            prop="modelName"
+            label="数据源"
+          ></el-table-column>
+          <el-table-column
+            prop="databaseName"
+            label="数据库"
+          ></el-table-column>
+          <el-table-column
+            prop="tableName"
+            label="表英文名"
+          ></el-table-column>
+          <el-table-column
+            prop="tableAlias"
+            label="表中文名"
+          ></el-table-column>
           <el-table-column
             prop="columnAlias"
             label="字段中文名"
@@ -317,7 +329,6 @@
 
 <script>
 import AssetCatalogDialog from '@/components/AssetCatalogDialog.vue'
-
 export default {
   name: 'ModelMappingManage',
   components: { AssetCatalogDialog },
@@ -761,7 +772,7 @@ export default {
       this.schemaEntityOptions = []
       this.tableOptions = []
 
-      // 清空本地缓存
+       // 清空本地缓存
       localStorage.removeItem('selectedAssets1');
       this.selectedAssets = [];
 

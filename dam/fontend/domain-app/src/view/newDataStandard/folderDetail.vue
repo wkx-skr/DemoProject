@@ -463,13 +463,13 @@
             </el-button>
           </template>
         </el-table-column>
-        <!--<el-table-column
-          :label="$version.tableHeader.enName"
-          prop="englishName"
-          sortable="englishName"
-          min-width="120px"
-          show-overflow-tooltip
-        ></el-table-column>-->
+        <!--<el-table-column-->
+        <!--  :label="$version.tableHeader.enName"-->
+        <!--  prop="englishName"-->
+        <!--  sortable="englishName"-->
+        <!--  min-width="120px"-->
+        <!--  show-overflow-tooltip-->
+        <!--&gt;</el-table-column>-->
         <el-table-column
           min-width="110px"
           sortable="domainCode"
@@ -521,13 +521,13 @@
           </template>
         </el-table-column>
 
-        <!--<el-table-column
-          :label="$version.tableHeader.owner"
-          prop="submitter"
-          sortable="submitter"
-          :min-width="90"
-          show-overflow-tooltip
-        ></el-table-column>-->
+        <!--<el-table-column-->
+        <!--  :label="$version.tableHeader.owner"-->
+        <!--  prop="submitter"-->
+        <!--  sortable="submitter"-->
+        <!--  :min-width="90"-->
+        <!--  show-overflow-tooltip-->
+        <!--&gt;</el-table-column>-->
         <!--<el-table-column
           :label="$version.tableHeader.descriptionDepartment"
           prop="descriptionDepartmentName"

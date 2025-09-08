@@ -17,7 +17,7 @@
               storageKey="selectedAssets1"
               :disabled="isRightSideSelected"
             />
-            <!--<el-form-item label="业务域">
+            <!-- <el-form-item label="业务域">
               <datablau-select
                 v-model="searchForm.businessDomain"
                 placeholder="请选择"
@@ -68,7 +68,7 @@
                   :value="item.id"
                 ></el-option>
               </datablau-select>
-            </el-form-item>-->
+            </el-form-item> -->
           </div>
 
           <!-- 分隔线 -->
@@ -310,7 +310,7 @@
           width="300"
           show-overflow-tooltip
         />
-        <el-table-column
+         <el-table-column
           show-overflow-tooltip
           prop="domainValue"
           label="标准值"
@@ -437,7 +437,7 @@ export default {
         // 提取所有type为MODEL_CATEGORY的节点作为应用系统选项
         this.appSystemOptions = this.findModelCategories(this.modelTreeData)
       } catch (error) {
-        this.$showFailure(error)
+       this.$showFailure(error)
       }
     },
 
@@ -678,7 +678,7 @@ export default {
       this.businessObjectsList = []
       this.modelTypeOptions = []
       this.schemaOptions = []
-
+      
       this.isLeftSideSelected = false;
 
       // 清空本地缓存
@@ -724,6 +724,7 @@ export default {
         this.loading.resultTable = false
       }
     },
+
 
     // 导出所有Word报告
     async exportAllWordReport() {
