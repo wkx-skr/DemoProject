@@ -24,6 +24,7 @@ const checkDomainCodeConflicts = (rule, value, callback) => {
   }
 }
 const checkBusinessNameConflicts = (rule, value, callback) => {
+  const { description, businessRule } = __this.detail
   if (!value) {
     callback(new Error('请输入中文名称'));
     /*callback(new Error(_this.$t('domain.common.itemRequiredInput', {

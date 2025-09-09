@@ -27,7 +27,7 @@
           @tab-click="handleTaskTabChange"
           class="task-tabs"
         >
-          <el-tab-pane v-if="!damEnabled" :label="$t('common.task.importTask')" name="import"></el-tab-pane>
+          <el-tab-pane v-if="damEnabled" :label="$t('common.task.importTask')" name="import"></el-tab-pane>
           <el-tab-pane v-if="!damEnabled" :label="$t('common.task.exportTask')" name="export"></el-tab-pane>
 <!--          <el-tab-pane v-if="!damEnabled" :label="$t('common.task.explorationTask')" name="profiling"></el-tab-pane>
           <el-tab-pane v-if="!damEnabled" :label="$t('common.task.otherTasks')" name="other"></el-tab-pane>-->
@@ -45,7 +45,7 @@
             }"
         >
           <datablau-table
-            v-if="!damEnabled && taskTabName !== 'reverse'"
+            v-if="taskTabName !== 'reverse'"
             ref="taskTable"
             :data-selectable="option.selectable"
             :auto-hide-selection="option.autoHideSelectable"
@@ -128,6 +128,25 @@
                           </span>
                         <span class="error-reason" v-else>{{$t('common.task.errorMessage')}}{{ importTaskResult.failed }} {{$t('common.task.strip')}}</span>
                       </div>
+                      <datablau-button
+                        style="float: right"
+                        type="text"
+                        v-if="importTaskResult.failed !== 0 && importTaskResult.resultType === 'com.datablau.data.common.data.instantjob.FileGenerateInstantJobResult'"
+                        @click="handleDownload(importTaskResult.fileId)"
+                      >
+                        <span style="display: flex; align-items: center">
+                          <span>{{ $t('common.task.incorrectData') }}</span>
+                          <datablau-tooltip
+                            :content="$t('common.task.incorrectDataTip')"
+                            placement="bottom"
+                          >
+                            <i
+                              style="font-size: 14px; padding-left: 4px"
+                              class="iconfont icon-tips"
+                            ></i>
+                          </datablau-tooltip>
+                        </span>
+                      </datablau-button>
                       <div
                         v-if="importTaskResult.errorMsg.length > 1"
                         class="error-list"
@@ -385,9 +404,15 @@ export default {
     }
   },
   methods: {
-    openReverseTaskInfoDialog () {
-      this.taskTabName = 'reverse'
-      this.showTask()
+    openReverseTaskInfoDialog (data, type) {
+      if (data) {
+        this.taskTabName = type
+        this.taskId = data
+        this.showTask()
+      } else {
+        this.taskTabName = 'reverse'
+        this.showTask()
+      }
     },
     handleMessage (event) {
       try {
@@ -602,7 +627,11 @@ export default {
                 this.importTaskResult.resultType = ''
                 this.importTaskResult = JSON.parse(res.data.errorMessage)
                 this.importTaskResult.resultType = res.data.resultType
+                this.importTaskResult.fileId = res.data.fileId
                 this.taskTableExpends = [row.jobId]
+                if (this.importTaskResult.errorMsg == null) {
+                  this.importTaskResult.errorMsg = []
+                }
               }
             })
         }

@@ -187,6 +187,7 @@
           :show-file-list="false"
           :on-success="handleUploadSuccess"
           :on-error="handleUploadError"
+          :on-change="onChange"
           style="display: inline-block; vertical-align: top; margin-right: 8px"
           :multiple="false"
           :isEdit="true"
@@ -737,6 +738,11 @@ export default {
     handleUploadError (err) {
       this.loading = false
       this.$showFailure(err)
+    },
+    onChange (e, fileList) {
+      if (e.status === 'success') {
+        this.$bus.$emit('openReverseTaskInfoDialog', e.response, 'import')
+      }
     },
     clearFilter () {
       this.keyword = ''
