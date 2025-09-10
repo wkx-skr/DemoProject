@@ -479,7 +479,26 @@ export default {
     },
 
     handleSelectionChange(selection) {
-      this.selectedRows = selection
+      // 检查是否包含"资产DL123"类型
+      const isAssetDL123 = this.filterForm.applyType && this.filterForm.applyType.includes("资产DL123")
+
+      if (isAssetDL123) {
+        // 如果是资产DL123，允许选择多个
+        this.selectedRows = selection
+      } else {
+        // 如果不是资产DL123，只允许选择一个
+        if (selection.length > 1) {
+          // 如果选择了多个，只保留最后一个
+          this.selectedRows = [selection[selection.length - 1]]
+          // 更新表格的选中状态
+          this.$nextTick(() => {
+            this.$refs.batchTable.clearSelection()
+            this.$refs.batchTable.toggleRowSelection(selection[selection.length - 1], true)
+          })
+        } else {
+          this.selectedRows = selection
+        }
+      }
     },
 
     getDopConfig() {

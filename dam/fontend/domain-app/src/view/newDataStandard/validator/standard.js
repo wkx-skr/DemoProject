@@ -30,7 +30,7 @@ const checkBusinessNameConflicts = (rule, value, callback) => {
     /*callback(new Error(_this.$t('domain.common.itemRequiredInput', {
       name: _this.$t('domain.domain.cName'),
     })))*/
-  } else if (value === description || value === businessRule) {
+  } else if(value === description || value === businessRule){
     callback(new Error('中文名称不能与业务定义或业务规则相同'))
   } else if (!/^[\u4e00-\u9fa5a-zA-Z0-9]+$/.test(value)) {
     callback(new Error('中文名称只能包含中文、字母和数字，不能包含特殊字符'));

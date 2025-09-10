@@ -186,7 +186,7 @@ export default {
           if (idx === -1) {
             this.itemTypeOptions.push({
               id: 'ymx',
-              chineseName: '接口采集数据',
+              chineseName: '更多元数据',
               disabled: true,
               elementList: dataList,
             })

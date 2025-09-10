@@ -68,10 +68,10 @@ export default {
     },
   },
   watch: {
-    visible: {
+    tabs: {
       handler(newVal) {
         if (newVal) {
-          this.currentTab = "tab1"
+          this.currentTab = this.tabs && this.tabs.length>0 ? this.tabs[0].name : 'tab1' 
         }
       },
       immediate: true,

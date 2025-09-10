@@ -7,6 +7,7 @@
         <datablau-button
           v-if="!hideBack"
           type="primary"
+          style="margin-right: 10px"
           @click="$router.back(-1)"
         >
           返回
@@ -251,7 +252,7 @@ export default {
         method: 'get',
       })
       let tableResults = [dl123Res.data && dl123Res.data.data]
-      this.tabs = [
+      let tabs = [
         {
           name: 'tab1',
           title: '业务域',
@@ -388,6 +389,7 @@ export default {
           data: tableResults,
         },
       ]
+      this.tabs = tableResults && tableResults[0].level ? [tabs[tableResults[0].level-1]] : []
       this.tabDialogVisible = true
     },
     // dl45

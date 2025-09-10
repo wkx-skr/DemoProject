@@ -300,7 +300,11 @@ export default {
                 this.importTaskResult.resultType = ''
                 this.importTaskResult = JSON.parse(res.data.errorMessage)
                 this.importTaskResult.resultType = res.data.resultType
+                this.importTaskResult.fileId = res.data.fileId
                 this.taskTableExpends = [row.jobId]
+                if (this.importTaskResult.errorMsg == null) {
+                  this.importTaskResult.errorMsg = []
+                }
               }
             })
         }

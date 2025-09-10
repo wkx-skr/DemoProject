@@ -317,6 +317,25 @@
                             {{ $t('common.task.strip') }}</span
                           >
                         </div>
+                        <datablau-button
+                          style="float: right"
+                          type="text"
+                          v-if="importTaskResult.failed !== 0 && importTaskResult.resultType === 'com.datablau.data.common.data.instantjob.FileGenerateInstantJobResult'"
+                          @click="handleDownload(importTaskResult.fileId)"
+                        >
+                          <span style="display: flex; align-items: center">
+                            <span>{{ $t('common.task.incorrectData') }}</span>
+                            <datablau-tooltip
+                              :content="$t('common.task.incorrectDataTip')"
+                              placement="bottom"
+                            >
+                              <i
+                                style="font-size: 14px; padding-left: 4px"
+                                class="iconfont icon-tips"
+                              ></i>
+                            </datablau-tooltip>
+                          </span>
+                        </datablau-button>
                         <div
                           v-if="importTaskResult.errorMsg.length > 1"
                           class="error-list"
