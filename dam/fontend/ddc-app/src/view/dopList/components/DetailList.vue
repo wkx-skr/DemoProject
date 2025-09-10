@@ -249,8 +249,9 @@ export default {
     },
     // dl123
     async getDl123Data(row) {
+      let batchId = this.tableData[0].batchId
       let dl123Res = await this.$http({
-        url: `/assets/catalog/dop/catalog/detail/${row.neId}`,
+        url: `/assets/catalog/dop/catalog/detail/${row.neId}/${batchId}`,
         method: 'get',
       })
       let tableResults = [dl123Res.data && dl123Res.data.data]
@@ -313,7 +314,7 @@ export default {
             },
             {
               label: '主题域英文名',
-              prop: 'lTwoName',
+              prop: 'englishName',
               showOverflowTooltip: true,
             },
             {
@@ -366,6 +367,12 @@ export default {
             {
               label: '业务对象中文名',
               prop: 'lThreeName',
+              minWidth: 120,
+              showOverflowTooltip: true,
+            },
+            {
+              label: '业务对象英文名',
+              prop: 'englishName',
               minWidth: 120,
               showOverflowTooltip: true,
             },
