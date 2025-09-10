@@ -11,12 +11,23 @@
       >
         <div class="filter-content">
           <!-- 左侧筛选：业务域、主题域、业务对象 -->
-          <div class="left-filter" style="line-height: 90px">
-            <asset-catalog-dialog
-              @confirm="onAssetConfirm"
-              storageKey="selectedAssets1"
-              :disabled="isRightSideSelected"
-            />
+          <div class="left-filter">
+            <div style="line-height: 30px; margin-bottom: 10px">
+              <asset-catalog-dialog
+                @confirm="onAssetConfirm"
+                :disabled="isRightSideSelected"
+              />
+            </div>
+            <!-- 显示选中的资产 -->
+            <div v-if="selectedAssets.length > 0" style="margin-bottom: 10px">
+              <el-tag
+                v-for="item in selectedAssets"
+                :key="item.id"
+                style="margin: 4px"
+              >
+                {{ item.name }}
+              </el-tag>
+            </div>
             <!-- <el-form-item label="业务域">
               <datablau-select
                 v-model="searchForm.businessDomain"
@@ -85,6 +96,7 @@
                 @change="handleAppSystemChange"
                 @clear="handleAppSystemClear"
                 :disabled="isLeftSideSelected"
+                multiple
               >
                 <el-option
                   v-for="item in appSystemOptions"
@@ -100,7 +112,9 @@
                 placeholder="请选择"
                 style="width: 150px"
                 clearable
-                :disabled="!searchForm.appSystem || isLeftSideSelected"
+                :disabled="
+                  !(searchForm.appSystem.length > 0) || isLeftSideSelected
+                "
                 @change="handleModelChange"
                 @clear="handleModelClear"
               >
@@ -310,7 +324,7 @@
           width="300"
           show-overflow-tooltip
         />
-         <el-table-column
+        <el-table-column
           show-overflow-tooltip
           prop="domainValue"
           label="标准值"
@@ -335,6 +349,7 @@
 <script>
 import LDMTypes from '@constant/LDMTypes'
 import AssetCatalogDialog from '@/components/AssetCatalogDialog.vue'
+
 export default {
   name: 'TechDropInspection',
   components: { AssetCatalogDialog },
@@ -345,7 +360,7 @@ export default {
         businessDomain: undefined, // 业务域
         themeDomain: undefined, // 主题域
         businessObject: undefined, // 业务对象
-        appSystem: undefined, // 应用系统
+        appSystem: [], // 应用系统
         modelType: undefined, // 数据源
         schemaId: undefined, // 数据库
       },
@@ -383,10 +398,14 @@ export default {
     },
     // 判断右侧筛选是否已选择
     isRightSideSelected() {
-      return !!(
-        this.searchForm.appSystem ||
-        this.searchForm.modelType ||
-        this.searchForm.schemaId
+      // 处理appSystem为数组的情况，如果是空数组，则视为未选择
+      const hasAppSystem = Array.isArray(this.searchForm.appSystem)
+        ? this.searchForm.appSystem.length > 0
+        : !!this.searchForm.appSystem
+      return (
+        hasAppSystem ||
+        !!this.searchForm.modelType ||
+        !!this.searchForm.schemaId
       )
     },
     // 判断是否可以运行落标任务（左右侧筛选只能选择一侧）
@@ -398,13 +417,27 @@ export default {
     },
     // 构建请求参数
     requestParams() {
+      // 从选中的资产中提取目录ID
+      const l5catalogIds = this.selectedAssets && this.selectedAssets.length > 0
+        ? this.selectedAssets.map(item => item.id)
+        : null;
+
+      // 应用系统ID是数组，直接使用
+      const modelCategoryIds = Array.isArray(this.searchForm.appSystem) && this.searchForm.appSystem.length > 0
+        ? this.searchForm.appSystem
+        : null;
+
+      // 数据源ID
+      const parentModelIds = this.searchForm.modelType ? [this.searchForm.modelType] : null;
+
+      // 数据库ID
+      const ddmModelIds = this.searchForm.schemaId ? [this.searchForm.schemaId] : null;
+
       return {
-        parentModelId: this.searchForm.modelType || null,
-        modelCategoryId: this.searchForm.appSystem || null,
-        businessDomainId: this.searchForm.businessDomain || null,
-        subjectDomainId: this.searchForm.themeDomain || null,
-        businessObjectId: this.searchForm.businessObject || null,
-        ddmModelId: this.searchForm.schemaId || null,
+        l5catalogIds,
+        modelCategoryIds,
+        parentModelIds,
+        ddmModelIds
       }
     },
   },
@@ -416,8 +449,9 @@ export default {
   methods: {
     // 处理资产选择确认
     onAssetConfirm(assets) {
-      this.selectedAssets = assets;
-      this.isLeftSideSelected = true
+      this.selectedAssets = assets
+      // 修改searchForm中的字段来触发计算属性更新，从而正确禁用右侧筛选
+      this.searchForm.businessDomain = '_asset_catalog_selected'
     },
     /**
      * 初始化数据
@@ -437,7 +471,7 @@ export default {
         // 提取所有type为MODEL_CATEGORY的节点作为应用系统选项
         this.appSystemOptions = this.findModelCategories(this.modelTreeData)
       } catch (error) {
-       this.$showFailure(error)
+        this.$showFailure(error)
       }
     },
 
@@ -561,7 +595,7 @@ export default {
     /**
      * 应用系统变更处理
      * 清空数据源和数据库，重新获取数据源选项
-     * @param {String} value - 选中的应用系统ID
+     * @param {Array} value - 选中的应用系统ID数组
      */
     handleAppSystemChange(value) {
       this.searchForm.modelType = undefined
@@ -569,20 +603,47 @@ export default {
       this.modelTypeOptions = []
       this.schemaOptions = []
 
-      if (value) {
-        // 找到选中的系统节点
-        const selectedSystem = this.appSystemOptions.find(
-          sys => sys.id === value
-        )
-        if (selectedSystem && selectedSystem.subNodes) {
-          // 从子节点中过滤MODEL类型作为数据源选项
-          this.modelTypeOptions = selectedSystem.subNodes
-            .filter(node => node.type === 'MODEL')
-            .map(node => ({
-              id: node.id,
-              name: node.name,
-              subNodes: node.subNodes || [], // 保存子节点引用
-            }))
+      if (value && value.length > 0) {
+        // 如果只选中一个系统，保持原有的逻辑
+        if (value.length === 1) {
+          const singleValue = value[0]
+          // 找到选中的系统节点
+          const selectedSystem = this.appSystemOptions.find(
+            sys => sys.id === singleValue
+          )
+          if (selectedSystem && selectedSystem.subNodes) {
+            // 从子节点中过滤MODEL类型作为数据源选项
+            this.modelTypeOptions = selectedSystem.subNodes
+              .filter(node => node.type === 'MODEL')
+              .map(node => ({
+                id: node.id,
+                name: node.name,
+                subNodes: node.subNodes || [], // 保存子节点引用
+              }))
+          }
+        } else {
+          // 多选情况下，合并所有选中系统的MODEL类型子节点
+          const allModelNodes = []
+          value.forEach(sysId => {
+            const selectedSystem = this.appSystemOptions.find(
+              sys => sys.id === sysId
+            )
+            if (selectedSystem && selectedSystem.subNodes) {
+              const modelNodes = selectedSystem.subNodes
+                .filter(node => node.type === 'MODEL')
+                .map(node => ({
+                  id: node.id,
+                  name: node.name,
+                  subNodes: node.subNodes || [], // 保存子节点引用
+                }))
+              allModelNodes.push(...modelNodes)
+            }
+          })
+          // 去重处理
+          this.modelTypeOptions = allModelNodes.filter(
+            (node, index, self) =>
+              index === self.findIndex(n => n.id === node.id)
+          )
         }
       }
     },
@@ -671,22 +732,23 @@ export default {
         businessDomain: undefined, // 业务域
         themeDomain: undefined, // 主题域
         businessObject: undefined, // 业务对象
-        appSystem: undefined, // 应用系统
+        appSystem: [], // 应用系统 - 设置为空数组而不是undefined
         modelType: undefined, // 数据源
         schemaId: undefined, // 数据库
       }
       this.businessObjectsList = []
       this.modelTypeOptions = []
       this.schemaOptions = []
-      
-      this.isLeftSideSelected = false;
+
 
       // 清空本地缓存
-      localStorage.removeItem('selectedAssets1');
-      this.selectedAssets = [];
+      localStorage.removeItem('selectedAssets1')
+      this.selectedAssets = []
 
       // 清空选中资产
-      this.selectedAssets = [];
+      this.selectedAssets = []
+      // 重置businessDomain以确保正确的选中状态
+      this.searchForm.businessDomain = null;
     },
 
     /**
@@ -725,11 +787,10 @@ export default {
       }
     },
 
-
     // 导出所有Word报告
     async exportAllWordReport() {
       this.$downloadFilePost(
-        '/assets/labelDrop/exportTechLabelDropResultByWord',
+        '/assets/labelDrop/exportTechLabelDropResultByWordNew',
         this.requestParams
       )
     },
@@ -737,7 +798,7 @@ export default {
     // 导出所有Excel明细
     async exportAllExcelDetail() {
       this.$downloadFilePost(
-        '/assets/labelDrop/exportTechLabelDropResult',
+        '/assets/labelDrop/exportTechLabelDropResultNew',
         this.requestParams
       )
     },
@@ -750,6 +811,7 @@ export default {
   height: 100%;
   padding: 16px;
   background: #fff;
+
   .summary-info {
     display: flex;
     flex-wrap: wrap;
@@ -773,6 +835,7 @@ export default {
       font-weight: bold;
     }
   }
+
   .filter-area {
     margin-bottom: 16px;
 

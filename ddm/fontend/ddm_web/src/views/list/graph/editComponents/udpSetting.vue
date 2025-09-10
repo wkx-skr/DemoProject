@@ -108,6 +108,7 @@
                 showAll: JSON.parse(dataByType.udp.get(Number.parseInt(k)).ExtendedEnumStruct).length && dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple,
                 all: allObj[k],
               }"
+              :disabled="$store.state.changeLeftPaneValue === 'dataStandard' && dataByType.udp.get(Number.parseInt(k)).FriendlyName === '数据分类'"
             ></datablau-select-weak>
             <datablau-select-weak
               :multiple="dataByType.udp.get(Number.parseInt(k)).ExtendedEnumMultiple"

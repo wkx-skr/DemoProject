@@ -375,6 +375,12 @@
                 </span>
                 <span class="value">{{ details.dataScale }}</span>
               </div>
+              <div class="detail" v-if="details.unit">
+                <span class="label">
+                  数据单位
+                </span>
+                <span class="value">{{ details.unit }}</span>
+              </div>
               <div class="detail">
                 <span class="label">
                   {{ $version.domain.property.dataPrecision }}

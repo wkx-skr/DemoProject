@@ -197,7 +197,7 @@
                         :value="allCols[0].dataStandardCode"
                         clearable
                         @clear="clearCode(allCols[0])"
-                        disabled-grey
+                        disabled
                       ></datablau-input>
                      </el-form-item>
                     <el-form-item label="代码名称">
@@ -207,7 +207,7 @@
                         :value="$globalData.domainCodes && $globalData.domainCodes.map.get(allCols[0].dataStandardCode)"
                         clearable
                         @clear="clearCode(allCols[0])"
-                        disabled-grey
+                        disabled
                       ></datablau-input>
                      </el-form-item>
                      <el-button v-if="false" type="text" size="mini" @click="clearCode" style="position: absolute;top: 0;right: 0;">清除代码</el-button>

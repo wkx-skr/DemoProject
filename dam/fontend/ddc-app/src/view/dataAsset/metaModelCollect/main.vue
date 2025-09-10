@@ -55,7 +55,7 @@
             @click="metaCollect(scope.row)"
             :disabled="!scope.row.modelCategoryName"
           >
-            采集元数据
+            采集任务
           </datablau-button>
           <datablau-button
             type="text"
@@ -63,7 +63,7 @@
             :disabled="!scope.row.modelCategoryName"
             @click="handlerImmediatelyCollect(scope.row.jobId)"
           >
-            立即采集
+            采集元数据
           </datablau-button>
         </template>
       </el-table-column>
@@ -121,6 +121,7 @@
 
 <script>
 import DatabaseType from './DatabaseType.vue'
+import api from "@/view/dataAsset/utils/api";
 export default {
   data() {
     return {
@@ -160,10 +161,10 @@ export default {
 
   methods: {
     // 处理 立即采集
-    handlerImmediatelyCollect(taskId) {
-      this.$http.post(`/job/main/canExecuteToday?jobId=58`).then(res => {
-        if (res.data) this.$message.success('采集成功')
-      })
+    async handlerImmediatelyCollect(taskId) {
+      const res = await this.$http.post(`/job/main/canExecuteToday?jobId=${taskId}`);
+      await api.runTask(taskId, this.$user.username)
+      this.$message.success('采集成功')
     },
     async handleLinkSystem(row) {
       this.currentRow = row

@@ -28,6 +28,7 @@
         v-on="$listeners"
         :resize="resizeState === true ? 'none' : 'vertical'"
         ref="completeSearchInput"
+        :disabled="disabled"
       ></el-input>
     </div>
   </div>
@@ -37,6 +38,7 @@
 export default {
   name: 'DatablauInput',
   props: {
+    disabled: Boolean,
     testName: String,
     searchNarrow: {
       type: Boolean,

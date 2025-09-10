@@ -76,7 +76,7 @@ export default {
       themeOption: [],
       statusFormatter,
       getStatusColor,
-      stateOptions: stateOptions(this).filter(item => item.value !== 'X'),
+      stateOptions: stateOptions(this).filter(item => (item.value !== 'X' && item.value !== 'N')),
       checkStatusFormatter,
       bigVersionList: [],
       currentPage: 1,

@@ -365,7 +365,7 @@ export default {
       hideBottomLine: false,
       tableOption: null,
       tableHidePagination: false,
-      stateOptions: stateOptions(this),
+      stateOptions: stateOptions(this).filter(item => item.value !== 'N'),
       defaultParaData: {
         keyword: '',
         domainCode: '',

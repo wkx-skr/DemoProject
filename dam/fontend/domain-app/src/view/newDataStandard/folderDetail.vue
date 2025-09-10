@@ -62,7 +62,7 @@
             ></el-option>
           </datablau-select>
         </el-form-item>
-        <el-form-item
+        <!--<el-form-item
           :label="$t('domain.domain.busDefinitionDep')"
           prop="ownerOrg"
         >
@@ -86,7 +86,7 @@
               :value="item.bm"
             ></el-option>
           </datablau-select>
-        </el-form-item>
+        </el-form-item>-->
 
         <el-form-item v-if="useWorkflow">
           <el-button-group style="display: inline-block">

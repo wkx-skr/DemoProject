@@ -58,7 +58,7 @@
               </datablau-select>
             </el-form-item> -->
           </div>
-          <div style="display: flex; align-items: center; margin-left: 50px">
+          <div style="display: flex; align-items: center; margin-left: 30px">
             <el-form-item label="应用系统" label-width="60px" style="margin-bottom: 0">
               <datablau-select
                 style="width: 8vw"
@@ -866,6 +866,7 @@ export default {
   .mapping-search {
     position: absolute;
     top: 0;
+    width: 100%;
     background-color: #fff;
     padding: 0 20px;
     display: flex;

@@ -265,6 +265,7 @@ export default {
   },
   methods: {
     changeLeftPane (val) {
+      this.$store.state.changeLeftPaneValue = val;
       if(val === 'archy') {
         this.$refs.archyObjectRef.currentCategory = null
       }

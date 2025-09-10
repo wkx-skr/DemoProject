@@ -864,7 +864,6 @@ export default modelDetail
         border: 1px solid #dddddd;
         width: 30px;
         padding: 1px;
-        height: 98px;
         text-align: center;
         border-radius: 0;
         white-space: normal;

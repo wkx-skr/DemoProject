@@ -229,7 +229,7 @@ export default {
       allDimsShow: [],
       codeDialogVisible: false,
       code: '',
-      activeCollapse: ['0', '1', '2', '3'],
+      activeCollapse: ['0', '1', '2', '3', '4'],
       writable: false,
       //      partWritable:[false,false,false,false],
       partWritable: [true, true, true, true, true, true],
@@ -370,7 +370,7 @@ export default {
           : [this.options[0].nodes[0].foldId]
       this.writable = true
       this.partWritable = [true, true, true, true, true, true]
-      this.activeCollapse = ['0', '1', '2', '3']
+      this.activeCollapse = ['0', '1', '2', '3', '4']
       setTimeout(() => {
         this.resetFields()
         this.useDefault(this.defaultValue)
@@ -1082,7 +1082,7 @@ export default {
         this.getRangeTypeOptionsPro = Promise.resolve({
           data: [
             {
-              optionValue: '字符',
+              optionValue: '字符型',
               optionLabel: '字符型',
             },
             {

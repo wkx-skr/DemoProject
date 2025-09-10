@@ -11,8 +11,23 @@
       >
         <div class="filter-content">
           <!-- 左侧筛选 -->
-          <div class="left-filter" style="line-height: 90px">
-            <asset-catalog-dialog @confirm="onAssetConfirm" :disabled="isRightSideSelected" />
+          <div class="left-filter">
+            <div style="line-height: 30px; margin-bottom: 10px">
+              <asset-catalog-dialog
+                @confirm="onAssetConfirm"
+                :disabled="isRightSideSelected"
+              />
+            </div>
+            <!-- 显示选中的资产 -->
+            <div v-if="selectedAssets.length > 0" style="margin-bottom: 10px">
+              <el-tag
+                v-for="item in selectedAssets"
+                :key="item.id"
+                style="margin: 4px"
+              >
+                {{ item.name }}
+              </el-tag>
+            </div>
             <!--
             <el-form-item label="业务域">
               <datablau-select
@@ -82,6 +97,7 @@
                 @change="handleAppSystemChange"
                 @clear="handleAppSystemClear"
                 :disabled="isLeftSideSelected"
+                multiple
               >
                 <el-option
                   v-for="c in $modelCategories"
@@ -97,9 +113,10 @@
                 placeholder="请选择"
                 style="width: 150px"
                 clearable
-                :disabled="!searchForm.appSystem || isLeftSideSelected"
+                :disabled="!(searchForm.appSystem.length > 0) || isLeftSideSelected"
                 @change="handleModelChange"
                 @clear="handleModelClear"
+                multiple
               >
                 <el-option
                   v-for="item in modelTypeOptions"
@@ -311,8 +328,9 @@ export default {
         businessDomain: null,
         themeDomain: null,
         businessObject: null,
-        appSystem: null,
-        modelType: null,
+        // 应用系统是多选字段，初始化为空数组
+        appSystem: [],
+        modelType: [],
       },
       selectedAssets: [],
       businessDomainOptions: [],
@@ -344,7 +362,15 @@ export default {
       )
     },
     isRightSideSelected() {
-      return !!(this.searchForm.appSystem || this.searchForm.modelType)
+      // 处理appSystem为数组的情况，如果是空数组，则视为未选择
+      const hasAppSystem = Array.isArray(this.searchForm.appSystem)
+        ? this.searchForm.appSystem.length > 0
+        : !!this.searchForm.appSystem;
+
+      const hasModelType = Array.isArray(this.searchForm.modelType)
+        ? this.searchForm.modelType.length > 0
+        : !!this.searchForm.modelType;
+      return hasAppSystem || hasModelType
     },
     canRunTask() {
       return (
@@ -354,12 +380,25 @@ export default {
     },
     // 构建请求参数
     requestParams() {
+      // 从选中的资产中提取目录ID
+      const l5catalogIds = this.selectedAssets && this.selectedAssets.length > 0
+        ? this.selectedAssets.map(item => item.id)
+        : null;
+
+      // 应用系统ID是数组，直接使用
+      const modelCategoryIds = Array.isArray(this.searchForm.appSystem) && this.searchForm.appSystem.length > 0
+        ? this.searchForm.appSystem
+        : null;
+
+      // 逻辑模型ID也应该是数组
+      const ddmModelIds = Array.isArray(this.searchForm.modelType) && this.searchForm.modelType.length > 0
+        ? this.searchForm.modelType
+        : this.searchForm.modelType || null;
+
       return {
-        modelCategoryId: this.searchForm.appSystem || null,
-        businessDomainId: this.searchForm.businessDomain || null,
-        subjectDomainId: this.searchForm.themeDomain || null,
-        businessObjectId: this.searchForm.businessObject || null,
-        ddmModelId: this.searchForm.modelType || null,
+        l5catalogIds,
+        modelCategoryIds,
+        ddmModelIds
       }
     },
   },
@@ -370,7 +409,8 @@ export default {
     // 处理资产选择确认
     onAssetConfirm(assets) {
       this.selectedAssets = assets;
-      this.isLeftSideSelected = true;
+      // 修改searchForm中的字段来触发计算属性更新，从而正确禁用右侧筛选
+      this.searchForm.businessDomain = '_asset_catalog_selected';
     },
     // 导出所有Word报告
     async exportAllWordReport() {
@@ -379,7 +419,7 @@ export default {
         return
       }
       this.$downloadFilePost(
-        `/assets/labelDrop/exportDesignLabelDropResultByWord`,
+        `/assets/labelDrop/exportDesignLabelDropResultByWordNew`,
         this.requestParams
       )
     },
@@ -391,7 +431,7 @@ export default {
         return
       }
       this.$downloadFilePost(
-        `/assets/labelDrop/exportDesignLabelDropResult`,
+        `/assets/labelDrop/exportDesignLabelDropResultNew`,
         this.requestParams
       )
     },
@@ -484,35 +524,72 @@ export default {
 
     // 应用系统变更
     handleAppSystemChange(value) {
-      this.searchForm.modelType = null
+      this.searchForm.modelType = []
       this.modelTypeOptions = []
 
-      if (value) {
+      if (value.length > 0) {
         this.fetchModels(value)
       }
     },
 
     // 应用系统清除
     handleAppSystemClear() {
-      this.searchForm.modelType = null
+      this.searchForm.modelType = []
       this.modelTypeOptions = []
     },
 
     // 获取逻辑模型列表
-    async fetchModels(modelCategoryId) {
+    async fetchModels(modelCategoryIds) {
       try {
-        const response = await this.$http.get(
-          '/assets/ddm/data/queryModelByModelCategoryId',
-          {
-            params: { modelCategoryId },
-          }
-        )
-        this.modelTypeOptions = response.data.map(item => ({
-          value: item.ddmModelId,
-          label: item.ddmModelName,
-        }))
+        // 检查参数是否为数组
+        if (Array.isArray(modelCategoryIds) && modelCategoryIds.length > 0) {
+          // 为每个modelCategoryId创建一个请求
+          const requests = modelCategoryIds.map(categoryId =>
+            this.$http.get('/assets/ddm/data/queryModelByModelCategoryId', {
+              params: { modelCategoryId: categoryId }
+            })
+          )
+
+          // 使用Promise.all并行处理所有请求
+          const responses = await Promise.all(requests)
+
+          // 合并所有响应数据
+          const allModels = responses.flatMap(response => response.data || [])
+
+          // 去重处理，避免重复的模型选项
+          const uniqueModels = []
+          const seenModelIds = new Set()
+
+          allModels.forEach(item => {
+            if (!seenModelIds.has(item.ddmModelId)) {
+              seenModelIds.add(item.ddmModelId)
+              uniqueModels.push(item)
+            }
+          })
+
+          // 设置模型选项
+          this.modelTypeOptions = uniqueModels.map(item => ({
+            value: item.ddmModelId,
+            label: item.ddmModelName,
+          }))
+        } else if (modelCategoryIds) {
+          // 保持对单个ID的兼容性
+          const response = await this.$http.get(
+            '/assets/ddm/data/queryModelByModelCategoryId',
+            {
+              params: { modelCategoryId: modelCategoryIds },
+            }
+          )
+          this.modelTypeOptions = response.data.map(item => ({
+            value: item.ddmModelId,
+            label: item.ddmModelName,
+          }))
+        } else {
+          this.modelTypeOptions = []
+        }
       } catch (error) {
         this.$showFailure(error)
+        this.modelTypeOptions = []
       }
     },
 
@@ -538,8 +615,8 @@ export default {
         businessDomain: null,
         themeDomain: null,
         businessObject: null,
-        appSystem: null,
-        modelType: null,
+        appSystem: [],
+        modelType: [],
       }
       this.themeDomainOptions = []
       this.businessObjectsList = []
@@ -551,14 +628,12 @@ export default {
       this.labelDropNumTotal = 0
       this.registerAssetRateTotal = '0%'
       this.labelDropRateTotal = '0%'
-      this.isLeftSideSelected = false;
-
       // 清空本地缓存
       localStorage.removeItem('selectedAssets');
-      this.selectedAssets = [];
-
       // 清空选中资产
       this.selectedAssets = [];
+      // 重置businessDomain以确保正确的选中状态
+      this.searchForm.businessDomain = null;
     },
 
     // 获取落标结果数据
@@ -566,7 +641,7 @@ export default {
       this.loading.resultTable = true
       try {
         const res = await this.$http.post(
-          '/assets/labelDrop/getDesignLabelDropResult',
+          '/assets/labelDrop/getDesignLabelDropResultNew',
           this.requestParams
         )
         this.$message.success('运行落标校验任务成功')
