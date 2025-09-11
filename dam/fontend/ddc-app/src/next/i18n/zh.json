@@ -2527,7 +2527,7 @@
       "attrTip": "请输入必填信息",
       "noAssets":"您当前没有添加资产",
       "confirmAssetsPublish":"资产目录未发布，资产发布之后，当前资产不会对外公开",
-      "confirmCatalogPublish": "上级目录未发布，当前目录发布之后，当前目录不会对外公开",
+      "confirmCatalogPublish": "上级目录未发布，发布会包含所有上级目录一起发布",
       "confirmOfflineChildren":"确定下线该目录吗？下线之后，该子目录也会被同时下线，此动作不可逆。",
       "confirmOffline":"确定下线该目录吗？此动作不可逆。",
       "cannotChange":"当前目录下有数据资产处于审核中，不允许变更资产目录",

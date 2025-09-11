@@ -167,7 +167,7 @@ export default {
     queryMainData(){
       // this.currentTag = [];
       // this.handleCurrentChange(1);
-      this.$info('暂无主数据');
+      this.$message('暂无主数据');
     },
     viewSimilarityList(row) {
       this.similarityRow = row

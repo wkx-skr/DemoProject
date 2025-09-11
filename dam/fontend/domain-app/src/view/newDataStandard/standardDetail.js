@@ -118,7 +118,7 @@ export default {
           validator: (rule, value, callback, source) => {
             if (!value) {
               callback(new Error('请输入英文名称'))
-            } else if (!/^[A-Z][a-zA-Z ]*$/.test(value)) {
+            } else if (!/^(?:[A-Z][a-z]*)(?: [A-Z][a-z]*)*$/.test(value)) {
               callback(new Error('英文名称只能包含字母和空格，且首字母需大写'))
             } else {
               callback()
@@ -351,10 +351,10 @@ export default {
         })
       }
     })
-    this.selectedOptions2 =
+    /*this.selectedOptions2 =
       this.currentPathIds && this.currentPathIds.length
         ? this.currentPathIds
-        : [this.options[0].nodes[0].foldId]
+        : [this.options[0].nodes[0].foldId]*/
     if (this.domainId) {
       this.writable = true
       this.partWritable = [true, true, true, true, true, true]
@@ -615,6 +615,8 @@ export default {
       }
 
       this.detailInitial.referenceCode = this.detailInitial.referenceCode || ''
+      // 删除第一个元素
+      this.detailInitial.path.splice(0, 1)
       this.convertPath(this.options, this.detailInitial.path, [])
       if (
         this.detailInitial.additionalProperties &&
@@ -662,10 +664,10 @@ export default {
           this.$showFailure(e)
         })
     },
-    convertPath(list, path, result) {
+    convertPath(list = [], path, result) {
       // name transform  foldId
       if (!path) return
-      list.forEach(e => {
+      /*list.forEach(e => {
         if (e.name && e.name === path[result.length]) {
           result.push(e.foldId)
           if (result.length === path.length) {
@@ -678,7 +680,32 @@ export default {
         if (e.nodes && e.nodes.length) {
           this.convertPath(e.nodes, path, result)
         }
-      })
+      })*/
+      let arr = [];
+      let optionArr = [];
+      list[0] &&
+        list[0].nodes.forEach(t => {
+          if (t.name === path[0]) {
+            arr.push(t.foldId)
+            optionArr.push(t)
+          }
+        });
+      if (path.length > 1) {
+        const Fn = nodeArr => {
+          nodeArr.nodes.forEach(t => {
+            if (path.includes(t.name)) {
+              arr.push(t.foldId)
+            } else {
+              if (t.nodes && t.nodes.length) {
+                Fn(t)
+              }
+            }
+          })
+        }
+        Fn(optionArr[0])
+      }
+
+      this.selectedOptions2 = arr;
     },
     convertPathByFoldId(list, foldId, pathNameArr) {
       // name transform  foldId
@@ -786,14 +813,14 @@ export default {
       })
       // Promise.all(promises).then(res => {
       //   if (res.filter(r => !r).length === 0) {
-          if (isUpdate && !this.isDerive) {
-            this.updateApply()
-            return
-          }
-          this.save()
-        // } else {
-        //   console.error('表单校验不通过')
-        // }
+      if (isUpdate && !this.isDerive) {
+        this.updateApply()
+        return
+      }
+      this.save()
+      // } else {
+      //   console.error('表单校验不通过')
+      // }
       // })
     },
 

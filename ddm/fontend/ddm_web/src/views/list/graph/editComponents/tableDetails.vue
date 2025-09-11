@@ -376,12 +376,12 @@
         </el-tab-pane>
         <el-tab-pane :label="attributeName + '信息'" name="column">
           <div style="display: inline-block;margin-top: 10px;">
-            <datablau-button :themeBlack="typeDataWareHouse" type="secondary" size="mini" :disabled="!(isFocusArea || isFocusOnly)" @click="translateCurrent">
+            <!--<datablau-button :themeBlack="typeDataWareHouse" type="secondary" size="mini" :disabled="!(isFocusArea || isFocusOnly)" @click="translateCurrent">
               翻译当前
             </datablau-button>
             <datablau-button :themeBlack="typeDataWareHouse" type="secondary" size="mini" @click="translateAll">
               翻译全部
-            </datablau-button>
+            </datablau-button>-->
           </div>
           <datablau-button
             v-show="editMode"

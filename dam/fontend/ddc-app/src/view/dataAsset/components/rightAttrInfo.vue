@@ -250,7 +250,7 @@
           <span
             style="display: inline-block;width: calc(100% - 140px);line-height: 34px;"
           >
-            {{  }}
+            {{ businessDefinition }}
           </span>
         </div>
       </template>
@@ -542,6 +542,7 @@ export default {
   },
   data() {
     return {
+      businessDefinition: '',
       editing: false,
       editingKey: '',
       attrInfo: {
@@ -845,6 +846,12 @@ export default {
           this.$showFailure(e)
         })
     },
+    // 获取业务定义
+    getBusinessDefinition() {
+      api.getDirDetails(this.currentNode.id).then(res => {
+        this.businessDefinition = res.data.data.comment
+      })
+    },
     // 计算数据资产编号样例
     getNextCodeExample() {
       if (
@@ -891,6 +898,7 @@ export default {
         this.getAssetsCodeConfig()
         if (this.currentNode.level === 5) {
           this.getDomainId()
+          this.getBusinessDefinition()
         } else {
         }
 

@@ -412,7 +412,7 @@ export default {
       this.tabs = [
         {
           name: 'tab1',
-          title: '逻辑实体',
+          title: '实体',
           columns: [
             {
               label: '类型',
@@ -420,12 +420,12 @@ export default {
               showOverflowTooltip: true,
             },
             {
-              label: '业务对象名',
+              label: '业务对象中文名',
               prop: 'objectName',
               showOverflowTooltip: true,
             },
             {
-              label: '逻辑实体名',
+              label: '逻辑实体英文名',
               prop: 'tableName',
               showOverflowTooltip: true,
             },
@@ -435,7 +435,7 @@ export default {
               showOverflowTooltip: true,
             },
             {
-              label: '逻辑实体定义',
+              label: '逻辑数据实体定义',
               prop: 'definition',
               showOverflowTooltip: true,
             },
@@ -453,19 +453,19 @@ export default {
               showOverflowTooltip: true,
             },
             {
-              label: '业务对象名',
+              label: '业务对象中文名',
               prop: 'objectName',
               minWidth: 120,
               showOverflowTooltip: true,
             },
             {
-              label: '逻辑实体名',
+              label: '逻辑实体英文名',
               prop: 'tableName',
               minWidth: 130,
               showOverflowTooltip: true,
             },
             {
-              label: '属性名',
+              label: '属性英文名',
               prop: 'columnName',
               minWidth: 130,
               showOverflowTooltip: true,
@@ -476,12 +476,12 @@ export default {
               minWidth: 140,
               showOverflowTooltip: true,
             },
-            {
+            /*{
               label: '属性英文名',
               prop: 'columnEnName',
               minWidth: 140,
               showOverflowTooltip: true,
-            },
+            },*/
             {
               label: '属性数据类型',
               prop: 'dataType',
@@ -489,7 +489,7 @@ export default {
               showOverflowTooltip: true,
             },
             {
-              label: '属性定义',
+              label: '逻辑数据属性定义',
               prop: 'definition',
               minWidth: 140,
               showOverflowTooltip: true,

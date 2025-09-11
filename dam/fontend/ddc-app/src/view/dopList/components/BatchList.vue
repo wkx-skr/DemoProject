@@ -153,6 +153,7 @@
               type="text"
               size="mini"
               @click="$emit('confirm', scope.row)"
+              :disabled="scope.row.currentConfirmed"
             >
               确认
             </datablau-button>

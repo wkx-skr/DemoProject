@@ -1,9 +1,9 @@
 <template>
-  <div class="addDataSource tab-page" style="height: 100%;">
+  <div class="addDataSource tab-page" style="height: 100%">
     <div class="container">
-      <el-tabs v-model="activeTab" style="height: 100%;padding-top: 20px;">
+      <el-tabs v-model="activeTab" style="height: 100%; padding-top: 20px">
         <!-- 第一个Tab页 - 业务术语表单 -->
-        <el-tab-pane label="业务术语详情" name="form" style="height: 100%;">
+        <el-tab-pane label="业务术语详情" name="form" style="height: 100%">
           <datablau-form-submit no-position>
             <div class="collapse-title">
               <h2>{{ '业务术语' }}</h2>
@@ -27,7 +27,9 @@
                   size="mini"
                   expand-trigger="click"
                   :disabled="formDisabled"
-                  :options="treeData && treeData.length ? treeData[0].nodes : []"
+                  :options="
+                    treeData && treeData.length ? treeData[0].nodes : []
+                  "
                   :props="defaultProps2"
                   :change-on-select="true"
                   v-model="selectedFolderIds"
@@ -76,7 +78,9 @@
                   size="mini"
                   v-model="glossary.explanationTerms"
                   type="textarea"
-                  :placeholder="$t('domain.glossary.explanationTermsPlaceholder')"
+                  :placeholder="
+                    $t('domain.glossary.explanationTermsPlaceholder')
+                  "
                   :disabled="formDisabled"
                 ></datablau-input>
               </el-form-item>
@@ -188,15 +192,20 @@
               :disabled="editLoading"
               v-if="
                 !formDisabled &&
-                ((isAdd && ($auth['BUSI_TERM_ADD'] || $auth['DICTIONARY_ADD'])) ||
-                  (isEdit && ($auth['BUSI_TERM_EDIT'] || $auth['DICTIONARY_EDIT'])))">
+                ((isAdd &&
+                  ($auth['BUSI_TERM_ADD'] || $auth['DICTIONARY_ADD'])) ||
+                  (isEdit &&
+                    ($auth['BUSI_TERM_EDIT'] || $auth['DICTIONARY_EDIT'])))
+              "
+            >
               {{ $t('common.button.ok') }}
             </datablau-button>
             <datablau-button
               size="small"
               type="secondary"
               :disabled="editLoading"
-              @click="removetab">
+              @click="removetab"
+            >
               {{ $t('common.button.cancel') }}
             </datablau-button>
           </div>
@@ -211,20 +220,44 @@
               style="width: 100%"
               size="small"
             >
-              <el-table-column prop="chineseName" label="中文名称" width="180"></el-table-column>
-              <el-table-column prop="domainCode" label="标准编码" width="220"></el-table-column>
-              <el-table-column prop="englishName" label="英文名称" width="150"></el-table-column>
-              <el-table-column prop="abbreviation" label="英文缩写" width="100"></el-table-column>
-              <el-table-column prop="description" label="描述" min-width="250"></el-table-column>
-              <el-table-column prop="pathStr" label="路径" min-width="200"></el-table-column>
-              <el-table-column prop="submitter" label="提交人" width="120"></el-table-column>
+              <el-table-column
+                prop="chineseName"
+                label="中文名称"
+                width="180"
+              ></el-table-column>
+              <el-table-column
+                prop="domainCode"
+                label="标准编码"
+                width="220"
+              ></el-table-column>
+              <el-table-column
+                prop="englishName"
+                label="英文名称"
+                width="150"
+              ></el-table-column>
+              <el-table-column
+                prop="abbreviation"
+                label="英文缩写"
+                width="100"
+              ></el-table-column>
+              <el-table-column
+                prop="description"
+                label="描述"
+                min-width="250"
+              ></el-table-column>
+              <el-table-column
+                prop="pathStr"
+                label="路径"
+                min-width="200"
+              ></el-table-column>
+              <el-table-column
+                prop="submitter"
+                label="提交人"
+                width="120"
+              ></el-table-column>
             </el-table>
             <div class="pagination-container">
-              <el-pagination
-                background
-                layout="total"
-                :total="tableTotal"
-              />
+              <el-pagination background layout="total" :total="tableTotal" />
             </div>
           </div>
         </el-tab-pane>
@@ -277,13 +310,28 @@ export default {
             message: this.$t('domain.glossary.explanationTermsNotEmpty'),
             trigger: 'blur',
           },
+          {
+            validator: (rule, value, callback) => {
+              if (
+                value &&
+                this.glossary &&
+                this.glossary.chName &&
+                value === this.glossary.chName
+              ) {
+                callback(new Error('定义不能与中文名称相同'))
+              } else {
+                callback()
+              }
+            },
+            trigger: 'blur',
+          },
         ],
         chName: [
           {
             required: true,
             // message: this.$t('domain.glossary.nameNotEmpty'),
             trigger: 'blur',
-            validator(rule, value, callback) {
+            validator: (rule, value, callback) => {
               if (!value) {
                 callback(new Error('中文名称不能为空'))
                 return
@@ -295,6 +343,15 @@ export default {
               }
               if (value.length > 15) {
                 callback(new Error('中文名称长度不能超过15位'))
+                return
+              }
+              // 中文名称不能与术语解释相同
+              if (
+                this.glossary &&
+                this.glossary.explanationTerms &&
+                value === this.glossary.explanationTerms
+              ) {
+                callback(new Error('中文名称不能与定义相同'))
                 return
               }
               callback()
@@ -317,7 +374,7 @@ export default {
                 return
               }
               // 首字母大写
-              if (!/^[A-Z]/.test(value)) {
+              if (!/^(?:[A-Z][a-z]*)(?: [A-Z][a-z]*)*$/.test(value)) {
                 callback(new Error('首字母必须大写'))
                 return
               }
@@ -506,7 +563,11 @@ export default {
       this.tableLoading = true
       try {
         // 使用实际的API调用获取表格数据
-        this.$http.get(this.$domain_url + `/domains/queryDomainByReferenceTerm?referenceTerm=${this.glossary.domainCode}`)
+        this.$http
+          .get(
+            this.$domain_url +
+              `/domains/queryDomainByReferenceTerm?referenceTerm=${this.glossary.domainCode}`
+          )
           .then(res => {
             this.tableData = res.data || []
             this.tableTotal = this.tableData.length
@@ -522,7 +583,7 @@ export default {
         this.tableLoading = false
         this.$showFailure(error)
       }
-    }
+    },
   },
 }
 </script>
@@ -531,27 +592,33 @@ export default {
   .container {
     overflow: auto;
     padding: 20px;
+
     .el-tabs {
       margin-bottom: 20px;
     }
-    /deep/.form-submit {
+
+    /deep/ .form-submit {
       top: 70px;
       left: 20px;
+
       .page-form {
         margin-top: 20px;
         margin-bottom: 20px;
       }
+
       .el-form.page-form .el-select,
       .el-form.page-form .el-cascader,
       .el-form.page-form .el-input {
         width: 900px;
       }
     }
-    /deep/.row-buttons {
+
+    /deep/ .row-buttons {
       text-align: left;
     }
   }
 }
+
 .collapse-title {
   h2 {
     display: inline-block;
@@ -559,6 +626,7 @@ export default {
     font-weight: 500;
     color: #555;
     position: relative;
+
     &::after {
       position: absolute;
       top: 50%;
@@ -571,14 +639,17 @@ export default {
       border-radius: 1px;
     }
   }
+
   i {
     margin: 20px 20px;
     font-size: 12px;
     color: #479eff;
+
     &:hover {
       /* text-decoration: underline; */
     }
   }
+
   padding-left: 10px;
 }
 
@@ -586,9 +657,11 @@ export default {
   background: #fff;
   border-radius: 4px;
   padding: 20px;
+
   .el-table {
     margin-bottom: 20px;
   }
+
   .pagination-container {
     text-align: right;
   }

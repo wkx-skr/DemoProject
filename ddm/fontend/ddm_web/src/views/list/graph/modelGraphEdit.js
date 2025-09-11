@@ -3950,6 +3950,7 @@ export default {
       done()
     },
     async closeEntityDialog (done) {
+      this.editEntityDialog = false
       // 编辑表 结束后回调
       if (this.closing && this.closingTimer) {
         return
