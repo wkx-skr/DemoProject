@@ -106,7 +106,7 @@
                 ></el-option>
               </datablau-select>
             </el-form-item>
-            <el-form-item label="数据源">
+            <!--<el-form-item label="数据源">
               <datablau-select
                 v-model="searchForm.modelType"
                 placeholder="请选择"
@@ -125,8 +125,8 @@
                   :value="item.id"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
-            <el-form-item label="数据库">
+            </el-form-item>-->
+            <!--<el-form-item label="数据库">
               <datablau-select
                 v-model="searchForm.schemaId"
                 placeholder="请选择"
@@ -143,7 +143,7 @@
                   :value="item.id"
                 ></el-option>
               </datablau-select>
-            </el-form-item>
+            </el-form-item>-->
           </div>
         </div>
 
@@ -758,7 +758,7 @@ export default {
       this.loading.resultTable = true
       try {
         const res = await this.$http.post(
-          '/assets/labelDrop/getTechLabelDropResult',
+          '/assets/labelDrop/getTechLabelDropResultNew',
           this.requestParams
         )
 
