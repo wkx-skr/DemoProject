@@ -1113,7 +1113,7 @@ export default {
               optionLabel: '字符型',
             },
             {
-              optionValue: '数值',
+              optionValue: '数值型',
               optionLabel: '数值型',
             },
             {
@@ -1125,27 +1125,27 @@ export default {
               optionLabel: '年月',
             },
             {
-              optionValue: '日期',
+              optionValue: '日期型',
               optionLabel: '日期型',
             },
             {
-              optionValue: '日期时间',
+              optionValue: '日期时间型',
               optionLabel: '日期时间型',
             },
             {
-              optionValue: '时间',
+              optionValue: '时间型（time）',
               optionLabel: '时间型（time）',
             },
             {
-              optionValue: '时间间隔',
+              optionValue: '时间间隔型',
               optionLabel: '时间间隔型',
             },
             {
-              optionValue: '布尔',
+              optionValue: '布尔型',
               optionLabel: '布尔型',
             },
             {
-              optionValue: '二进制',
+              optionValue: '二进制型',
               optionLabel: '二进制型',
             },
           ],
