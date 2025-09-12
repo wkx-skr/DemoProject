@@ -252,12 +252,23 @@
         <el-table-column
           show-overflow-tooltip
           prop="categoryPath"
-          label="字段来源"
+          label="模型元数据属性来源"
         />
-        <el-table-column
+        <!--<el-table-column
           show-overflow-tooltip
           prop="mappingColumn"
           label="映射字段"
+        />-->
+        <el-table-column
+          show-overflow-tooltip
+          prop=""
+          label="表/逻辑数据实体（英文名称）"
+          width="190"
+        />
+        <el-table-column
+          show-overflow-tooltip
+          prop=""
+          label="属性（英文名称）"
         />
         <el-table-column
           show-overflow-tooltip
