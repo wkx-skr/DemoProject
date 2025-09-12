@@ -118,6 +118,8 @@ export default {
           validator: (rule, value, callback, source) => {
             if (!value) {
               callback(new Error('请输入英文名称'))
+            } else if (value.length > 50) {
+              callback(new Error('英文名称长度不能超过50个字符'))
             } else if (!/^(?:[A-Z][a-z]*)(?: [A-Z][a-z]*)*$/.test(value)) {
               callback(new Error('英文名称只能包含字母和空格，且首字母需大写'))
             } else {
