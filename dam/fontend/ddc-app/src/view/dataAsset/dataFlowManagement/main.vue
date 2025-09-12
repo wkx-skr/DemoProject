@@ -9,7 +9,7 @@
         size="mini"
         class="search-form-inline"
       >
-        <el-form-item label="系统名称" label-width="100px">
+        <el-form-item label="应用系统名称" label-width="100px">
           <datablau-input
             v-model="searchForm.modelCategoryName"
             placeholder="搜索名称"
@@ -17,7 +17,7 @@
             style="width: 8vw"
           ></datablau-input>
         </el-form-item>
-        <el-form-item label="业务对象名称" label-width="100px">
+        <el-form-item label="业务对象（中文名称）" label-width="150px">
           <datablau-input
             v-model="searchForm.l3Name"
             placeholder="搜索名称"
@@ -25,7 +25,7 @@
             style="width: 8vw"
           ></datablau-input>
         </el-form-item>
-        <el-form-item label="逻辑实体名称" label-width="100px">
+        <el-form-item label="逻辑数据实体（中文名称）" label-width="160px">
           <datablau-input
             v-model="searchForm.l4Name"
             placeholder="搜索名称"
@@ -70,13 +70,13 @@
         v-loading="loading.table"
       >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column label="系统名称" prop="modelCategoryName" align="center"></el-table-column>
+        <el-table-column label="应用系统名称" prop="modelCategoryName" align="center"></el-table-column>
         <!-- <el-table-column label="系统编码" prop="modelCategoryCode" align="center"></el-table-column> -->
 
-        <el-table-column label="业务对象名称" prop="l3Name" width="200" align="center"></el-table-column>
+        <el-table-column label="业务对象（中文名称）" prop="l3Name" width="200" align="center"></el-table-column>
         <el-table-column label="业务对象编码" prop="l3Code" width="200" align="center"></el-table-column>
-        <el-table-column label="逻辑实体名称" prop="l4Name" width="200" align="center"></el-table-column>
-        <el-table-column label="逻辑实体编码" prop="l4Code" width="250" align="center"></el-table-column>
+        <el-table-column label="逻辑数据实体（中文名称）" prop="l4Name" width="200" align="center"></el-table-column>
+        <el-table-column label="逻辑数据实体编码" prop="l4Code" width="250" align="center"></el-table-column>
         <el-table-column label="数据操作" prop="dataFlowPermissions" width="160" align="center">
           <template slot-scope="scope">
             <el-tag
