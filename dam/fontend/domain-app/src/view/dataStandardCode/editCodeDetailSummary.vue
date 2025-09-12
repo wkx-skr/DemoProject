@@ -45,7 +45,7 @@
               </el-form-item>
               <el-form-item
                 class="message-form-item"
-                :label="$t('domain.code.codePropCode')"
+                label="参考数据编码"
                 prop="code"
               >
                 <datablau-input
@@ -234,14 +234,14 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  :label="$t('domain.code.codeValueCode')"
+                  label="代码"
                   prop="value"
                   :min-width="100"
                   show-overflow-tooltip
                 >
                   <template slot="header" slot-scope="scope">
                     <span class="star">*</span>
-                    <span>{{ $t('domain.code.codeValueCode') }}</span>
+                    <span>代码</span>
                   </template>
                   <template slot-scope="scope">
                     <datablau-input
@@ -257,14 +257,14 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  :label="$t('domain.code.codeValueName')"
+                  label="代码中文描述"
                   prop="name"
                   :min-width="150"
                   show-overflow-tooltip
                 >
                   <template slot="header" slot-scope="scope">
                     <span class="star">*</span>
-                    <span>{{ $t('domain.code.codeValueName') }}</span>
+                    <span>代码中文描述</span>
                   </template>
                   <template slot-scope="scope">
                     <datablau-input
@@ -280,7 +280,36 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  :label="$t('domain.code.parentCodeValue')"
+                  label="代码英文描述"
+                  prop="definition"
+                  :min-width="150"
+                  show-overflow-tooltip
+                >
+                  <template #header>
+                    <span class="star">*</span>
+                    <span>代码英文描述</span>
+                  </template>
+                  <template slot-scope="scope">
+                    <datablau-input
+                      v-if="isEdit"
+                      v-model="scope.row.definition"
+                      @focus="autoRemakes(scope.row)"
+                      @clear="clearAutoRemakes(scope.row)"
+                      clearable
+                      size="mini"
+                    ></datablau-input>
+                    <datablau-input
+                      v-else
+                      @focus="autoRemakes(scope.row)"
+                      @clear="clearAutoRemakes(scope.row)"
+                      clearable
+                      v-model="scope.row.definition"
+                      size="mini"
+                    ></datablau-input>
+                  </template>
+                </el-table-column>
+                <el-table-column
+                  label="父代码取值"
                   :min-width="150"
                 >
                   <template slot-scope="scope">
@@ -374,42 +403,9 @@
                     ></datablau-input>
                   </template>
                 </el-table-column>
+
                 <el-table-column
-                  :label="$t('domain.code.remark1')"
-                  prop="definition"
-                  :min-width="150"
-                  show-overflow-tooltip
-                >
-                  <template #header>
-                    <span
-                      class="star"
-                      v-if="editCode.whetherBusinessDimension === '1'"
-                    >
-                      *
-                    </span>
-                    <span>{{ $t('domain.code.remark1') }}</span>
-                  </template>
-                  <template slot-scope="scope">
-                    <datablau-input
-                      v-if="isEdit"
-                      v-model="scope.row.definition"
-                      @focus="autoRemakes(scope.row)"
-                      @clear="clearAutoRemakes(scope.row)"
-                      clearable
-                      size="mini"
-                    ></datablau-input>
-                    <datablau-input
-                      v-else
-                      @focus="autoRemakes(scope.row)"
-                      @clear="clearAutoRemakes(scope.row)"
-                      clearable
-                      v-model="scope.row.definition"
-                      size="mini"
-                    ></datablau-input>
-                  </template>
-                </el-table-column>
-                <el-table-column
-                  :label="$t('domain.code.remark2')"
+                  label="备注1"
                   prop="definition"
                   :min-width="150"
                   show-overflow-tooltip
@@ -428,7 +424,7 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  :label="$t('domain.code.remark3')"
+                  label="备注2"
                   prop="definition"
                   :min-width="150"
                   show-overflow-tooltip

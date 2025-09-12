@@ -56,6 +56,39 @@ export default {
   },
   inject: ['headerProduction'],
   computed: {
+    labelText() {
+      let obj = {}
+      if (this.typeIds === 3) {
+        obj = {
+          typeName: this.$t('domain.common.dataDictionary'),
+          standard: this.$t('domain.common.dictionaryInformation'),
+          domainCode: this.$t('domain.common.dictionaryEncoding'),
+          status: this.$t('domain.common.dictionaryState'),
+          name: this.$t('domain.common.dictionaryName'),
+          nameAbbr: this.$t('domain.common.dictionary'),
+        }
+      } else if (this.typeIds === 2) {
+        obj = {
+          typeName: this.$t('domain.common.indicator'),
+          standard: this.$t('domain.common.indicatorInformation'),
+          domainCode: this.$t('domain.common.indicatorCoding'),
+          status: this.$t('domain.common.indicatorStatus'),
+          name: this.$t('common.page.index'),
+          nameAbbr: this.$t('domain.common.indicator'),
+        }
+      } else {
+        obj = {
+          typeName: this.$t('domain.common.dataStandard'),
+          standard: this.$version.domain.propertyType.standard,
+          domainCode: this.$version.domain.property.domainCode,
+          status: this.$t('domain.common.standardStatus'),
+          name: this.$t('domain.common.dataStandard'),
+          nameAbbr: this.$t('domain.common.standard'),
+        }
+      }
+
+      return obj
+    },
     foldId() {
       return this.currentFolder?.foldId
     },

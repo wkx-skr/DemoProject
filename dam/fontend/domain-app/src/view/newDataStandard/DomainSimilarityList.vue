@@ -244,7 +244,7 @@ export default {
           :label="'数据精度'"
           prop="dataPrecision"
         ></el-table-column>
-        <el-table-column :label="'提交人'" prop="submitter"></el-table-column>
+        <el-table-column label="用户姓名（工号）" prop="submitter"></el-table-column>
         <el-table-column
           :label="'相似度'"
           prop="score"

@@ -231,7 +231,7 @@ export default {
       allDimsShow: [],
       codeDialogVisible: false,
       code: '',
-      activeCollapse: ['0', '1', '2', '3', '4'],
+      activeCollapse: ['0', '1', '2', '3', '4', '5'],
       writable: false,
       //      partWritable:[false,false,false,false],
       partWritable: [true, true, true, true, true, true],
@@ -372,7 +372,7 @@ export default {
           : [this.options[0].nodes[0].foldId]
       this.writable = true
       this.partWritable = [true, true, true, true, true, true]
-      this.activeCollapse = ['0', '1', '2', '3', '4']
+      this.activeCollapse = ['0', '1', '2', '3', '4', '5']
       setTimeout(() => {
         this.resetFields()
         this.useDefault(this.defaultValue)

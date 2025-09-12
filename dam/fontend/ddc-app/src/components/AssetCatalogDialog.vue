@@ -2,7 +2,9 @@
   <div class="asset-catalog-dialog">
     <p>
       <span>数据资产目录：</span>
-      <el-button type="text" @click="openAssetDialog" :disabled="disabled">+选择</el-button>
+      <el-button type="text" @click="openAssetDialog" :disabled="disabled || loading">
+        +选择
+      </el-button>
     </p>
     <!-- 数据资产目录选择弹窗 -->
     <el-dialog
@@ -10,7 +12,9 @@
       :visible.sync="showAssetDialog"
       width="80%"
       append-to-body
+      destroy-on-close
       @close="closeAssetDialog"
+      v-loading="loading"
     >
       <!-- 顶部已选项 -->
       <div
@@ -48,12 +52,18 @@
           highlight-current
           @node-click="handleTreeNodeClick"
           @check-change="handleTreeCheckChange"
-          style="width: 20%; border-right: 1px solid #eee; padding-right: 10px; height: 500px; overflow-y: auto;"
+          style="
+            width: 20%;
+            border-right: 1px solid #eee;
+            padding-right: 10px;
+            height: 500px;
+            overflow-y: auto;
+          "
         />
         <!-- 右侧表格 -->
         <el-table
           :data="assetTable"
-          style="width: 80%; margin-left: 10px; height: 500px;"
+          style="width: 80%; margin-left: 10px; height: 500px"
           @selection-change="handleTableSelectionChange"
           ref="assetTable"
           height="100%"
@@ -76,7 +86,7 @@
 </template>
 
 <script>
-import api from "@/view/dataAsset/utils/api";
+import api from '@/view/dataAsset/utils/api'
 
 export default {
   name: 'AssetCatalogDialog',
@@ -84,20 +94,21 @@ export default {
     // 允许配置参数
     catalogType: {
       type: String,
-      default: '2'
+      default: '2',
     },
     // 允许父组件自定义localStorage的key
     storageKey: {
       type: String,
-      default: 'selectedAssets'
+      default: 'selectedAssets',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   data() {
     return {
+      loading: false,
       showAssetDialog: false,
       selectedAssets: [],
       assetTree: [],
@@ -108,34 +119,47 @@ export default {
   watch: {
     selectedAssets: {
       handler(val) {
-        localStorage.setItem(this.storageKey, JSON.stringify(val));
+        localStorage.setItem(this.storageKey, JSON.stringify(val))
       },
-      deep: true
+      deep: true,
     },
   },
   mounted() {
-    this.getManageTreeData();
+    this.getManageTreeData()
   },
   methods: {
     openAssetDialog() {
-      const local = localStorage.getItem(this.storageKey);
+      const local = localStorage.getItem(this.storageKey)
       if (local && local !== '[]') {
-        this.selectedAssets = JSON.parse(local);
+        this.selectedAssets = JSON.parse(local)
         // 同步表格勾选
         this.$nextTick(() => {
-          this.assetTable.forEach(row => {
-            const checked = this.selectedAssets.some(item => item.id === row.id);
-            this.$refs.assetTable.toggleRowSelection(row, checked);
-          });
-        });
+          this.selectedAssets.forEach(item => {
+            this.assetTable.forEach(row => {
+              if (item.id === row.id) {
+                this.$refs.assetTable.toggleRowSelection(row, true)
+              }
+            })
+          })
+        })
+      } else {
+        this.getManageTreeData()
       }
-      this.showAssetDialog = true;
+      this.showAssetDialog = true
     },
-    async getManageTreeData(){
-      const res = await api.getManageTree('2')
-      if (!res.data) return console.error(res);
-      await this.handleTreeNodeClick(res.data[0],'firstGet');
-      this.assetTree = res.data;
+    async getManageTreeData() {
+      this.loading = true
+      try {
+        const res = await api.getManageTree('2')
+        if (!res.data) return console.error(res)
+        await this.handleTreeNodeClick(res.data[0], 'firstGet')
+        this.assetTree = res.data
+      } catch (error) {
+        console.error('获取目录树失败:', error)
+        this.$message.error('获取目录树失败')
+      } finally {
+        this.loading = false
+      }
     },
     closeAssetDialog() {
       this.showAssetDialog = false
@@ -143,47 +167,56 @@ export default {
     removeSelectedAsset(item) {
       this.selectedAssets = this.selectedAssets.filter(i => i.id !== item.id)
       this.$nextTick(() => {
-        const row = this.assetTable.find(i => i.id === item.id);
+        const row = this.assetTable.find(i => i.id === item.id)
         if (row && this.$refs.assetTable) {
-          this.$refs.assetTable.toggleRowSelection(row, false);
+          this.$refs.assetTable.toggleRowSelection(row, false)
         }
-      });
+      })
     },
     clearAllAssets() {
       this.selectedAssets = []
       this.$refs.assetTable && this.$refs.assetTable.clearSelection()
       // 清空本地缓存
-      localStorage.removeItem(this.storageKey);
+      localStorage.removeItem(this.storageKey)
     },
-    async handleTreeNodeClick(node,isFirstGet) {
-      if (isFirstGet !== 'firstGet') localStorage.setItem(this.storageKey, '');
+    async handleTreeNodeClick(node, isFirstGet) {
+      if (isFirstGet !== 'firstGet') localStorage.setItem(this.storageKey, '')
       // 先查本地
-      const local = localStorage.getItem(this.storageKey);
+      const local = localStorage.getItem(this.storageKey)
       if (local && local !== '[]') {
-        this.selectedAssets = JSON.parse(local);
+        this.selectedAssets = JSON.parse(local)
       } else {
         // 没有本地缓存才用接口返回
-        const res = await this.$http.get(`/assets/catalog/${2}/${node.id}/findL4ByParentId`);
-        if (!res.data) return console.error(res);
-        this.selectedAssets = res.data;
+        this.loading = true
+        try {
+          const res = await this.$http.get(
+            `/assets/catalog/${2}/${node.id}/findL4ByParentId`
+          )
+          if (!res.data) return console.error(res)
+          this.selectedAssets = res.data
+        } catch (error) {
+          console.error('获取资产列表失败:', error)
+          this.$message.error('获取资产列表失败')
+        } finally {
+          this.loading = false
+        }
       }
-      this.assetTable = this.selectedAssets;
+      this.assetTable = this.selectedAssets
       this.$nextTick(() => {
-        this.$refs.assetTable && this.$refs.assetTable.toggleAllSelection();
-      });
+        this.$refs.assetTable && this.$refs.assetTable.toggleAllSelection()
+      })
     },
     // 可以实现树的勾选功能
-    handleTreeCheckChange(data, checked, indeterminate){
-    },
+    handleTreeCheckChange(data, checked, indeterminate) {},
     handleTableSelectionChange(selection) {
-      this.assetTableSelection = selection;
-      this.selectedAssets = [...selection];
+      this.assetTableSelection = selection
+      this.selectedAssets = [...selection]
     },
     confirmAssetSelection() {
       this.selectedAssets = [...this.assetTableSelection]
       this.showAssetDialog = false
       // 确认选择时发送事件
-      this.$emit('confirm', this.selectedAssets);
+      this.$emit('confirm', this.selectedAssets)
     },
   },
 }

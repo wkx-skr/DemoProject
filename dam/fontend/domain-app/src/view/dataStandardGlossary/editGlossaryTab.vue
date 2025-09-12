@@ -212,7 +212,7 @@
         </el-tab-pane>
 
         <!-- 第二个Tab页 - 表格 -->
-        <el-tab-pane label="相关数据列表" name="table">
+        <el-tab-pane label="关联标准数据元" name="table">
           <div class="table-container">
             <el-table
               v-loading="tableLoading"

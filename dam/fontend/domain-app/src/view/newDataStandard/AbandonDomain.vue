@@ -273,6 +273,7 @@
           :data="nowDomain"
           :categoryTypeId="parseInt(typeIds)"
           :typeIds="typeIds"
+          :labelText="labelText"
           :useDam="true"
           :hideHeader="true"
           :show-update="false"

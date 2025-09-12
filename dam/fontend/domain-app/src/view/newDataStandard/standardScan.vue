@@ -7,7 +7,7 @@
   >
     <slot></slot>
     <datablau-dialog
-      title="$version.domain.viewCode"
+      title="参考数据"
       width="850px"
       append-to-body
       :visible.sync="codeDialogVisible"

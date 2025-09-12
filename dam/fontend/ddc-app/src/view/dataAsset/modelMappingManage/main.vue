@@ -68,6 +68,7 @@
                 @change="handleSystemChange"
                 @clear="handleSystemClear"
                 :disabled="isLeftSideSelected"
+                multiple
               >
                 <el-option
                   v-for="c in appSystemOptions"
@@ -83,7 +84,7 @@
                 v-model="searchForm.ddmModelId"
                 placeholder="请选择"
                 clearable
-                :disabled="!searchForm.modelCategoryId || isLeftSideSelected"
+                :disabled="(!searchForm.modelCategoryId.length) || isLeftSideSelected"
                 @change="handleModelChange"
                 @clear="handleModelClear"
                 multiple
@@ -304,7 +305,7 @@ export default {
       searchForm: {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: '',
+        modelCategoryId: [],
         ddmModelId: '',
         tableId: '',
         operator:'',
@@ -345,7 +346,7 @@ export default {
     // 判断右侧是否已选择
     isRightSideSelected() {
       return !!(
-        this.searchForm.modelCategoryId ||
+        (this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0) ||
         this.searchForm.ddmModelId ||
         this.searchForm.tableId
       )
@@ -365,7 +366,7 @@ export default {
         this.$message.warning('请先选择数据资产目录');
         return;
       }
-      if (!this.searchForm.modelCategoryId) {
+      if (!this.searchForm.modelCategoryId || this.searchForm.modelCategoryId.length === 0) {
         this.$message.warning('请选择应用系统');
         return;
       }
@@ -380,7 +381,9 @@ export default {
           catalogPath: item.catalogPath,
           name: item.name,
         })),
-        modelCategoryId: Number(this.searchForm.modelCategoryId),
+        modelCategoryId: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
+          ? this.searchForm.modelCategoryId.map(id => parseInt(id))
+          : null,
         ddmModelId: Number(this.searchForm.ddmModelId),
       };
       this.loading.table = true;
@@ -500,7 +503,7 @@ export default {
       this.clearLeftSideSelections()
 
       // 获取对应的模型列表
-      if (value) {
+      if (value.length > 0) {
         this.fetchModels(value)
       }
     },
@@ -513,7 +516,7 @@ export default {
 
     // 清空右侧所有选择
     clearRightSideSelections() {
-      this.searchForm.modelCategoryId = ''
+      this.searchForm.modelCategoryId = []
       this.searchForm.ddmModelId = ''
       this.searchForm.tableId = ''
       this.modelOptions = []
@@ -521,28 +524,67 @@ export default {
     },
     // 应用系统清除
     handleSystemClear() {
+      this.searchForm.modelCategoryId = []
       this.searchForm.ddmModelId = ''
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.tableEntityOptions = []
     },
     // 获取模型列表
-    async fetchModels(modelCategoryId) {
+    async fetchModels(modelCategoryIds) {
       this.loading.models = true
       try {
-        const response = await this.$http.get(
-          `/assets/ddm/data/queryModelByModelCategoryId`,
-          {
-            params: { modelCategoryId },
-          }
-        )
-        this.modelOptions = response.data.map(item => ({
-          value: item.ddmModelId.toString(),
-          label: item.ddmModelName,
-          data: item,
-        }))
+        // 检查参数是否为数组
+        if (Array.isArray(modelCategoryIds) && modelCategoryIds.length > 0) {
+          // 为每个modelCategoryId创建一个请求
+          const requests = modelCategoryIds.map(categoryId =>
+            this.$http.get('/assets/ddm/data/queryModelByModelCategoryId', {
+              params: { modelCategoryId: categoryId }
+            })
+          )
+
+          // 使用Promise.all并行处理所有请求
+          const responses = await Promise.all(requests)
+
+          // 合并所有响应数据
+          const allModels = responses.flatMap(response => response.data || [])
+
+          // 去重处理，避免重复的模型选项
+          const uniqueModels = []
+          const seenModelIds = new Set()
+
+          allModels.forEach(item => {
+            if (!seenModelIds.has(item.ddmModelId)) {
+              seenModelIds.add(item.ddmModelId)
+              uniqueModels.push(item)
+            }
+          })
+
+          // 设置模型选项
+          this.modelOptions = uniqueModels.map(item => ({
+            value: item.ddmModelId.toString(),
+            label: item.ddmModelName,
+            data: item,
+          }))
+        } else if (modelCategoryIds) {
+          // 保持对单个ID的兼容性
+          const response = await this.$http.get(
+            '/assets/ddm/data/queryModelByModelCategoryId',
+            {
+              params: { modelCategoryId: modelCategoryIds },
+            }
+          )
+          this.modelOptions = response.data.map(item => ({
+            value: item.ddmModelId.toString(),
+            label: item.ddmModelName,
+            data: item,
+          }))
+        } else {
+          this.modelOptions = []
+        }
       } catch (error) {
-        this.$showFailure(err)
+        this.$showFailure(error)
+        this.modelOptions = []
       } finally {
         this.loading.models = false
       }
@@ -596,8 +638,8 @@ export default {
         logicDataEntityId: this.searchForm.logicDataEntityId
           ? parseInt(this.searchForm.logicDataEntityId)
           : null,
-        modelCategoryId: this.searchForm.modelCategoryId
-          ? parseInt(this.searchForm.modelCategoryId)
+        modelCategoryIds: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
+          ? this.searchForm.modelCategoryId.map(id => parseInt(id))
           : null,
         ddmModelId: this.searchForm.ddmModelId
           ? parseInt(this.searchForm.ddmModelId)
@@ -636,7 +678,7 @@ export default {
       this.searchForm = {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: '',
+        modelCategoryId: [],
         ddmModelId: '',
         tableId: '',
       }

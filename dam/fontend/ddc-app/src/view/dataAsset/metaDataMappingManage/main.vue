@@ -69,6 +69,7 @@
                 @clear="handleSystemClear"
                 :disabled="isLeftSideSelected"
                 :loading="loading.appSystems"
+                multiple
               >
                 <el-option
                   v-for="c in appSystemOptions"
@@ -84,10 +85,11 @@
                 v-model="searchForm.modelId"
                 placeholder="请选择"
                 clearable
-                :disabled="!searchForm.modelCategoryId || isLeftSideSelected"
+                :disabled="!searchForm.modelCategoryId.length || isLeftSideSelected"
                 @change="handleModelChange"
                 @clear="handleModelClear"
                 :loading="loading.models"
+                multiple
               >
                 <el-option
                   v-for="item in modelOptions"
@@ -103,7 +105,7 @@
                 v-model="searchForm.databaseId"
                 placeholder="请选择"
                 clearable
-                :disabled="!searchForm.modelId || isLeftSideSelected"
+                :disabled="!searchForm.modelId.length || isLeftSideSelected"
                 :loading="loading.databases"
                 @change="handleDatabaseChange"
                 @clear="handleDatabaseClear"
@@ -338,9 +340,9 @@ export default {
       searchForm: {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: '',
-        modelId: '',
-        databaseId: '',
+        modelCategoryId: [],
+        modelId: [],
+        databaseId: [],
         tableId: '',
         operator: '',
       },
@@ -384,9 +386,9 @@ export default {
     // 判断右侧是否已选择
     isRightSideSelected() {
       return !!(
-        this.searchForm.modelCategoryId ||
-        this.searchForm.modelId ||
-        this.searchForm.databaseId ||
+        this.searchForm.modelCategoryId.length > 0 ||
+        this.searchForm.modelId.length > 0 ||
+        this.searchForm.databaseId > 0 ||
         this.searchForm.tableId
       )
     },
@@ -404,14 +406,15 @@ export default {
         this.$message.warning('请先选择数据资产目录');
         return;
       }
-      if (!this.searchForm.modelCategoryId) {
+      if (!this.searchForm.modelCategoryId || this.searchForm.modelCategoryId.length === 0) {
         this.$message.warning('请选择应用系统');
         return;
       }
-      if (!this.searchForm.ddmModelId) {
+      if (!this.searchForm.modelId.length) {
         this.$message.warning('请选择数据模型');
         return;
-      } if (!this.searchForm.databaseId) {
+      }
+      if (!this.searchForm.databaseId.length) {
         this.$message.warning('请选择数据库');
         return;
       }
@@ -424,8 +427,8 @@ export default {
           catalogPath: item.catalogPath,
           name: item.name,
         })),
-        modelCategoryId: parseInt(this.searchForm.modelCategoryId),
-        modelId: parseInt(this.searchForm.ddmModelId),
+        modelCategoryId: this.searchForm.modelCategoryId,
+        modelId: this.searchForm.modelId,
         databaseId: this.searchForm.databaseId,
       }
 
@@ -448,7 +451,7 @@ export default {
       this.tableOptions = []
 
       if (value) {
-        this.fetchTables()
+        // this.fetchTables()
       }
     },
     // 清除数据库选择
@@ -458,7 +461,7 @@ export default {
     },
     // 获取物理表列表
     fetchTables(keyword = '') {
-      if (!this.searchForm.modelId || !this.searchForm.databaseId) {
+      if (!this.searchForm.modelId.length || !this.searchForm.databaseId.length) {
         return
       }
 
@@ -475,7 +478,7 @@ export default {
       const params = {
         currentPage: 1,
         keyword: keyword || '',
-        modelIds: [parseInt(this.searchForm.modelId)],
+        modelIds: this.searchForm.modelId,
         pageSize: 100,
         tagIds: null,
         typeIds: [80000004, 80500008],
@@ -621,29 +624,47 @@ export default {
 
     // 应用系统变更
     handleSystemChange(value) {
-      this.searchForm.modelId = ''
-      this.searchForm.databaseId = ''
+      this.searchForm.modelId = []
+      this.searchForm.databaseId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.schemaEntityOptions = []
       this.tableOptions = []
 
-      if (value) {
+      if (value && value.length > 0) {
         this.loading.models = true
-        // 找到选中的系统节点
-        const selectedSystem = this.appSystemOptions.find(
-          sys => sys.value === value
+        // 为所有选中的系统节点收集模型
+        const allModels = []
+        const selectedSystems = this.appSystemOptions.filter(
+          sys => value.includes(sys.value)
         )
-        if (selectedSystem && selectedSystem.subNodes) {
-          // 直接从子节点中过滤MODEL类型
-          this.modelOptions = selectedSystem.subNodes
-            .filter(node => node.type === 'MODEL')
-            .map(node => ({
-              value: node.id,
-              label: node.name,
-              subNodes: node.subNodes || [], // 保存子节点引用
-            }))
-        }
+
+        selectedSystems.forEach(system => {
+          if (system && system.subNodes) {
+            // 从子节点中过滤MODEL类型
+            const systemModels = system.subNodes
+              .filter(node => node.type === 'MODEL')
+              .map(node => ({
+                value: node.id,
+                label: node.name,
+                subNodes: node.subNodes || [], // 保存子节点引用
+              }))
+            allModels.push(...systemModels)
+          }
+        })
+
+        // 去重处理
+        const uniqueModels = []
+        const seenModelIds = new Set()
+
+        allModels.forEach(item => {
+          if (!seenModelIds.has(item.value)) {
+            seenModelIds.add(item.value)
+            uniqueModels.push(item)
+          }
+        })
+
+        this.modelOptions = uniqueModels
         this.loading.models = false
       }
     },
@@ -657,9 +678,9 @@ export default {
 
     // 清空右侧所有选择
     clearRightSideSelections() {
-      this.searchForm.modelCategoryId = ''
-      this.searchForm.modelId = ''
-      this.searchForm.databaseId = ''
+      this.searchForm.modelCategoryId = []
+      this.searchForm.modelId = []
+      this.searchForm.databaseId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.schemaEntityOptions = []
@@ -668,41 +689,55 @@ export default {
 
     // 应用系统清除
     handleSystemClear() {
-      this.searchForm.modelId = ''
-      this.searchForm.databaseId = ''
+      this.searchForm.modelCategoryId = []
+      this.searchForm.modelId = []
+      this.searchForm.databaseId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.schemaEntityOptions = []
       this.tableOptions = []
     },
 
-    // 处理数据源变化
+    // 处理数据源变化（支持多选）
     handleModelChange(value) {
-      this.searchForm.databaseId = ''
+      this.searchForm.databaseId = []
       this.schemaEntityOptions = []
 
-      if (value) {
+      if (value && value.length > 0) {
         this.loading.databases = true
-        // 找到选中的数据源节点
-        const selectedModel = this.modelOptions.find(
-          model => model.value === value
+        // 找到所有选中的数据源节点
+        const selectedModels = this.modelOptions.filter(
+          model => value.includes(model.value)
         )
-        if (selectedModel && selectedModel.subNodes) {
-          // 直接从子节点中过滤MODEL_SCHEMA类型
-          this.schemaEntityOptions = selectedModel.subNodes
-            .filter(node => node.type === 'MODEL_SCHEMA')
-            .map(node => ({
-              value: node.id,
-              label: node.name,
-            }))
-        }
+
+        // 收集所有选中数据源的schemaEntityOptions
+        const allSchemaEntities = []
+        const seenIds = new Set()
+
+        selectedModels.forEach(model => {
+          if (model && model.subNodes) {
+            model.subNodes
+              .filter(node => node.type === 'MODEL_SCHEMA')
+              .forEach(node => {
+                if (!seenIds.has(node.id)) {
+                  seenIds.add(node.id)
+                  allSchemaEntities.push({
+                    value: node.id,
+                    label: node.name,
+                  })
+                }
+              })
+          }
+        })
+
+        this.schemaEntityOptions = allSchemaEntities
         this.loading.databases = false
       }
     },
 
     // 清除数据源选择
     handleModelClear() {
-      this.searchForm.databaseId = ''
+      this.searchForm.databaseId = []
       this.schemaEntityOptions = []
     },
 
@@ -716,14 +751,15 @@ export default {
         logicDataEntityId: this.searchForm.logicDataEntityId
           ? parseInt(this.searchForm.logicDataEntityId)
           : null,
-        modelCategoryId: this.searchForm.modelCategoryId
-          ? parseInt(this.searchForm.modelCategoryId)
+        // 修改为数组形式的参数名
+        modelCategoryIds: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
+          ? this.searchForm.modelCategoryId.map(id => parseInt(id))
           : null,
         modelId: this.searchForm.modelId
-          ? parseInt(this.searchForm.modelId)
+          ? this.searchForm.modelId.map(id => parseInt(id))
           : null,
         databaseId: this.searchForm.databaseId
-          ? parseInt(this.searchForm.databaseId)
+          ? this.searchForm.databaseId.map(id => parseInt(id))
           : null,
         tableId: this.searchForm.tableId
           ? parseInt(this.searchForm.tableId)
@@ -762,9 +798,9 @@ export default {
       this.searchForm = {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: '',
-        modelId: '',
-        databaseId: '',
+        modelCategoryId: [],
+        modelId: [],
+        databaseId: [],
         tableId: '',
       }
       this.logicalDataEntityOptions = []

@@ -15,6 +15,7 @@
             <div style="line-height: 30px; margin-bottom: 10px">
               <asset-catalog-dialog
                 @confirm="onAssetConfirm"
+                storage-key="selectedAssets1"
                 :disabled="isRightSideSelected"
               />
             </div>
