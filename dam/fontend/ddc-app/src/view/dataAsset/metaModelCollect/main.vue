@@ -20,8 +20,9 @@
       height="100%"
     >
       <el-table-column type="selection" width="40" align="center" />
+      <el-table-column prop="" label="模型路径" />
       <el-table-column prop="ddmModelName" label="模型名称" />
-      <el-table-column prop="dbType" label="类型">
+      <el-table-column prop="dbType" label="模型类型">
         <template slot-scope="scope">
           <Database-Type
             :key="scope.row.dbType"
@@ -30,7 +31,7 @@
           ></Database-Type>
         </template>
       </el-table-column>
-      <el-table-column prop="modelCategoryName" label="业务系统">
+      <el-table-column prop="modelCategoryName" label="应用系统">
         <template slot-scope="scope">
           <span>{{ scope.row.modelCategoryName || '-' }}</span>
         </template>
@@ -40,22 +41,14 @@
           <span>{{ $timeFormatter(scope.row.updateTime || '-') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="280">
+      <el-table-column label="操作" width="290">
         <template slot-scope="scope">
           <datablau-button
             type="text"
             class="link-button"
             @click="handleLinkSystem(scope.row)"
           >
-            关联业务系统
-          </datablau-button>
-          <datablau-button
-            type="text"
-            class="link-button"
-            @click="metaCollect(scope.row)"
-            :disabled="!scope.row.modelCategoryName"
-          >
-            采集任务
+            关联应用系统
           </datablau-button>
           <datablau-button
             type="text"
@@ -63,7 +56,15 @@
             :disabled="!scope.row.modelCategoryName"
             @click="handlerImmediatelyCollect(scope.row.jobId)"
           >
-            采集元数据
+            立即采集
+          </datablau-button>
+          <datablau-button
+            type="text"
+            class="link-button"
+            @click="metaCollect(scope.row)"
+            :disabled="!scope.row.modelCategoryName"
+          >
+            自动采集任务
           </datablau-button>
         </template>
       </el-table-column>
