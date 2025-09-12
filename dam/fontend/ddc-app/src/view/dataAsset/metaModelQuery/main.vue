@@ -55,10 +55,9 @@
             />
           </datablau-select>
         </div>
-        <datablau-button type="primary" @click="handleSearch">
-          查询
-        </datablau-button>
+        <datablau-button @click="handleSearch">搜索</datablau-button>
         <datablau-button @click="handleReset">重置</datablau-button>
+        <datablau-button type="primary" @click="exportQueryResult">导出查询结果</datablau-button>
       </div>
     </div>
 
@@ -70,11 +69,11 @@
       height="100%"
     >
       <el-table-column prop="modelCategoryName" label="应用系统" />
-      <el-table-column prop="ddmModelName" label="模型" />
-      <el-table-column prop="tableName" label="表/逻辑数据实体" />
-      <el-table-column prop="tableCnName" label="表/实体中文名" />
-      <el-table-column prop="columnCnName" label="属性中文名" />
-      <el-table-column prop="columnName" label="属性英文名" />
+      <el-table-column prop="ddmModelName" label="模型名称" />
+      <el-table-column prop="tableCnName" label="表/逻辑数据实体（中文名称）" />
+      <el-table-column prop="tableName" label="表/逻辑数据实体（英文名称）" />
+      <el-table-column prop="columnCnName" label="属性（中文名称）" />
+      <el-table-column prop="columnName" label="属性（英文名称）" />
       <el-table-column prop="pk" label="主键" align="center">
         <template slot-scope="scope">
           {{ scope.row.pk ? '是' : '否' }}
@@ -126,6 +125,9 @@ export default {
   },
 
   methods: {
+    // 导出查询结果
+    exportQueryResult() {
+    },
     // 应用系统清除
     handleSystemClear() {
       this.searchForm.ddmModelId = ''
