@@ -283,7 +283,7 @@
         <el-table-column
           show-overflow-tooltip
           prop="categoryPath"
-          label="字段来源"
+          label="元数据字段来源"
         />
         <el-table-column
           show-overflow-tooltip
