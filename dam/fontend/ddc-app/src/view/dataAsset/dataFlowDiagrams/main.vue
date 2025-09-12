@@ -41,9 +41,9 @@
               <span v-else>-</span>
             </template>
           </el-table-column>
-          <el-table-column label="业务对象名称" prop="l3Name" width="200" show-overflow-tooltip
+          <el-table-column label="业务对象（中文名称）" prop="l3Name" width="200" show-overflow-tooltip
             align="center"></el-table-column>
-          <el-table-column prop="l4Name" label="逻辑实体名称" width="200" show-overflow-tooltip></el-table-column>
+          <el-table-column prop="l4Name" label="逻辑数据实体（中文名称）" width="200" show-overflow-tooltip></el-table-column>
           <el-table-column label="下游操作" width="120">
             <template #default="{ row }">
               <span v-if="row.permissionsCrudRight">
