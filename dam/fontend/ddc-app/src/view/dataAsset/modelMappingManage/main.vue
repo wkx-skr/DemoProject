@@ -158,22 +158,22 @@
         <el-table-column label="数据资产目录" align="center">
           <el-table-column
             prop="businessObjectName"
-            label="业务对象名称"
-            width="120"
+            label="业务对象（中文名称）"
+            width="140"
           ></el-table-column>
           <el-table-column
             prop="logicDataEntityName"
-            label="逻辑数据实体名称"
-            width="150"
+            label="逻辑数据实体名称（中文名称）"
+            width="190"
           ></el-table-column>
           <el-table-column
             prop="columnCatalogName"
-            label="属性英文名"
+            label="属性（英文名称）"
             width="120"
           ></el-table-column>
           <el-table-column
             prop="columnCatalogAlias"
-            label="属性中文名"
+            label="属性（中文名称）"
             width="120"
           ></el-table-column>
         </el-table-column>
@@ -184,25 +184,31 @@
           ></el-table-column>
           <el-table-column
             prop="ddmModelName"
-            label="模型"
+            label="模型名称"
           ></el-table-column>
           <el-table-column
             prop="tableAlias"
-            label="表/实体名称"
-            width="150"
+            label="表/逻辑数据实体（中文名称）"
+            width="190"
           ></el-table-column>
           <el-table-column
             prop="tableName"
-            label="表/实体英文名"
-            width="150"
+            label="表/逻辑数据实体（英文名称）"
+            width="190"
           ></el-table-column>
           <el-table-column
             prop="columnAlias"
-            label="属性中文名"
+            label="属性（中文名称）"
+            width="120"
           ></el-table-column>
           <el-table-column
             prop="columnName"
-            label="属性英文名"
+            label="属性（英文名称）"
+            width="120"
+          ></el-table-column>
+          <el-table-column
+            prop=""
+            label="操作人"
           ></el-table-column>
           <el-table-column
             prop="mappingType"
