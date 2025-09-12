@@ -115,7 +115,7 @@
                   </div>
                   <div v-else>
                     <div
-                      v-if="importTaskResult.errorMsg.length"
+                      v-if="importTaskResult.errorMsg.length || importTaskResult.messageMap"
                       class="error-group"
                     >
                       <div class="error-title">
