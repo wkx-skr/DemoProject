@@ -71,16 +71,18 @@
           prop="applyCreator"
           show-overflow-tooltip
         />
-        <el-table-column
-          label="相似标准名称"
-          prop="anotherDomainNames"
-          show-overflow-tooltip
-        />
-        <el-table-column
-          label="跳过原因"
-          prop="skipReason"
-          show-overflow-tooltip
-        />
+        <template v-if="!(tableData[0].dataType === '资产DL123' || tableData[0].dataType === '资产DL45')">
+          <el-table-column
+            label="相似标准名称"
+            prop="anotherDomainNames"
+            show-overflow-tooltip
+          />
+          <el-table-column
+            label="跳过原因"
+            prop="skipReason"
+            show-overflow-tooltip
+          />
+        </template>
         <el-table-column
           label="创建时间"
           prop="createTime"

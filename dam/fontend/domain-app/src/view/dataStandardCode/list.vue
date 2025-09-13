@@ -792,7 +792,7 @@ export default {
         state: this.searchFormData.state,
         // TODO i18n
         datasetName:
-          this.currentCatalog === '所有标准代码' ? '' : this.currentCatalog,
+          this.currentCatalog === '所有参考数据' ? '' : this.currentCatalog,
         tagIds: this.currentTag,
         folderId: this.searchFormData.folderId,
       }

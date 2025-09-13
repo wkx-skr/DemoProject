@@ -1745,7 +1745,7 @@ export default {
     gszcCustomer() {
       return this.$customerId === 'gszc'
     },
-    // 当前标准代码的 代码取值列表
+    // 当前参考数据的 代码取值列表
     tableParentValue() {
       let arr = (this.isEdit ? this.editCode.values : this.editCode.value) || []
       const valueMap = {}
@@ -2391,8 +2391,8 @@ export default {
         DOMAIN_ID: this.newDomianId,
         AUTH_DIMENSION_EN: this.form1.authDimensionNameEn,
       }
-      newCodes.jobName = `标准代码-从数据抽取同步标准代码任务-${this.editCode.name}`
-      newCodes.typeName = '数据标准-从数据库同步标准代码任务'
+      newCodes.jobName = `参考数据-从数据抽取同步参考数据任务-${this.editCode.name}`
+      newCodes.typeName = '数据标准-从数据库同步参考数据任务'
 
       HTTP.updateCode(newCodes)
         .then(res => {
@@ -2850,8 +2850,8 @@ export default {
       // json.connectionInfo = this.connectionInfo
       json.creator = this.$user.username
 
-      json.jobName = `标准代码-从数据抽取同步标准代码任务-${this.editCode.name}`
-      json.typeName = '数据标准-从数据库同步标准代码任务'
+      json.jobName = `参考数据-从数据抽取同步参考数据任务-${this.editCode.name}`
+      json.typeName = '数据标准-从数据库同步参考数据任务'
       if (this.isEdit) {
         json.values = this.editCode?.values || []
         json.jobId = this.jobId
