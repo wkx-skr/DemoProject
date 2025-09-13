@@ -65,7 +65,7 @@
               </span>
             </is-show-tooltip>
           </span>
-          <span class="attr-list">
+<!--          <span class="attr-list">
             <is-show-tooltip
               :content="`${structureInfo.approverDto.fullUserName}（${structureInfo.approverDto.username}）`"
             >
@@ -94,7 +94,7 @@
                 }}
               </span>
             </is-show-tooltip>
-          </span>
+          </span>-->
         </p>
       </div>
       <div class="new-catalog" v-if="isManager">
@@ -106,7 +106,7 @@
           {{ $t('assets.directoryStructure.newAssetCatalog') }}
         </datablau-button>
       </div>
-      <div class="asset-process">
+<!--      <div class="asset-process">
         <p>{{ $t('assets.directoryStructure.dataAsset') }}</p>
         <div
           class="process-status"
@@ -118,7 +118,7 @@
               : $t('assets.directoryStructure.disable')
           }}
         </div>
-      </div>
+      </div>-->
 
       <div class="catalog-process">
         <p>{{ $t('assets.directoryStructure.approvalProcess') }}</p>
@@ -196,7 +196,7 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column
+<!--          <el-table-column
             :label="$t('assets.directoryStructure.supportDataAssets')"
             min-width="300"
           >
@@ -293,7 +293,7 @@
                 </datablau-button>
               </el-popover>
             </template>
-          </el-table-column>
+          </el-table-column>-->
         </datablau-table>
       </template>
     </div>
