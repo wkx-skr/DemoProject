@@ -442,7 +442,7 @@
             >
               当前选中“{{ selection.length }}条”信息，是否
             </div>
-            <datablau-button
+<!--            <datablau-button
               @click="deleteList"
               type="danger"
               class="el-icon-delete"
@@ -455,7 +455,7 @@
               "
             >
               删除
-            </datablau-button>
+            </datablau-button>-->
             <datablau-button
               type="normal"
               class="iconfont icon-export"

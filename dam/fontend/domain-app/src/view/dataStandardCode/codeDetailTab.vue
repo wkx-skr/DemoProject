@@ -267,7 +267,13 @@
               show-overflow-tooltip
               :min-width="120"
             ></el-table-column>
-
+            <el-table-column
+              :label="$t('domain.code.remark1')"
+              prop="definition"
+              sortable="custom"
+              show-overflow-tooltip
+              :min-width="$i18n.locale === 'zh' ? 80 : 100"
+            ></el-table-column>
             <el-table-column
               :label="$t('domain.code.parentCodeValue')"
               prop="parentValue"
@@ -300,13 +306,6 @@
                 {{ scope.row.refValue ? scope.row.refValue.name : '' }}
               </template>
             </el-table-column>
-            <el-table-column
-              :label="$t('domain.code.remark1')"
-              prop="definition"
-              sortable="custom"
-              show-overflow-tooltip
-              :min-width="$i18n.locale === 'zh' ? 80 : 100"
-            ></el-table-column>
             <el-table-column
               :label="$t('domain.code.remark2')"
               prop="definition2"
