@@ -147,7 +147,7 @@
             </span>
           </div>
         </li>
-        <li class="li-collection">
+<!--        <li class="li-collection">
           <p @click="toggleCollecStatus">
             {{
               baseInfo.hasCollected
@@ -171,7 +171,7 @@
             </span>
             <span class="span-company">{{ $t('assets.commonHead.ci') }}</span>
           </div>
-        </li>
+        </li>-->
         <!-- <li class="li-quote">
           <p>
             {{ $t('assets.commonHead.quote') }}
@@ -650,9 +650,9 @@ export default {
   }
   &.max-screen-top-base {
     .left-part {
-      width: 350px;
+      width: 850px;
       .name-box {
-        width: 280px;
+        width: 780px;
         .name {
           /deep/ .text-tooltip {
             max-width: 170px;
@@ -660,7 +660,7 @@ export default {
         }
         .englishName {
           /deep/ .text-tooltip {
-            max-width: 80px;
+            max-width: 240px;
           }
         }
       }
@@ -711,7 +711,7 @@ export default {
         font-size: 12px;
         color: #555;
         /deep/ .text-tooltip {
-          max-width: 40px;
+          max-width: 120px;
           vertical-align: middle;
         }
       }
