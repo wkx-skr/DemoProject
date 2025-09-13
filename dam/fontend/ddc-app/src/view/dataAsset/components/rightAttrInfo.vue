@@ -45,7 +45,7 @@
         @saveSteward="saveSteward"
         :isOpen="isOpen"
       ></attr-item>
-      <div
+      <!--<div
         class="attr-item"
         v-if="
           currentNode.level !== 1 &&
@@ -114,7 +114,7 @@
             </template>
           </el-tooltip>
         </div>
-      </div>
+      </div>-->
       <extend-props
         :isOpen="isOpen"
         :extendProps="attrInfo.extendProps"
@@ -144,24 +144,24 @@
           :imgSrc="assetType"
           :attrValue="attrInfo.generalSetting.catalogTypeName"
         ></attr-item>
-        <attr-item
+        <!--<attr-item
           :isOpen="isOpen"
           :attrKey="$t('assets.summaryInfo.approverText')"
           :imgSrc="dataApprover"
           :attrValue="attrInfo.generalSetting.approver"
-        ></attr-item>
+        ></attr-item>-->
         <attr-item
           :isOpen="isOpen"
           :attrKey="$t('assets.summaryInfo.authorityText')"
           :imgSrc="directoryRight"
           :attrValue="formatAuthority(attrInfo.generalSetting.authType)"
         ></attr-item>
-        <attr-item
+        <!--<attr-item
           :isOpen="isOpen"
           :attrKey="$t('assets.summaryInfo.keywordText')"
           :imgSrc="keyword"
           :attrValue="attrInfo.generalSetting.keyword"
-        ></attr-item>
+        ></attr-item>-->
         <div class="attr-item" v-if="currentNode.level === 4">
           <span class="item-key">
             <span style="display: inline-block; width: 30px"></span>
@@ -284,7 +284,7 @@
           :attrValue="formatTime(attrInfo.systemSetting.publishTime)"
         ></attr-item>
       </template>
-      <div class="assets-code">
+      <!--<div class="assets-code">
         <p class="group-key">{{ $t('assets.summaryInfo.assetCode') }}</p>
         <div class="attr-item">
           <span class="item-key">
@@ -483,7 +483,7 @@
             </datablau-form>
           </div>
         </div>
-      </div>
+      </div>-->
     </datablau-meta-data-attr>
   </div>
 </template>

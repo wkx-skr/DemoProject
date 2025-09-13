@@ -62,7 +62,7 @@
                       @focus="onFocus"
                       @input="onInput"
                       :fetch-suggestions="queryDataType"
-                      :disabled="fk.indexOf(allCols[0].elementId) > -1"
+                      :disabled="fk.indexOf(allCols[0].elementId) > -1 || $store.state.changeLeftPaneValue === 'dataStandard'"
                       @select="clearLimitedDomain(limitedDsApply && limitedDsApplyConfig.rColDt && !!allCols[0].domainId, $event)"
                       @change="clearLimitedDomain(limitedDsApply && limitedDsApplyConfig.rColDt && !!allCols[0].domainId, $event)"
                     >

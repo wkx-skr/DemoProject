@@ -368,15 +368,12 @@ export default {
             val.assetsType.includes('DATA_COLLECTION') ||
             val.assetsType.includes('TABLE')
           ) {
-            this.assetsTypeList = this.assetsTypeList.concat(['TABLE'])
+            if (![3,4].includes(this.baseInfo.level)) this.assetsTypeList = this.assetsTypeList.concat(['TABLE'])
           }
-          const feMeatList = val.assetsType.filter(
-            item =>
-              item === 'VIEW' ||
-              item === 'DATA_OBJECT' ||
-              item === 'REPORT' ||
-              item === 'FILE'
-          )
+          const feMeatList = val.assetsType.filter(item => {
+              if (![3, 4].includes(this.baseInfo.level)) return item === 'VIEW'
+              return item === 'DATA_OBJECT' || item === 'REPORT' || item === 'FILE'
+            })
           this.assetsTypeList = this.assetsTypeList.concat(feMeatList)
         }
         if (this.$featureMap.FE_MEASURE && val.assetsType) {

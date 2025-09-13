@@ -165,7 +165,6 @@ export default {
       canDelete: false,
       canPublish: false,
       canOffline: false,
-      allList: {},
       minScreen: false,
       screenW: 0,
       editingAssetsCode: false,

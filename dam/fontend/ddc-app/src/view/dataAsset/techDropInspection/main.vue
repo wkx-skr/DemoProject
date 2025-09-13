@@ -329,12 +329,16 @@
           show-overflow-tooltip
           prop="domainValue"
           label="标准值"
-        />
+        >
+          <template slot-scope="scope">{{ scope.row.domainValue === 'true' ? '是' : '否' }}</template>
+        </el-table-column>
         <el-table-column
           show-overflow-tooltip
           prop="columnValue"
           label="实际值"
-        />
+        >
+          <template slot-scope="scope">{{ scope.row.columnValue === 'true' ? '是' : '否' }}</template>
+        </el-table-column>
         <!-- <el-table-column show-overflow-tooltip label="操作" width="150">
           <template slot-scope="scope">
             <datablau-button type="text" @click="exportExcelDetail(scope.row)">

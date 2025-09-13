@@ -491,7 +491,7 @@ export default {
               showOverflowTooltip: true,
             },
             {
-              label: '逻辑数据属性定义',
+              label: '业务定义',
               prop: 'definition',
               minWidth: 140,
               showOverflowTooltip: true,

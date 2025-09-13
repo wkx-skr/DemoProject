@@ -1,6 +1,6 @@
 <template>
   <div class="assets-list-page" :style="{ top: topH + 84 + 'px' }">
-    <div class="assets-list-search-box" ref="searchBox">
+    <!--<div class="assets-list-search-box" ref="searchBox">
       <datablau-list-search>
         <el-form ref="form">
           <el-form-item label="">
@@ -77,7 +77,7 @@
           </el-form-item>
         </el-form>
       </datablau-list-search>
-    </div>
+    </div>-->
     <div class="table-box">
       <datablau-form-submit>
         <datablau-table
@@ -227,7 +227,7 @@
               {{ scope.row.catalogNamePath }}
             </template>
           </el-table-column>
-          <el-table-column
+          <!--<el-table-column
             :label="$t('assets.assetList.dataOwnership')"
             prop="departmentNameList"
             :min-width="minScreen ? 120 : 90"
@@ -238,7 +238,7 @@
                 {{ getDepartmentName(scope.row) }}
               </span>
             </template>
-          </el-table-column>
+          </el-table-column>-->
           <!-- <el-table-column
             :label="$t('assets.assetList.assetStatus')"
             prop="state"
@@ -452,7 +452,7 @@ $primary-color: #409eff;
   }
   .table-box {
     position: absolute;
-    top: 44px;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;

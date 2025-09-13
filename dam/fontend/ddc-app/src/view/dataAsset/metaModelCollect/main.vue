@@ -4,7 +4,7 @@
     <div class="search-area">
       <datablau-input
         v-model="searchKeyword"
-        placeholder="请输入数据源"
+        placeholder="请输入模型名称"
         prefix-icon="el-icon-search"
         @input="handleSearch"
         style="width: 240px"
