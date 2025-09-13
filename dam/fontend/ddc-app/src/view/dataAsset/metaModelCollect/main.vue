@@ -20,7 +20,7 @@
       height="100%"
     >
       <el-table-column type="selection" width="40" align="center" />
-      <el-table-column prop="" label="模型路径" />
+      <el-table-column prop="ddmCategoryPath" label="模型路径" />
       <el-table-column prop="ddmModelName" label="模型名称" />
       <el-table-column prop="dbType" label="模型类型">
         <template slot-scope="scope">

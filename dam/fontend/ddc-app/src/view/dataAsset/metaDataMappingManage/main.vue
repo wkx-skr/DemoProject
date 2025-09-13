@@ -219,7 +219,7 @@
             label="数据源"
           ></el-table-column>
           <el-table-column
-            prop="databaseName"
+            prop="schemaName"
             label="数据库"
           ></el-table-column>
           <el-table-column
@@ -243,7 +243,7 @@
             width="120"
           ></el-table-column>
           <el-table-column
-            prop=""
+            prop="username"
             label="操作人"
           ></el-table-column>
           <el-table-column
@@ -427,15 +427,10 @@ export default {
 
       // 构建请求参数
       const params = {
-        businessObjects: this.selectedAssets.map(item => ({
-          id: item.id,
-          structureId: item.structureId,
-          catalogPath: item.catalogPath,
-          name: item.name,
-        })),
+        logicDataEntityIds: this.selectedAssets.map(item => item.id),
         modelCategoryId: this.searchForm.modelCategoryId,
         modelId: this.searchForm.modelId,
-        databaseId: this.searchForm.databaseId,
+        databaseIds: this.searchForm.databaseId,
       }
 
       this.$http
@@ -751,13 +746,10 @@ export default {
     fetchData() {
       // 构建查询参数
       const params = {
-        businessObjectId: this.searchForm.businessObjectId
+        /*businessObjectId: this.searchForm.businessObjectId
           ? parseInt(this.searchForm.businessObjectId)
-          : null,
-        logicDataEntityId: this.searchForm.logicDataEntityId
-          ? parseInt(this.searchForm.logicDataEntityId)
-          : null,
-        // 修改为数组形式的参数名
+          : null,*/
+        logicDataEntityId: this.selectedAssets.map(item => item.id),
         modelCategoryIds: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
           ? this.searchForm.modelCategoryId.map(id => parseInt(id))
           : null,
@@ -767,13 +759,15 @@ export default {
         databaseId: this.searchForm.databaseId
           ? this.searchForm.databaseId.map(id => parseInt(id))
           : null,
-        tableId: this.searchForm.tableId
+        /*tableId: this.searchForm.tableId
           ? parseInt(this.searchForm.tableId)
-          : null,
+          : null,*/
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
         operator: this.searchForm.operator || null,
-      }
+        // 是否只查询未关联属性，勾选上时值传false
+        mappingFlag: !this.onlyUnmapped
+        }
 
       this.loading.table = true
       // 调用接口获取数据
@@ -910,7 +904,7 @@ export default {
     },
     handleViewMappingLog(row) {
       // 查看映射记录
-      if (!row.mappingId) {
+      if (!row.columnCatalogId) {
         this.$message.warning('无法获取映射记录')
         return
       }
@@ -918,7 +912,7 @@ export default {
       // 调用接口获取映射记录
       this.$http
         .get('/assets/meta/mapping/queryMappingLog', {
-          params: { mappingId: row.mappingId },
+          params: { catalogId: row.columnCatalogId },
         })
         .then(res => {
           this.mappingLogData = res?.data || []

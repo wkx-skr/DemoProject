@@ -207,7 +207,7 @@
             width="120"
           ></el-table-column>
           <el-table-column
-            prop=""
+            prop="username"
             label="操作人"
           ></el-table-column>
           <el-table-column
@@ -312,7 +312,7 @@ export default {
         businessObjectId: '',
         logicDataEntityId: '',
         modelCategoryId: [],
-        ddmModelId: '',
+        ddmModelId: [],
         tableId: '',
         operator:'',
       },
@@ -353,7 +353,7 @@ export default {
     isRightSideSelected() {
       return !!(
         (this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0) ||
-        this.searchForm.ddmModelId ||
+        (this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0) ||
         this.searchForm.tableId
       )
     },
@@ -381,16 +381,13 @@ export default {
         return;
       }
       const params = {
-        businessObjects: this.selectedAssets.map(item => ({
-          id: item.id,
-          structureId: item.structureId,
-          catalogPath: item.catalogPath,
-          name: item.name,
-        })),
+        logicDataEntityIds: this.selectedAssets.map(item => item.id),
         modelCategoryId: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
           ? this.searchForm.modelCategoryId.map(id => parseInt(id))
           : null,
-        ddmModelId: Number(this.searchForm.ddmModelId),
+        ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
+          ? this.searchForm.ddmModelId.map(id => parseInt(id))
+          : null,
       };
       this.loading.table = true;
       this.$http
@@ -500,7 +497,7 @@ export default {
     // 应用系统变更
     handleSystemChange(value) {
       // 清空模型和表/实体选择
-      this.searchForm.ddmModelId = ''
+      this.searchForm.ddmModelId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.tableEntityOptions = []
@@ -523,7 +520,7 @@ export default {
     // 清空右侧所有选择
     clearRightSideSelections() {
       this.searchForm.modelCategoryId = []
-      this.searchForm.ddmModelId = ''
+      this.searchForm.ddmModelId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.tableEntityOptions = []
@@ -531,7 +528,7 @@ export default {
     // 应用系统清除
     handleSystemClear() {
       this.searchForm.modelCategoryId = []
-      this.searchForm.ddmModelId = ''
+      this.searchForm.ddmModelId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.tableEntityOptions = []
@@ -604,7 +601,7 @@ export default {
 
       // 获取对应的表/实体列表
       if (value) {
-        this.fetchTables(value)
+        // this.fetchTables(value)
       }
     },
 
@@ -647,8 +644,8 @@ export default {
         modelCategoryIds: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
           ? this.searchForm.modelCategoryId.map(id => parseInt(id))
           : null,
-        ddmModelId: this.searchForm.ddmModelId
-          ? parseInt(this.searchForm.ddmModelId)
+        ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
+          ? this.searchForm.ddmModelId.map(id => parseInt(id))
           : null,
         tableId: this.searchForm.tableId
           ? parseInt(this.searchForm.tableId)
@@ -656,6 +653,8 @@ export default {
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
         operator: this.searchForm.operator || null,
+        // 是否只查询未关联属性，勾选上时值传false
+        mappingFlag: !this.onlyUnmapped,
       }
 
       this.loading.table = true
@@ -685,7 +684,7 @@ export default {
         businessObjectId: '',
         logicDataEntityId: '',
         modelCategoryId: [],
-        ddmModelId: '',
+        ddmModelId: [],
         tableId: '',
       }
       this.logicalDataEntityOptions = []
@@ -786,7 +785,7 @@ export default {
     },
     handleViewMappingLog(row) {
       // 查看映射记录
-      if (!row.mappingId) {
+      if (!row.columnCatalogId) {
         this.$message.warning('无法获取映射记录')
         return
       }
@@ -794,7 +793,7 @@ export default {
       // 调用接口获取映射记录
       this.$http
         .get('/assets/ddm/mapping/queryMappingLog', {
-          params: { mappingId: row.mappingId },
+          params: { catalogId: row.columnCatalogId },
         })
         .then(res => {
           this.mappingLogData = res?.data || []
