@@ -104,13 +104,13 @@ export default {
         minWidth: 100,
         width: this.totalShow ? 300 : 0,
       },
-      {
+      /*{
         headerName: this.$t('domain.code.enAbbreviation'),
         field: 'abbreviation',
         tooltipField: 'abbreviation',
         minWidth: 100,
         width: this.totalShow ? 300 : 0,
-      },
+      },*/
       {
         headerName: this.$t('domain.common.description'),
         field: 'description',

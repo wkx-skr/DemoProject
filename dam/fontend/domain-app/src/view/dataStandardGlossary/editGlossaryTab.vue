@@ -212,7 +212,7 @@
         </el-tab-pane>
 
         <!-- 第二个Tab页 - 表格 -->
-        <el-tab-pane label="关联标准数据元" name="table">
+        <el-tab-pane label="标准数据元列表" name="table">
           <div class="table-container">
             <el-table
               v-loading="tableLoading"
@@ -235,14 +235,14 @@
                 label="英文名称"
                 width="150"
               ></el-table-column>
-              <el-table-column
+<!--              <el-table-column
                 prop="abbreviation"
                 label="英文缩写"
                 width="100"
-              ></el-table-column>
+              ></el-table-column>-->
               <el-table-column
                 prop="description"
-                label="描述"
+                label="业务定义"
                 min-width="250"
               ></el-table-column>
               <el-table-column
