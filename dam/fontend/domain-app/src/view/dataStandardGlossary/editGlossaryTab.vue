@@ -374,7 +374,7 @@ export default {
                 return
               }
               // 首字母大写
-              if (!/^(?:[A-Z][a-z]*)(?: [A-Z][a-z]*)*$/.test(value)) {
+              if (!/^(?:[A-Z][a-zA-Z]*)(?: [A-Z][a-zA-Z]*)*$/.test(value)) {
                 callback(new Error('首字母必须大写'))
                 return
               }

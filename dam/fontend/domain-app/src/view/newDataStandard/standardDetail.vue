@@ -792,7 +792,7 @@
                 </datablau-select>
               </el-form-item>-->
 
-              <el-form-item
+              <!--<el-form-item
                 label=""
                 label-width="0"
                 v-for="(udp, index) in udps.filter(
@@ -830,7 +830,7 @@
                     :value="item"
                   ></el-option>
                 </datablau-select>
-              </el-form-item>
+              </el-form-item>-->
             </el-collapse-item>
           </datablau-form>
           <!-- 管理类属性 end -->
