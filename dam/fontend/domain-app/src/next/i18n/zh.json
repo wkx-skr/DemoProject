@@ -3376,7 +3376,7 @@
       "codeMappingPlaceholder": "请输入映射代码",
       "codeValue": "代码取值",
       "addCodeValue": "添加新编码",
-      "listSearchPlaceholder": "按编码取值、中文名称搜索",
+      "listSearchPlaceholder": "按代码、代码中文名称搜索",
       "showList": "以列表方式显示数据",
       "showTree": "以树形结构显示数据",
       "canNotShowTree": "编码取值有重复，不能以树形结构显示",

@@ -235,11 +235,11 @@
                 label="英文名称"
                 width="150"
               ></el-table-column>
-<!--              <el-table-column
-                prop="abbreviation"
-                label="英文缩写"
-                width="100"
-              ></el-table-column>-->
+              <!--              <el-table-column
+                              prop="abbreviation"
+                              label="英文缩写"
+                              width="100"
+                            ></el-table-column>-->
               <el-table-column
                 prop="description"
                 label="业务定义"
@@ -282,7 +282,7 @@ export default {
     'treeData',
     'foldId',
   ],
-  inject: ['headerProduction'],
+  inject: ['headerProduction','categoryId'],
 
   data() {
     const glossaryUrl = this.$url + '/service/ns/'
@@ -363,7 +363,7 @@ export default {
             required: true,
             // message: this.$t('domain.glossary.nameNotEmpty'),
             trigger: 'blur',
-            validator(rule, value, callback) {
+            validator: (rule, value, callback) => {
               if (!value) {
                 callback(new Error('英文名称不能为空'))
                 return
@@ -378,7 +378,12 @@ export default {
                 callback(new Error('首字母必须大写'))
                 return
               }
-              callback()
+
+              // 全局唯一
+              this.$plainRequest.post(`${this.$domain_url}/ns/checkNsEnNameOnlyOne?categoryId=${this.selectedFolderIds[this.selectedFolderIds.length - 1]}`,{}).then(res => {
+                if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
+                callback()
+              })
             },
           },
         ],
@@ -590,11 +595,15 @@ export default {
 <style lang="scss" scoped>
 .tab-page {
   .container {
-    overflow: auto;
+    height: 100%;
     padding: 20px;
 
     .el-tabs {
       margin-bottom: 20px;
+
+      /deep/ .el-tabs__content {
+        height: calc(100% - 39px);
+      }
     }
 
     /deep/ .form-submit {

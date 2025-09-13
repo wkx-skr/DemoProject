@@ -94,8 +94,8 @@
           reserve-selection
           :rowSelectable="rowSelectable"
           row-class-name="row-can-click"
-          @row-click="toDetail"
         >
+          <!--@row-click="toDetail"-->
           <el-table-column width="28">
             <template slot-scope="scope">
               <datablau-icon
@@ -268,7 +268,7 @@
             :formatter="$timeFormatter"
             show-overflow-tooltip
           ></el-table-column> -->
-          <el-table-column
+          <!--<el-table-column
             :label="$t('assets.assetList.operation')"
             :width="100"
             align="center"
@@ -282,7 +282,7 @@
                 class="iconfont icon-see"
                 @click.stop="toDetail(scope.row)"
               ></datablau-button>
-              <!-- <datablau-button
+              &lt;!&ndash; <datablau-button
                 type="text"
                 v-if="!type"
                 :tooltip-content="$t('common.button.delete')"
@@ -292,9 +292,9 @@
                   scope.row.status === 'PUBLISHED'
                 "
                 @click="remove(scope.row)"
-              ></datablau-button> -->
+              ></datablau-button> &ndash;&gt;
             </template>
-          </el-table-column>
+          </el-table-column>-->
         </datablau-table>
         <template slot="buttons">
           <div class="bottom">

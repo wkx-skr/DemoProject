@@ -231,7 +231,7 @@
           <span class="item-key">
             <span style="display:inline-block; width: 30px"></span>
             <span style="display: inline-block; width: 90px" v-if="isOpen">
-              是否为空
+              是否非空
             </span>
           </span>
           <span

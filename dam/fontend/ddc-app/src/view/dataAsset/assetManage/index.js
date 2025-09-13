@@ -204,8 +204,18 @@ export default {
       englishName: [
         {
           required: true,
-          message: this.$t('assets.catalogue.inputRequired'),
+          // message: this.$t('assets.catalogue.inputRequired'),
           trigger: 'blur',
+          validator: (rule, value, callback) => {
+            if (value === '') {
+              callback(new Error(this.$t('assets.catalogue.inputRequired')))
+              return
+            }
+            this.$plainRequest.post(`${this.$asstes_url}/catalog/checkCatalogEnNameOnlyOne?structureId=${this.curStructureId}`,{}).then(res => {
+              if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
+              callback()
+            })
+          },
         },
       ],
       code: [
@@ -1356,9 +1366,15 @@ export default {
             // 导入资产目录
             this.isCatalog = true
             this.actionName = 'multipartFile'
-            this.action = `${this.$asstes_url}/catalog/upload?status=${
-              'UNPUBLISHED'
-            }&structureId=${this.curStructureId}`
+            //
+            let url = '/catalog/upload'
+            if (option.importType === 'change') {
+              url = '/catalog/uploadChange'
+            }
+            if (option.importType === 'abandon') {
+              url = '/catalog/uploadDiscard'
+            }
+            this.action = `${this.$asstes_url}${url}?status=UNPUBLISHED&structureId=${this.curStructureId}`
             this.importTitle = this.$t('assets.commonHead.importCatalogue')
           } else {
             // 导入资产

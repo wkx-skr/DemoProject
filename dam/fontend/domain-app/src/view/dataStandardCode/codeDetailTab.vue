@@ -26,9 +26,7 @@
         </el-form-item>
         <el-form-item
           class="st-page-form-span"
-          :label="`${$t('domain.code.codePropCode')}${$t(
-            'domain.common.colon'
-          )}`"
+          label="参考数据编码"
         >
           <datablau-tooltip
             class="item"
@@ -268,25 +266,25 @@
               :min-width="120"
             ></el-table-column>
             <el-table-column
-              :label="$t('domain.code.remark1')"
+              label="代码英文描述"
               prop="definition"
               sortable="custom"
               show-overflow-tooltip
               :min-width="$i18n.locale === 'zh' ? 80 : 100"
             ></el-table-column>
             <el-table-column
-              :label="$t('domain.code.parentCodeValue')"
+              label="父代码取值"
               prop="parentValue"
               :min-width="$i18n.locale === 'zh' ? 120 : 130"
             ></el-table-column>
-            <el-table-column
+            <!--<el-table-column
               :label="$t('domain.code.parentCodeValueName')"
               :min-width="$i18n.locale === 'zh' ? 120 : 160"
             >
               <template slot-scope="scope">
                 {{ codeMapName.get(scope.row.parentValue) }}
               </template>
-            </el-table-column>
+            </el-table-column>-->
             <el-table-column
               :label="$t('domain.code.mappingCodeValueCode')"
               :min-width="$i18n.locale === 'zh' ? 120 : 140"
@@ -307,7 +305,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              :label="$t('domain.code.remark2')"
+              label="备注1"
               prop="definition2"
               sortable="custom"
               show-overflow-tooltip
@@ -315,7 +313,7 @@
               :min-width="$i18n.locale === 'zh' ? 80 : 100"
             ></el-table-column>
             <el-table-column
-              :label="$t('domain.code.remark3')"
+              label="备注2"
               prop="definition3"
               sortable="custom"
               show-overflow-tooltip

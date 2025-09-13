@@ -2,7 +2,6 @@ import HTTP from '@/http/main.js'
 export default {
   data() {
     return {
-      classOptions: [],
       bigClassList: [],
       tableData: [],
       pageSize: 20,

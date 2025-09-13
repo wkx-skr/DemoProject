@@ -126,7 +126,24 @@ export default {
 
   methods: {
     // 导出查询结果
-    exportQueryResult() {
+    async exportQueryResult() {
+      const params = {
+        modelCategoryId: this.searchForm.modelCategoryId,
+        ddmModelId: this.searchForm.ddmModelId,
+        tableId: this.searchForm.tableId || null,
+        currentPage: this.pageInfo.currentPage,
+        pageSize: this.pageInfo.pageSize,
+      }
+
+      const response = await this.$http.post(
+        '/assets/ddm/data/export',
+        params
+      )
+      if (response.status === 200) {
+        this.$message.success('导出成功')
+      } else {
+        this.$message.error('导出失败')
+      }
     },
     // 应用系统清除
     handleSystemClear() {

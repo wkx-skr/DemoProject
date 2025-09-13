@@ -115,7 +115,7 @@ export default {
         {
           required: true,
           trigger: 'blur',
-          validator: (rule, value, callback, source) => {
+          validator: (rule, value, callback) => {
             if (!value) {
               callback(new Error('请输入英文名称'))
             } else if (value.length > 50) {
@@ -123,7 +123,10 @@ export default {
             } else if (!/^(?:[A-Z][a-zA-Z]*)(?: [A-Z][a-zA-Z]*)*$/.test(value)) {
               callback(new Error('英文名称只能包含字母和空格，且首字母需大写'))
             } else {
-              callback()
+              this.$plainRequest.post(`${this.$domain_url}/domains/domain/checkDomainEnNameOnlyOne?categoryId=${this.categoryTypeId}`,{}).then(res => {
+                if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
+                callback()
+              })
             }
           },
           /*message: this.$t('domain.common.itemRequiredInput', {

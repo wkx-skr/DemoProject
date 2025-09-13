@@ -1,6 +1,6 @@
 <template>
   <div class="page-heading">
-    <img class="datablau-logo"  id="logo" src="../../assets/images/blue_logo.svg" alt="logo" style="cursor:pointer;" @click="goToIndex" />
+    <img class="datablau-logo"  id="logo" src="../../../static/logo/guanwang_black.png" alt="logo" style="cursor:pointer;" @click="goToIndex" />
     <Menu ref="menu"></Menu>
     <div class="right">
       <div

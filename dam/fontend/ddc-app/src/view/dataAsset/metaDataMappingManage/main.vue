@@ -1,174 +1,211 @@
 <template>
   <div class="model-mapping-manage">
     <!-- 搜索条件区域 -->
-    <div class="mapping-search" style="width: 100%">
-      <el-form
-        :model="searchForm"
-        ref="searchForm"
-        :inline="true"
-        size="mini"
+    <div>
+      <div class="mapping-search" style="width: 100%">
+        <el-form
+          :model="searchForm"
+          ref="searchForm"
+          :inline="true"
+          size="mini"
+        >
+          <div style="display: flex">
+            <div style="line-height: 90px">
+              <asset-catalog-dialog
+                @confirm="onAssetConfirm"
+                storageKey="selectedAssets1"
+              />
+              <!-- <el-form-item
+                label="业务对象"
+                label-width="100px"
+                style="margin: 0"
+              >
+                <datablau-select
+                  v-model="searchForm.businessObjectId"
+                  placeholder="请选择"
+                  style="width: 8vw"
+                  clearable
+                  @change="handleBusinessObjectChange"
+                  :disabled="isRightSideSelected"
+                  @clear="handleBusinessObjectClear"
+                >
+                  <el-option
+                    v-for="item in businessObjectOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </datablau-select>
+              </el-form-item>
+              <el-form-item
+                label="逻辑数据实体"
+                label-width="100px"
+                style="margin: 0"
+              >
+                <datablau-select
+                  v-model="searchForm.logicDataEntityId"
+                  placeholder="请选择"
+                  style="width: 8vw"
+                  clearable
+                  @clear="handleLogicDataEntityClear"
+                  :disabled="!searchForm.businessObjectId || isRightSideSelected"
+                >
+                  <el-option
+                    v-for="item in logicalDataEntityOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </datablau-select>
+              </el-form-item> -->
+            </div>
+            <div style="display: flex; align-items: center; margin-left: 30px">
+              <el-form-item
+                style="margin-bottom: 0"
+                label="应用系统"
+                label-width="60px"
+              >
+                <datablau-select
+                  style="width: 8vw"
+                  v-model="searchForm.modelCategoryId"
+                  placeholder="请选择"
+                  clearable
+                  @change="handleSystemChange"
+                  @clear="handleSystemClear"
+                  :disabled="isLeftSideSelected"
+                  :loading="loading.appSystems"
+                >
+                  <el-option
+                    v-for="c in appSystemOptions"
+                    :key="c.value"
+                    :label="c.label"
+                    :value="c.value"
+                  ></el-option>
+                </datablau-select>
+              </el-form-item>
+              <el-form-item
+                style="margin-bottom: 0"
+                label="数据源"
+                label-width="60px"
+              >
+                <datablau-select
+                  style="width: 8vw"
+                  v-model="searchForm.modelId"
+                  placeholder="请选择"
+                  clearable
+                  :disabled="
+                    !searchForm.modelCategoryId.length || isLeftSideSelected
+                  "
+                  @change="handleModelChange"
+                  @clear="handleModelClear"
+                  :loading="loading.models"
+                  multiple
+                >
+                  <el-option
+                    v-for="item in modelOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </datablau-select>
+              </el-form-item>
+              <el-form-item
+                style="margin-bottom: 0"
+                label="数据库"
+                label-width="60px"
+              >
+                <datablau-select
+                  style="width: 8vw"
+                  v-model="searchForm.databaseId"
+                  placeholder="请选择"
+                  clearable
+                  :disabled="!searchForm.modelId.length || isLeftSideSelected"
+                  :loading="loading.databases"
+                  @change="handleDatabaseChange"
+                  @clear="handleDatabaseClear"
+                  multiple
+                >
+                  <el-option
+                    v-for="item in schemaEntityOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </datablau-select>
+              </el-form-item>
+              <el-form-item
+                label="操作人"
+                label-width="60px"
+                style="margin-bottom: 0"
+              >
+                <el-input
+                  v-model="searchForm.operator"
+                  placeholder="请输入操作人"
+                />
+              </el-form-item>
+              <!-- <el-form-item label="物理表" label-width="60px">
+                <datablau-select
+                  style="width: 8vw"
+                  v-model="searchForm.tableId"
+                  placeholder="请选择"
+                  clearable
+                  :disabled="!searchForm.databaseId || isLeftSideSelected"
+                  :loading="loading.tables"
+                  filterable
+                  remote
+                  :remote-method="remoteSearchTables"
+                  @clear="tableOptions = []"
+                >
+                  <el-option
+                    v-for="item in tableOptions"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+                  ></el-option>
+                </datablau-select>
+              </el-form-item> -->
+              <el-checkbox v-model="onlyUnmapped">只查看未关联属性</el-checkbox>
+            </div>
+          </div>
+        </el-form>
+        <div class="right-button">
+          <div style="margin-right: 20px">
+            <datablau-button type="primary" @click="handleAutoMatch">
+              执行自动匹配
+            </datablau-button>
+            <datablau-button type="normal" size="mini" @click="handleSearch">
+              查询
+            </datablau-button>
+            <datablau-button type="secondary" size="mini" @click="resetForm">
+              重置
+            </datablau-button>
+          </div>
+          <div>
+            <datablau-button type="primary" size="mini" @click="handleImport">
+              导入映射
+            </datablau-button>
+            <datablau-button type="primary" size="mini" @click="handleExport">
+              下载映射模板
+            </datablau-button>
+          </div>
+        </div>
+      </div>
+      <div
+        style="
+              display: flex;
+              justify-content: flex-end;
+              width: 100%;
+              margin-top: 8px;
+              padding: 0 20px;
+            "
       >
-        <div style="display: flex">
-          <div style="line-height: 90px">
-            <asset-catalog-dialog
-              @confirm="onAssetConfirm"
-              storageKey="selectedAssets1"
-            />
-            <!-- <el-form-item
-              label="业务对象"
-              label-width="100px"
-              style="margin: 0"
-            >
-              <datablau-select
-                v-model="searchForm.businessObjectId"
-                placeholder="请选择"
-                style="width: 8vw"
-                clearable
-                @change="handleBusinessObjectChange"
-                :disabled="isRightSideSelected"
-                @clear="handleBusinessObjectClear"
-              >
-                <el-option
-                  v-for="item in businessObjectOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </datablau-select>
-            </el-form-item>
-            <el-form-item
-              label="逻辑数据实体"
-              label-width="100px"
-              style="margin: 0"
-            >
-              <datablau-select
-                v-model="searchForm.logicDataEntityId"
-                placeholder="请选择"
-                style="width: 8vw"
-                clearable
-                @clear="handleLogicDataEntityClear"
-                :disabled="!searchForm.businessObjectId || isRightSideSelected"
-              >
-                <el-option
-                  v-for="item in logicalDataEntityOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </datablau-select>
-            </el-form-item> -->
-          </div>
-          <div style="display: flex; align-items: center; margin-left: 30px">
-            <el-form-item style="margin-bottom: 0" label="应用系统" label-width="60px">
-              <datablau-select
-                style="width: 8vw"
-                v-model="searchForm.modelCategoryId"
-                placeholder="请选择"
-                clearable
-                @change="handleSystemChange"
-                @clear="handleSystemClear"
-                :disabled="isLeftSideSelected"
-                :loading="loading.appSystems"
-                multiple
-              >
-                <el-option
-                  v-for="c in appSystemOptions"
-                  :key="c.value"
-                  :label="c.label"
-                  :value="c.value"
-                ></el-option>
-              </datablau-select>
-            </el-form-item>
-            <el-form-item style="margin-bottom: 0" label="数据源" label-width="60px">
-              <datablau-select
-                style="width: 8vw"
-                v-model="searchForm.modelId"
-                placeholder="请选择"
-                clearable
-                :disabled="!searchForm.modelCategoryId.length || isLeftSideSelected"
-                @change="handleModelChange"
-                @clear="handleModelClear"
-                :loading="loading.models"
-                multiple
-              >
-                <el-option
-                  v-for="item in modelOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </datablau-select>
-            </el-form-item>
-            <el-form-item style="margin-bottom: 0" label="数据库" label-width="60px">
-              <datablau-select
-                style="width: 8vw"
-                v-model="searchForm.databaseId"
-                placeholder="请选择"
-                clearable
-                :disabled="!searchForm.modelId.length || isLeftSideSelected"
-                :loading="loading.databases"
-                @change="handleDatabaseChange"
-                @clear="handleDatabaseClear"
-                multiple
-              >
-                <el-option
-                  v-for="item in schemaEntityOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </datablau-select>
-            </el-form-item>
-            <el-form-item
-              label="操作人"
-              label-width="60px"
-              style="margin-bottom: 0"
-            >
-              <el-input v-model="searchForm.operator" placeholder="请输入操作人"/>
-            </el-form-item>
-            <!-- <el-form-item label="物理表" label-width="60px">
-              <datablau-select
-                style="width: 8vw"
-                v-model="searchForm.tableId"
-                placeholder="请选择"
-                clearable
-                :disabled="!searchForm.databaseId || isLeftSideSelected"
-                :loading="loading.tables"
-                filterable
-                remote
-                :remote-method="remoteSearchTables"
-                @clear="tableOptions = []"
-              >
-                <el-option
-                  v-for="item in tableOptions"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                ></el-option>
-              </datablau-select>
-            </el-form-item> -->
-            <el-checkbox v-model="onlyUnmapped">只查看未关联属性</el-checkbox>
-          </div>
-        </div>
-      </el-form>
-      <div class="right-button">
-        <div style="margin-right: 20px">
-          <datablau-button type="primary" @click="handleAutoMatch">执行自动匹配</datablau-button>
-          <datablau-button type="normal" size="mini" @click="handleSearch">
-            查询
-          </datablau-button>
-          <datablau-button type="secondary" size="mini" @click="resetForm">
-            重置
-          </datablau-button>
-        </div>
-        <div>
-          <datablau-button type="primary" size="mini" @click="handleImport">
-            导入映射
-          </datablau-button>
-          <datablau-button type="primary" size="mini" @click="handleExport">
-            下载映射模板
-          </datablau-button>
-        </div>
+        <datablau-button
+          type="primary"
+          size="mini"
+          @click="handleExportQuery"
+        >
+          导出查询结果
+        </datablau-button>
       </div>
     </div>
 
@@ -214,14 +251,8 @@
             prop="modelCategoryName"
             label="应用系统"
           ></el-table-column>
-          <el-table-column
-            prop="modelName"
-            label="数据源"
-          ></el-table-column>
-          <el-table-column
-            prop="schemaName"
-            label="数据库"
-          ></el-table-column>
+          <el-table-column prop="modelName" label="数据源"></el-table-column>
+          <el-table-column prop="schemaName" label="数据库"></el-table-column>
           <el-table-column
             prop="tableAlias"
             label="表（中文名称）"
@@ -242,10 +273,7 @@
             label="字段（英文名称）"
             width="120"
           ></el-table-column>
-          <el-table-column
-            prop="username"
-            label="操作人"
-          ></el-table-column>
+          <el-table-column prop="username" label="操作人"></el-table-column>
           <el-table-column
             prop="mappingType"
             label="映射类型"
@@ -337,6 +365,7 @@
 
 <script>
 import AssetCatalogDialog from '@/components/AssetCatalogDialog.vue'
+
 export default {
   name: 'ModelMappingManage',
   components: { AssetCatalogDialog },
@@ -346,7 +375,7 @@ export default {
       searchForm: {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: [],
+        modelCategoryId: '',
         modelId: [],
         databaseId: [],
         tableId: '',
@@ -392,7 +421,7 @@ export default {
     // 判断右侧是否已选择
     isRightSideSelected() {
       return !!(
-        this.searchForm.modelCategoryId.length > 0 ||
+        this.searchForm.modelCategoryId ||
         this.searchForm.modelId.length > 0 ||
         this.searchForm.databaseId > 0 ||
         this.searchForm.tableId
@@ -406,23 +435,60 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 导出查询结果
+    async handleExportQuery() {
+      const params = {
+        businessObjectId: this.searchForm.businessObjectId
+          ? parseInt(this.searchForm.businessObjectId)
+          : null,
+        logicDataEntityId: this.searchForm.logicDataEntityId
+          ? parseInt(this.searchForm.logicDataEntityId)
+          : null,
+        logicDataEntityIds: this.selectedAssets.map(item => item.id),
+        modelCategoryId: this.searchForm.modelCategoryId
+          ? parseInt(this.searchForm.modelCategoryId)
+          : null,
+        modelCategoryIds: this.searchForm.modelCategoryId
+          ? [parseInt(this.searchForm.modelCategoryId)]
+          : null,
+        modelId: this.searchForm.modelId
+          ? this.searchForm.modelId.map(id => parseInt(id))
+          : null,
+        databaseId: this.searchForm.databaseId
+          ? parseInt(this.searchForm.databaseId)
+          : null,
+        databaseIds: this.searchForm.databaseId
+          ? this.searchForm.databaseId.map(id => parseInt(id))
+          : null,
+        tableId: this.searchForm.tableId
+          ? parseInt(this.searchForm.tableId)
+          : null,
+        currentPage: this.pagination.currentPage,
+        pageSize: this.pagination.pageSize,
+        operator: this.searchForm.operator || null,
+        // 是否只查询未关联属性，勾选上时值传false
+        mappingFlag: !this.onlyUnmapped,
+      }
+      const res = await this.$http.post('/assets/meta/mapping/export', params)
+      if (res.status === 200) this.$message.success('导出成功')
+    },
     // 处理自动匹配点击事件
     handleAutoMatch() {
       if (!this.selectedAssets.length) {
-        this.$message.warning('请先选择数据资产目录');
-        return;
+        this.$message.warning('请先选择数据资产目录')
+        return
       }
-      if (!this.searchForm.modelCategoryId || this.searchForm.modelCategoryId.length === 0) {
-        this.$message.warning('请选择应用系统');
-        return;
+      if (!this.searchForm.modelCategoryId) {
+        this.$message.warning('请选择应用系统')
+        return
       }
       if (!this.searchForm.modelId.length) {
-        this.$message.warning('请选择数据模型');
-        return;
+        this.$message.warning('请选择数据模型')
+        return
       }
       if (!this.searchForm.databaseId.length) {
-        this.$message.warning('请选择数据库');
-        return;
+        this.$message.warning('请选择数据库')
+        return
       }
 
       // 构建请求参数
@@ -444,7 +510,7 @@ export default {
     },
     // 处理资产选择确认
     onAssetConfirm(assets) {
-      this.selectedAssets = assets;
+      this.selectedAssets = assets
     },
     // 处理数据库变化
     handleDatabaseChange(value) {
@@ -462,7 +528,10 @@ export default {
     },
     // 获取物理表列表
     fetchTables(keyword = '') {
-      if (!this.searchForm.modelId.length || !this.searchForm.databaseId.length) {
+      if (
+        !this.searchForm.modelId.length ||
+        !this.searchForm.databaseId.length
+      ) {
         return
       }
 
@@ -632,40 +701,26 @@ export default {
       this.schemaEntityOptions = []
       this.tableOptions = []
 
-      if (value && value.length > 0) {
+      if (value) {
         this.loading.models = true
-        // 为所有选中的系统节点收集模型
-        const allModels = []
-        const selectedSystems = this.appSystemOptions.filter(
-          sys => value.includes(sys.value)
+        // 为选中的系统节点收集模型
+        const selectedSystem = this.appSystemOptions.find(sys =>
+          sys.value === value
         )
 
-        selectedSystems.forEach(system => {
-          if (system && system.subNodes) {
-            // 从子节点中过滤MODEL类型
-            const systemModels = system.subNodes
-              .filter(node => node.type === 'MODEL')
-              .map(node => ({
-                value: node.id,
-                label: node.name,
-                subNodes: node.subNodes || [], // 保存子节点引用
-              }))
-            allModels.push(...systemModels)
-          }
-        })
+        if (selectedSystem && selectedSystem.subNodes) {
+          // 从子节点中过滤MODEL类型
+          const systemModels = selectedSystem.subNodes
+            .filter(node => node.type === 'MODEL')
+            .map(node => ({
+              value: node.id,
+              label: node.name,
+              subNodes: node.subNodes || [], // 保存子节点引用
+            }))
 
-        // 去重处理
-        const uniqueModels = []
-        const seenModelIds = new Set()
+          this.modelOptions = systemModels
+        }
 
-        allModels.forEach(item => {
-          if (!seenModelIds.has(item.value)) {
-            seenModelIds.add(item.value)
-            uniqueModels.push(item)
-          }
-        })
-
-        this.modelOptions = uniqueModels
         this.loading.models = false
       }
     },
@@ -679,7 +734,7 @@ export default {
 
     // 清空右侧所有选择
     clearRightSideSelections() {
-      this.searchForm.modelCategoryId = []
+      this.searchForm.modelCategoryId = ''
       this.searchForm.modelId = []
       this.searchForm.databaseId = []
       this.searchForm.tableId = ''
@@ -690,7 +745,7 @@ export default {
 
     // 应用系统清除
     handleSystemClear() {
-      this.searchForm.modelCategoryId = []
+      this.searchForm.modelCategoryId = ''
       this.searchForm.modelId = []
       this.searchForm.databaseId = []
       this.searchForm.tableId = ''
@@ -707,8 +762,8 @@ export default {
       if (value && value.length > 0) {
         this.loading.databases = true
         // 找到所有选中的数据源节点
-        const selectedModels = this.modelOptions.filter(
-          model => value.includes(model.value)
+        const selectedModels = this.modelOptions.filter(model =>
+          value.includes(model.value)
         )
 
         // 收集所有选中数据源的schemaEntityOptions
@@ -746,28 +801,39 @@ export default {
     fetchData() {
       // 构建查询参数
       const params = {
-        /*businessObjectId: this.searchForm.businessObjectId
+        businessObjectId: this.searchForm.businessObjectId
           ? parseInt(this.searchForm.businessObjectId)
-          : null,*/
-        logicDataEntityId: this.selectedAssets.map(item => item.id),
-        modelCategoryIds: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
-          ? this.searchForm.modelCategoryId.map(id => parseInt(id))
           : null,
+        logicDataEntityId: this.searchForm.logicDataEntityId
+          ? parseInt(this.searchForm.logicDataEntityId)
+          : null,
+        logicDataEntityIds: this.selectedAssets.map(item => item.id),
+        modelCategoryId: this.searchForm.modelCategoryId
+          ? parseInt(this.searchForm.modelCategoryId)
+          : null,
+        modelCategoryIds:
+          this.searchForm.modelCategoryId &&
+          this.searchForm.modelCategoryId.length > 0
+            ? this.searchForm.modelCategoryId.map(id => parseInt(id))
+            : null,
         modelId: this.searchForm.modelId
           ? this.searchForm.modelId.map(id => parseInt(id))
           : null,
         databaseId: this.searchForm.databaseId
+          ? parseInt(this.searchForm.databaseId)
+          : null,
+        databaseIds: this.searchForm.databaseId
           ? this.searchForm.databaseId.map(id => parseInt(id))
           : null,
-        /*tableId: this.searchForm.tableId
+        tableId: this.searchForm.tableId
           ? parseInt(this.searchForm.tableId)
-          : null,*/
+          : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
         operator: this.searchForm.operator || null,
         // 是否只查询未关联属性，勾选上时值传false
-        mappingFlag: !this.onlyUnmapped
-        }
+        mappingFlag: !this.onlyUnmapped,
+      }
 
       this.loading.table = true
       // 调用接口获取数据
@@ -798,7 +864,7 @@ export default {
       this.searchForm = {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: [],
+        modelCategoryId: '',
         modelId: [],
         databaseId: [],
         tableId: '',
@@ -808,12 +874,12 @@ export default {
       this.schemaEntityOptions = []
       this.tableOptions = []
 
-       // 清空本地缓存
-      localStorage.removeItem('selectedAssets1');
-      this.selectedAssets = [];
+      // 清空本地缓存
+      localStorage.removeItem('selectedAssets1')
+      this.selectedAssets = []
 
       // 清空选中资产
-      this.selectedAssets = [];
+      this.selectedAssets = []
 
       // 重置分页
       this.pagination.currentPage = 1
@@ -1030,7 +1096,6 @@ export default {
   overflow: auto;
 
   .mapping-search {
-    position: absolute;
     top: 0;
     background-color: #fff;
     padding: 0 20px;
@@ -1042,7 +1107,7 @@ export default {
 
   .mapping-table {
     position: absolute;
-    top: 110px;
+    top: 140px;
     left: 0;
     right: 0;
     bottom: 50px;

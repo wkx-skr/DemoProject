@@ -114,6 +114,8 @@ export default {
       assetTree: [],
       assetTable: [],
       assetTableSelection: [],
+      // 记录清空状态，用于控制重新打开弹窗是否需要重新加载数据
+      clearedState: false
     }
   },
   watch: {
@@ -143,7 +145,10 @@ export default {
           })
         })
       } else {
-        this.getManageTreeData()
+        // 如果不是处于清空状态，则调用获取数据的方法
+        if (!this.clearedState) {
+          this.getManageTreeData()
+        }
       }
       this.showAssetDialog = true
     },
@@ -178,6 +183,8 @@ export default {
       this.$refs.assetTable && this.$refs.assetTable.clearSelection()
       // 清空本地缓存
       localStorage.removeItem(this.storageKey)
+      // 设置清空状态标志
+      this.clearedState = true
     },
     async handleTreeNodeClick(node, isFirstGet) {
       if (isFirstGet !== 'firstGet') localStorage.setItem(this.storageKey, '')
@@ -215,6 +222,8 @@ export default {
     confirmAssetSelection() {
       this.selectedAssets = [...this.assetTableSelection]
       this.showAssetDialog = false
+      // 确认选择后重置清空状态
+      this.clearedState = false
       // 确认选择时发送事件
       this.$emit('confirm', this.selectedAssets)
     },

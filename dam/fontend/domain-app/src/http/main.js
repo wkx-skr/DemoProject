@@ -1290,6 +1290,9 @@ export default {
   nsCreateNsService(para) {
     return vThis.$http.post(`${DOMAIN_BASE_URL}ns/ns/createNs`, para)
   },
+  checkNsEnNameOnlyOne(categoryId) {
+    return vThis.$http.post(`${DOMAIN_BASE_URL}ns/checkNsEnNameOnlyOne?categoryId=${categoryId}`)
+  },
   nsUpdateNsService(para) {
     return vThis.$http.post(`${DOMAIN_BASE_URL}ns/ns/updateNs`, para)
   },

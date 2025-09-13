@@ -449,13 +449,29 @@ export default {
         })
       }
       if (this.$auth.DATA_ASSET_MANAGE_CATALOG_IMPORT && this.$auth.DATA_CATALOG_IMPORT) {
+        let obj1 = {
+          icon: 'iconfont icon-import',
+          label: '变更导入',
+          callback: () => {
+            this.importDirectory(row, 'change')
+          },
+        };
+        let obj2 = {
+          icon: 'iconfont icon-import',
+          label: '废弃导入',
+          callback: () => {
+            this.importDirectory(row, 'abandon')
+          },
+        };
         options.push({
           icon: 'iconfont icon-import',
-          label: this.$t('assets.directoryTree.importCatalog'),
+          label: '新建导入',
           callback: () => {
-            this.importDirectory(row)
+            this.importDirectory(row, 'new')
           },
         })
+        options.push(obj1)
+        options.push(obj2)
       }
       // if (this.$auth.DATA_ASSET_MANAGE_EXPORT) {
       //   options.push({
@@ -955,10 +971,11 @@ export default {
         })
     },
     // 导入资产目录
-    importDirectory(row) {
+    importDirectory(row,importType) {
       this.clickNode('import', {
         type: 'catalogue',
         structureId: row.id, // 下载模板时需要结构树id
+        importType,
       })
     },
     // 删除资产目录

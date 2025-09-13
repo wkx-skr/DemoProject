@@ -7,7 +7,6 @@
         ref="searchForm"
         :inline="true"
         size="mini"
-        style="width: 72%"
       >
         <div style="display: flex">
           <div style="line-height: 90px">
@@ -68,7 +67,6 @@
                 @change="handleSystemChange"
                 @clear="handleSystemClear"
                 :disabled="isLeftSideSelected"
-                multiple
               >
                 <el-option
                   v-for="c in appSystemOptions"
@@ -140,6 +138,9 @@
           </datablau-button>
           <datablau-button type="primary" size="mini" @click="handleExport">
             下载映射模板
+          </datablau-button>
+          <datablau-button type="primary" size="mini" @click="handleExportResult">
+            导出查询结果
           </datablau-button>
         </div>
       </div>
@@ -311,7 +312,7 @@ export default {
       searchForm: {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: [],
+        modelCategoryId: '',
         ddmModelId: [],
         tableId: '',
         operator:'',
@@ -352,7 +353,7 @@ export default {
     // 判断右侧是否已选择
     isRightSideSelected() {
       return !!(
-        (this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0) ||
+        this.searchForm.modelCategoryId ||
         (this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0) ||
         this.searchForm.tableId
       )
@@ -363,6 +364,33 @@ export default {
     this.fetchData()
   },
   methods: {
+    // 导出查询结果
+    async handleExportResult() {
+      const params = {
+        businessObjectId: this.searchForm.businessObjectId
+          ? parseInt(this.searchForm.businessObjectId)
+          : null,
+        logicDataEntityIds: this.searchForm.logicDataEntityId
+          ? [parseInt(this.searchForm.logicDataEntityId)]
+          : [],
+        modelCategoryIds: this.searchForm.modelCategoryId
+          ? [parseInt(this.searchForm.modelCategoryId)]
+          : [],
+        ddmModelIds: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
+          ? this.searchForm.ddmModelId.map(id => parseInt(id))
+          : [],
+        tableId: this.searchForm.tableId
+          ? parseInt(this.searchForm.tableId)
+          : null,
+        currentPage: this.pagination.currentPage,
+        pageSize: this.pagination.pageSize,
+        operator: this.searchForm.operator || null,
+        // 是否只查询未关联属性，勾选上时值传false
+        mappingFlag: !this.onlyUnmapped
+      }
+      const res = await this.$http.post('/assets/ddm/mapping/export', params)
+      if (res.status === 200) this.$message.success('导出成功')
+    },
     // 处理资产选择确认
     onAssetConfirm(assets) {
       this.selectedAssets = assets;
@@ -372,7 +400,7 @@ export default {
         this.$message.warning('请先选择数据资产目录');
         return;
       }
-      if (!this.searchForm.modelCategoryId || this.searchForm.modelCategoryId.length === 0) {
+      if (!this.searchForm.modelCategoryId) {
         this.$message.warning('请选择应用系统');
         return;
       }
@@ -382,9 +410,7 @@ export default {
       }
       const params = {
         logicDataEntityIds: this.selectedAssets.map(item => item.id),
-        modelCategoryId: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
-          ? this.searchForm.modelCategoryId.map(id => parseInt(id))
-          : null,
+        modelCategoryId: [parseInt(this.searchForm.modelCategoryId)],
         ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
           ? this.searchForm.ddmModelId.map(id => parseInt(id))
           : null,
@@ -506,7 +532,7 @@ export default {
       this.clearLeftSideSelections()
 
       // 获取对应的模型列表
-      if (value.length > 0) {
+      if (value) {
         this.fetchModels(value)
       }
     },
@@ -527,64 +553,28 @@ export default {
     },
     // 应用系统清除
     handleSystemClear() {
-      this.searchForm.modelCategoryId = []
+      this.searchForm.modelCategoryId = ''
       this.searchForm.ddmModelId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
       this.tableEntityOptions = []
     },
     // 获取模型列表
-    async fetchModels(modelCategoryIds) {
+    async fetchModels(modelCategoryId) {
       this.loading.models = true
       try {
-        // 检查参数是否为数组
-        if (Array.isArray(modelCategoryIds) && modelCategoryIds.length > 0) {
-          // 为每个modelCategoryId创建一个请求
-          const requests = modelCategoryIds.map(categoryId =>
-            this.$http.get('/assets/ddm/data/queryModelByModelCategoryId', {
-              params: { modelCategoryId: categoryId }
-            })
-          )
-
-          // 使用Promise.all并行处理所有请求
-          const responses = await Promise.all(requests)
-
-          // 合并所有响应数据
-          const allModels = responses.flatMap(response => response.data || [])
-
-          // 去重处理，避免重复的模型选项
-          const uniqueModels = []
-          const seenModelIds = new Set()
-
-          allModels.forEach(item => {
-            if (!seenModelIds.has(item.ddmModelId)) {
-              seenModelIds.add(item.ddmModelId)
-              uniqueModels.push(item)
-            }
-          })
-
-          // 设置模型选项
-          this.modelOptions = uniqueModels.map(item => ({
-            value: item.ddmModelId.toString(),
-            label: item.ddmModelName,
-            data: item,
-          }))
-        } else if (modelCategoryIds) {
-          // 保持对单个ID的兼容性
-          const response = await this.$http.get(
-            '/assets/ddm/data/queryModelByModelCategoryId',
-            {
-              params: { modelCategoryId: modelCategoryIds },
-            }
-          )
-          this.modelOptions = response.data.map(item => ({
-            value: item.ddmModelId.toString(),
-            label: item.ddmModelName,
-            data: item,
-          }))
-        } else {
-          this.modelOptions = []
-        }
+        // 保持对单个ID的处理
+        const response = await this.$http.get(
+          '/assets/ddm/data/queryModelByModelCategoryId',
+          {
+            params: { modelCategoryId: modelCategoryId },
+          }
+        )
+        this.modelOptions = response.data.map(item => ({
+          value: item.ddmModelId.toString(),
+          label: item.ddmModelName,
+          data: item,
+        }))
       } catch (error) {
         this.$showFailure(error)
         this.modelOptions = []
@@ -641,8 +631,8 @@ export default {
         logicDataEntityId: this.searchForm.logicDataEntityId
           ? parseInt(this.searchForm.logicDataEntityId)
           : null,
-        modelCategoryIds: this.searchForm.modelCategoryId && this.searchForm.modelCategoryId.length > 0
-          ? this.searchForm.modelCategoryId.map(id => parseInt(id))
+        modelCategoryIds: this.searchForm.modelCategoryId
+          ? [parseInt(this.searchForm.modelCategoryId)]
           : null,
         ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
           ? this.searchForm.ddmModelId.map(id => parseInt(id))
@@ -683,7 +673,7 @@ export default {
       this.searchForm = {
         businessObjectId: '',
         logicDataEntityId: '',
-        modelCategoryId: [],
+        modelCategoryId: '',
         ddmModelId: [],
         tableId: '',
       }

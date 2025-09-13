@@ -385,10 +385,10 @@
             <span class="label">相关术语</span>
             <span class="value">{{ details.businessTermAliases }}</span>
           </div>
-          <div class="detail">
+          <!--<div class="detail">
             <span class="label">责任主体</span>
             <span class="value">{{ details.managementDepartmentName }}</span>
-          </div>
+          </div>-->
           <div class="detail">
             <span class="label">参考来源</span>
             <span class="value">{{ details.source }}</span>

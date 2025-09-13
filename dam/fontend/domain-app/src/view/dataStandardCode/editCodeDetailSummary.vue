@@ -1129,7 +1129,7 @@ export default {
             required: true,
             // message: this.$t('domain.code.enNameNotEmpty'),
             trigger: 'blur',
-            validator(rule, value, callback) {
+            validator: (rule, value, callback) => {
               if (!value) {
                 callback(new Error('英文名称不能为空'))
                 return
@@ -1144,7 +1144,12 @@ export default {
                 callback(new Error('首字母必须大写'))
                 return
               }
-              callback()
+
+              // 全局唯一
+              this.$plainRequest.post(`${this.$domain_url}/domains/code/checkCodeEnNameOnlyOne?categoryId=${this.categoryId}`,{}).then(res => {
+                if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
+                callback()
+              })
             },
           },
         ],

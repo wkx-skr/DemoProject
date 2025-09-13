@@ -561,6 +561,18 @@ export default {
     },
     getTableData(reset) {
       if (reset) {
+        this.defaultParaData = {
+          keyword: '',
+            domainCode: '',
+            state: '',
+            sortData: {
+            colId: 'updateTime',
+              sort: 'desc',
+          },
+          filterType: {},
+          currentPage: 1,
+            pageSize: 20,
+        }
       }
       this.$refs.glossaryTable && this.$refs.glossaryTable.refreshData()
       setTimeout(() => {
