@@ -532,7 +532,7 @@
               </el-form-item>
               <!--数据单位-->
               <el-form-item
-                v-if="detail.dataType === '数值'"
+                v-if="detail.dataType === '数值型'"
                 label="数据单位"
                 prop="unit"
               >
