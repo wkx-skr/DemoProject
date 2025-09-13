@@ -152,7 +152,7 @@
       @close="handleDialogClose"
     >
       <el-form :model="crudForm" :rules="rules" ref="crudForm" label-width="120px" size="mini" class="crud-form">
-        <el-form-item label="系统名称" prop="modelCategoryId">
+        <el-form-item label="应用系统名称" prop="modelCategoryId">
           <el-cascader
             v-if="dialogMode === 'create'"
             v-model="crudForm.modelCategoryId"
@@ -171,11 +171,11 @@
             style="width: 100%;"
           ></datablau-input>
         </el-form-item>
-        <el-form-item label="逻辑实体名称" prop="l4Code">
+        <el-form-item label="逻辑数据实体（中文名称）" prop="l4Code">
           <el-select
             v-if="dialogMode === 'create'"
             v-model="crudForm.l4Code"
-            placeholder="请输入搜索逻辑实体名称"
+            placeholder="请输入搜索逻辑数据实体（中文名称）"
             filterable
             remote
             :remote-method="searchLogicalEntities"
