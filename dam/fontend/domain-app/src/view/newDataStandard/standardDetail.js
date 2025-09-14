@@ -1349,14 +1349,17 @@ export default {
     rules() {
       return {
         ...this.formRule,
-        dataScale: ['数值', '字符'].includes(this.detail.dataType)
+        dataScale: ['数值型', '字符型'].includes(this.detail.dataType)
           ? [
               {
                 required: true,
                 message: '请输入数据长度',
               },
             ]
-          : [],
+          : [{
+            required: false,
+            message: '',
+          }],
       }
     },
     defaultExpandAll() {
