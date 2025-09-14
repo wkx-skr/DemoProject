@@ -7,16 +7,15 @@
     >
       <p
         class="group-key"
-        v-if="currentNode.level !== 1 && currentNode.level !== 2 && currentNode.level !== 4"
+        v-if="currentNode.level === 3"
       >
         {{ $t('assets.summaryInfo.organInfoTitle') }}
       </p>
-      <attr-item
+      <!--<attr-item
         v-if="
           currentNode.level !== 1 &&
           currentNode.level !== 2 &&
-          currentNode.level !== 3 &&
-          currentNode.level !== 4
+          currentNode.level !== 3
         "
         v-bind="$attrs"
         :editable="
@@ -30,9 +29,9 @@
         :attrValue="attrInfo.ownship"
         @saveOwnship="saveOwnship"
         :isOpen="isOpen"
-      ></attr-item>
+      ></attr-item>-->
       <attr-item
-        v-if="currentNode.level !== 1 && currentNode.level !== 2 && currentNode.level !== 4"
+        v-if="currentNode.level === 3"
         v-bind="$attrs"
         :editable="
           editable &&
