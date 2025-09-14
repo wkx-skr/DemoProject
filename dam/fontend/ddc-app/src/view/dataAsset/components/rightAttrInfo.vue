@@ -7,7 +7,7 @@
     >
       <p
         class="group-key"
-        v-if="currentNode.level !== 1 && currentNode.level !== 2"
+        v-if="currentNode.level !== 1 && currentNode.level !== 2 && currentNode.level !== 4"
       >
         {{ $t('assets.summaryInfo.organInfoTitle') }}
       </p>
@@ -15,7 +15,8 @@
         v-if="
           currentNode.level !== 1 &&
           currentNode.level !== 2 &&
-          currentNode.level !== 3
+          currentNode.level !== 3 &&
+          currentNode.level !== 4
         "
         v-bind="$attrs"
         :editable="
@@ -31,7 +32,7 @@
         :isOpen="isOpen"
       ></attr-item>
       <attr-item
-        v-if="currentNode.level !== 1 && currentNode.level !== 2"
+        v-if="currentNode.level !== 1 && currentNode.level !== 2 && currentNode.level !== 4"
         v-bind="$attrs"
         :editable="
           editable &&
