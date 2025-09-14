@@ -169,11 +169,11 @@
           <span class="value">{{ assetNumTotal || 0 }}</span>
         </div>
         <div class="summary-item">
-          <span class="label">已承载DL5:</span>
+          <span class="label">资产注册数:</span>
           <span class="value">{{ registerAssetNumTotal || 0 }}</span>
         </div>
         <div class="summary-item">
-          <span class="label">资产覆盖率:</span>
+          <span class="label">资产注册率:</span>
           <span class="value">{{ registerAssetRateTotal || '0%' }}</span>
         </div>
         <div class="summary-item">
@@ -203,7 +203,7 @@
         <el-table-column
           show-overflow-tooltip
           prop="registerAssetNum"
-          label="已承载DL5数"
+          label="资产注册数"
         />
         <!-- <el-table-column
           show-overflow-tooltip
@@ -261,13 +261,13 @@
         />-->
         <el-table-column
           show-overflow-tooltip
-          prop=""
+          prop="parentObjectName"
           label="表/逻辑数据实体（英文名称）"
           width="190"
         />
         <el-table-column
           show-overflow-tooltip
-          prop=""
+          prop="mappingColumn"
           label="属性（英文名称）"
         />
         <el-table-column

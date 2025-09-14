@@ -367,7 +367,7 @@ export default {
     // 导出查询结果
     async handleExportResult() {
       const params = {
-        logicDataEntityIds: this.selectedAssets.map(id => parseInt(id)),
+        logicDataEntityIds: this.selectedAssets.map(item => parseInt(item.id)),
         modelCategoryId: this.searchForm.modelCategoryId
           ? parseInt(this.searchForm.modelCategoryId)
           : null,
@@ -403,7 +403,7 @@ export default {
       const params = {
         logicDataEntityIds: this.selectedAssets.map(item => item.id),
         modelCategoryId: parseInt(this.searchForm.modelCategoryId),
-        ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
+        ddmModelIds: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
           ? this.searchForm.ddmModelId.map(id => parseInt(id))
           : null,
       };
@@ -615,9 +615,10 @@ export default {
       }
     },
     fetchData() {
+      console.log(this.selectedAssets);
       // 构建查询参数
       const params = {
-        logicDataEntityIds: this.selectedAssets.map(id => parseInt(id)),
+        logicDataEntityIds: this.selectedAssets.map(item => parseInt(item.id)),
         modelCategoryId: this.searchForm.modelCategoryId
           ? parseInt(this.searchForm.modelCategoryId)
           : null,

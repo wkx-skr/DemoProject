@@ -12,7 +12,6 @@
       :visible.sync="showAssetDialog"
       width="80%"
       append-to-body
-      destroy-on-close
       @close="closeAssetDialog"
       v-loading="loading"
     >
@@ -46,11 +45,13 @@
       <div style="display: flex; height: 60%; margin-top: 10px">
         <!-- 左侧树 -->
         <el-tree
+          ref="assetTree"
           :data="assetTree"
           :props="{ label: 'name', children: 'children' }"
           node-key="id"
           highlight-current
           @node-click="handleTreeNodeClick"
+          @check="handleTreeCheck"
           @check-change="handleTreeCheckChange"
           style="
             width: 20%;
@@ -115,7 +116,7 @@ export default {
       assetTable: [],
       assetTableSelection: [],
       // 记录清空状态，用于控制重新打开弹窗是否需要重新加载数据
-      clearedState: false
+      clearedState: false,
     }
   },
   watch: {
@@ -200,7 +201,21 @@ export default {
             `/assets/catalog/${2}/${node.id}/findL4ByParentId`
           )
           if (!res.data) return console.error(res)
-          this.selectedAssets = res.data
+          this.assetTable = res.data
+          localStorage.setItem(
+            this.storageKey,
+            JSON.stringify(this.selectedAssets)
+          )
+          // 同步表格勾选
+          this.$nextTick(() => {
+            this.selectedAssets.forEach(item => {
+              this.assetTable.forEach(row => {
+                if (item.id === row.id) {
+                  this.$refs.assetTable.toggleRowSelection(row, true)
+                }
+              })
+            })
+          })
         } catch (error) {
           console.error('获取资产列表失败:', error)
           this.$message.error('获取资产列表失败')
@@ -208,22 +223,39 @@ export default {
           this.loading = false
         }
       }
-      this.assetTable = this.selectedAssets
-      this.$nextTick(() => {
-        this.$refs.assetTable && this.$refs.assetTable.toggleAllSelection()
-      })
+      // this.assetTable = this.selectedAssets
+      // this.$nextTick(() => {
+      //   this.$refs.assetTable && this.$refs.assetTable.toggleAllSelection()
+      // })
     },
     // 可以实现树的勾选功能
-    handleTreeCheckChange(data, checked, indeterminate) {},
+    handleTreeCheck(nodes, options) {
+      // console.log('------ nodes, options ------');
+      // console.log('------ nodes, options ------');
+      // console.log('------ nodes, options ------');
+      // console.log(nodes, options);
+      // console.log('------ 所有的叶子节点 ------');
+      // console.log(this.$refs.assetTree.getCheckedNodes(true));
+    },
+    handleTreeCheckChange(data, checked, indeterminate) {
+      // console.log('------ handleTreeCheckChange ------');
+      // console.log('------ handleTreeCheckChange ------');
+      // console.log('------ handleTreeCheckChange ------');
+      // console.log(data, checked, indeterminate);
+    },
     handleTableSelectionChange(selection) {
       this.assetTableSelection = selection
-      this.selectedAssets = [...selection]
+      // 合并selection和localStorage中的数据，并通过id去重
+      const combinedAssets = [
+        ...selection,
+        ...JSON.parse(localStorage.getItem(this.storageKey) || '[]'),
+      ]
+      this.selectedAssets = combinedAssets.filter(
+        (asset, index, self) => index === self.findIndex(a => a.id === asset.id)
+      )
     },
     confirmAssetSelection() {
-      this.selectedAssets = [...this.assetTableSelection]
       this.showAssetDialog = false
-      // 确认选择后重置清空状态
-      this.clearedState = false
       // 确认选择时发送事件
       this.$emit('confirm', this.selectedAssets)
     },
