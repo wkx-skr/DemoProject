@@ -244,7 +244,11 @@ export default {
           :label="'数据精度'"
           prop="dataPrecision"
         ></el-table-column>
-        <el-table-column label="用户姓名（工号）" prop="submitter"></el-table-column>
+        <el-table-column label="用户姓名（工号）" prop="submitter">
+          <template slot-scope="scope">
+            {{ scope.row.userName }}（{{ scope.row.submitter }}）
+          </template>
+        </el-table-column>
         <el-table-column
           :label="'相似度'"
           prop="score"

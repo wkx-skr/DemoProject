@@ -2,7 +2,7 @@
   <div class="asset-catalog-dialog">
     <p>
       <span>数据资产目录：</span>
-      <el-button type="text" @click="openAssetDialog" :disabled="disabled || loading">
+      <el-button type="text" @click="openAssetDialog" :disabled="disabled">
         +选择
       </el-button>
     </p>

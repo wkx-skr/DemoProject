@@ -389,7 +389,7 @@
               </div>
               <div class="detail broader" v-if="categoryTypeId !== 2">
                 <span class="label">
-                  {{ this.$t('domain.domain.referenceCode') }}
+                  关联参考数据
                 </span>
                 <span class="value" style="margin-left: 0.1em; color: #479eff">
                   <datablau-tooltip
@@ -479,7 +479,7 @@
                   {{ detailPath }}
                 </span>
               </div>
-              <div class="detail" v-if="useDam">
+              <!--<div class="detail" v-if="useDam">
                 <span class="label">
                   {{ $version.domain.property.authCategoryId }}
                 </span>
@@ -487,7 +487,7 @@
                   class="value"
                   v-html="nl2br(details.authCategoryName)"
                 ></span>
-              </div>
+              </div>-->
               <div
                 id="long-text"
                 class="detail"

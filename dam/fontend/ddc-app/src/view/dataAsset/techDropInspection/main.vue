@@ -16,7 +16,7 @@
               <asset-catalog-dialog
                 @confirm="onAssetConfirm"
                 storage-key="selectedAssets1"
-                :disabled="isRightSideSelected"
+                :disabled="searchForm.appSystem.length > 0"
               />
             </div>
             <!-- 显示选中的资产 -->
@@ -407,11 +407,7 @@ export default {
       const hasAppSystem = Array.isArray(this.searchForm.appSystem)
         ? this.searchForm.appSystem.length > 0
         : !!this.searchForm.appSystem
-      return (
-        hasAppSystem ||
-        !!this.searchForm.modelType ||
-        !!this.searchForm.schemaId
-      )
+      return hasAppSystem
     },
     // 判断是否可以运行落标任务（左右侧筛选只能选择一侧）
     canRunTask() {

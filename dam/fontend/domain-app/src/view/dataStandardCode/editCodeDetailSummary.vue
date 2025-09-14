@@ -1146,7 +1146,7 @@ export default {
               }
 
               // 全局唯一
-              this.$plainRequest.post(`${this.$domain_url}/domains/code/checkCodeEnNameOnlyOne?categoryId=${this.categoryId}`,{}).then(res => {
+              this.$plainRequest.post(`${this.$domain_url}/domains/code/checkCodeEnNameOnlyOne?categoryId=${this.categoryId}`,value).then(res => {
                 if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
                 callback()
               })

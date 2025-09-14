@@ -123,7 +123,7 @@ export default {
             } else if (!/^(?:[A-Z][a-zA-Z]*)(?: [A-Z][a-zA-Z]*)*$/.test(value)) {
               callback(new Error('英文名称只能包含字母和空格，且首字母需大写'))
             } else {
-              this.$plainRequest.post(`${this.$domain_url}/domains/domain/checkDomainEnNameOnlyOne?categoryId=${this.categoryTypeId}`,{}).then(res => {
+              this.$plainRequest.post(`${this.$domain_url}/domains/domain/checkDomainEnNameOnlyOne?categoryId=${this.categoryTypeId}`,value).then(res => {
                 if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
                 callback()
               })
@@ -988,7 +988,7 @@ export default {
       this.$bus.$emit('callDomainCodeSelector', this.typeIds, 'cksj')
     },
     handleDomainCodeSelected(row) {
-      this.detail.referenceCode = row.code
+      this.detail.referenceCode = row.name
     },
     // 切换信息类型
     changeRangeType(val) {
@@ -1105,7 +1105,7 @@ export default {
     },
     handleStandardChoose(choose) {
       this.relatedDomainsOptions = choose
-      this.detail.relationDomain = choose.map(item => item.domainCode)
+      this.detail.relationDomain = choose.map(item => item.chineseName)
     },
     getSelectionOptions() {
       this.ownerOrgOptions = this.allOrganizations || []

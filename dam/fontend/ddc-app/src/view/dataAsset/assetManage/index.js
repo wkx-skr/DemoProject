@@ -211,7 +211,7 @@ export default {
               callback(new Error(this.$t('assets.catalogue.inputRequired')))
               return
             }
-            this.$plainRequest.post(`${this.$asstes_url}/catalog/checkCatalogEnNameOnlyOne?structureId=${this.curStructureId}`,{}).then(res => {
+            this.$plainRequest.post(`${this.$asstes_url}/catalog/checkCatalogEnNameOnlyOne?structureId=${this.curStructureId}`,value).then(res => {
               if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
               callback()
             })

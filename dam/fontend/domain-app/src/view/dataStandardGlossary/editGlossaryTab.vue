@@ -380,7 +380,7 @@ export default {
               }
 
               // 全局唯一
-              this.$plainRequest.post(`${this.$domain_url}/ns/checkNsEnNameOnlyOne?categoryId=${this.selectedFolderIds[this.selectedFolderIds.length - 1]}`,{}).then(res => {
+              this.$plainRequest.post(`${this.$domain_url}/ns/checkNsEnNameOnlyOne?categoryId=${this.selectedFolderIds[this.selectedFolderIds.length - 1]}`,value).then(res => {
                 if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
                 callback()
               })

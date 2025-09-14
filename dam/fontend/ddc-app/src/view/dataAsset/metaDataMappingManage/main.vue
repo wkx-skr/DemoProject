@@ -93,9 +93,7 @@
                   v-model="searchForm.modelId"
                   placeholder="请选择"
                   clearable
-                  :disabled="
-                    !searchForm.modelCategoryId.length || isLeftSideSelected
-                  "
+                  :disabled="!searchForm.modelCategoryId"
                   @change="handleModelChange"
                   @clear="handleModelClear"
                   :loading="loading.models"
@@ -119,7 +117,7 @@
                   v-model="searchForm.databaseId"
                   placeholder="请选择"
                   clearable
-                  :disabled="!searchForm.modelId.length || isLeftSideSelected"
+                  :disabled="!searchForm.modelId.length"
                   :loading="loading.databases"
                   @change="handleDatabaseChange"
                   @clear="handleDatabaseClear"
@@ -438,30 +436,15 @@ export default {
     // 导出查询结果
     async handleExportQuery() {
       const params = {
-        businessObjectId: this.searchForm.businessObjectId
-          ? parseInt(this.searchForm.businessObjectId)
-          : null,
-        logicDataEntityId: this.searchForm.logicDataEntityId
-          ? parseInt(this.searchForm.logicDataEntityId)
-          : null,
         logicDataEntityIds: this.selectedAssets.map(item => item.id),
         modelCategoryId: this.searchForm.modelCategoryId
           ? parseInt(this.searchForm.modelCategoryId)
           : null,
-        modelCategoryIds: this.searchForm.modelCategoryId
-          ? [parseInt(this.searchForm.modelCategoryId)]
-          : null,
-        modelId: this.searchForm.modelId
+        modelIds: this.searchForm.modelId
           ? this.searchForm.modelId.map(id => parseInt(id))
-          : null,
-        databaseId: this.searchForm.databaseId
-          ? parseInt(this.searchForm.databaseId)
           : null,
         databaseIds: this.searchForm.databaseId
           ? this.searchForm.databaseId.map(id => parseInt(id))
-          : null,
-        tableId: this.searchForm.tableId
-          ? parseInt(this.searchForm.tableId)
           : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
@@ -801,32 +784,15 @@ export default {
     fetchData() {
       // 构建查询参数
       const params = {
-        businessObjectId: this.searchForm.businessObjectId
-          ? parseInt(this.searchForm.businessObjectId)
-          : null,
-        logicDataEntityId: this.searchForm.logicDataEntityId
-          ? parseInt(this.searchForm.logicDataEntityId)
-          : null,
         logicDataEntityIds: this.selectedAssets.map(item => item.id),
         modelCategoryId: this.searchForm.modelCategoryId
           ? parseInt(this.searchForm.modelCategoryId)
           : null,
-        modelCategoryIds:
-          this.searchForm.modelCategoryId &&
-          this.searchForm.modelCategoryId.length > 0
-            ? this.searchForm.modelCategoryId.map(id => parseInt(id))
-            : null,
-        modelId: this.searchForm.modelId
+        modelIds: this.searchForm.modelId
           ? this.searchForm.modelId.map(id => parseInt(id))
-          : null,
-        databaseId: this.searchForm.databaseId
-          ? parseInt(this.searchForm.databaseId)
           : null,
         databaseIds: this.searchForm.databaseId
           ? this.searchForm.databaseId.map(id => parseInt(id))
-          : null,
-        tableId: this.searchForm.tableId
-          ? parseInt(this.searchForm.tableId)
           : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,

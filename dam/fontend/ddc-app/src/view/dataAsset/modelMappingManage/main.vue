@@ -367,26 +367,18 @@ export default {
     // 导出查询结果
     async handleExportResult() {
       const params = {
-        businessObjectId: this.searchForm.businessObjectId
-          ? parseInt(this.searchForm.businessObjectId)
+        logicDataEntityIds: this.selectedAssets.map(id => parseInt(id)),
+        modelCategoryId: this.searchForm.modelCategoryId
+          ? parseInt(this.searchForm.modelCategoryId)
           : null,
-        logicDataEntityIds: this.searchForm.logicDataEntityId
-          ? [parseInt(this.searchForm.logicDataEntityId)]
-          : [],
-        modelCategoryIds: this.searchForm.modelCategoryId
-          ? [parseInt(this.searchForm.modelCategoryId)]
-          : [],
         ddmModelIds: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
           ? this.searchForm.ddmModelId.map(id => parseInt(id))
-          : [],
-        tableId: this.searchForm.tableId
-          ? parseInt(this.searchForm.tableId)
           : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
         operator: this.searchForm.operator || null,
         // 是否只查询未关联属性，勾选上时值传false
-        mappingFlag: !this.onlyUnmapped
+        mappingFlag: !this.onlyUnmapped,
       }
       const res = await this.$http.post('/assets/ddm/mapping/export', params)
       if (res.status === 200) this.$message.success('导出成功')
@@ -625,20 +617,12 @@ export default {
     fetchData() {
       // 构建查询参数
       const params = {
-        businessObjectId: this.searchForm.businessObjectId
-          ? parseInt(this.searchForm.businessObjectId)
+        logicDataEntityIds: this.selectedAssets.map(id => parseInt(id)),
+        modelCategoryId: this.searchForm.modelCategoryId
+          ? parseInt(this.searchForm.modelCategoryId)
           : null,
-        logicDataEntityId: this.searchForm.logicDataEntityId
-          ? parseInt(this.searchForm.logicDataEntityId)
-          : null,
-        modelCategoryIds: this.searchForm.modelCategoryId
-          ? [parseInt(this.searchForm.modelCategoryId)]
-          : null,
-        ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
+        ddmModelIds: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
           ? this.searchForm.ddmModelId.map(id => parseInt(id))
-          : null,
-        tableId: this.searchForm.tableId
-          ? parseInt(this.searchForm.tableId)
           : null,
         currentPage: this.pagination.currentPage,
         pageSize: this.pagination.pageSize,
