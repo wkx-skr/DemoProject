@@ -97,7 +97,6 @@
                   @change="handleModelChange"
                   @clear="handleModelClear"
                   :loading="loading.models"
-                  multiple
                 >
                   <el-option
                     v-for="item in modelOptions"
@@ -117,7 +116,7 @@
                   v-model="searchForm.databaseId"
                   placeholder="请选择"
                   clearable
-                  :disabled="!searchForm.modelId.length"
+                  :disabled="!searchForm.modelId"
                   :loading="loading.databases"
                   @change="handleDatabaseChange"
                   @clear="handleDatabaseClear"
@@ -374,7 +373,7 @@ export default {
         businessObjectId: '',
         logicDataEntityId: '',
         modelCategoryId: '',
-        modelId: [],
+        modelId: '',
         databaseId: [],
         tableId: '',
         operator: '',
@@ -440,7 +439,7 @@ export default {
         modelCategoryId: this.searchForm.modelCategoryId
           ? parseInt(this.searchForm.modelCategoryId)
           : null,
-        modelIds: this.searchForm.modelId
+        modelId: this.searchForm.modelId
           ? this.searchForm.modelId.map(id => parseInt(id))
           : null,
         databaseIds: this.searchForm.databaseId
@@ -465,7 +464,7 @@ export default {
         this.$message.warning('请选择应用系统')
         return
       }
-      if (!this.searchForm.modelId.length) {
+      if (!this.searchForm.modelId) {
         this.$message.warning('请选择数据模型')
         return
       }
@@ -512,7 +511,7 @@ export default {
     // 获取物理表列表
     fetchTables(keyword = '') {
       if (
-        !this.searchForm.modelId.length ||
+        !this.searchForm.modelId ||
         !this.searchForm.databaseId.length
       ) {
         return
@@ -531,7 +530,7 @@ export default {
       const params = {
         currentPage: 1,
         keyword: keyword || '',
-        modelIds: this.searchForm.modelId,
+        modelId: this.searchForm.modelId,
         pageSize: 100,
         tagIds: null,
         typeIds: [80000004, 80500008],
@@ -677,7 +676,7 @@ export default {
 
     // 应用系统变更
     handleSystemChange(value) {
-      this.searchForm.modelId = []
+      this.searchForm.modelId = ''
       this.searchForm.databaseId = []
       this.searchForm.tableId = ''
       this.modelOptions = []
@@ -737,37 +736,28 @@ export default {
       this.tableOptions = []
     },
 
-    // 处理数据源变化（支持多选）
+    // 处理数据源变化（支持单选）
     handleModelChange(value) {
       this.searchForm.databaseId = []
       this.schemaEntityOptions = []
 
-      if (value && value.length > 0) {
+      if (value) {
         this.loading.databases = true
-        // 找到所有选中的数据源节点
-        const selectedModels = this.modelOptions.filter(model =>
-          value.includes(model.value)
-        )
+        // 找到选中的数据源节点
+        const selectedModel = this.modelOptions.find(model => model.value === value)
 
-        // 收集所有选中数据源的schemaEntityOptions
+        // 收集选中数据源的schemaEntityOptions
         const allSchemaEntities = []
-        const seenIds = new Set()
-
-        selectedModels.forEach(model => {
-          if (model && model.subNodes) {
-            model.subNodes
-              .filter(node => node.type === 'MODEL_SCHEMA')
-              .forEach(node => {
-                if (!seenIds.has(node.id)) {
-                  seenIds.add(node.id)
-                  allSchemaEntities.push({
-                    value: node.id,
-                    label: node.name,
-                  })
-                }
+        if (selectedModel && selectedModel.subNodes) {
+          selectedModel.subNodes
+            .filter(node => node.type === 'MODEL_SCHEMA')
+            .forEach(node => {
+              allSchemaEntities.push({
+                value: node.id,
+                label: node.name,
               })
-          }
-        })
+            })
+        }
 
         this.schemaEntityOptions = allSchemaEntities
         this.loading.databases = false
@@ -788,7 +778,7 @@ export default {
         modelCategoryId: this.searchForm.modelCategoryId
           ? parseInt(this.searchForm.modelCategoryId)
           : null,
-        modelIds: this.searchForm.modelId
+        modelId: this.searchForm.modelId
           ? this.searchForm.modelId.map(id => parseInt(id))
           : null,
         databaseIds: this.searchForm.databaseId
@@ -831,7 +821,7 @@ export default {
         businessObjectId: '',
         logicDataEntityId: '',
         modelCategoryId: '',
-        modelId: [],
+        modelId: '',
         databaseId: [],
         tableId: '',
       }

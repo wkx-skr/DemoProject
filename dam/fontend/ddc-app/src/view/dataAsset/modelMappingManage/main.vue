@@ -402,7 +402,7 @@ export default {
       }
       const params = {
         logicDataEntityIds: this.selectedAssets.map(item => item.id),
-        modelCategoryId: [parseInt(this.searchForm.modelCategoryId)],
+        modelCategoryId: parseInt(this.searchForm.modelCategoryId),
         ddmModelId: this.searchForm.ddmModelId && this.searchForm.ddmModelId.length > 0
           ? this.searchForm.ddmModelId.map(id => parseInt(id))
           : null,
