@@ -50,6 +50,7 @@
           :props="{ label: 'name', children: 'children' }"
           node-key="id"
           highlight-current
+          :default-expanded-keys="['2']"
           @node-click="handleTreeNodeClick"
           @check="handleTreeCheck"
           @check-change="handleTreeCheckChange"
@@ -115,8 +116,6 @@ export default {
       assetTree: [],
       assetTable: [],
       assetTableSelection: [],
-      // 记录清空状态，用于控制重新打开弹窗是否需要重新加载数据
-      clearedState: false,
     }
   },
   watch: {
@@ -146,10 +145,7 @@ export default {
           })
         })
       } else {
-        // 如果不是处于清空状态，则调用获取数据的方法
-        if (!this.clearedState) {
-          this.getManageTreeData()
-        }
+        this.getManageTreeData()
       }
       this.showAssetDialog = true
     },
@@ -158,8 +154,15 @@ export default {
       try {
         const res = await api.getManageTree('2')
         if (!res.data) return console.error(res)
-        await this.handleTreeNodeClick(res.data[0], 'firstGet')
-        this.assetTree = res.data
+        let arr = [
+          {
+            id: 2,
+            name: '全部',
+            children: res.data
+          }
+        ]
+        this.assetTree = arr
+        await this.handleTreeNodeClick(arr[0], 'firstGet')
       } catch (error) {
         console.error('获取目录树失败:', error)
         this.$message.error('获取目录树失败')
@@ -184,11 +187,9 @@ export default {
       this.$refs.assetTable && this.$refs.assetTable.clearSelection()
       // 清空本地缓存
       localStorage.removeItem(this.storageKey)
-      // 设置清空状态标志
-      this.clearedState = true
     },
     async handleTreeNodeClick(node, isFirstGet) {
-      if (isFirstGet !== 'firstGet') localStorage.setItem(this.storageKey, '')
+      if (isFirstGet !== 'firstGet') localStorage.setItem(this.storageKey, [])
       // 先查本地
       const local = localStorage.getItem(this.storageKey)
       if (local && local !== '[]') {
@@ -197,8 +198,13 @@ export default {
         // 没有本地缓存才用接口返回
         this.loading = true
         try {
-          const res = await this.$http.get(
-            `/assets/catalog/${2}/${node.id}/findL4ByParentId`
+          const res = await this.$http.post(
+            `/assets/catalog/findL4Query`,
+            {
+              "structureId": node.id,
+              "parentId": '',
+              "keyword": ""
+            }
           )
           if (!res.data) return console.error(res)
           this.assetTable = res.data
