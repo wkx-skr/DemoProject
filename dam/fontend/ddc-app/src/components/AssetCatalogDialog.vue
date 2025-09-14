@@ -206,8 +206,8 @@ export default {
         console.log(node)
         try {
           const res = await this.$http.post(`/assets/catalog/findL4Query`, {
-            structureId: node.id,
-            parentId: node.parentId,
+            structureId: this.id,
+            parentId: node.id,
             keyword: '',
           })
           if (!res.data) return console.error(res)
