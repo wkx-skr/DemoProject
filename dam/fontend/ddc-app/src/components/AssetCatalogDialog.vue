@@ -116,6 +116,7 @@ export default {
       assetTree: [],
       assetTable: [],
       assetTableSelection: [],
+      id: '',
     }
   },
   watch: {
@@ -127,9 +128,14 @@ export default {
     },
   },
   mounted() {
-    this.getManageTreeData()
+    this.getStrucFn()
   },
   methods: {
+    async getStrucFn() {
+      const res = await api.getStruc({ openStatus: '' })
+      this.id = res.data[0].id;
+      await this.getManageTreeData()
+    },
     openAssetDialog() {
       const local = localStorage.getItem(this.storageKey)
       if (local && local !== '[]') {
@@ -152,14 +158,14 @@ export default {
     async getManageTreeData() {
       this.loading = true
       try {
-        const res = await api.getManageTree('2')
+        const res = await api.getManageTree(this.id)
         if (!res.data) return console.error(res)
         let arr = [
           {
-            id: 2,
+            id: this.id,
             name: '全部',
-            children: res.data
-          }
+            children: res.data,
+          },
         ]
         this.assetTree = arr
         await this.handleTreeNodeClick(arr[0], 'firstGet')
@@ -197,15 +203,13 @@ export default {
       } else {
         // 没有本地缓存才用接口返回
         this.loading = true
+        console.log(node)
         try {
-          const res = await this.$http.post(
-            `/assets/catalog/findL4Query`,
-            {
-              "structureId": node.id,
-              "parentId": '',
-              "keyword": ""
-            }
-          )
+          const res = await this.$http.post(`/assets/catalog/findL4Query`, {
+            structureId: node.id,
+            parentId: node.parentId,
+            keyword: '',
+          })
           if (!res.data) return console.error(res)
           this.assetTable = res.data
           localStorage.setItem(
