@@ -1144,6 +1144,10 @@ export default {
                 callback(new Error('首字母必须大写'))
                 return
               }
+              if (value.length > 50) {
+                callback(new Error('英文名称长度不能超过50位'))
+                return
+              }
 
               // 全局唯一
               this.$plainRequest.post(`${this.$domain_url}/domains/code/checkCodeEnNameOnlyOne?categoryId=${this.categoryId}`,value).then(res => {
