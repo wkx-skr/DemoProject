@@ -95,7 +95,7 @@ export default {
   mounted() {
     if (this.dataType === LDMTypes.Domain && !this.label) {
       this.$http
-        .post(`/domain/domains/domain/getDomainById`, {
+        .post(`/datablauDatastander/domain/domains/domain/getDomainById`, {
           domainId: this.dataObject.domainId,
         })
         .then(res => {

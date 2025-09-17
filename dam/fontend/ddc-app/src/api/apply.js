@@ -7,7 +7,7 @@ export const applyService = {
    */
   getConfig() {
     return this.$http({
-      url: '/domain/apply/conf/info',
+      url: '/datablauDatastander/domain/apply/conf/info',
       method: 'get'
     })
   },
@@ -18,7 +18,7 @@ export const applyService = {
    */
   getBatchList(params) {
     return this.$http({
-      url: '/domain/apply/page',
+      url: '/datablauDatastander/domain/apply/page',
       method: 'post',
       data: params
     })
@@ -30,7 +30,7 @@ export const applyService = {
    */
   getBatchDetail(batchId) {
     return this.$http({
-      url: `/domain/apply/detail/${batchId}`,
+      url: `/datablauDatastander/domain/apply/detail/${batchId}`,
       method: 'get'
     })
   },

@@ -105,7 +105,7 @@ export default {
     // 机构列表数据
     treeData() {
       this.$http
-        .post(`/user/org/organization/tree/`, {
+        .post(`/datablauDatastander/user/org/organization/tree/`, {
           keyword: '',
         })
         .then(res => {

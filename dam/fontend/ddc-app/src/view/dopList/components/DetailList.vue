@@ -253,7 +253,7 @@ export default {
     async getDl123Data(row) {
       let batchId = this.tableData[0].batchId
       let dl123Res = await this.$http({
-        url: `/assets/catalog/dop/catalog/detail/${row.neId}/${batchId}`,
+        url: `/datablauDatastander/assets/catalog/dop/catalog/detail/${row.neId}/${batchId}`,
         method: 'get',
       })
       let tableResults = [dl123Res.data && dl123Res.data.data]
@@ -523,7 +523,7 @@ export default {
     // 标准数据元
     async getMeatData(neId) {
       let res = await this.$http({
-        url: `/domain/domains/domain/getDomainById`,
+        url: `/datablauDatastander/domain/domains/domain/getDomainById`,
         method: 'post',
         data: {
           domainId: neId,
@@ -538,7 +538,7 @@ export default {
     async getReferenceData(code) {
       try {
         let res = await this.$http({
-          url: `/domain/domains/code/getCode`,
+          url: `/datablauDatastander/domain/domains/code/getCode`,
           method: 'post',
           data: { code: code, categoryId: 1 },
         })
@@ -553,7 +553,7 @@ export default {
     async getBusinessData(row) {
       try {
         let res = await this.$http({
-          url: `/domain/ns/ns/getNs/${row.neId}`,
+          url: `/datablauDatastander/domain/ns/ns/getNs/${row.neId}`,
           method: 'get',
         })
         this.descriptionType = 3
@@ -565,7 +565,7 @@ export default {
     },
     getTags(id) {
       this.$http({
-        url: `/domain/tag/tags/get?itemId=${id}`,
+        url: `/datablauDatastander/domain/tag/tags/get?itemId=${id}`,
         data: { code: id, categoryId: 1 },
         method: 'post',
       })

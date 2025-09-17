@@ -70,7 +70,7 @@ const api = {
 
   // 获取机构列表
   getOrganizationList() {
-    return $http.get('/user/org/organization/tree/')
+    return $http.get('/datablauDatastander/user/org/organization/tree/')
   },
 
   // 目录访问埋点

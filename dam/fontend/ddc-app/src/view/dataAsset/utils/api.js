@@ -10,7 +10,7 @@ const api = {
   /// ////////////////////// 公共接口 //////////////////////////////////////
   // 获取当前登陆用户的信息
   getUserInfo() {
-    return $http.post('/gateway/main/getUserInfo')
+    return $http.post('/datablauDatastander/gateway/main/getUserInfo')
   },
   getAssets() {
     // 获取安全等级
@@ -75,7 +75,7 @@ const api = {
 
   // 获取机构列表
   getOrganizationList() {
-    return $http.get('/user/org/organization/tree/')
+    return $http.get('/datablauDatastander/user/org/organization/tree/')
   },
 
   // 目录访问埋点

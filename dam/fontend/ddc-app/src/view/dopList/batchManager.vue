@@ -425,7 +425,7 @@ export default {
     getTableData() {
       this.loading = true
       this.$http
-        .post(`/domain/apply/page`, this.filterForm)
+        .post(`/datablauDatastander/domain/apply/page`, this.filterForm)
         .then(res => {
           this.tableData = res.data.content
           this.total = res.data.totalItems
@@ -502,7 +502,7 @@ export default {
     },
 
     getDopConfig() {
-      this.$http.get('/domain/apply/conf/info').then(res => {
+      this.$http.get('/datablauDatastander/domain/apply/conf/info').then(res => {
         this.dopEnabled = res.data === true
       })
     },

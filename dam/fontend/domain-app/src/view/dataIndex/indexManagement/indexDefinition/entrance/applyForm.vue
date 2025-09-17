@@ -138,7 +138,7 @@ export default {
     },
     getDomain(callback) {
       this.$http
-        .post(`/domain/domains/domain/getDomainById`, {
+        .post(`/datablauDatastander/domain/domains/domain/getDomainById`, {
           domainId: this.domainId,
         })
         .then(res => {
@@ -151,7 +151,7 @@ export default {
           }
           if (res.data.updatingDomainId) {
             this.$http
-              .post(`/domain/domains/domain/getDomainById`, {
+              .post(`/datablauDatastander/domain/domains/domain/getDomainById`, {
                 domainId: res.data.updatingDomainId,
               })
               .then(res => {

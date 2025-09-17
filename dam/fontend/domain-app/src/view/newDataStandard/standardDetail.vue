@@ -144,6 +144,8 @@
                     $version.common.pleaseInput +
                     $version.domain.property.domainChName
                   "
+                  :maxlength="15"
+                  show-word-limit
                 ></datablau-input>
               </el-form-item>
               <!-- 英文名称 -->
@@ -153,11 +155,12 @@
               >
                 <datablau-input
                   v-model="detail.englishName"
-                  show-word-limit
                   :placeholder="
                     $version.common.pleaseInput +
                     $version.domain.property.domainEnName
                   "
+                  :maxlength="50"
+                  show-word-limit
                 ></datablau-input>
               </el-form-item>
               <el-form-item

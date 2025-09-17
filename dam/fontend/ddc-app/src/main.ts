@@ -478,7 +478,7 @@ Vue.prototype.$getUserModelCategory = function (username, callback) {
   const userName = username || Vue.prototype.$user.username
   Vue.prototype.$http
     .post(
-      `/base/modelCategory/getModelCategoryIdByUsername?username=${userName}&appName=DAM`
+      `/datablauDatastander/base/modelCategory/getModelCategoryIdByUsername?username=${userName}&appName=DAM`
     )
     .then(res => {
       Vue.prototype.$userModelCategoryDetail = []
@@ -501,7 +501,7 @@ const _getModelCategories = function (callback) {
   // ModelCategoryController.getModelCategoriesWithUdp()
   axios
     // .get(Vue.prototype.$url + '/service/modelCategories/')
-    .post('/base/modelCategory/getModelCategories')
+    .post('/datablauDatastander/base/modelCategory/getModelCategories')
     .then(res => {
       Vue.prototype.$modelCategories = res.data
       Vue.prototype.$modelCategories.forEach(item => {
@@ -1617,7 +1617,7 @@ This.$getBranchDto = function () {
   }
   This.$BranchDto = []
   This.$http
-    .get(`/user/org/organization/tree/`)
+    .get(`/datablauDatastander/user/org/organization/tree/`)
     .then(res => {
       function repeat(list) {
         list.forEach(item => {

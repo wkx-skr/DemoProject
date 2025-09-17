@@ -127,7 +127,9 @@
             <el-dropdown-item
               icon="iconfont icon-export"
               command="export"
-              v-if="$auth['DICTIONARY_EXPORT'] || $auth['ROLE_BUSI_TERM_EXPORT']"
+              v-if="
+                $auth['DICTIONARY_EXPORT'] || $auth['ROLE_BUSI_TERM_EXPORT']
+              "
             >
               {{ $t('common.button.export') }}
             </el-dropdown-item>
@@ -152,7 +154,7 @@
           </span>
           <datablau-button
             icon="el-icon-delete"
-            v-if="hasAccess && $auth['DICTIONARY_DELETE']"
+            v-if="hasAccess && $auth['DICTIONARY_DELETE'] && supportDelete"
             type="danger"
             size="small"
             @click="deleteRow"
@@ -794,6 +796,11 @@ export default {
       return !(
         this.headerProduction.toUpperCase() !== 'DAM' && this.$damEnabled
       )
+    },
+    supportDelete() {
+      return this.selection.every(item => {
+        return item.state === 'D'
+      })
     },
   },
 }

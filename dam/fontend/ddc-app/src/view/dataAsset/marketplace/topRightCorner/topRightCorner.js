@@ -285,7 +285,7 @@ export default {
     getNoti() {
       this.$http
         .get(
-          `/base/notifications/getNotificationsByPage?pageSize=100&currentPage=0&inbox=true&isRead=false&sort=desc&orderBy=createdOn`
+          `/datablauDatastander/base/notifications/getNotificationsByPage?pageSize=100&currentPage=0&inbox=true&isRead=false&sort=desc&orderBy=createdOn`
         )
         .then(res => {
           const startTime = new Date().getTime() - 1000 * 60 * 60 * 24

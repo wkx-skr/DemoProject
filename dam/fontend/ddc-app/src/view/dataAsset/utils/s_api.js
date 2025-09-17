@@ -387,7 +387,7 @@ const api = {
   },
   // 使用元数据接口，获取相关的业务系统和技术部门
   modelCategoriesWithUdpApi() {
-    return $http.post($url + '/base/modelCategory/getModelCategories')
+    return $http.post($url + '/datablauDatastander/base/modelCategory/getModelCategories')
   },
   // base服务插件类型
   pluginListApi(params) {

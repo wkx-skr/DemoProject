@@ -100,12 +100,12 @@ await applyService.confirmBatch({ batchIds: [1, 2, 3] })
 ## 后端API接口
 
 ### 批次管理接口
-- `POST /domain/apply/page` - 获取批次列表
-- `GET /domain/apply/detail/{batchId}` - 获取批次详情
+- `POST /datablauDatastander/domain/apply/page` - 获取批次列表
+- `GET /datablauDatastander/domain/apply/detail/{batchId}` - 获取批次详情
 - `POST /domain/apply/confirm` - 确认批次
 - `POST /domain/apply/batch/flow/notice` - 提交审批
 - `POST /domain/apply/delete` - 删除批次
-- `GET /domain/apply/conf/info` - 获取DOP配置
+- `GET /datablauDatastander/domain/apply/conf/info` - 获取DOP配置
 
 ### 数据结构
 

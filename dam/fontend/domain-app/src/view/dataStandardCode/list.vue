@@ -435,8 +435,9 @@
                     : ``
                 "
                 v-if="
-                  $auth['STANDARD_CODE_DELETE'] ||
-                  $auth['ROLE_STANDARD_CODE_DELETE']
+                  supportDelete &&
+                  ($auth['STANDARD_CODE_DELETE'] ||
+                    $auth['ROLE_STANDARD_CODE_DELETE'])
                 "
               >
                 {{ $t('common.button.delete') }}
@@ -656,6 +657,11 @@ export default {
     newCodeTree,
   },
   computed: {
+    supportDelete() {
+      return this.selection.every(item => {
+        return item.state !== 'X'
+      })
+    },
     // dam 启用时, ddm 页面 数据标准不能编辑
     couldEdit() {
       let bool = true

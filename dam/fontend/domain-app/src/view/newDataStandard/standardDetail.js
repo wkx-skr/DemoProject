@@ -104,9 +104,9 @@ export default {
       domainCode: autoCode
         ? [{ required: false }]
         : Validator.domainCode({
-            categoryId: this.categoryTypeId,
-            elThis: this,
-          }),
+          categoryId: this.categoryTypeId,
+          elThis: this,
+        }),
       chineseName: Validator.chineseName({
         categoryId: this.categoryTypeId,
         elThis: this,
@@ -689,12 +689,12 @@ export default {
       let arr = [];
       let optionArr = [];
       list[0] &&
-        list[0].nodes.forEach(t => {
-          if (t.name === path[0]) {
-            arr.push(t.foldId)
-            optionArr.push(t)
-          }
-        });
+      list[0].nodes.forEach(t => {
+        if (t.name === path[0]) {
+          arr.push(t.foldId)
+          optionArr.push(t)
+        }
+      });
       if (path.length > 1) {
         const Fn = nodeArr => {
           nodeArr.nodes.forEach(t => {
@@ -1351,11 +1351,11 @@ export default {
         ...this.formRule,
         dataScale: ['数值型', '字符型'].includes(this.detail.dataType)
           ? [
-              {
-                required: true,
-                message: '请输入数据长度',
-              },
-            ]
+            {
+              required: true,
+              message: '请输入数据长度',
+            },
+          ]
           : [{
             required: false,
             message: '',

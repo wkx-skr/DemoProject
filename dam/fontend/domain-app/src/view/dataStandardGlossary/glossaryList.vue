@@ -242,7 +242,7 @@ export default {
       arr.forEach(item => {
         result.push(item.data)
       })
-      const selectionIds = result.map(item => item.chName)
+      const selectionIds = result.map(item => item.domainCode)
       this.$emit('update:selectionIds', selectionIds)
     },
     treeNodeClick(data, node) {

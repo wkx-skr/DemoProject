@@ -758,7 +758,7 @@ export default {
       if (type === 'standardCode') {
         this.codeLoading = true
         this.$http
-          .post(`/domain/domains/code/getCode`, {
+          .post(`/datablauDatastander/domain/domains/code/getCode`, {
             code: domain.domainCode,
             categoryId: 1,
           })

@@ -534,7 +534,7 @@ This.$getAbout = () => {
 let $versionFeature = {}
 This.$getVersionLevel = () => {
   This.$http
-    .post('/user/main/editionInfos')
+    .post('/datablauDatastander/user/main/editionInfos')
     .then(res => {
       let tempArr = []
       for (let key in res.data.edition) {
@@ -592,7 +592,7 @@ const _getModelCategories = function (callback) {
   ModelCategoryController.getModelCategoriesWithUdp()
     // axios
     //   // .get(Vue.prototype.$url + '/service/modelCategories/')
-    //   .post('/base/modelCategory/getModelCategories')
+    //   .post('/datablauDatastander/base/modelCategory/getModelCategories')
     .then(res => {
       Vue.prototype.$modelCategories = res.data
       Vue.prototype.$modelCategories.forEach(item => {

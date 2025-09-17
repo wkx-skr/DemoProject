@@ -331,7 +331,7 @@ export default {
     // 获取所有的机构，并将返回的树形数据 转换成 数组
     getOrgList() {
       this.$http
-        .get('/user/org/organization/tree/')
+        .get('/datablauDatastander/user/org/organization/tree/')
         .then(res => {
           this.allDepartmentList = this.flatten([res.data])
         })

@@ -201,7 +201,7 @@ export default {
     async getDopConfig() {
       try {
         const response = await this.$http({
-          url: '/domain/apply/conf/info',
+          url: '/datablauDatastander/domain/apply/conf/info',
           method: 'get',
         })
         this.dopEnabled = response.data === true
@@ -235,7 +235,7 @@ export default {
       this.loading = true
       try {
         const response = await this.$http({
-          url: '/domain/apply/page',
+          url: '/datablauDatastander/domain/apply/page',
           method: 'post',
           data: this.filterForm,
         })
@@ -408,7 +408,7 @@ export default {
       this.loading2 = true
       try {
         const response = await this.$http({
-          url: `/domain/apply/detail/${batchId}`,
+          url: `/datablauDatastander/domain/apply/detail/${batchId}`,
           method: 'get',
         })
         this.allTableData2 = response.data || []

@@ -283,7 +283,7 @@ export default {
     getNoti() {
       this.$http
         .get(
-          `/base/notifications/getNotificationsByPage?pageSize=100&currentPage=0&inbox=true&isRead=false&sort=desc&orderBy=createdOn`
+          `/datablauDatastander/base/notifications/getNotificationsByPage?pageSize=100&currentPage=0&inbox=true&isRead=false&sort=desc&orderBy=createdOn`
         )
         .then(res => {
           const startTime = new Date().getTime() - 1000 * 60 * 60 * 24
@@ -424,7 +424,7 @@ export default {
       location.href = '../base-app/datablau.html'
     },
     getDisplayName() {
-      this.$http.post('/gateway/main/getUserInfo').then(res => {
+      this.$http.post('/datablauDatastander/gateway/main/getUserInfo').then(res => {
         const data = res.data
         this.displayName = data.fullname
         this.hasLogAuth = data.roles?.includes('SYSTEM_SETUP_VIEW')

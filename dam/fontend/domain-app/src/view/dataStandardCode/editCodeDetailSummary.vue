@@ -82,7 +82,8 @@
               >
                 <datablau-input
                   size="small"
-                  :maxlength="30"
+                  :maxlength="15"
+                  show-word-limit
                   v-model="editCode.name"
                   class="dia-input-item"
                   :placeholder="$t('domain.code.namePlaceholder')"
@@ -96,7 +97,8 @@
               >
                 <datablau-input
                   size="small"
-                  :maxlength="30"
+                  maxlength="50"
+                  show-word-limit
                   v-model="editCode.enName"
                   class="dia-input-item"
                   :placeholder="$t('domain.code.enNamePlaceholder')"
@@ -270,11 +272,15 @@
                     <datablau-input
                       v-if="isEdit"
                       v-model="scope.row.name"
+                      maxlength="200"
+                      show-word-limit
                       size="mini"
                     ></datablau-input>
                     <datablau-input
                       v-else
                       v-model="scope.row.name"
+                      maxlength="200"
+                      show-word-limit
                       size="mini"
                     ></datablau-input>
                   </template>
@@ -296,6 +302,8 @@
                       @focus="autoRemakes(scope.row)"
                       @clear="clearAutoRemakes(scope.row)"
                       clearable
+                      maxlength="500"
+                      show-word-limit
                       size="mini"
                     ></datablau-input>
                     <datablau-input
@@ -304,14 +312,13 @@
                       @clear="clearAutoRemakes(scope.row)"
                       clearable
                       v-model="scope.row.definition"
+                      maxlength="500"
+                      show-word-limit
                       size="mini"
                     ></datablau-input>
                   </template>
                 </el-table-column>
-                <el-table-column
-                  label="父代码取值"
-                  :min-width="150"
-                >
+                <el-table-column label="父代码取值" :min-width="150">
                   <template slot-scope="scope">
                     <datablau-select
                       size="mini"
@@ -1129,7 +1136,7 @@ export default {
             required: true,
             // message: this.$t('domain.code.enNameNotEmpty'),
             trigger: 'blur',
-            validator: (rule, value, callback) => {
+            validator(rule, value, callback) {
               if (!value) {
                 callback(new Error('英文名称不能为空'))
                 return
@@ -1144,16 +1151,7 @@ export default {
                 callback(new Error('首字母必须大写'))
                 return
               }
-              if (value.length > 50) {
-                callback(new Error('英文名称长度不能超过50位'))
-                return
-              }
-
-              // 全局唯一
-              this.$plainRequest.post(`${this.$domain_url}/domains/code/checkCodeEnNameOnlyOne?categoryId=${this.categoryId}`,value).then(res => {
-                if (res.data) return callback(new Error('英文名称已存在，请检查后重新输入 '))
-                callback()
-              })
+              callback()
             },
           },
         ],

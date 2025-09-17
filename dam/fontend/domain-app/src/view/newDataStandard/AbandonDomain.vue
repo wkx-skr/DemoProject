@@ -199,7 +199,7 @@
           <template slot="buttons">
             <div class="left-btn" v-show="selection && selection.length > 0">
               <div style="display: inline-block">
-                <datablau-button
+                <!-- <datablau-button
                   class="iconfont icon-delete"
                   type="danger"
                   size="mini"
@@ -217,7 +217,7 @@
                   "
                 >
                   {{ $t('common.button.delete') }}
-                </datablau-button>
+                </datablau-button> -->
                 <datablau-button
                   type="primary"
                   size="mini"

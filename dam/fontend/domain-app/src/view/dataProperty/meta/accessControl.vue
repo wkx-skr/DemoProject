@@ -499,7 +499,7 @@ export default {
     getOrganizationList() {
       this.treeLoading = true
       this.$http
-        .post(`/user/org/organization/tree/`, {
+        .post(`/datablauDatastander/user/org/organization/tree/`, {
           keyword: '',
         })
         .then(res => {

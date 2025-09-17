@@ -1727,7 +1727,7 @@ export default {
         }
         if (domainCode) {
           this.$http
-            .post(`/domain/domains/code/getCode`, {
+            .post(`/datablauDatastander/domain/domains/code/getCode`, {
               code: domainCode,
               categoryId: 1,
             })

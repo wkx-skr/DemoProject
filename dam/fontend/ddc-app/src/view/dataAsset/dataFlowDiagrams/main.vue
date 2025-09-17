@@ -135,7 +135,7 @@ export default {
       // return
       try {
         let response = await this.$http.post(
-          '/base/modelCategory/getModelCategories'
+          '/datablauDatastander/base/modelCategory/getModelCategories'
         )
         if (response.status == 200) {
           this.allSystemData = response.data || []

@@ -17,7 +17,7 @@ class DopService {
    * @param {string} batchId 批次ID
    */
   getBatchDetail(batchId) {
-    return HTTP.get(`/domain/apply/detail/${batchId}`)
+    return HTTP.get(`/datablauDatastander/domain/apply/detail/${batchId}`)
   }
 
   /**
@@ -52,7 +52,7 @@ class DopService {
    * 获取DOP配置
    */
   getDopConfig() {
-    return HTTP.get('/domain/apply/conf/info')
+    return HTTP.get('/datablauDatastander/domain/apply/conf/info')
   }
 
   /**
@@ -60,7 +60,7 @@ class DopService {
    * @param {Object} params 查询参数
    */
   getBatchList(params) {
-    return HTTP.post('/domain/apply/page', params)
+    return HTTP.post('/datablauDatastander/domain/apply/page', params)
   }
 
   /**
