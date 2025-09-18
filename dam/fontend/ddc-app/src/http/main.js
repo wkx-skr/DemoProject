@@ -1521,4 +1521,17 @@ export default {
   showFailure(e) {
     vThis.$message.error(e.response.data.errorMessage)
   },
+  // 通过 标准代码 获取标准详情
+  getCodeDetailService(codes) {
+    return vThis.$http.post(
+      `${DOMAIN_BASE_URL}domains/domain/getDomainByCodes`,
+      codes
+    )
+  },
+  // 通过 标准代码 获取标准详情
+  getDomainDetailByCode(codes) {
+    return this.getCodeDetailService(codes)
+    // const url = `${HTTP.BASE}domains/codes/domain/codes`
+    // return vThis.$http.post(url, codes)
+  },
 }

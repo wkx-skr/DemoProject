@@ -362,20 +362,10 @@ export default {
                 ...this.glossary,
                 folderId: this.selectedFolderIds[this.selectedFolderIds.length - 1],
               }
-              HTTP.nsCreateNsService(params)
-                .then(res => {
-                  callback()
-                  // this.$emit('editFinish')
-                  // this.$message.success(this.$t('domain.common.addSucceed'))
-                })
-                .catch(e => {
-                  callback(new Error(`中文名称“${value}”已存在`))
-                  // this.$showFailure(e)
-                })
-                .finally(() => {
-                  this.editLoading = false
-                })
-
+              this.$http.post('/domain/domains/domain/checkNsChineseNameOnlyOne?categoryId=1',value).then((res) => {
+                if (res.data) return callback(new Error('该中文名称已在系统中存在'))
+                callback()
+              })
             },
           },
         ],

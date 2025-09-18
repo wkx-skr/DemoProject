@@ -1127,7 +1127,10 @@ export default {
                 callback(new Error('中文名称长度不能超过15位'))
                 return
               }
-              callback()
+              this.$http.post('/domain/domains/code/checkCodeChineseNameOnlyOne?categoryId=1',value).then((res) => {
+                if (res.data) return callback(new Error('该中文名称已在系统中存在'))
+                callback()
+              })
             },
           },
         ],

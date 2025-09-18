@@ -54,9 +54,7 @@
         <div class="details-box">
           <!--          TODO -->
           <div class="detail2">
-            <span class="label">
-              关联旧标准
-            </span>
+            <span class="label">关联旧标准</span>
           </div>
 
           <div class="list-outer">
@@ -196,7 +194,7 @@
           v-for="(tagsTree, key, index) in tagsTreeArr"
           :key="index"
         >
-          <div class="value" style="margin-top: 1em;margin-left: 80px">
+          <div class="value" style="margin-top: 1em; margin-left: 80px">
             <img src="/static/images/metadataIcon/metadataTags.svg" alt="" />
             {{ tagsTree.parentName }}
           </div>
@@ -322,7 +320,7 @@
           v-for="(tagsTree, key, index) in tagsTreeArr"
           :key="index"
         >
-          <div class="value" style="margin-top: 1em;margin-left: 80px">
+          <div class="value" style="margin-top: 1em; margin-left: 80px">
             <img src="/static/images/metadataIcon/metadataTags.svg" alt="" />
             {{ tagsTree.parentName }}
           </div>
@@ -403,8 +401,11 @@
 </template>
 
 <script>
+import RelationDomainList from '@/view/dopList/components/relationDomainList.vue'
+
 export default {
   name: 'DescriptionDialog',
+  components: { RelationDomainList },
   props: {
     visible: {
       type: Boolean,
@@ -439,7 +440,7 @@ export default {
     visible: {
       handler(newVal) {
         if (newVal) {
-          setTimeout(()=>{
+          setTimeout(() => {
             this.$forceUpdate()
           })
         }
