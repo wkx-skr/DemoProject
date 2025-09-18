@@ -5,9 +5,9 @@
         <!-- 第一个Tab页 - 业务术语表单 -->
         <el-tab-pane label="业务术语详情" name="form" style="height: 100%">
           <datablau-form-submit no-position>
-            <div class="collapse-title">
+            <!--<div class="collapse-title">
               <h2>{{ '业务术语' }}</h2>
-            </div>
+            </div>-->
             <el-form
               class="page-form"
               label-position="right"
@@ -358,7 +358,24 @@ export default {
                 callback(new Error('中文名称不能与定义相同'))
                 return
               }
-              callback()
+              const params = {
+                ...this.glossary,
+                folderId: this.selectedFolderIds[this.selectedFolderIds.length - 1],
+              }
+              HTTP.nsCreateNsService(params)
+                .then(res => {
+                  callback()
+                  // this.$emit('editFinish')
+                  // this.$message.success(this.$t('domain.common.addSucceed'))
+                })
+                .catch(e => {
+                  callback(new Error(`中文名称“${value}”已存在`))
+                  // this.$showFailure(e)
+                })
+                .finally(() => {
+                  this.editLoading = false
+                })
+
             },
           },
         ],

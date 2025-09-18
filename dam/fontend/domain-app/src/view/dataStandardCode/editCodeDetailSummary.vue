@@ -1113,7 +1113,7 @@ export default {
             required: true,
             // message: this.$t('domain.code.nameNotEmpty'),
             trigger: 'blur',
-            validator(rule, value, callback) {
+            validator:(rule, value, callback) => {
               if (!value) {
                 callback(new Error('中文名称不能为空'))
                 return

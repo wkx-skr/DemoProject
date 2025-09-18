@@ -53,21 +53,21 @@
         </div>
         <div class="details-box">
           <!--          TODO -->
-          <!--          <div class="detail2">-->
-          <!--                <span class="label">-->
-          <!--                  关联旧标准-->
-          <!--                </span>-->
-          <!--          </div>-->
-          <!--          -->
-          <!--          <div class="list-outer">-->
-          <!--                        <relation-domain-list-->
-          <!--                          :domainCodes="details.relationDomain"-->
-          <!--                          :relationDomainState="details.relationDomainState"-->
-          <!--                          :categoryTypeId="categoryTypeId"-->
-          <!--                        ></relation-domain-list>-->
-          <!--          </div>-->
+          <div class="detail2">
+            <span class="label">
+              关联旧标准
+            </span>
+          </div>
+
+          <div class="list-outer">
+            <relation-domain-list
+              :domainCodes="details.relationDomain"
+              :relationDomainState="details.relationDomainState"
+              :categoryTypeId="categoryTypeId"
+            ></relation-domain-list>
+          </div>
           <div class="detail">
-            <span class="label">关联术语</span>
+            <span class="label">关联业务术语</span>
             <span class="value" v-html="nl2br(details.referenceTerm)"></span>
           </div>
         </div>
@@ -90,7 +90,7 @@
             <span class="value">{{ details.dataPrecision }}</span>
           </div>
           <div class="detail broader">
-            <span class="label">参考数据</span>
+            <span class="label">关联参考数据</span>
             <span class="value" style="margin-left: 0.1em; color: #479eff">
               <datablau-tooltip
                 :content="details.referenceCodeState === 'X' ? '已废弃' : ''"
@@ -104,7 +104,7 @@
                   }"
                   @click="viewCode(details.referenceCode)"
                 >
-                  {{ details.referenceCode }}
+                  {{ details.referenceTerm }}
                 </span>
               </datablau-tooltip>
             </span>
@@ -148,10 +148,10 @@
               {{ details.pathStr }}
             </span>
           </div>
-          <div class="detail">
+          <!--<div class="detail">
             <span class="label">权威系统</span>
             <span class="value" v-html="nl2br(details.authCategoryName)"></span>
-          </div>
+          </div>-->
         </div>
       </div>
       <div class="prop-line alg-line">
