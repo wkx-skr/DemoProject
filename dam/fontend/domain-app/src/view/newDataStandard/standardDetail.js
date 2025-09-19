@@ -621,6 +621,7 @@ export default {
       }
 
       this.detailInitial.referenceCode = this.detailInitial.referenceCode || ''
+      this.referenceName = this.detailInitial.referenceName || ''
       // 删除第一个元素
       this.detailInitial.path.splice(0, 1)
       this.convertPath(this.options, this.detailInitial.path, [])
@@ -989,7 +990,6 @@ export default {
       this.$bus.$emit('callDomainCodeSelector', this.typeIds, 'cksj')
     },
     handleDomainCodeSelected(row) {
-      console.log(row);
       this.detail.referenceCode = row.code
       this.referenceName = row.name
     },
@@ -1035,13 +1035,13 @@ export default {
               case '整型':
               case '实数':
               case '二进制':
-                dict['数值'].push(d)
+                dict['数值']?.push(d)
                 dict['代码']?.push(d)
                 dict['编码']?.push(d)
                 break
               case '时间':
-                dict['时间'].push(d)
-                dict['日期'].push(d)
+                dict['时间']?.push(d)
+                dict['日期']?.push(d)
                 break
               case '字符串':
                 dict['文本']?.push(d)
