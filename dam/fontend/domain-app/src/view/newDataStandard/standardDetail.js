@@ -228,6 +228,7 @@ export default {
       ],
     }
     return {
+      referenceName:'',
       formRule,
       allDims: allDims,
       dimsDisplay: new Set(),
@@ -988,7 +989,9 @@ export default {
       this.$bus.$emit('callDomainCodeSelector', this.typeIds, 'cksj')
     },
     handleDomainCodeSelected(row) {
-      this.detail.referenceCode = row.name
+      console.log(row);
+      this.detail.referenceCode = row.code
+      this.referenceName = row.name
     },
     // 切换信息类型
     changeRangeType(val) {

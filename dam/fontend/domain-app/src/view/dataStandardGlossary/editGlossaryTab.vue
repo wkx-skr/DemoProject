@@ -358,10 +358,6 @@ export default {
                 callback(new Error('中文名称不能与定义相同'))
                 return
               }
-              const params = {
-                ...this.glossary,
-                folderId: this.selectedFolderIds[this.selectedFolderIds.length - 1],
-              }
               this.$http.post('/domain/domains/domain/checkNsChineseNameOnlyOne?categoryId=1',value).then((res) => {
                 if (res.data) return callback(new Error('该中文名称已在系统中存在'))
                 callback()

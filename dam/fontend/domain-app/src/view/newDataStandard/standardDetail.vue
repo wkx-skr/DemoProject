@@ -567,7 +567,7 @@
                 v-if="categoryTypeId !== 2"
               >
                 <datablau-input
-                  v-model="detail.referenceCode"
+                  v-model="referenceName"
                   clearable
                   :placeholder="$t('domain.domain.referenceCodePlaceholder')"
                   ref="referenceCode"
