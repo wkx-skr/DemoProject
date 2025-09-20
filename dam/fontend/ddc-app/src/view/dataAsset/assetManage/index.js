@@ -44,6 +44,7 @@ export default {
   },
   data() {
     return {
+      treeBoxIsOpen: false,
       bindFailList: [], // 绑定失败的资产
       uploadData: {},
       importCatalogId: '', // 资产导入是的目录id
@@ -428,7 +429,7 @@ export default {
           middleDom: $('.resize-column-middle'),
           rightDom: $('.directory-content'),
           noCrack: true,
-          minWith: { leftMinWidth: 240, leftMaxWidth: 800 },
+          minWith: { leftMinWidth: this.treeBoxIsOpen ? 600 : 300, leftMaxWidth: 800 },
           callback: () => {
             this.$refs.structureDetails &&
               this.$refs.structureDetails.toggleEllipsis()
@@ -555,7 +556,7 @@ export default {
         dataAssetsCatalogVos.forEach(item => {
           item.isLeaf = !item.hasChild
           item.allName =
-            item.name + (item.englishName ? ' (' + item.englishName + ')' : '')
+            item.name /*+ (item.englishName ? ' (' + item.englishName + ')' : '')*/
           const currentLevel = structureLevels.find(i => i.level === item.level)
           if (currentLevel) {
             item.levelDetails = currentLevel
@@ -650,10 +651,10 @@ export default {
                 nodeData.englishName = this.baseInfo.englishName
                 nodeData.comment = this.baseInfo.comment
                 nodeData.allName =
-                  this.baseInfo.name +
+                  this.baseInfo.name /*+
                   (this.baseInfo.englishName
                     ? `(${this.baseInfo.englishName})`
-                    : ``)
+                    : ``)*/
               }
               this.breadcrumbNodes = findParents(this.allCatalogs, data)
             }

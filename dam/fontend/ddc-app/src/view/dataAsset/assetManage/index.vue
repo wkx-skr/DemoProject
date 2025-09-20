@@ -530,7 +530,7 @@
       </span>
     </datablau-dialog>
     <processDetail v-if="showProcess" ref="processDetail"></processDetail>
-    <div class="directory-tree">
+    <div class="directory-tree" :style="{ width: treeBoxIsOpen ? '600px' : '300px' }">
       <directory-tree
         ref="manageTree"
         show-checkbox
@@ -545,10 +545,11 @@
         :curStructureId="curStructureId"
         :getSubCatalog="getSubCatalog"
         :pageId="0"
+        @treeBoxExpand="isOpen => treeBoxIsOpen = isOpen"
       ></directory-tree>
     </div>
-    <div class="resize-column-middle"></div>
-    <div v-if="currentNode && currentNode.id" class="directory-content">
+    <!--<div class="resize-column-middle" :style="{ left: treeBoxIsOpen ? '600px' : '300px' }"></div>-->
+    <div v-if="currentNode && currentNode.id" class="directory-content" :style="{ left: treeBoxIsOpen ? '600px' : '300px' }">
       <div
         style="
           height: 100%;
@@ -679,6 +680,7 @@
     <div
       v-else-if="currentStructure && currentStructure.id"
       class="directory-content"
+      :style="{ left: treeBoxIsOpen ? '600px' : '300px' }"
     >
       <structure-details
         ref="structureDetails"
@@ -688,7 +690,7 @@
         :clickNode="clickNode"
       ></structure-details>
     </div>
-    <div v-else-if="!loading" class="directory-content">
+    <div v-else-if="!loading" class="directory-content" :style="{ left: treeBoxIsOpen ? '600px' : '300px' }">
       <template v-if="structureList.length">
         <datablau-null
           :tip="
@@ -847,7 +849,7 @@ export default index
   bottom: 1px;
 }
 .resize-column-middle {
-  left: 240px;
+  left: 300px;
   top: 0;
   background-color: transparent;
   width: 10px;
@@ -856,7 +858,7 @@ export default index
 .directory-tree {
   position: absolute;
   left: 0;
-  width: 240px;
+  width: 300px;
   top: 0;
   bottom: 0;
 }
@@ -865,7 +867,7 @@ export default index
   top: 0;
   bottom: 0;
   right: 0;
-  left: 240px;
+  left: 300px;
   // padding: 10px 16px;
   // padding-top: 0;
   background-color: #fff;

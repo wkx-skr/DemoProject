@@ -9,6 +9,9 @@
     }"
     role="tree"
     ref="tree"
+    :style="{
+      width: treeBoxIsOpen ? '600px' : '300px',
+    }"
   >
     <template v-if="height && !isEmpty">
       <div
@@ -90,6 +93,7 @@ export default {
 
   mixins: [emitter],
   props: {
+    treeBoxIsOpen: Boolean,
     data: {
       type: Array,
     },
@@ -280,7 +284,7 @@ export default {
             lock:
               'position:absolute;right: 7px;top:' +
               this.moreTop +
-              ';display:inline-block;width: 24px;height: 24px;line-height:24px;background:#fef5e5;color: #ee9d02;border-radius: 12px;text-align:center;',
+              ';display:none;width: 24px;height: 24px;line-height:24px;background:#d7d7d7;color: #aaaaaa;border-radius: 12px;text-align:center;',
             label: 'position:absolute;',
             img: 'width: 32px; max-height: 18px;',
             noClick:
@@ -335,34 +339,6 @@ export default {
               ) : null}
               {this.isTooltipDisabled(h, node) ? (
                 <span style={style.label}>
-                  {data.status === 'UNPUBLISHED' ? (
-                    <img
-                      src={require('@/assets/images/dataAssets/shangchuan.svg')}
-                      style="width: 14px; margin-right: 4px;"
-                      alt=""
-                    />
-                  ) : null}
-                  {data.status === 'PUBLISHED' ? (
-                    <img
-                      src={require('@/assets/images/dataAssets/published.svg')}
-                      style="width: 14px; margin-right: 4px;"
-                      alt=""
-                    />
-                  ) : null}
-                  {data.status === 'UNDER_REVIEW' ? (
-                    <img
-                      src={require('@/assets/images/dataAssets/checking.svg')}
-                      style="width: 14px; margin-right: 4px;"
-                      alt=""
-                    />
-                  ) : null}
-                  {data.status === 'OFFLINE' ? (
-                    <img
-                      src={require('@/assets/images/dataAssets/offline.svg')}
-                      style="width: 14px; margin-right: 4px;"
-                      alt=""
-                    />
-                  ) : null}
                   {node.label}
                 </span>
               ) : (
@@ -373,38 +349,42 @@ export default {
                   disabled={this.isTooltipDisabled(h, node)}
                 >
                   <span class={labelClass} style={style.label}>
-                    {data.status === 'UNPUBLISHED' ? (
-                      <img
-                        src={require('@/assets/images/dataAssets/shangchuan.svg')}
-                        style="width: 14px; margin-right: 4px;"
-                        alt=""
-                      />
-                    ) : null}
-                    {data.status === 'PUBLISHED' ? (
-                      <img
-                        src={require('@/assets/images/dataAssets/published.svg')}
-                        style="width: 14px; margin-right: 4px;"
-                        alt=""
-                      />
-                    ) : null}
-                    {data.status === 'UNDER_REVIEW' ? (
-                      <img
-                        src={require('@/assets/images/dataAssets/checking.svg')}
-                        style="width: 14px; margin-right: 4px;"
-                        alt=""
-                      />
-                    ) : null}
-                    {data.status === 'OFFLINE' ? (
-                      <img
-                        src={require('@/assets/images/dataAssets/offline.svg')}
-                        style="width: 14px; margin-right: 4px;"
-                        alt=""
-                      />
-                    ) : null}
                     {node.label}
                   </span>
                 </el-tooltip>
               )}
+              {data.status === 'UNPUBLISHED' ? (
+                <img
+                  class="state-icon"
+                  src={require('@/assets/images/dataAssets/shangchuan.svg')}
+                  style="width: 14px; margin-right: 4px;"
+                  alt=""
+                />
+              ) : null}
+              {data.status === 'PUBLISHED' ? (
+                <img
+                  class="state-icon"
+                  src={require('@/assets/images/dataAssets/published.svg')}
+                  style="width: 14px; margin-right: 4px;"
+                  alt=""
+                />
+              ) : null}
+              {data.status === 'UNDER_REVIEW' ? (
+                <img
+                  class="state-icon"
+                  src={require('@/assets/images/dataAssets/checking.svg')}
+                  style="width: 14px; margin-right: 4px;"
+                  alt=""
+                />
+              ) : null}
+              {data.status === 'OFFLINE' ? (
+                <img
+                  class="state-icon"
+                  src={require('@/assets/images/dataAssets/offline.svg')}
+                  style="width: 14px; margin-right: 4px;"
+                  alt=""
+                />
+              ) : null}
               {LOCKED ? (
                 <span style={style.lock} class="iconfont icon-lock"></span>
               ) : null}

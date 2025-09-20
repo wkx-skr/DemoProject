@@ -49,6 +49,7 @@ export default {
   components: { AddAssetsDialog, IsShowTooltip },
   data() {
     return {
+      treeBoxIsOpen: false,
       showUnFold: true,
       dirId: 1,
       operateNode: {},
@@ -214,6 +215,11 @@ export default {
     this.getMetaModelTypes()
   },
   methods: {
+    // 展开 / 收起
+    handlerTreeBoxExpand(){
+      this.treeBoxIsOpen = !this.treeBoxIsOpen
+      this.$emit('treeBoxExpand', this.treeBoxIsOpen)
+    },
     getMetaModelTypes() {
       api
         .getMetaModelTypes()

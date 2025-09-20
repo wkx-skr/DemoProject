@@ -104,7 +104,7 @@
         </div>
       </template>
     </div>
-    <div class="bottom-part lazy-tree-box">
+    <div class="bottom-part lazy-tree-box" style="display: flex;">
       <!-- <i
         v-show="showClose"
         class="el-icon-circle-close cursor-close"
@@ -137,6 +137,13 @@
           :value="item.id"
         ></el-option>
       </datablau-select>
+      <!-- 展开 / 收起 -->
+      <span
+        :class="['tree-box-expand-icon', treeBoxIsOpen ? 'el-icon-s-fold' : 'el-icon-s-unfold']"
+        @click="handlerTreeBoxExpand"
+        style="cursor: pointer; font-size: 34px;"
+      >
+      </span>
     </div>
     <div
       class="root-name"
@@ -185,6 +192,7 @@
         :itemSize="34"
         :highlightCurrent="true"
         height="100%"
+        :treeBoxIsOpen="treeBoxIsOpen"
       ></datablau-easy-tree>
     </div>
     <datablau-dialog
