@@ -11,7 +11,7 @@
           v-if="catalogIcon.length"
           :src="catalogIcon"
           alt=""
-          style="width: 48px; max-height: 48px"
+          style="width: 86px; max-height: 48px"
         />
         <datablau-icon
           v-else
@@ -647,7 +647,7 @@ export default {
   }
   &.max-screen-top-base {
     .left-part {
-      width: 850px;
+      //width: 850px;
       .name-box {
         width: 780px;
         .name {
@@ -674,7 +674,7 @@ export default {
     display: block;
   }
   .left-part {
-    width: 240px;
+    //width: 240px;
     height: 48px;
     float: left;
     &:after {

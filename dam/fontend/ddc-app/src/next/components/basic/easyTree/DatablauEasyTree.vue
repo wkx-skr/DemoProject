@@ -282,7 +282,7 @@ export default {
               this.moreTop +
               ';display:inline-block;width: 24px;height: 24px;line-height:24px;background:#fef5e5;color: #ee9d02;border-radius: 12px;text-align:center;',
             label: 'position:absolute;',
-            img: 'width: 16px; max-height: 16px;',
+            img: 'width: 32px; max-height: 18px;',
             noClick:
               'position:absolute; top: 0; right: 0;left: ' +
               noClickLeft +
@@ -294,7 +294,7 @@ export default {
           const HAS_IMG =
             this.dataImgFunction && this.dataImgFunction(data, node)
           if (HAS_ICON || HAS_IMG) {
-            style.label += 'left: 23px;'
+            style.label += 'left: 32px;'
           } else {
             style.label += 'left: 0;'
           }
