@@ -228,6 +228,7 @@ export default {
       ],
     }
     return {
+      relationDomainArray: [],
       referenceName:'',
       formRule,
       allDims: allDims,
@@ -622,6 +623,17 @@ export default {
 
       this.detailInitial.referenceCode = this.detailInitial.referenceCode || ''
       this.referenceName = this.detailInitial.referenceName || ''
+      //
+      HTTP.getDomainDetailByCode(this.detailInitial.relationDomain)
+        .then(res => {
+          const data = res.data
+          if (data && Array.isArray(data)) {
+            this.relationDomainString = data.map(item => item.chineseName).join(',')
+          }
+        })
+        .catch(e => {
+          this.$showFailure(e)
+        })
       // 删除第一个元素
       this.detailInitial.path.splice(0, 1)
       this.convertPath(this.options, this.detailInitial.path, [])
@@ -1108,7 +1120,8 @@ export default {
     },
     handleStandardChoose(choose) {
       this.relatedDomainsOptions = choose
-      this.detail.relationDomain = choose.map(item => item.chineseName)
+      this.detail.relationDomain = choose.map(item => item.domainCode)
+      this.relationDomainArray = choose.map(item => item.chineseName);
     },
     getSelectionOptions() {
       this.ownerOrgOptions = this.allOrganizations || []
@@ -1321,7 +1334,7 @@ export default {
     'detail.relationDomain': {
       handler: function (newVal) {
         if (newVal && Array.isArray(newVal)) {
-          this.relationDomainString = newVal.join(',')
+          this.relationDomainString = this.relationDomainArray.join(',')
         }
       },
     },
