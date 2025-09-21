@@ -9,9 +9,6 @@
     }"
     role="tree"
     ref="tree"
-    :style="{
-      width: treeBoxIsOpen ? '600px' : '300px',
-    }"
   >
     <template v-if="height && !isEmpty">
       <div

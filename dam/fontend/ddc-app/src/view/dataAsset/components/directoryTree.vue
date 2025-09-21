@@ -138,12 +138,12 @@
         ></el-option>
       </datablau-select>
       <!-- 展开 / 收起 -->
-      <span
+      <!--<span
         :class="['tree-box-expand-icon', treeBoxIsOpen ? 'el-icon-s-fold' : 'el-icon-s-unfold']"
         @click="handlerTreeBoxExpand"
         style="cursor: pointer; font-size: 34px; color: #b6b6b6;"
       >
-      </span>
+      </span>-->
     </div>
     <div
       class="root-name"
@@ -192,7 +192,6 @@
         :itemSize="34"
         :highlightCurrent="true"
         height="100%"
-        :treeBoxIsOpen="treeBoxIsOpen"
       ></datablau-easy-tree>
     </div>
     <datablau-dialog

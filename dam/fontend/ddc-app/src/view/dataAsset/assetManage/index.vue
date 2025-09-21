@@ -530,7 +530,7 @@
       </span>
     </datablau-dialog>
     <processDetail v-if="showProcess" ref="processDetail"></processDetail>
-    <div class="directory-tree" :style="{ width: treeBoxIsOpen ? '600px' : '300px' }">
+    <div class="directory-tree" >
       <directory-tree
         ref="manageTree"
         show-checkbox
@@ -548,8 +548,8 @@
         @treeBoxExpand="isOpen => treeBoxIsOpen = isOpen"
       ></directory-tree>
     </div>
-    <!--<div class="resize-column-middle" :style="{ left: treeBoxIsOpen ? '600px' : '300px' }"></div>-->
-    <div v-if="currentNode && currentNode.id" class="directory-content" :style="{ left: treeBoxIsOpen ? '600px' : '300px' }">
+    <div class="resize-column-middle"></div>
+    <div v-if="currentNode && currentNode.id" class="directory-content">
       <div
         style="
           height: 100%;
@@ -680,7 +680,6 @@
     <div
       v-else-if="currentStructure && currentStructure.id"
       class="directory-content"
-      :style="{ left: treeBoxIsOpen ? '600px' : '300px' }"
     >
       <structure-details
         ref="structureDetails"
@@ -690,7 +689,7 @@
         :clickNode="clickNode"
       ></structure-details>
     </div>
-    <div v-else-if="!loading" class="directory-content" :style="{ left: treeBoxIsOpen ? '600px' : '300px' }">
+    <div v-else-if="!loading" class="directory-content">
       <template v-if="structureList.length">
         <datablau-null
           :tip="

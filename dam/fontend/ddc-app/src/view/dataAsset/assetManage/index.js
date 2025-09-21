@@ -429,7 +429,7 @@ export default {
           middleDom: $('.resize-column-middle'),
           rightDom: $('.directory-content'),
           noCrack: true,
-          minWith: { leftMinWidth: this.treeBoxIsOpen ? 600 : 300, leftMaxWidth: 800 },
+          minWith: { leftMinWidth: 300, leftMaxWidth: 800 },
           callback: () => {
             this.$refs.structureDetails &&
               this.$refs.structureDetails.toggleEllipsis()
