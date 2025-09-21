@@ -298,7 +298,7 @@ export default {
           const HAS_IMG =
             this.dataImgFunction && this.dataImgFunction(data, node)
           if (HAS_ICON || HAS_IMG) {
-            style.label += 'left: 32px;'
+            style.label += 'left: 36px;'
           } else {
             style.label += 'left: 0;'
           }
@@ -338,9 +338,7 @@ export default {
                 ></img>
               ) : null}
               {this.isTooltipDisabled(h, node) ? (
-                <span style={style.label}>
-                  {node.label}
-                </span>
+                <span style={style.label}>{node.label}</span>
               ) : (
                 <el-tooltip
                   content={node.label}
@@ -354,36 +352,52 @@ export default {
                 </el-tooltip>
               )}
               {data.status === 'UNPUBLISHED' ? (
-                <img
+                /*<img
                   class="state-icon"
                   src={require('@/assets/images/dataAssets/shangchuan.svg')}
                   style="width: 14px; margin-right: 4px;"
                   alt=""
-                />
+                />*/
+                <span
+                  class="state-icon"
+                  style="width: 6px;height: 6px; margin-right: 4px;background-color: #FF8940;border-radius:50%;"
+                ></span>
               ) : null}
               {data.status === 'PUBLISHED' ? (
-                <img
+                /*<img
                   class="state-icon"
                   src={require('@/assets/images/dataAssets/published.svg')}
                   style="width: 14px; margin-right: 4px;"
                   alt=""
-                />
+                />*/
+                <span
+                  class="state-icon"
+                  style="width: 6px;height: 6px; margin-right: 4px;background-color: #7CD629;border-radius:50%;"
+                ></span>
               ) : null}
               {data.status === 'UNDER_REVIEW' ? (
-                <img
+                /*<img
                   class="state-icon"
                   src={require('@/assets/images/dataAssets/checking.svg')}
                   style="width: 14px; margin-right: 4px;"
                   alt=""
-                />
+                />*/
+                <span
+                  class="state-icon"
+                  style="width: 6px;height: 6px; margin-right: 4px;background-color: #409EFF;border-radius:50%;"
+                ></span>
               ) : null}
               {data.status === 'OFFLINE' ? (
-                <img
+                /*<img
                   class="state-icon"
                   src={require('@/assets/images/dataAssets/offline.svg')}
                   style="width: 14px; margin-right: 4px;"
                   alt=""
-                />
+                />*/
+                <span
+                  class="state-icon"
+                  style="width: 6px;height: 6px; margin-right: 4px;background-color: #B3B3B3;border-radius:50%;"
+                ></span>
               ) : null}
               {LOCKED ? (
                 <span style={style.lock} class="iconfont icon-lock"></span>

@@ -141,7 +141,7 @@
       <span
         :class="['tree-box-expand-icon', treeBoxIsOpen ? 'el-icon-s-fold' : 'el-icon-s-unfold']"
         @click="handlerTreeBoxExpand"
-        style="cursor: pointer; font-size: 34px;"
+        style="cursor: pointer; font-size: 34px; color: #b6b6b6;"
       >
       </span>
     </div>
