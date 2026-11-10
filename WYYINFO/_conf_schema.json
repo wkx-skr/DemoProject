@@ -1,0 +1,25 @@
+{
+  "enabled": {
+    "description": "启用王一一",
+    "type": "bool",
+    "default": true
+  },
+  "allowed_scopes": {
+    "description": "允许使用的会话标识",
+    "hint": "在目标私聊发送 /yiyi_here，把返回的完整标识加入此列表。空列表不注入人格、不读写记忆。",
+    "type": "list",
+    "default": []
+  },
+  "guardian_title": {
+    "description": "一一对你的称呼",
+    "hint": "默认用“你”，可自行改为爸爸、妈妈或其他称呼。",
+    "type": "string",
+    "default": "你"
+  },
+  "memory_enabled": {
+    "description": "启用本插件的显式长期记忆",
+    "hint": "若使用 LivingMemory 统一管理记忆，可关闭此项；成长记录和角色档案仍然启用。",
+    "type": "bool",
+    "default": true
+  }
+}

@@ -1,0 +1,7 @@
+name: astrbot_plugin_wyy
+display_name: 王一一 · 共同成长
+desc: 可编辑的原创角色档案、显式记忆与共同活动成长记录。
+version: 0.1.0
+author: wkx
+repo: https://github.com/wkx-skr/DemoProject
+astrbot_version: ">=4.24.0,<5"
