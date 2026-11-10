@@ -1,0 +1,21 @@
+{
+  "source": {
+    "persona_state": "%USERPROFILE%/.dsh/douyin-browser/memory/persona/state.json",
+    "shared_db": "%USERPROFILE%/.dsh/douyin-browser/memory/shared.sqlite"
+  },
+  "state_db": "%USERPROFILE%/.dsh/douyin-browser/control/livingmemory-sync.sqlite3",
+  "ssh": {
+    "host": "your-server.example",
+    "user": "your-ssh-user",
+    "key_path": "%USERPROFILE%/.ssh/your_existing_key",
+    "remote_port": 6185,
+    "astrbot_root": "/opt/AstrBot"
+  },
+  "destination": {
+    "auth_mode": "ssh-admin-session",
+    "session_id": "livingmemory:global",
+    "persona_id": "default",
+    "adapter_id": "aiocqhttp"
+  },
+  "timeout": 45
+}

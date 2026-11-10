@@ -70,9 +70,19 @@ python -m yiyi --scope another-demo status
 | `/yiyi_activity share` | 登记分享日常：2 点 |
 | `/yiyi_activity reflect` | 登记复盘尝试：4 点 |
 
-已有 LivingMemory 时，可将 `memory_enabled` 设为 `false`，由它承担长期记忆。本项目不读取或改写 LivingMemory 数据库；两边的范围配置、删除与备份分别管理。
+已有 LivingMemory 时，可将 `memory_enabled` 设为 `false`，由它承担长期记忆。基础成长插件不访问 LivingMemory 数据库；下述独立的本机抖音同步器通过 LivingMemory 管理接口导入资料，不直接操作其数据库。两套记忆的范围配置、删除与备份分别管理。
 
 若 AstrBot 中已有一一的人格，将 `use_existing_persona` 设为 `true`。插件保留原有身份、称呼与性格，只补充动态资料解释和活动积累；此时 `guardian_title` 不生效，称呼继续由原人格决定。新活动计数从 0 开始，不代表原有关系或成长经历被清空。
+
+## 本机抖音接入 LivingMemory
+
+独立模块 `yiyi_sync` 将 DSH 已保存的视频观察与候选感想单向导入服务器 LivingMemory。它只读本机 `persona/state.json`，可从只读 `shared.sqlite` 补充视频记录；每个视频保留一条观察，每个主题与视频保留一条最新非空感想。资料均标注外部来源和未核实状态，不把点赞当作用户喜好。
+
+当前方案使用已确认的全局范围 `livingmemory:global`、人格 `default` 和适配器 `aiocqhttp`。同一人格与适配器下的全局聊天可由 LivingMemory 召回这些资料，是否进入某轮回复取决于检索与注入策略。
+
+同步通过临时 SSH 转发和 LivingMemory 管理接口完成，持久队列负责去重、版本和失败重试；只有云端详情核对一致才记为成功。同步器不发送 QQ 消息、不修改人格、不训练模型，也不负责控制浏览器开始观看。旧 `7900 /learn` 接口只表示学习请求入队。
+
+配置、预览、手动同步和每 10 分钟运行的 Windows 任务说明见 [抖音记忆接入](docs/douyin-memory-integration.md)。本机同步器需要电脑开机、登录并联网；它独立于 **v0.1.1** 基础插件，不包含在插件 ZIP 中。
 
 ## 目录与验证
 
@@ -82,6 +92,9 @@ prompts/system.md           稳定行为规则
 yiyi/character.py           档案校验和提示词组装
 yiyi/store.py               持久记忆、去重与成长事务
 yiyi/__main__.py            本地命令行工具
+yiyi_sync/                 本机 DSH → LivingMemory 单向同步器
+integrations/douyin/        同步配置示例，不含部署凭据
+scripts/run_douyin_sync.ps1 本机同步与状态报告入口
 main.py                    AstrBot 插件入口
 metadata.yaml              插件元数据
 _conf_schema.json          AstrBot 配置表单
@@ -107,4 +120,4 @@ python scripts/package_plugin.py
 
 输出为 `dist/astrbot_plugin_wyy-0.1.1.zip`，仅包含插件代码、档案和说明，不包含运行数据。更新时重新安装此包或复制子目录内容；不要使用指向仓库根目录的自动代码更新。
 
-下一步先确认年龄/生日、专属称呼、dsh 所在位置、AstrBot 版本与现有插件列表，再做一次私聊联调。之后可增加经过确认的成长日记、兴趣变化和可控的主动问候。
+后续可按创作需要补充年龄、生日和专属称呼，再逐步增加经过确认的成长日记、兴趣变化和可控的主动问候。
