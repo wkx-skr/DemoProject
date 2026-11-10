@@ -16,6 +16,12 @@
     "type": "string",
     "default": "你"
   },
+  "use_existing_persona": {
+    "description": "保留 AstrBot 已有角色设定",
+    "hint": "已在 AstrBot 配置一一的人格时启用。仅补充动态资料解释、记忆与活动成长，不注入本插件默认人物档案；guardian_title 不生效。修改后请重载插件。",
+    "type": "bool",
+    "default": false
+  },
   "memory_enabled": {
     "description": "启用本插件的显式长期记忆",
     "hint": "若使用 LivingMemory 统一管理记忆，可关闭此项；成长记录和角色档案仍然启用。",

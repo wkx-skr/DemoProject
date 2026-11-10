@@ -227,6 +227,53 @@ class AdapterTests(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(self.plugin.store.list_memories(self.scope), [])
         self.assertEqual(self.plugin.store.status(self.scope)["xp"], 0)
 
+    def test_default_and_explicit_false_keep_original_persona_behavior(self):
+        expected = (
+            self.adapter.MARKER
+            + "\n"
+            + self.adapter.system_prompt(self.plugin.profile, self.config["guardian_title"])
+        )
+        self.assertEqual(self.plugin.persona, expected)
+        self.config["use_existing_persona"] = False
+        plugin = self.adapter.WangYiyiPlugin(object(), self.config)
+        self.assertEqual(plugin.persona, expected)
+
+    async def test_existing_persona_is_preserved_with_temporary_memory_and_growth(self):
+        self.config.update(
+            use_existing_persona=True,
+            guardian_title="本插件称呼不应生效",
+        )
+        with patch.object(self.adapter, "system_prompt") as build_default_prompt:
+            self.plugin = self.adapter.WangYiyiPlugin(object(), self.config)
+            build_default_prompt.assert_not_called()
+        await self._command(self.plugin.remember, StubEvent("/yiyi_remember 今天一起读了一段故事"))
+        await self._command(self.plugin.activity, StubEvent("/yiyi_activity read"))
+        existing_prompt = "TEST EXISTING PERSONA\n保留这段测试用角色设定及原有空白。  \n"
+        request = StubRequest(system_prompt=existing_prompt)
+        await self.plugin.inject_character(self.event, request)
+        await self.plugin.inject_character(self.event, request)
+        self.assertEqual(request.system_prompt[: len(existing_prompt)], existing_prompt)
+        self.assertEqual(request.system_prompt.count(self.adapter.MARKER), 1)
+        self.assertTrue(self.plugin.persona.startswith(self.adapter.MARKER + "\n"))
+        for unwanted in (
+            self.config["guardian_title"],
+            self.plugin.profile["personality"]["summary"],
+            '"schema_version"',
+            '"identity"',
+            '"speech"',
+            '"address_user"',
+            "当前确认的用户称呼",
+        ):
+            self.assertNotIn(unwanted, request.system_prompt)
+        for interest in self.plugin.profile["interests"]["initial"]:
+            self.assertNotIn(interest["name"], request.system_prompt)
+        self.assertEqual(len(request.extra_user_content_parts), 1)
+        self.assertTrue(request.extra_user_content_parts[0]._no_save)
+        data = self._data(request)
+        self.assertEqual(data["xp"], 3)
+        self.assertEqual(data["memories"][0]["text"], "今天一起读了一段故事")
+        self.assertEqual(data["stage"], self.adapter.stage_for(self.plugin.profile, 3)["name"])
+
     async def test_each_new_request_reads_fresh_context_after_forgetting(self):
         memory_id = self.plugin.store.add_memory(self.scope, "原来的偏好")
         first = StubRequest()

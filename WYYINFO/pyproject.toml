@@ -1,6 +1,6 @@
 [project]
 name = "wang-yiyi-framework"
-version = "0.1.0"
+version = "0.1.1"
 description = "Editable character, memory and growth foundation for AstrBot"
 requires-python = ">=3.10"
 dependencies = []
