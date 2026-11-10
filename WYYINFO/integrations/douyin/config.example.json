@@ -4,6 +4,11 @@
     "shared_db": "%USERPROFILE%/.dsh/douyin-browser/memory/shared.sqlite"
   },
   "state_db": "%USERPROFILE%/.dsh/douyin-browser/control/livingmemory-sync.sqlite3",
+  "attributes": {
+    "enabled": true,
+    "state_db": "%USERPROFILE%/.dsh/douyin-browser/control/yiyi-attributes.sqlite3",
+    "panel_path": "attribute-panel.html"
+  },
   "ssh": {
     "host": "your-server.example",
     "user": "your-ssh-user",

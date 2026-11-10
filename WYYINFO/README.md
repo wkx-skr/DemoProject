@@ -84,6 +84,14 @@ python -m yiyi --scope another-demo status
 
 配置、预览、手动同步和每 10 分钟运行的 Windows 任务说明见 [抖音记忆接入](docs/douyin-memory-integration.md)。本机同步器需要电脑开机、登录并联网；它独立于 **v0.1.1** 基础插件，不包含在插件 ZIP 中。
 
+## 可扩展属性面板
+
+`yiyi_attributes` 让一一从学习事件中新增属性名称，而不是只能填写固定的一张表。当前已将 DSH 的候选兴趣主题接入：自动建立新标签、按视频去重证据、保留修订历史，聚合标签继续通过现有队列进入 LivingMemory。
+
+[初始属性模板](characters/wang_yiyi.attributes.json) 提供 8 项尚未应用的性格设计值；身份、称呼与已有 XP 继续继承。动态属性支持兴趣、知识主题、待验证技能和问题；模型自评与实测能力分开，不设置意识分。同步可生成本地 HTML 面板快照。
+
+详细规则、网页学习事件接口、面板命令和现有案例见 [属性面板说明](docs/attribute-panel.md)。自动来源目前是 DSH 抖音记录；网页采集器需按统一事件接口接入。属性变化不自动训练模型或增加工具权限。
+
 ## 目录与验证
 
 ```text
@@ -93,6 +101,7 @@ yiyi/character.py           档案校验和提示词组装
 yiyi/store.py               持久记忆、去重与成长事务
 yiyi/__main__.py            本地命令行工具
 yiyi_sync/                 本机 DSH → LivingMemory 单向同步器
+yiyi_attributes/           开放标签、证据历史与本地属性面板
 integrations/douyin/        同步配置示例，不含部署凭据
 scripts/run_douyin_sync.ps1 本机同步与状态报告入口
 main.py                    AstrBot 插件入口

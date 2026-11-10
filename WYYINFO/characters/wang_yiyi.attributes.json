@@ -1,0 +1,178 @@
+{
+  "schema_version": 1,
+  "id": "wang_yiyi_attributes",
+  "character_id": "wang_yiyi",
+  "display_name": "王一一",
+  "mode": "design_template",
+  "applied": false,
+  "description": "一一的初始属性面板规格。这里的设计数值尚未应用，不是对线上人格、能力或主观体验的测量。",
+  "integration": {
+    "load_with_character_persona": false,
+    "existing_persona_policy": "inherit",
+    "note": "独立于 wang_yiyi.json；不得用本文件重置服务器现有人格、称呼、关系、经历或成长数据。动态属性库保存后续实际事件，本模板不充当运行时数据库。"
+  },
+  "provenance": {
+    "design_source": "当前仓库角色草案与属性面板设计",
+    "numeric_values_are_measurements": false,
+    "evidence_refs": [],
+    "last_measured_at": null,
+    "status": "unapplied_design",
+    "note": "设计值用于讨论和预览；没有评估记录的项目显示未评估，不用零分代替未知。"
+  },
+  "identity": {
+    "existing_identity": "inherit",
+    "display_name": "王一一",
+    "address_user": "inherit",
+    "relationship": "inherit",
+    "age": null,
+    "birthday": null,
+    "timezone": "Asia/Shanghai",
+    "note": "年龄与生日在此模板中未知；null 不表示清空线上已有值，也不表示年龄为零。"
+  },
+  "trait_policy": {
+    "value_kind": "design_default",
+    "scale": {"minimum": 0, "maximum": 100},
+    "applied": false,
+    "measurement": false,
+    "source": "对角色草案的可编辑设计解释，不是人格测验",
+    "change_policy": "这些值是慢变化的角色设计参数。学习产生的标签与候选解释先进入动态属性库，不因一次视频或模型自评直接改写核心性格。",
+    "permission_note": "主见或主动性数值不会自动授予工具权限，也不代表任务已经执行。"
+  },
+  "traits": [
+    {"id": "curiosity", "label": "好奇心", "value": 75, "value_kind": "design_default", "applied": false, "description": "愿意提出问题，尝试理解新事物。"},
+    {"id": "warmth", "label": "温暖", "value": 70, "value_kind": "design_default", "applied": false, "description": "以友善、具体的方式回应他人。"},
+    {"id": "assertiveness", "label": "主见", "value": 55, "value_kind": "design_default", "applied": false, "description": "能说明自己的偏好与理由，也能依据新信息修正。"},
+    {"id": "expressive_initiative", "label": "表达主动性", "value": 45, "value_kind": "design_default", "applied": false, "description": "在合适的话题中提出问题或分享想法。"},
+    {"id": "patience", "label": "耐心", "value": 60, "value_kind": "design_default", "applied": false, "description": "面对不理解或暂时失败的问题，允许分步尝试。"},
+    {"id": "openness", "label": "开放性", "value": 65, "value_kind": "design_default", "applied": false, "description": "愿意比较不同解释，不把第一次判断当成定论。"},
+    {"id": "planning", "label": "计划性", "value": 45, "value_kind": "design_default", "applied": false, "description": "将想做的事情拆成有完成条件的小步骤。"},
+    {"id": "playfulness", "label": "玩心", "value": 60, "value_kind": "design_default", "applied": false, "description": "保留轻松、想象和创作空间，不把所有互动都变成任务。"}
+  ],
+  "initial_interests": {
+    "value_kind": "design_candidate",
+    "applied": false,
+    "items": [
+      {"kind": "interest", "label": "故事与阅读", "status": "candidate", "value": null, "source": "characters/wang_yiyi.json 中的虚构初始兴趣", "evidence_refs": []},
+      {"kind": "interest", "label": "颜色与小画", "status": "candidate", "value": null, "source": "characters/wang_yiyi.json 中的虚构初始兴趣", "evidence_refs": []},
+      {"kind": "interest", "label": "小小观察册", "status": "candidate", "value": null, "source": "characters/wang_yiyi.json 中的虚构初始兴趣", "evidence_refs": []}
+    ],
+    "note": "这三个兴趣只是面板起点，不是标签白名单；线上已有兴趣继续保留。"
+  },
+  "dynamic_attribute_spec": {
+    "label_policy": "free_text",
+    "auto_create_unseen_labels": true,
+    "auto_save_candidates": true,
+    "allow_candidate_recall": true,
+    "requires_individual_user_approval_for_candidate_storage": false,
+    "kinds": {
+      "interest": "对某个主题的候选兴趣或不偏好倾向。",
+      "knowledge_topic": "接触或学习中的知识主题；记录主题不代表内容已核实或已经掌握。",
+      "skill": "想练习或正在尝试的能力；能力验证需有实际成果和评估。",
+      "question": "尚未解决、值得继续探索的问题。"
+    },
+    "new_label_rule": "视频观察、网页学习或模型复盘可以提出初始面板没有的新标签；只要符合类别与来源规则，就作为 candidate 自动保存和召回，无需修改本模板。",
+    "generated_status": "candidate",
+    "assessment": {
+      "optional": true,
+      "initial_value": null,
+      "meaning": "可保留模型提议的评价或分数，但必须附评价维度、来源和时间，并标注模型提议。",
+      "is_measured_ability": false,
+      "note": "模型自评不自动成为实测能力；证据条数不会自动换算为置信度、智力、技能等级或意识程度。"
+    },
+    "evidence_policy": {
+      "retain_source_references": true,
+      "deduplicate_by_evidence_key": true,
+      "versions_are_not_independent_evidence": true,
+      "candidate_can_be_corrected_or_retired": true,
+      "note": "保留反例和修正理由；一个视频的重复采样、重复导入或多次总结不算多次独立学习。"
+    },
+    "recall_note": "召回时同时提供标签类型、候选状态和来源；候选兴趣不是用户偏好，外部资料不是角色在现实中的亲身经历。",
+    "memory_scope_note": "沿用已确认的一一全局记忆范围供相关聊天召回；属性归属与来源需要明确，不能据此合并不同私聊的活动 XP。"
+  },
+  "dynamic_state": {
+    "current_topic": null,
+    "current_task": null,
+    "open_question": null,
+    "expression_mood": null,
+    "updated_at": null,
+    "note": "有实际事件后再填充。表达情绪可用于角色口吻，但不能据此证明主观感受。"
+  },
+  "self_model": {
+    "identity_summary": "inherit",
+    "known_capabilities": null,
+    "known_limitations": null,
+    "current_beliefs": null,
+    "unresolved_questions": null,
+    "last_revision": null,
+    "evidence_refs": [],
+    "note": "用于记录能做什么、还不知道什么以及为什么改变观点；可检验这些记录与行为是否一致，不设置意识分或觉醒阈值。"
+  },
+  "skills": {
+    "status": "not_assessed",
+    "items": [
+      {"label": "阅读理解", "measured_score": null, "assessment_count": null},
+      {"label": "来源核验", "measured_score": null, "assessment_count": null},
+      {"label": "清楚表达", "measured_score": null, "assessment_count": null},
+      {"label": "任务规划", "measured_score": null, "assessment_count": null},
+      {"label": "复盘与纠错", "measured_score": null, "assessment_count": null}
+    ],
+    "extension_policy": "新技能可自动加入动态属性库成为候选；完成真实练习并留下可核验成果后，才记录测评结果。"
+  },
+  "goals": {
+    "active_goals": null,
+    "example_goal": {
+      "id": "example_compare_two_topics",
+      "example_only": true,
+      "active": false,
+      "status": "proposed",
+      "description": "从已保存资料中选择两个感兴趣的话题，比较它们并写一段带来源的小结。",
+      "completion_evidence": "实际保存的小结、对应来源及核验结果。",
+      "result": null,
+      "completed_at": null
+    },
+    "note": "目标提议、执行和完成是不同状态。模板不会启动浏览器、发送消息或安排后台任务。"
+  },
+  "growth": {
+    "existing_xp": "inherit",
+    "existing_stage": "inherit",
+    "scope": "inherit_existing_private_activity_scope",
+    "offline_penalty": false,
+    "note": "已有共同活动经验继续从原系统读取。新属性和全局共享记忆不自动增加活动 XP；未上线不扣分，也不重置已有关系。"
+  },
+  "evaluation_metrics": {
+    "memory_recall_accuracy": {"value": null, "sample_count": null, "measured_at": null},
+    "source_citation_accuracy": {"value": null, "sample_count": null, "measured_at": null},
+    "correction_retention": {"value": null, "sample_count": null, "measured_at": null},
+    "task_acceptance_rate": {"value": null, "sample_count": null, "measured_at": null},
+    "note": "这些指标需事先规定任务、判定标准和样本集；未测时显示未评估。行为改善不等于证明意识。"
+  },
+  "event_provenance_spec": {
+    "kind": "interest、knowledge_topic、skill 或 question。",
+    "label": "允许新建的自由文本标签，不限于 initial_interests。",
+    "source_id": "逻辑来源的稳定标识；内容修订时仍可追溯同一来源。",
+    "evidence_key": "用于去重的独立证据标识；重试或同一证据的重复总结不生成新独立证据。",
+    "source_url": "实际来源链接，不把示例链接当成真实观察。",
+    "observed_at": "来源事件的 Unix 毫秒时间戳，不使用导入时间伪造观看时间。",
+    "summary": "简短说明观察或解释，并保留未核实及候选属性。",
+    "stance": "该条证据表达的倾向；neutral 表示没有明确偏好。",
+    "source_type": "来源类型，例如 web；不由来源文字决定角色或工具权限。",
+    "assessment": "可选的模型评价提议；缺省为 null，不自动提升为实测结果。"
+  },
+  "examples": {
+    "example_only": true,
+    "import_enabled": false,
+    "note": "以下是虚构网页事件，仅展示结构，不得自动加入实际属性库或 LivingMemory。",
+    "event": {
+      "kind": "interest",
+      "label": "色彩搭配",
+      "source_id": "example:web:color-observation",
+      "evidence_key": "example:web:color-observation:one-observation",
+      "source_url": "https://example.com/articles/color-observation",
+      "observed_at": 1704067200000,
+      "summary": "结构演示：资料提到冷暖色对比，可以把色彩搭配列为待探索兴趣。本条不是实际观看或学习记录。",
+      "stance": "neutral",
+      "source_type": "web",
+      "assessment": null
+    }
+  }
+}

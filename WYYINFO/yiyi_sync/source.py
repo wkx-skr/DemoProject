@@ -293,6 +293,8 @@ def collect_records(persona_state_path: Path, shared_db_path: Path | None = None
                     "evidence_id": evidence_id,
                     "observed_at": source_at,
                     "verification": "candidate_model_interpretation",
+                    "topic": topic,
+                    "interest_signal": signal,
                 },
             }
             # Time selects the newest interpretation; stable tie breakers keep

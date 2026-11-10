@@ -19,6 +19,8 @@ DSH 已保存的 persona/state.json
 
 同步方向是 **DSH → LivingMemory**，不回写 DSH，也不直接读写 LivingMemory 数据库。源文件删除、云端手工删除及修改不会自动传播到另一端。
 
+启用配置中的 `attributes` 后，同一轮还会从候选感想中创建可扩展兴趣标签、刷新本地属性面板，并通过同一队列导入标签摘要。初始值、独立证据和网页学习事件接口见 [属性面板说明](attribute-panel.md)。
+
 ### 读取和合并规则
 
 - 优先读取 `persona/state.json` 的 `observations` 与 `interests.evidence`。每条观察必须有规范的抖音视频链接、匹配的视频 ID 和有效证据 ID；感想必须引用同一视频已存在的观察证据。

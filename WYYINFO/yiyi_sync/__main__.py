@@ -42,6 +42,34 @@ def run(settings, command, limit=20):
         records = collect_records(
             settings["source"]["persona_state"], settings["source"].get("shared_db")
         )
+        source_count = len(records)
+        attribute_report = {}
+        attribute_settings = settings.get("attributes", {})
+        if attribute_settings.get("enabled") is True:
+            from yiyi_attributes.adapters import douyin_events, memory_records
+            from yiyi_attributes.panel import write_panel
+            from yiyi_attributes.store import AttributeStore
+
+            attribute_path = Path(attribute_settings["state_db"]).resolve()
+            other_paths = [settings["state_db"], *settings["source"].values()]
+            if attribute_path in {Path(p).resolve() for p in other_paths if p}:
+                raise ValueError("The attribute database must use a separate file")
+            attributes = AttributeStore(attribute_path, persona_id=binding["persona_id"])
+            changed = attributes.observe(douyin_events(records))
+            current = attributes.list_attributes()
+            records.extend(memory_records(current))
+            attribute_report = {
+                "attribute_count": len(current),
+                "attribute_observations_changed": changed,
+            }
+            if attribute_settings.get("panel_path"):
+                try:
+                    write_panel(attribute_settings["panel_path"], current)
+                    attribute_report["panel_status"] = "ok"
+                except (ValueError, OSError, TypeError, KeyError) as exc:
+                    # A presentation failure must not block existing memory imports.
+                    attribute_report["panel_status"] = "error"
+                    attribute_report["panel_error_type"] = type(exc).__name__
         box = Outbox(settings["state_db"])
         target = settings.get("ssh") or {"base_url": destination["base_url"]}
         target_identity = {k: v for k, v in target.items() if k != "key_path"}
@@ -94,11 +122,15 @@ def run(settings, command, limit=20):
                         if errors >= 3:
                             break
         return {
-            "status": "ok" if errors == 0 else "partial",
-            "source_records": len(records),
+            "status": (
+                "ok" if errors == 0 and attribute_report.get("panel_status") != "error"
+                else "partial"
+            ),
+            "source_records": source_count,
             "enqueued": added,
             "verified_this_run": completed,
             "errors_this_run": errors,
+            **attribute_report,
             **box.summary(),
         }
 
@@ -121,6 +153,9 @@ def main():
                 settings["source"][name] = _path(settings["source"][name], parent)
         if settings.get("ssh"):
             settings["ssh"]["key_path"] = str(_path(settings["ssh"]["key_path"], parent))
+        for name in ("state_db", "panel_path"):
+            if settings.get("attributes", {}).get(name):
+                settings["attributes"][name] = _path(settings["attributes"][name], parent)
         result = run(settings, args.command, args.limit)
     except AlreadyRunning:
         result = {"status": "already_running"}
